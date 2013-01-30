@@ -1,0 +1,9 @@
+Note's
+
+Datum 30/01/2013
+Beslissingen:
+- Code in github
+- Instructies GIT: http://rogerdudler.github.com/git-guide/
+- Documentatie in dropbox
+- Mario based game
+Planning:
