@@ -6,9 +6,3 @@ Beslissingen:
 - Instructies GIT: http://rogerdudler.github.com/git-guide/
 - Documentatie in dropbox
 - Mario based game
-Planning:
-
-asdf;lakjdsf;lkasdjf
-onzin hiero
-TEST
-TESt
