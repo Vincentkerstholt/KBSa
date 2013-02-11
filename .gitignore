@@ -11,3 +11,8 @@
 *.lai
 *.la
 *.a
+
+*~
+/Mario/Debug
+/Mario/Mario/Debug
+*.suo
