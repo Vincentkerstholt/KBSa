@@ -71,7 +71,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="DungeonThemeFactory.cpp" />
+    <ClCompile Include="LandThemeFactory.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="SkyThemeFactory.cpp" />
+    <ClCompile Include="WaterThemeFactory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="LandThemeFactory.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Pipe.h" />
+    <ClInclude Include="ThemeFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
