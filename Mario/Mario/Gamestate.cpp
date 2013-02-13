@@ -46,15 +46,18 @@ void Gamestate::NewLevel()
 	{
 		for (int y=0 ; y<YLENGTH ; y++)
 		{
-			
 			do 
 			{
 				input >> temp;
+				switch (temp)
+				{
+					if (cotains(temp,BLOCK))
+					{
 
+					}
+				}
 
-			} while ();
-
-
+			} while (input);
 		}
 	}
 
@@ -67,11 +70,5 @@ Gamestate::~Gamestate()
 {
 
 }
-
-Gamestate::GetObstacle(int x , int y)
-{
-	return field[x][y];
-}
-
 
 
