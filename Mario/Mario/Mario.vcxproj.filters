@@ -62,5 +62,11 @@
     <ClInclude Include="Pipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LandThemeBlock.h">
+      <Filter>Header Files\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="LandThemePipe.h">
+      <Filter>Header Files\Factory</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

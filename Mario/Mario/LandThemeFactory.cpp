@@ -1,10 +1,9 @@
 #include "LandThemeFactory.h"
 
 Obstacle LandThemeFactory::createBlock(){
-	
-	return Block();
+	return LandThemeBlock();
 }
 
 Obstacle LandThemeFactory::createPipe(){
-	return Pipe();
+	return LandThemePipe();
 }

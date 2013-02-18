@@ -82,7 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
+    <ClInclude Include="LandThemeBlock.h" />
     <ClInclude Include="LandThemeFactory.h" />
+    <ClInclude Include="LandThemePipe.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="ThemeFactory.h" />

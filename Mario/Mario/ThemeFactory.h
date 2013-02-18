@@ -1,6 +1,4 @@
 #include "Obstacle.h"
-#include "Block.h"
-#include "Pipe.h"
 #include <string>
 
 using namespace std;
