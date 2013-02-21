@@ -1,3 +1,6 @@
+#ifndef LANDTHEMEFACTORY_H
+#define LANDTHEMEFACTORY_H
+
 #include "ThemeFactory.h"
 
 class LandThemeFactory : public IThemeFactory{
@@ -6,10 +9,4 @@ public:
 	Obstacle createBlock();
 };
 
-class LandThemeBlock : public Block{
-
-};
-
-class LandThemePipe : public Pipe{
-
-};
+#endif

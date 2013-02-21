@@ -1,4 +1,5 @@
-#include "Obstacle.h"
+#include "Pipe.h"
+
 Pipe::Pipe(){
 
 }

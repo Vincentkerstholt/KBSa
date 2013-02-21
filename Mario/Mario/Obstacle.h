@@ -1,5 +1,5 @@
-#ifndef A_H
-#define A_H
+#ifndef OBSTACLE_H
+#define OBSTACLE_H
 
 class Obstacle{
 public:
@@ -8,17 +8,3 @@ private:
 
 };
 #endif
-
-#pragma once
-class Pipe : public Obstacle{
-public:
-	Pipe();
-};
-
-class Obstacle;
-
-class Block : public Obstacle{
-public:
-	Block();
-};
-
