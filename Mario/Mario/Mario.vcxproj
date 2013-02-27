@@ -11,12 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="character.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="NormalWalk.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="WalkBehaviour.cpp" />
     <ClCompile Include="Win.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="character.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Hero.h" />
+    <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="WalkBehaviour.h" />
     <ClInclude Include="Win.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
