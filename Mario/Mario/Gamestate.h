@@ -11,7 +11,8 @@ class Gamestate
 public:
 	Gamestate();
 	Gamestate(int x, int y);
-	void drawGrid(HDC hdc);
+	void drawGrid(HDC & hdc);
+	void drawBackground(HDC & hdc);
 	~Gamestate();
 private:
 	int * level;
@@ -20,6 +21,9 @@ private:
 	int multiplier;
 	HDC hdc;
 	POINT point;
+	HANDLE hBackgroundBitmap;
+	HDC hBackgroundDC;
+	BITMAP bitmap;
 
 	void DrawHorizontalBorder(int startX, int startY);
 	void DrawVerticalBorder(int startX, int startY);

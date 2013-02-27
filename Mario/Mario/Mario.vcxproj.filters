@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- was: no XML declaration present -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -180,5 +180,10 @@
     <ClInclude Include="WaterThemeFactory.h">
       <Filter>Header Files\Factory\WaterTheme</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\backgroundSky.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

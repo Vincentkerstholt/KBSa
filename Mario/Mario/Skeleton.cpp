@@ -16,7 +16,6 @@ CSkeleton::~CSkeleton()
 
 void CSkeleton::GameInit()
 {
-	
 	SetFPS(60);
 }
 
@@ -24,6 +23,7 @@ void CSkeleton::GameLoop()
 {
 	RECT rect;
 	::GetClientRect(m_hWnd, &rect);
+	gameState->drawBackground(graphics);
 	gameState->drawGrid(graphics);
 	if (::GetAsyncKeyState(VK_RIGHT)){
 
