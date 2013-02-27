@@ -1,4 +1,4 @@
-
+//nieuw stuk
 #include "Gameobject.h"
 
 const int OBSTACLE = 1;
