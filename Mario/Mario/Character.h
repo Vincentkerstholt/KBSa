@@ -1,20 +1,11 @@
-#ifndef WALKBEHAVIOUR_H
-#define WALKBEHAVIOUR_H
-
 #include "WalkBehaviour.h"
-
-
-using namespace std;
+#include "Skeleton.h"
+#include <WinDef.h>
 
 class Character
 {
-private:
-	int Health;
-	int Power;
-	int Speed;
-	
 public:
-	WalkBehaviour *WalkBehaviour; 
+	 
 	void Die();
 	void GetPowerUp();
 	void Move();
@@ -22,5 +13,18 @@ public:
 	void Fly();
 	void Attack();
 	void Walk();
+	void SetPosition(int x ,int y);
+	POINT GetPosition();
+	WalkBehaviour *walkBehaviour;
+	void setWalkBehaviour(WalkBehaviour *qb); 
+
+private:
+	string name;
+	int Health;
+	POINT Position;
+	int Power;
+	int Speed;
+	
+
+
 };
-#endif

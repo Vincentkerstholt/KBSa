@@ -1,5 +1,6 @@
 #include "Win.h"
 #include <tchar.h>
+#include "Character.h"
 
 //////////////////////////////////////////////////////////////////
 // Static Initialisation
@@ -39,6 +40,7 @@ CWin::CWin()
 	::QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
 
 	fps = freq;
+	
 }
 
 CWin::~CWin()
@@ -82,6 +84,7 @@ int CWin::Run()
 
 HRESULT CWin::Create()
 {
+	
 	WNDCLASSEX wcex;
 
 	wcex.cbSize = sizeof(WNDCLASSEX); 

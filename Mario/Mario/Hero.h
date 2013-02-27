@@ -1,5 +1,6 @@
 #include "character.h"
 
+
 class Hero : public Character {
 private:
 	int coins;

@@ -3,7 +3,7 @@
 
 #include "character.h"
 
-class enemy : public Character {
+class Enemy : public Character {
 private:
 
 public:

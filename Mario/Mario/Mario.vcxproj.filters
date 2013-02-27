@@ -42,9 +42,6 @@
     <ClCompile Include="WalkBehaviour.cpp">
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
-    <ClCompile Include="NormalWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Skeleton.h">
@@ -63,9 +60,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WalkBehaviour.h">
-      <Filter>Header Files\Walk</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalWalk.h">
       <Filter>Header Files\Walk</Filter>
     </ClInclude>
   </ItemGroup>
