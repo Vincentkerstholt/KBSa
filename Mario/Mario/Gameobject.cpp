@@ -1,7 +1,6 @@
-
+#include "Gameobject.h"
 
 
 Gameobject::Gameobject()
 {
-	lalala = 5;
 }

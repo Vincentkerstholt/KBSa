@@ -1,11 +1,11 @@
-
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
 
 class Gameobject
 {
 public:
-
-	virtual void print();
 private:
 	Gameobject();
-
 };
+
+#endif
