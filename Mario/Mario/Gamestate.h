@@ -12,15 +12,12 @@ class Gamestate:public Gameobject
 {
 public:
 	
-
-
-	Obstacle GetObstacle(int x, int y);
-
+	
 private:
 
-	const int XLENGTH;
-	const int YLENGTH;
-	Obstacle field[XLENGTH][YLENGTH];
+	/*const int XLENGTH;
+	const int YLENGTH;*/
+	
 	int state;
 
 	Gamestate();
