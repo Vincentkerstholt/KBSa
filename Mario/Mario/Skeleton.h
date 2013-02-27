@@ -3,11 +3,14 @@
 
 #include "Win.h"
 #include <sstream>
+#include "Gamestate.h"
+
 using namespace std;
 
 class CSkeleton : public CWin
 {
 private:
+	Gamestate * gameState;
 public:
 	CSkeleton();
 	~CSkeleton();

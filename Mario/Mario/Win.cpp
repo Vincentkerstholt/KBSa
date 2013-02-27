@@ -26,7 +26,7 @@ CWin::CWin()
 	this->m_dwCreationFlags		= 0L;
 	this->m_dwWindowStyle		= WS_OVERLAPPEDWINDOW;
 	this->m_dwExWindowStyle		= WS_EX_OVERLAPPEDWINDOW;
-	this->m_dwCreationFlags		= SW_SHOW;
+	this->m_dwCreationFlags		= SW_MAXIMIZE;
 	this->m_PosX				= CW_USEDEFAULT;	
 	this->m_PosY				= CW_USEDEFAULT;	
 	this->m_dwCreationWidth		= CW_USEDEFAULT;
@@ -108,13 +108,14 @@ HRESULT CWin::Create()
 	  return FALSE;
 	}
 
+	::ShowWindow(m_hWnd, m_dwCreationFlags);
+
 	hDC = ::GetDC(m_hWnd);
 	::GetClientRect(m_hWnd, &rect);
 	hBuf = ::CreateCompatibleBitmap(hDC, rect.right, rect.bottom);
 	graphics = ::CreateCompatibleDC(hDC);
 	::SelectObject(graphics, hBuf);
 
-	::ShowWindow(m_hWnd, m_dwCreationFlags);
 	::UpdateWindow(m_hWnd);
 
 	return TRUE;
