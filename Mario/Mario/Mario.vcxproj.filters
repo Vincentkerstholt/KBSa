@@ -15,21 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Mario.cpp">
+    <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
     <ClCompile Include="Gamestate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Gameobject.cpp">
+
+    <ClCompile Include="Win.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+
+
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+
     <ClInclude Include="Gamestate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gameobject.h">
+ <Filter>Header Files</Filter>
+  </ClInclude>
+
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Win.h">
+
+
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
