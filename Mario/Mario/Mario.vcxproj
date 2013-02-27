@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!-- was: no XML declaration present -->
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -11,12 +12,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DungeonThemeBlock.cpp" />
+    <ClCompile Include="DungeonThemePipe.cpp" />
+    <ClCompile Include="LandThemeBlock.cpp" />
+    <ClCompile Include="LandThemePipe.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="SkyThemeBlock.cpp" />
+    <ClCompile Include="SkyThemePipe.cpp" />
+    <ClCompile Include="WaterThemeBlock.cpp" />
+    <ClCompile Include="WaterThemePipe.cpp" />
     <ClCompile Include="Win.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DungeonThemeBlock.h" />
+    <ClInclude Include="DungeonThemeFactory.h" />
+    <ClInclude Include="DungeonThemePipe.h" />
+    <ClInclude Include="LandThemeBlock.h" />
+    <ClInclude Include="LandThemePipe.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="SkyThemeBlock.h" />
+    <ClInclude Include="SkyThemeFactory.h" />
+    <ClInclude Include="SkyThemePipe.h" />
+    <ClInclude Include="WaterThemeBlock.h" />
+    <ClInclude Include="WaterThemeFactory.h" />
+    <ClInclude Include="WaterThemePipe.h" />
     <ClInclude Include="Win.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -86,6 +106,20 @@
   <ItemGroup>
     <ClInclude Include="Gameobject.h" />
     <ClInclude Include="Gamestate.h" />
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="DungeonThemeFactory.cpp" />
+    <ClCompile Include="LandThemeFactory.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="SkyThemeFactory.cpp" />
+    <ClCompile Include="WaterThemeFactory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="LandThemeFactory.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Pipe.h" />
+    <ClInclude Include="ThemeFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
