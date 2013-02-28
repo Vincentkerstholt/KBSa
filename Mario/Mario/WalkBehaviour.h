@@ -14,8 +14,5 @@ private:
 
 public:
 
-	void Walk()
-		{ 
-			int onzin = 9;
-		}
+	void Walk(){}
 };
