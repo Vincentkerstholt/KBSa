@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8' ?> 
 <!-- was: no XML declaration present -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -19,6 +19,7 @@
     </Filter>
     <Filter Include="Source Files\Walk">
       <UniqueIdentifier>{04831bb8-6e98-453c-b610-8efeb0b0fa13}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Factory">
       <UniqueIdentifier>{e1824be5-1592-416b-930a-5096d53a09f0}</UniqueIdentifier>
     </Filter>
