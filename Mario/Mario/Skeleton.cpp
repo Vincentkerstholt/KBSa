@@ -5,10 +5,13 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
+	gameState = new Gamestate(86, 48);
 }
 
 CSkeleton::~CSkeleton()
 {
+	delete gameState;
+	gameState = NULL;
 }
 
 void CSkeleton::GameInit()
@@ -20,7 +23,8 @@ void CSkeleton::GameLoop()
 {
 	RECT rect;
 	::GetClientRect(m_hWnd, &rect);
-
+	gameState->drawBackground(graphics);
+	gameState->drawGrid(graphics);
 	if (::GetAsyncKeyState(VK_RIGHT)){
 
 	}
