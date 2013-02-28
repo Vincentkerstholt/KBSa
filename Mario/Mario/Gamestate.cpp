@@ -5,9 +5,9 @@ Gamestate::Gamestate(int x, int y)
 	this->x = x;
 	this->y = y;
 	level = new int[(x * y)];
+	Mario = new Hero();
 
 	multiplier = 16;
-
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 

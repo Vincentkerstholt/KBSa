@@ -3,8 +3,11 @@
 
 #include <iostream>
 #include "Win.h"
+#include "GameObject.h"
+#include "Hero.h"
 
 using namespace std;
+class Hero;
 
 class Gamestate
 {
@@ -24,6 +27,7 @@ private:
 	HANDLE hBackgroundBitmap;
 	HDC hBackgroundDC;
 	BITMAP bitmap;
+	Hero * Mario;
 
 	void DrawHorizontalBorder(int startX, int startY);
 	void DrawVerticalBorder(int startX, int startY);

@@ -15,8 +15,8 @@
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="NormalWalk.cpp" />
     <ClCompile Include="Skeleton.cpp" />
-    <ClCompile Include="WalkBehaviour.cpp" />
     <ClCompile Include="DungeonThemeBlock.cpp" />
     <ClCompile Include="DungeonThemePipe.cpp" />
     <ClCompile Include="LandThemeBlock.cpp" />
@@ -33,6 +33,7 @@
     <ClInclude Include="character.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="WalkBehaviour.h" />
     <ClInclude Include="DungeonThemeBlock.h" />

@@ -1,30 +1,34 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
+#include <windows.h>
 #include "WalkBehaviour.h"
-#include "Skeleton.h"
-#include <WinDef.h>
+#include "NormalWalk.h"
+#include <string>
+
+using namespace std;
 
 class Character
 {
 public:
-	 
-	void Die();
-	void GetPowerUp();
-	void Move();
-	void Jump();
-	void Fly();
-	void Attack();
-	void Walk();
-	void SetPosition(int x ,int y);
-	POINT GetPosition();
+	Character();
+	virtual void Die();
+	virtual void GetPowerUp();
+	virtual void Move();
+	virtual void Jump();
+	virtual void Fly();
+	virtual void Attack();
+	virtual void Walk();
+	virtual void SetPosition(int x ,int y);
+	virtual POINT GetPosition();
 	WalkBehaviour *walkBehaviour;
-	void setWalkBehaviour(WalkBehaviour *qb); 
-
+	virtual void setWalkBehaviour(WalkBehaviour *qb); 
 private:
 	string name;
 	int Health;
 	POINT Position;
 	int Power;
 	int Speed;
-	
-
-
 };
+
+#endif

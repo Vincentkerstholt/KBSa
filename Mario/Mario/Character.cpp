@@ -1,7 +1,8 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
-
 #include "character.h"
+
+Character::Character()
+{
+}
 
 void Character :: Walk ()
 {
@@ -25,4 +26,26 @@ void Character :: SetPosition(int x, int y)
 	Position.y = y;
 }
 
-#endif
+void Character::Die()
+{
+}
+
+void Character::GetPowerUp()
+{
+}
+
+void Character::Move()
+{
+}
+
+void Character::Jump()
+{
+}
+
+void Character::Fly()
+{
+}
+
+void Character::Attack()
+{
+}

@@ -1,3 +1,5 @@
+#ifndef WALKBEHAVIOUR_H
+#define WALKBEHAVIOUR_H
 
 class WalkBehaviour 
 {
@@ -7,12 +9,4 @@ public:
 	virtual void Walk() = 0;
 };
 
-
-class NormalWalk : public WalkBehaviour 
-{
-private:
-
-public:
-
-	void Walk(){}
-};
+#endif

@@ -26,7 +26,7 @@ void CSkeleton::GameLoop()
 	gameState->drawBackground(graphics);
 	gameState->drawGrid(graphics);
 	if (::GetAsyncKeyState(VK_RIGHT)){
-
+		int onzin = 0;
 	}
 
 	if (::GetAsyncKeyState(VK_LEFT)){

@@ -1,7 +1,9 @@
+#ifndef HERO_H
+#define HERO_H
+
 #include "character.h"
 
-
-class Hero : public Character {
+class Hero : public Character{
 private:
 	int coins;
 	int score;
@@ -10,3 +12,5 @@ public:
 	Hero();
 	~Hero();
 };
+
+#endif

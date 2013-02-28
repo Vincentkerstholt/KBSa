@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- was: no XML declaration present -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -133,7 +133,10 @@
     <ClCompile Include="Hero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WalkBehaviour.cpp">
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalWalk.cpp">
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
   </ItemGroup>
@@ -209,6 +212,12 @@
     </ClInclude>
     <ClInclude Include="WaterThemeFactory.h">
       <Filter>Header Files\Factory\WaterTheme</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalWalk.h">
+      <Filter>Header Files\Walk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
