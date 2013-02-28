@@ -1,10 +1,12 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
-#include <iostream>
+#include <typeinfo>
 #include "Win.h"
 #include "GameObject.h"
 #include "factories.h"
+#include "Block.h"
+#include "Pipe.h"
 
 using namespace std;
 
@@ -20,18 +22,22 @@ public:
 	~Gamestate();
 private:
 	IThemeFactory * factory;
-	Gameobject * level;
+	Gameobject ** level;
 	int x;
 	int y;
 	int multiplier;
 	HDC hdc;
 	POINT point;
 	HANDLE hBackgroundBitmap;
+	HANDLE hObstacleBitmap;
 	HDC hBackgroundDC;
+	HDC hObstacleDC;
 	BITMAP bitmap;
 
 	void DrawHorizontalBorder(int startX, int startY);
 	void DrawVerticalBorder(int startX, int startY);
 	int ConvertIndexToXY(int index);
+	void CreateWorld();
+	int getIndex(int n, int m);
 };
 #endif

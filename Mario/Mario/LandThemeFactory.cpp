@@ -2,12 +2,12 @@
 #include "LandThemeBlock.h"
 #include "LandThemePipe.h"
 
-Obstacle LandThemeFactory::createBlock(){
-	return LandThemeBlock();
+HANDLE LandThemeFactory::getBlock(int x, int y){
+	return LoadImage(NULL, "res/forestlandps.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-Obstacle LandThemeFactory::createPipe(){
-	return LandThemePipe();
+HANDLE LandThemeFactory::getPipe(int x, int y){
+	return LoadImage(NULL, "res/forestlandps.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 HANDLE LandThemeFactory::getBackgroundImage(){

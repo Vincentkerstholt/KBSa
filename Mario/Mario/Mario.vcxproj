@@ -12,32 +12,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DungeonThemeBlock.cpp" />
-    <ClCompile Include="DungeonThemePipe.cpp" />
-    <ClCompile Include="LandThemeBlock.cpp" />
-    <ClCompile Include="LandThemePipe.cpp" />
     <ClCompile Include="Skeleton.cpp" />
-    <ClCompile Include="SkyThemeBlock.cpp" />
-    <ClCompile Include="SkyThemePipe.cpp" />
-    <ClCompile Include="WaterThemeBlock.cpp" />
-    <ClCompile Include="WaterThemePipe.cpp" />
     <ClCompile Include="Win.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DungeonThemeBlock.h" />
     <ClInclude Include="DungeonThemeFactory.h" />
-    <ClInclude Include="DungeonThemePipe.h" />
     <ClInclude Include="factories.h" />
-    <ClInclude Include="LandThemeBlock.h" />
-    <ClInclude Include="LandThemePipe.h" />
     <ClInclude Include="Skeleton.h" />
-    <ClInclude Include="SkyThemeBlock.h" />
     <ClInclude Include="SkyThemeFactory.h" />
-    <ClInclude Include="SkyThemePipe.h" />
-    <ClInclude Include="WaterThemeBlock.h" />
     <ClInclude Include="WaterThemeFactory.h" />
-    <ClInclude Include="WaterThemePipe.h" />
     <ClInclude Include="Win.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -123,7 +107,10 @@
     <ClInclude Include="ThemeFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\backgroundCave.bmp" />
     <None Include="res\backgroundSky.bmp" />
+    <None Include="res\dungeon.bmp" />
+    <None Include="res\forestlandps.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

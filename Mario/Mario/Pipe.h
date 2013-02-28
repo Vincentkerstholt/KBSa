@@ -6,6 +6,7 @@
 class Pipe : public Obstacle{
 public:
 	Pipe();
+	string getClassName();
 	//Pipe(PiranhaPlant piranhaPlant);
 private:
 	//PiranhaPlant piranhaPlant;

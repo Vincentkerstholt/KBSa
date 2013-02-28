@@ -6,6 +6,8 @@
 class Block : public Obstacle{
 public:
 	Block();
+	string getClassName();
+private:
 };
 
 #endif

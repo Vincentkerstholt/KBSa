@@ -9,10 +9,9 @@ using namespace std;
 
 class IThemeFactory{
 public:
-	virtual ~IThemeFactory(){}
-	virtual Obstacle createPipe(){return Obstacle();}
-	virtual Obstacle createBlock(){return Obstacle();}
-	virtual HANDLE getBackgroundImage(){return HANDLE();}
+	virtual HANDLE getPipe(int x, int y) = 0;
+	virtual HANDLE getBlock(int x, int y) = 0;
+	virtual HANDLE getBackgroundImage() = 0;
 };
 
 #endif

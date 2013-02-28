@@ -5,8 +5,8 @@
 
 class DungeonThemeFactory : public IThemeFactory{
 public:
-	Obstacle createPipe();
-	Obstacle createBlock();
+	HANDLE getPipe(int x, int y);
+	HANDLE getBlock(int x, int y);
 	HANDLE getBackgroundImage();
 };
 

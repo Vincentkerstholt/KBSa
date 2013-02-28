@@ -7,3 +7,7 @@ Pipe::Pipe(){
 //Pipe::Pipe(PiranhaPlant piranhaPlant){
 	//this->piranhaPlant = piranhaPlant;
 //}
+
+string Pipe::getClassName(){
+	return "Pipe";
+}

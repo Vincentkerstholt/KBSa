@@ -61,12 +61,6 @@
     <ClCompile Include="DungeonThemeFactory.cpp">
       <Filter>Source Files\Factory\DungeonTheme</Filter>
     </ClCompile>
-    <ClCompile Include="LandThemeBlock.cpp">
-      <Filter>Source Files\Factory\LandTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="LandThemePipe.cpp">
-      <Filter>Source Files\Factory\LandTheme</Filter>
-    </ClCompile>
     <ClCompile Include="LandThemeFactory.cpp">
       <Filter>Source Files\Factory\LandTheme</Filter>
     </ClCompile>
@@ -100,24 +94,6 @@
     <ClCompile Include="Obstacle.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
-    <ClCompile Include="DungeonThemeBlock.cpp">
-      <Filter>Source Files\Factory\DungeonTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="DungeonThemePipe.cpp">
-      <Filter>Source Files\Factory\DungeonTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyThemeBlock.cpp">
-      <Filter>Source Files\Factory\SkyTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyThemePipe.cpp">
-      <Filter>Source Files\Factory\SkyTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="WaterThemeBlock.cpp">
-      <Filter>Source Files\Factory\WaterTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="WaterThemePipe.cpp">
-      <Filter>Source Files\Factory\WaterTheme</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamestate.h">
@@ -128,12 +104,6 @@
     </ClInclude>
     <ClInclude Include="ThemeFactory.h">
       <Filter>Header Files\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="LandThemeBlock.h">
-      <Filter>Header Files\Factory\LandTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="LandThemePipe.h">
-      <Filter>Header Files\Factory\LandTheme</Filter>
     </ClInclude>
     <ClInclude Include="LandThemeFactory.h">
       <Filter>Header Files\Factory\LandTheme</Filter>
@@ -153,29 +123,11 @@
     <ClInclude Include="Obstacle.h">
       <Filter>Header Files\Obstacle</Filter>
     </ClInclude>
-    <ClInclude Include="DungeonThemeBlock.h">
-      <Filter>Header Files\Factory\DungeonTheme</Filter>
-    </ClInclude>
     <ClInclude Include="DungeonThemeFactory.h">
       <Filter>Header Files\Factory\DungeonTheme</Filter>
     </ClInclude>
-    <ClInclude Include="DungeonThemePipe.h">
-      <Filter>Header Files\Factory\DungeonTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyThemePipe.h">
-      <Filter>Header Files\Factory\SkyTheme</Filter>
-    </ClInclude>
     <ClInclude Include="SkyThemeFactory.h">
       <Filter>Header Files\Factory\SkyTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyThemeBlock.h">
-      <Filter>Header Files\Factory\SkyTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="WaterThemeBlock.h">
-      <Filter>Header Files\Factory\WaterTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="WaterThemePipe.h">
-      <Filter>Header Files\Factory\WaterTheme</Filter>
     </ClInclude>
     <ClInclude Include="WaterThemeFactory.h">
       <Filter>Header Files\Factory\WaterTheme</Filter>
@@ -186,6 +138,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\backgroundSky.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\backgroundCave.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\dungeon.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\forestlandps.bmp">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
