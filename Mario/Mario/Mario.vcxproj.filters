@@ -180,6 +180,9 @@
     <ClInclude Include="WaterThemeFactory.h">
       <Filter>Header Files\Factory\WaterTheme</Filter>
     </ClInclude>
+    <ClInclude Include="factories.h">
+      <Filter>Header Files\Factory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\backgroundSky.bmp">

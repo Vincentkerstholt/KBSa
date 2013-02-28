@@ -5,7 +5,6 @@ class Gameobject
 {
 public:
 private:
-	Gameobject();
 };
 
 #endif

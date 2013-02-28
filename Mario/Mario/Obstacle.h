@@ -1,10 +1,10 @@
 #ifndef OBSTACLE_H
 #define OBSTACLE_H
 
-class Obstacle{
-public:
-	void print();
-private:
+#include "GameObject.h"
 
+class Obstacle : public Gameobject{
+public:
+private:
 };
 #endif

@@ -4,11 +4,12 @@ Gamestate::Gamestate(int x, int y)
 {
 	this->x = x;
 	this->y = y;
-	level = new int[(x * y)];
 
-	multiplier = 16;
+	level = new Gameobject[(x * y)];
+	//factory = new DungeonThemeFactory();
+	factory = new LandThemeFactory();
 
-	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	multiplier = 32;
 }
 
 int Gamestate::ConvertIndexToXY(int index){
@@ -40,17 +41,48 @@ void Gamestate::drawGrid(HDC & hdc){
 }
 
 void Gamestate::drawBackground(HDC & hdc){
+	hBackgroundBitmap = factory->getBackgroundImage();
+
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
 
-	StretchBlt(hdc,0,0,x*multiplier,y*multiplier,hBackgroundDC,0,0,bitmap.bmWidth,bitmap.bmHeight,SRCCOPY);
+	StretchBlt(hdc, 0, 0, ConvertIndexToXY(x), ConvertIndexToXY(y), hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
 
 	DeleteDC(hBackgroundDC);	
+}
+
+void Gamestate::drawWorld(HDC & hdc){
+	for(int n = 0; n < x; n++){
+		for(int m = 0; m < y; m++){
+			Gameobject gameObject = level[((m*y)+x)];
+
+		}
+	}
+}
+
+void Gamestate::changeFactory(char firstLetter){
+	switch(firstLetter){
+	case 'D':
+		factory = new DungeonThemeFactory();
+		break;
+	case 'L':
+		factory = new LandThemeFactory();
+		break;
+	case 'S':
+		factory = new SkyThemeFactory();
+		break;
+	case 'W':
+		factory = new WaterThemeFactory();
+		break;
+	}
 }
 
 Gamestate::~Gamestate(){
 	delete [] level;
 	level = NULL;
+
+	delete factory;
+	factory = NULL;
 }

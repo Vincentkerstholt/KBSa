@@ -7,6 +7,7 @@ class SkyThemeFactory : public IThemeFactory{
 public:
 	Obstacle createPipe();
 	Obstacle createBlock();
+	HANDLE getBackgroundImage();
 };
 
 #endif

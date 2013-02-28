@@ -9,3 +9,7 @@ Obstacle SkyThemeFactory::createBlock(){
 Obstacle SkyThemeFactory::createPipe(){
 	return SkyThemePipe();
 }
+
+HANDLE SkyThemeFactory::getBackgroundImage(){
+	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+}

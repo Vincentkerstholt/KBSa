@@ -9,3 +9,7 @@ Obstacle LandThemeFactory::createBlock(){
 Obstacle LandThemeFactory::createPipe(){
 	return LandThemePipe();
 }
+
+HANDLE LandThemeFactory::getBackgroundImage(){
+	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+}

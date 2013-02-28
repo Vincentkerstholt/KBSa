@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "Win.h"
+#include "GameObject.h"
+#include "factories.h"
 
 using namespace std;
 
@@ -13,9 +15,12 @@ public:
 	Gamestate(int x, int y);
 	void drawGrid(HDC & hdc);
 	void drawBackground(HDC & hdc);
+	void drawWorld(HDC & hdc);
+	void changeFactory(char firstLetter);
 	~Gamestate();
 private:
-	int * level;
+	IThemeFactory * factory;
+	Gameobject * level;
 	int x;
 	int y;
 	int multiplier;

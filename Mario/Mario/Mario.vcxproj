@@ -28,6 +28,7 @@
     <ClInclude Include="DungeonThemeBlock.h" />
     <ClInclude Include="DungeonThemeFactory.h" />
     <ClInclude Include="DungeonThemePipe.h" />
+    <ClInclude Include="factories.h" />
     <ClInclude Include="LandThemeBlock.h" />
     <ClInclude Include="LandThemePipe.h" />
     <ClInclude Include="Skeleton.h" />
