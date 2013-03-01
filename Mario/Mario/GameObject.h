@@ -9,11 +9,9 @@ class Gameobject
 {
 public:
 	virtual string getClassName() = 0;
-	virtual int getSpriteX();
-	virtual int getSpriteY();
+	virtual int getSpriteX() = 0;
+	virtual int getSpriteY() = 0;
 private:
-	virtual int spriteX = 0;
-	virtual int spriteY = 0;
 };
 
 #endif

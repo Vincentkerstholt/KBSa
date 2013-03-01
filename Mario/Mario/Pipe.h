@@ -5,11 +5,15 @@
 
 class Pipe : public Obstacle{
 public:
-	Pipe();
+	Pipe(int spriteX, int spriteY);
 	string getClassName();
+	int getSpriteX();
+	int getSpriteY();
 	//Pipe(PiranhaPlant piranhaPlant);
 private:
 	//PiranhaPlant piranhaPlant;
+	int spriteX;
+	int spriteY;
 };
 
 #endif

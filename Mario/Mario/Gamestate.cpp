@@ -107,7 +107,7 @@ void Gamestate::CreateWorld(){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 			if(m == y-1)
-				level[index] = new Block();
+				level[index] = new Block(68,0);
 			else
 				level[index] = NULL;
 		}
