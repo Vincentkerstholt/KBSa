@@ -6,6 +6,9 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
+*.sdf
+*.suo
+*.ipch
 
 # Compiled Static libraries
 *.lai
@@ -16,5 +19,3 @@
 /Mario/ipch
 /Mario/Debug
 /Mario/Mario/Debug
-/Mario/Mario.suo
-/Mario/Mario.sdf
