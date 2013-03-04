@@ -158,5 +158,8 @@
     <None Include="res\forestlandps.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\world8.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
