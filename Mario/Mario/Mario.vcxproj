@@ -12,6 +12,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Win.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -19,6 +20,8 @@
   <ItemGroup>
     <ClInclude Include="DungeonThemeFactory.h" />
     <ClInclude Include="factories.h" />
+    <ClInclude Include="Ground.h" />
+    <ClInclude Include="obstacles.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SkyThemeFactory.h" />
     <ClInclude Include="WaterThemeFactory.h" />

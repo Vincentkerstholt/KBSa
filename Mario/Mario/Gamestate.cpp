@@ -70,6 +70,8 @@ void Gamestate::drawWorld(HDC & hdc){
 				hObstacleBitmap = factory->getBlock(n, m);
 			else if(level[index]->getClassName() == "Pipe")
 				hObstacleBitmap = factory->getPipe(n, m);
+			else if(level[index]->getClassName() == "Ground")
+				hObstacleBitmap = factory->getGround(n, m);
 
 			hObstacleDC = CreateCompatibleDC(hdc);
 
@@ -107,7 +109,7 @@ void Gamestate::CreateWorld(){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 			if(m == y-1)
-				level[index] = new Block(68,0);
+				level[index] = new Ground(68,0);
 			else
 				level[index] = NULL;
 		}

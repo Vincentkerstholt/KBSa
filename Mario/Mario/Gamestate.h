@@ -5,8 +5,7 @@
 #include "Win.h"
 #include "GameObject.h"
 #include "factories.h"
-#include "Block.h"
-#include "Pipe.h"
+#include "obstacles.h"
 
 using namespace std;
 

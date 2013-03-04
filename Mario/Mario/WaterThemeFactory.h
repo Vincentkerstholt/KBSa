@@ -7,6 +7,7 @@ class WaterThemeFactory : public IThemeFactory{
 public:
 	HANDLE getPipe(int x, int y);
 	HANDLE getBlock(int x, int y);
+	HANDLE getGround(int x, int y);
 	HANDLE getBackgroundImage();
 };
 

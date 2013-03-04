@@ -11,6 +11,7 @@ class IThemeFactory{
 public:
 	virtual HANDLE getPipe(int x, int y) = 0;
 	virtual HANDLE getBlock(int x, int y) = 0;
+	virtual HANDLE getGround(int x, int y) = 0;
 	virtual HANDLE getBackgroundImage() = 0;
 };
 
