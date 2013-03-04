@@ -14,6 +14,7 @@ class Gamestate
 public:
 	Gamestate();
 	Gamestate(int x, int y);
+	void drawCharacters(HDC & hdc);
 	void drawGrid(HDC & hdc);
 	void drawBackground(HDC & hdc);
 	~Gamestate();
@@ -27,6 +28,7 @@ private:
 	HANDLE hBackgroundBitmap;
 	HDC hBackgroundDC;
 	BITMAP bitmap;
+	HDC hCharacterDC;
 	Hero * Mario;
 
 	void DrawHorizontalBorder(int startX, int startY);

@@ -139,6 +139,9 @@
     <ClCompile Include="NormalWalk.cpp">
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamestate.h">
@@ -218,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="NormalWalk.h">
       <Filter>Header Files\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

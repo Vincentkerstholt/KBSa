@@ -11,6 +11,7 @@ private:
 public:
 	Hero();
 	~Hero();
+	HANDLE texture; 
 };
 
 #endif

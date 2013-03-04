@@ -5,7 +5,7 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-	gameState = new Gamestate(86, 48);
+	gameState = new Gamestate(43, 22);
 }
 
 CSkeleton::~CSkeleton()
@@ -25,6 +25,7 @@ void CSkeleton::GameLoop()
 	::GetClientRect(m_hWnd, &rect);
 	gameState->drawBackground(graphics);
 	gameState->drawGrid(graphics);
+	gameState->drawCharacters(graphics);
 	if (::GetAsyncKeyState(VK_RIGHT)){
 		int onzin = 0;
 	}
