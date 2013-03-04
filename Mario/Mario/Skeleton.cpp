@@ -16,6 +16,7 @@ CSkeleton::~CSkeleton()
 
 void CSkeleton::GameInit()
 {
+	debugMode = false;
 	SetFPS(60);
 }
 
@@ -26,6 +27,10 @@ void CSkeleton::GameLoop()
 	gameState->drawBackground(graphics);
 	gameState->drawGrid(graphics);
 	gameState->drawCharacters(graphics);
+	gameState->drawWorld(graphics);
+	if(debugMode)
+		gameState->drawGrid(graphics);
+
 	if (::GetAsyncKeyState(VK_RIGHT)){
 		int onzin = 0;
 	}
@@ -40,6 +45,27 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_UP)){
 
+	}
+	
+	if (::GetAsyncKeyState(VK_F1)){
+		gameState->changeFactory('D');
+	}
+
+	if (::GetAsyncKeyState(VK_F2)){
+		gameState->changeFactory('L');
+	}
+
+	if (::GetAsyncKeyState(VK_F3)){
+		gameState->changeFactory('S');
+	}
+
+	if (::GetAsyncKeyState(VK_F4)){
+		gameState->changeFactory('W');
+	}
+
+	if (::GetAsyncKeyState(VK_F12)){
+		debugMode = !debugMode;
+		Sleep(50);
 	}
 }
 

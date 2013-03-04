@@ -13,6 +13,7 @@ class CSkeleton : public CWin
 {
 private:
 	Gamestate * gameState;
+	bool debugMode;
 public:
 	CSkeleton();
 	~CSkeleton();

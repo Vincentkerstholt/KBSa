@@ -1,52 +1,16 @@
 ﻿<RecentFiles>
   <RecentFiles>
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gameobject.cpp" caret="0" fromTop="0" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Win.h" caret="0" fromTop="0" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Obstacle.h" caret="66" fromTop="4" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:ThemeFactory.h" caret="66" fromTop="4" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Enemy.h" caret="0" fromTop="0" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:NormalWalk.cpp" caret="14" fromTop="0" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:NormalWalk.h" caret="18" fromTop="0" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:WalkBehaviour.h" caret="50" fromTop="2" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.cpp" caret="22" fromTop="0" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Win.cpp" caret="1851" fromTop="15" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Skeleton.cpp/z:16655531" caret="560" fromTop="5" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.h" caret="689" fromTop="25" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.h" caret="438" fromTop="13" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Hero.h" caret="188" fromTop="13" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.cpp" caret="1556" fromTop="13" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Hero.cpp" caret="211" fromTop="10" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Skeleton.cpp/z:6920745" caret="628" fromTop="0" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.h" caret="926" fromTop="29" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.cpp" caret="95" fromTop="6" />
   </RecentFiles>
   <RecentEdits>
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.h" caret="544" fromTop="19" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:WalkBehaviour.h" caret="52" fromTop="3" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.h" caret="206" fromTop="3" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:NormalWalk.h" caret="26" fromTop="0" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:WalkBehaviour.h" caret="127" fromTop="9" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:NormalWalk.cpp" caret="58" fromTop="5" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:NormalWalk.h" caret="111" fromTop="8" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.h" caret="164" fromTop="10" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.cpp" caret="552" fromTop="26" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.cpp" caret="552" fromTop="20" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.cpp" caret="552" fromTop="20" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.cpp" caret="356" fromTop="22" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.cpp" caret="552" fromTop="11" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Hero.h" caret="202" fromTop="17" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Hero.h" caret="89" fromTop="5" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.h" caret="481" fromTop="23" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.cpp" caret="89" fromTop="8" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Hero.cpp" caret="214" fromTop="10" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.cpp" caret="22" fromTop="0" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:character.h" caret="117" fromTop="5" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Hero.h" caret="178" fromTop="13" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.cpp" caret="1554" fromTop="26" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.h" caret="269" fromTop="16" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.h" caret="507" fromTop="18" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.h" caret="689" fromTop="25" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Skeleton.cpp/z:16655531" caret="510" fromTop="21" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Skeleton.cpp/z:16655531" caret="202" fromTop="7" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.cpp" caret="163" fromTop="9" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.cpp" caret="1402" fromTop="9" />
-    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Hero.cpp" caret="144" fromTop="6" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Skeleton.cpp/z:6920745" caret="542" fromTop="7" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Skeleton.cpp/z:6920745" caret="628" fromTop="11" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.h" caret="106" fromTop="5" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.h" caret="175" fromTop="9" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.cpp" caret="237" fromTop="11" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.cpp" caret="392" fromTop="18" />
+    <File id="EDE5970C-CFBC-47F6-95EE-C291A7109D64/f:Gamestate.cpp" caret="95" fromTop="6" />
   </RecentEdits>
 </RecentFiles>

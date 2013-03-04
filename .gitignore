@@ -7,6 +7,8 @@
 *.so
 *.dylib
 *.sdf
+*.suo
+*.ipch
 
 # Compiled Static libraries
 *.lai
@@ -14,6 +16,7 @@
 *.a
 
 *~
+/Mario/ipch
 /Mario/Debug
 /Mario/Mario/Debug
 /Mario/Mario.suo

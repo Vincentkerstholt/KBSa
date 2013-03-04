@@ -2,10 +2,18 @@
 #include "SkyThemeBlock.h"
 #include "SkyThemePipe.h"
 
-Obstacle SkyThemeFactory::createBlock(){
-	return SkyThemeBlock();
+HANDLE SkyThemeFactory::getBlock(int x, int y){
+	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-Obstacle SkyThemeFactory::createPipe(){
-	return SkyThemePipe();
+HANDLE SkyThemeFactory::getPipe(int x, int y){
+	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+}
+
+HANDLE SkyThemeFactory::getGround(int x, int y){
+	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+}
+
+HANDLE SkyThemeFactory::getBackgroundImage(){
+	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
