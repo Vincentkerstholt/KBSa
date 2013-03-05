@@ -97,6 +97,9 @@
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
+    <ClCompile Include="XMLParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamestate.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="obstacles.h">
       <Filter>Header Files\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLParser.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
