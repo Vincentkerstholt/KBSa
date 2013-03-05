@@ -12,6 +12,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Hero.cpp" />
@@ -23,10 +24,12 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="NormalWalk.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="WalkBehaviour.h" />
     <ClInclude Include="DungeonThemeFactory.h" />
@@ -127,6 +130,9 @@
     <None Include="res\dungeon.bmp" />
     <None Include="res\forestlandps.bmp" />
     <None Include="res\world8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Mario.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

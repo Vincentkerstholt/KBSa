@@ -18,6 +18,18 @@ Gamestate::Gamestate(int x, int y)
 	CreateWorld();
 }
 
+void Gamestate::draw(HDC & hdc, bool debugMode)
+{
+	drawBackground(hdc);
+	drawCharacters(hdc);
+	drawWorld(hdc);
+	if (debugMode == true)
+	{
+		drawGrid(hdc);
+		drawStatistics(hdc);
+	}
+}
+
 int Gamestate::ConvertIndexToXY(int index){
 	return (index*multiplier);
 }
@@ -32,8 +44,8 @@ void Gamestate::DrawHorizontalBorder(int x, int y){
 }
 
 void Gamestate::DrawVerticalBorder(int x, int y){
-	MoveToEx(hdc, ConvertIndexToXY(x), ConvertIndexToXY(y), &point);
-	LineTo(hdc, ConvertIndexToXY(x), ConvertIndexToXY(y + 1));
+	MoveToEx(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(y), &point);
+	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(y + 1));
 }
 
 void Gamestate::drawGrid(HDC & hdc){
@@ -56,7 +68,7 @@ void Gamestate::drawCharacters(HDC & hdc){
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
 
-	TransparentBlt(hdc, (Mario->GetPosition().x*multiplier), (Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20, 0, 32,32, GetPixel(hCharacterDC, 0,0));
+	TransparentBlt(hdc, (Mario->GetPosition().x*multiplier) - camera.getXPosition(), (Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20, 0, 32,32, GetPixel(hCharacterDC, 0,0));
 	//BitBlt(hdc,(Mario->GetPosition().x*multiplier),(Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20,0, SRCCOPY);
 
 	DeleteDC(hCharacterDC);
@@ -94,13 +106,27 @@ void Gamestate::drawWorld(HDC & hdc){
 			GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 			SelectObject(hObstacleDC, hObstacleBitmap);
 
-			BitBlt(hdc, ConvertIndexToXY(n), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 0, SRCCOPY);
+			BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 0, SRCCOPY);
 
 			DeleteDC(hObstacleDC);
 			DeleteObject(hObstacleBitmap);
 		}
 	}
 }
+
+void Gamestate::drawStatistics(HDC & hdc){
+	int xValue = this->Mario->GetPosition().x;
+	int yValue = this->Mario->GetPosition().y;
+	ostringstream oss;
+
+	oss << camera.getXPosition();
+	TextOut(hdc, 10, 10, "screen position: ", 16);
+	TextOut(hdc, 10, 20, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+	oss.clear();
+}
+
 
 void Gamestate::changeFactory(char firstLetter){
 	switch(firstLetter){

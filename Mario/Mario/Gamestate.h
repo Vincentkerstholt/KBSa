@@ -7,6 +7,8 @@
 #include "Hero.h"
 #include "factories.h"
 #include "obstacles.h"
+#include "Camera.h"
+#include <sstream>
 
 using namespace std;
 class Hero;
@@ -16,12 +18,12 @@ class Gamestate
 public:
 	Gamestate();
 	Gamestate(int x, int y);
-	void drawCharacters(HDC & hdc);
-	void drawGrid(HDC & hdc);
-	void drawBackground(HDC & hdc);
-	void drawWorld(HDC & hdc);
+	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
 	~Gamestate();
+
+	Camera camera;
+
 private:
 	IThemeFactory * factory;
 	Gameobject ** level;
@@ -40,8 +42,13 @@ private:
 
 	void DrawHorizontalBorder(int startX, int startY);
 	void DrawVerticalBorder(int startX, int startY);
+	void drawCharacters(HDC & hdc);
+	void drawGrid(HDC & hdc);
+	void drawBackground(HDC & hdc);
+	void drawWorld(HDC & hdc);
 	int ConvertIndexToXY(int index);
 	void CreateWorld();
 	int getIndex(int n, int m);
+	void Gamestate::drawStatistics(HDC & hdc);
 };
 #endif
