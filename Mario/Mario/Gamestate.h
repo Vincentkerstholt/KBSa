@@ -11,6 +11,7 @@
 #include <sstream>
 
 using namespace std;
+
 class Hero;
 
 class Gamestate
@@ -20,10 +21,10 @@ public:
 	Gamestate(int x, int y);
 	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
+	Hero * Mario;
 	~Gamestate();
 
 	Camera camera;
-	Hero * Mario;
 private:
 	IThemeFactory * factory;
 	Gameobject ** level;

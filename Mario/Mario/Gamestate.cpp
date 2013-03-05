@@ -10,7 +10,6 @@ Gamestate::Gamestate(int x, int y)
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	level = new Gameobject*[(x * y)];
-	//factory = new DungeonThemeFactory();
 	factory = new LandThemeFactory();
 
 	multiplier = 32;
@@ -20,7 +19,7 @@ Gamestate::Gamestate(int x, int y)
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
-	camera.setXMidPosition(Mario->GetPosition().x*multiplier);
+	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	drawBackground(hdc);
 	drawCharacters(hdc);
 	drawWorld(hdc);
@@ -69,11 +68,12 @@ void Gamestate::drawCharacters(HDC & hdc){
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
 
-	TransparentBlt(hdc, (Mario->GetPosition().x*multiplier) - camera.getXPosition(), (Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20, 0, 32,32, GetPixel(hCharacterDC, 0,0));
-	//BitBlt(hdc,(Mario->GetPosition().x*multiplier),(Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20,0, SRCCOPY);
+	TransparentBlt(hdc, (Mario->GetPositionPixel().x)- camera.getXPosition(), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->textureNumber*multiplier), 0, 32,32, GetPixel(hCharacterDC, 0,0));
 
 	DeleteDC(hCharacterDC);
 }
+
+
 
 void Gamestate::drawBackground(HDC & hdc){
 	hBackgroundBitmap = factory->getBackgroundImage();
@@ -116,13 +116,20 @@ void Gamestate::drawWorld(HDC & hdc){
 }
 
 void Gamestate::drawStatistics(HDC & hdc){
-	int xValue = this->Mario->GetPosition().x;
-	int yValue = this->Mario->GetPosition().y;
+
+	int xValue = ConvertIndexToXY(this->Mario->GetPositionPixel().x);
+	int yValue = ConvertIndexToXY(this->Mario->GetPositionPixel().y);
 	ostringstream oss;
 
+	oss << xValue << " " << yValue;
+	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
+	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+	oss.clear();
+
 	oss << camera.getXPosition();
-	TextOut(hdc, 10, 10, "screen position: ", 16);
-	TextOut(hdc, 10, 20, oss.str().c_str(), strlen(oss.str().c_str()));
+	TextOut(hdc, 10, 30, "screen position: ", 16);
+	TextOut(hdc, 120, 30, oss.str().c_str(), strlen(oss.str().c_str()));
 
 	oss.str("");
 	oss.clear();

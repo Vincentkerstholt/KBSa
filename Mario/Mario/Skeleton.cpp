@@ -5,7 +5,7 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-	gameState = new Gamestate(43, 22);
+	gameState = new Gamestate(60, 22);
 }
 
 CSkeleton::~CSkeleton()
@@ -24,22 +24,31 @@ void CSkeleton::GameLoop()
 {
 	RECT rect;
 	::GetClientRect(m_hWnd, &rect);
+
 	gameState->draw(graphics, debugMode);
 
 	if (::GetAsyncKeyState(VK_RIGHT)){
-		gameState->Mario->SetPosition((gameState->Mario->GetPosition().x+1),20);
+		gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
+		if(gameState->Mario->textureNumber == 8)
+		{
+			gameState->Mario->textureNumber = 1;
+		}
+		else
+		{
+			gameState->Mario->textureNumber += 1;
+		}
 	}
 
 	if (::GetAsyncKeyState(VK_LEFT)){
-		gameState->Mario->SetPosition((gameState->Mario->GetPosition().x-1),20);
+		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
 	}
 
 	if (::GetAsyncKeyState(VK_DOWN)){
-
+		gameState->Mario->Move('D', gameState->Mario->GetPositionPixel());
 	}
 
 	if (::GetAsyncKeyState(VK_UP)){
-
+		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
 	}
 	
 	if (::GetAsyncKeyState(VK_F1)){

@@ -76,9 +76,6 @@
     <ClCompile Include="WaterThemeFactory.cpp">
       <Filter>Source Files\Factory\WaterTheme</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
     <ClCompile Include="Gamestate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -112,23 +109,17 @@
     <ClCompile Include="Hero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NormalWalk.cpp">
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Program</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FastWalk.cpp">
+      <Filter>Source Files\Walk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +146,6 @@
     </ClInclude>
     <ClInclude Include="LandThemeFactory.h">
       <Filter>Header Files\Factory\LandTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Header Files\Program</Filter>
     </ClInclude>
     <ClInclude Include="Win.h">
       <Filter>Header Files\Program</Filter>
@@ -189,26 +177,20 @@
     <ClInclude Include="obstacles.h">
       <Filter>Header Files\Obstacle</Filter>
     </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NormalWalk.h">
       <Filter>Header Files\Walk</Filter>
     </ClInclude>
     <ClInclude Include="Skeleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Program</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files\Walk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

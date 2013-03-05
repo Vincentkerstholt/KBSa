@@ -11,7 +11,8 @@ private:
 public:
 	Hero();
 	~Hero();
-	HANDLE texture; 
+	HANDLE texture;
+	int textureNumber;
 };
 
 #endif
