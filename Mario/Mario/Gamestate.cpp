@@ -20,6 +20,7 @@ Gamestate::Gamestate(int x, int y)
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
+	camera.setXMidPosition(Mario->GetPosition().x*multiplier);
 	drawBackground(hdc);
 	drawCharacters(hdc);
 	drawWorld(hdc);

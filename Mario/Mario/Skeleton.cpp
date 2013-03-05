@@ -27,11 +27,11 @@ void CSkeleton::GameLoop()
 	gameState->draw(graphics, debugMode);
 
 	if (::GetAsyncKeyState(VK_RIGHT)){
-		gameState->camera.setXPosition(1000);
+		gameState->Mario->SetPosition((gameState->Mario->GetPosition().x+1),20);
 	}
 
 	if (::GetAsyncKeyState(VK_LEFT)){
-		gameState->camera.setXPosition(1005);
+		gameState->Mario->SetPosition((gameState->Mario->GetPosition().x-1),20);
 	}
 
 	if (::GetAsyncKeyState(VK_DOWN)){

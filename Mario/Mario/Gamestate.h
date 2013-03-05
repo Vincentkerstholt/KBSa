@@ -23,7 +23,7 @@ public:
 	~Gamestate();
 
 	Camera camera;
-
+	Hero * Mario;
 private:
 	IThemeFactory * factory;
 	Gameobject ** level;
@@ -38,7 +38,6 @@ private:
 	HDC hObstacleDC;
 	BITMAP bitmap;
 	HDC hCharacterDC;
-	Hero * Mario;
 
 	void DrawHorizontalBorder(int startX, int startY);
 	void DrawVerticalBorder(int startX, int startY);
