@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- was: no XML declaration present -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -13,6 +13,12 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Walk">
+      <UniqueIdentifier>{33edc91a-5586-4ac8-bab1-93a4756ca5d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Walk">
+      <UniqueIdentifier>{04831bb8-6e98-453c-b610-8efeb0b0fa13}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Factory">
       <UniqueIdentifier>{e1824be5-1592-416b-930a-5096d53a09f0}</UniqueIdentifier>
@@ -98,7 +104,19 @@
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
     <ClCompile Include="XMLParser.cpp">
+        <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="character.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalWalk.cpp">
+      <Filter>Source Files\Walk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +125,18 @@
     </ClInclude>
     <ClInclude Include="Gameobject.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WalkBehaviour.h">
+      <Filter>Header Files\Walk</Filter>
     </ClInclude>
     <ClInclude Include="ThemeFactory.h">
       <Filter>Header Files\Factory</Filter>
@@ -149,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="XMLParser.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalWalk.h">
+      <Filter>Header Files\Walk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

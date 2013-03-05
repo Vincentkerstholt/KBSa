@@ -4,16 +4,19 @@
 #include <typeinfo>
 #include "Win.h"
 #include "GameObject.h"
+#include "Hero.h"
 #include "factories.h"
 #include "obstacles.h"
 
 using namespace std;
+class Hero;
 
 class Gamestate
 {
 public:
 	Gamestate();
 	Gamestate(int x, int y);
+	void drawCharacters(HDC & hdc);
 	void drawGrid(HDC & hdc);
 	void drawBackground(HDC & hdc);
 	void drawWorld(HDC & hdc);
@@ -32,6 +35,8 @@ private:
 	HDC hBackgroundDC;
 	HDC hObstacleDC;
 	BITMAP bitmap;
+	HDC hCharacterDC;
+	Hero * Mario;
 
 	void DrawHorizontalBorder(int startX, int startY);
 	void DrawVerticalBorder(int startX, int startY);

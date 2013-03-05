@@ -4,6 +4,10 @@ Gamestate::Gamestate(int x, int y)
 {
 	this->x = x;
 	this->y = y;
+	Mario = new Hero();
+
+	multiplier = 32;
+	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	level = new Gameobject*[(x * y)];
 	//factory = new DungeonThemeFactory();
@@ -44,6 +48,18 @@ void Gamestate::drawGrid(HDC & hdc){
 				DrawVerticalBorder(n+1,m);
 		}
 	}
+}
+
+void Gamestate::drawCharacters(HDC & hdc){
+	this->hdc = hdc;
+	hCharacterDC = CreateCompatibleDC(hdc);
+	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
+	SelectObject(hCharacterDC, this->Mario->texture);
+
+	TransparentBlt(hdc, (Mario->GetPosition().x*multiplier), (Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20, 0, 32,32, GetPixel(hCharacterDC, 0,0));
+	//BitBlt(hdc,(Mario->GetPosition().x*multiplier),(Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20,0, SRCCOPY);
+
+	DeleteDC(hCharacterDC);
 }
 
 void Gamestate::drawBackground(HDC & hdc){
