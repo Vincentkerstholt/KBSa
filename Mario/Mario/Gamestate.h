@@ -7,8 +7,10 @@
 #include "Hero.h"
 #include "factories.h"
 #include "obstacles.h"
+#include <sstream>
 
 using namespace std;
+
 class Hero;
 
 class Gamestate
@@ -20,7 +22,9 @@ public:
 	void drawGrid(HDC & hdc);
 	void drawBackground(HDC & hdc);
 	void drawWorld(HDC & hdc);
+	void drawStatistics(HDC & hdc);
 	void changeFactory(char firstLetter);
+	Hero * Mario;
 	~Gamestate();
 private:
 	IThemeFactory * factory;
@@ -36,7 +40,6 @@ private:
 	HDC hObstacleDC;
 	BITMAP bitmap;
 	HDC hCharacterDC;
-	Hero * Mario;
 
 	void DrawHorizontalBorder(int startX, int startY);
 	void DrawVerticalBorder(int startX, int startY);

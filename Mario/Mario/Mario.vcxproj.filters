@@ -76,9 +76,6 @@
     <ClCompile Include="WaterThemeFactory.cpp">
       <Filter>Source Files\Factory\WaterTheme</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
     <ClCompile Include="Gamestate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -124,6 +121,12 @@
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files\Program</Filter>
+    </ClCompile>
+    <ClCompile Include="FastWalk.cpp">
+      <Filter>Source Files\Walk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamestate.h">
@@ -149,9 +152,6 @@
     </ClInclude>
     <ClInclude Include="LandThemeFactory.h">
       <Filter>Header Files\Factory\LandTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Header Files\Program</Filter>
     </ClInclude>
     <ClInclude Include="Win.h">
       <Filter>Header Files\Program</Filter>
@@ -194,6 +194,12 @@
     </ClInclude>
     <ClInclude Include="Skeleton.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files\Program</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files\Walk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

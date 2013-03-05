@@ -14,9 +14,9 @@
   <ItemGroup>
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FastWalk.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
-    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Win.cpp" />
@@ -25,6 +25,7 @@
   <ItemGroup>
     <ClInclude Include="character.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FastWalk.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />
@@ -33,7 +34,6 @@
     <ClInclude Include="factories.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="obstacles.h" />
-    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SkyThemeFactory.h" />
     <ClInclude Include="WaterThemeFactory.h" />
     <ClInclude Include="Win.h" />

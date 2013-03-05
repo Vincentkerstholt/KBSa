@@ -4,6 +4,7 @@
 #include <windows.h>
 #include "WalkBehaviour.h"
 #include "NormalWalk.h"
+#include "FastWalk.h"
 #include <string>
 
 using namespace std;
@@ -14,13 +15,15 @@ public:
 	Character();
 	virtual void Die();
 	virtual void GetPowerUp();
-	virtual void Move();
+	virtual void Move(char Direction, POINT curPos);
 	virtual void Jump();
 	virtual void Fly();
 	virtual void Attack();
-	virtual void Walk();
+	virtual void Walk(char Direction, POINT curPos);
 	virtual void SetPosition(int x ,int y);
-	virtual POINT GetPosition();
+	virtual void SetPosition(POINT newPos);
+	virtual POINT GetPositionIndex();
+	virtual POINT GetPositionPixel();
 	WalkBehaviour *walkBehaviour;
 	virtual void setWalkBehaviour(WalkBehaviour *qb); 
 private:

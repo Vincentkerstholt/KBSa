@@ -25,26 +25,35 @@ void CSkeleton::GameLoop()
 	RECT rect;
 	::GetClientRect(m_hWnd, &rect);
 	gameState->drawBackground(graphics);
-	gameState->drawGrid(graphics);
 	gameState->drawCharacters(graphics);
 	gameState->drawWorld(graphics);
 	if(debugMode)
+	{
 		gameState->drawGrid(graphics);
-
+		gameState->drawStatistics(graphics);
+	}
 	if (::GetAsyncKeyState(VK_RIGHT)){
-		int onzin = 0;
+		gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
+		if(gameState->Mario->textureNumber == 8)
+		{
+			gameState->Mario->textureNumber = 1;
+		}
+		else
+		{
+			gameState->Mario->textureNumber += 1;
+		}
 	}
 
 	if (::GetAsyncKeyState(VK_LEFT)){
-
+		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
 	}
 
 	if (::GetAsyncKeyState(VK_DOWN)){
-
+		gameState->Mario->Move('D', gameState->Mario->GetPositionPixel());
 	}
 
 	if (::GetAsyncKeyState(VK_UP)){
-
+		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
 	}
 	
 	if (::GetAsyncKeyState(VK_F1)){

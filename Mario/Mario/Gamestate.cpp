@@ -10,7 +10,6 @@ Gamestate::Gamestate(int x, int y)
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	level = new Gameobject*[(x * y)];
-	//factory = new DungeonThemeFactory();
 	factory = new LandThemeFactory();
 
 	multiplier = 32;
@@ -56,10 +55,23 @@ void Gamestate::drawCharacters(HDC & hdc){
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
 
-	TransparentBlt(hdc, (Mario->GetPosition().x*multiplier), (Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20, 0, 32,32, GetPixel(hCharacterDC, 0,0));
-	//BitBlt(hdc,(Mario->GetPosition().x*multiplier),(Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20,0, SRCCOPY);
+	TransparentBlt(hdc, (Mario->GetPositionPixel().x), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->textureNumber*multiplier), 0, 32,32, GetPixel(hCharacterDC, 0,0));
 
 	DeleteDC(hCharacterDC);
+}
+
+void Gamestate::drawStatistics(HDC & hdc){
+	int xValue = ConvertIndexToXY(this->Mario->GetPositionPixel().x);
+	int yValue = ConvertIndexToXY(this->Mario->GetPositionPixel().y);
+	ostringstream oss;
+
+	oss << xValue << " " << yValue;
+	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
+	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+	oss.clear();
+
 }
 
 void Gamestate::drawBackground(HDC & hdc){
