@@ -13,12 +13,14 @@ Gamestate::Gamestate(int x, int y)
 	factory = new LandThemeFactory();
 
 	multiplier = 32;
+	frames = 0;
 
 	CreateWorld();
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
+	frames++;
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	drawBackground(hdc);
 	drawCharacters(hdc);
@@ -38,28 +40,23 @@ int Gamestate::getIndex(int n, int m){
 	return (m*x)+n;
 }
 
-void Gamestate::DrawHorizontalBorder(int x, int y){
-	MoveToEx(hdc, ConvertIndexToXY(x), ConvertIndexToXY(y), &point);
-	LineTo(hdc, ConvertIndexToXY(x + 1), ConvertIndexToXY(y));
+void Gamestate::DrawHorizontalBorder(int y){
+	MoveToEx(hdc, ConvertIndexToXY(0), ConvertIndexToXY(y), &point);
+	LineTo(hdc, ConvertIndexToXY(43), ConvertIndexToXY(y));
 }
 
-void Gamestate::DrawVerticalBorder(int x, int y){
-	MoveToEx(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(y), &point);
-	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(y + 1));
+void Gamestate::DrawVerticalBorder(int x){
+	MoveToEx(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(0), &point);
+	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(23));
 }
 
 void Gamestate::drawGrid(HDC & hdc){
 	this->hdc = hdc;
-	for (int n = 0; n < x; n++){
-		for(int m = 0; m < y; m++){
-			DrawVerticalBorder(n,m);
-			DrawHorizontalBorder(n,m);
-			if(m == y - 1)
-				DrawHorizontalBorder(n,m+1);
-			if(n == x - 1)
-				DrawVerticalBorder(n+1,m);
-		}
-	}
+	for (int n = 0; n < 44; n++)
+		DrawVerticalBorder(n);
+
+	for(int m = 0; m < 22; m++)
+		DrawHorizontalBorder(m);
 }
 
 void Gamestate::drawCharacters(HDC & hdc){
@@ -73,8 +70,6 @@ void Gamestate::drawCharacters(HDC & hdc){
 	DeleteDC(hCharacterDC);
 }
 
-
-
 void Gamestate::drawBackground(HDC & hdc){
 	hBackgroundBitmap = factory->getBackgroundImage();
 
@@ -83,14 +78,14 @@ void Gamestate::drawBackground(HDC & hdc){
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
 
-	StretchBlt(hdc, 0, 0, ConvertIndexToXY(x), ConvertIndexToXY(y), hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
+	StretchBlt(hdc, 0, 0, ConvertIndexToXY(43), ConvertIndexToXY(22), hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
 
 	DeleteDC(hBackgroundDC);
 	DeleteObject(hBackgroundBitmap);
 }
 
 void Gamestate::drawWorld(HDC & hdc){
-	for(int n = 0; n < x; n++){
+	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 			if(level[index] == NULL)
@@ -135,7 +130,6 @@ void Gamestate::drawStatistics(HDC & hdc){
 	oss.clear();
 }
 
-
 void Gamestate::changeFactory(char firstLetter){
 	switch(firstLetter){
 	case 'D':
@@ -158,7 +152,10 @@ void Gamestate::CreateWorld(){
 	{
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
-			if(m == y-1)
+
+			if ((m == y-3) && (n%2 == 1))
+				level[index] = new Ground(68,0);
+			else if(m == y-1)
 				level[index] = new Ground(68,0);
 			else
 				level[index] = NULL;

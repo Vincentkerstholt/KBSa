@@ -39,9 +39,10 @@ private:
 	HDC hObstacleDC;
 	BITMAP bitmap;
 	HDC hCharacterDC;
+	int frames;
 
-	void DrawHorizontalBorder(int startX, int startY);
-	void DrawVerticalBorder(int startX, int startY);
+	void DrawHorizontalBorder(int startY);
+	void DrawVerticalBorder(int startX);
 	void drawCharacters(HDC & hdc);
 	void drawGrid(HDC & hdc);
 	void drawBackground(HDC & hdc);
