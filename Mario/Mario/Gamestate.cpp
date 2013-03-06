@@ -48,7 +48,7 @@ void Gamestate::DrawHorizontalBorder(int y){
 
 void Gamestate::DrawVerticalBorder(int x){
 	MoveToEx(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(0), &point);
-	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(23));
+	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(22));
 }
 
 void Gamestate::drawGrid(HDC & hdc){
@@ -85,16 +85,16 @@ void Gamestate::drawBackground(HDC & hdc){
 	DeleteDC(hBackgroundDC);
 	DeleteObject(hBackgroundBitmap);
 
-
+	hBackgroundBitmap2 = factory->getBackgroundImage2();
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
 	GetObject(hBackgroundBitmap2, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap2);
 
-	TransparentBlt(hdc, -camera.getXPosition()/2%bitmap.bmWidth,				200, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
-	TransparentBlt(hdc, bitmap.bmWidth - camera.getXPosition() / 2 % bitmap.bmWidth, 200, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
-	TransparentBlt(hdc, bitmap.bmWidth * 2 - camera.getXPosition() / 2 % bitmap.bmWidth, 200, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
+	TransparentBlt(hdc, -camera.getXPosition()/2%bitmap.bmWidth,				230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
+	TransparentBlt(hdc, bitmap.bmWidth - camera.getXPosition() / 2 % bitmap.bmWidth, 230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
 	DeleteDC(hBackgroundDC);
+	DeleteObject(hBackgroundBitmap2);
 }
 
 void Gamestate::drawWorld(HDC & hdc){
@@ -135,7 +135,7 @@ void Gamestate::drawStatistics(HDC & hdc){
 	ostringstream oss;
 
 	oss << "Pos. Mario: " << xValue << " " << yValue;
-	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	TextOut(hdc, 10, 10, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 	oss.clear();
 

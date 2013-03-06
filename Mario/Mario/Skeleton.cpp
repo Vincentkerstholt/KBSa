@@ -5,7 +5,7 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-	gameState = new Gamestate(200, 22);
+	gameState = new Gamestate(40, 22);
 }
 
 CSkeleton::~CSkeleton()
@@ -69,7 +69,7 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_F12)){
 		debugMode = !debugMode;
-		Sleep(50);
+		Sleep(60);
 	}
 }
 

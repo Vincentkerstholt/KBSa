@@ -13,6 +13,7 @@ public:
 	virtual HANDLE getBlock(int x, int y) = 0;
 	virtual HANDLE getGround(int x, int y) = 0;
 	virtual HANDLE getBackgroundImage() = 0;
+	virtual HANDLE getBackgroundImage2() = 0;
 };
 
 #endif
