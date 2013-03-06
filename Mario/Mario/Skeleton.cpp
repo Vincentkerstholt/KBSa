@@ -36,27 +36,30 @@ void CSkeleton::GameLoop()
 		gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
 	}
 
-	else if (::GetAsyncKeyState(VK_LEFT)){
+	if (::GetAsyncKeyState(VK_LEFT)){
 		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
 	}
 
-	else if (::GetAsyncKeyState(VK_DOWN)){
+	if (::GetAsyncKeyState(VK_DOWN)){
 		gameState->Mario->Move('D', gameState->Mario->GetPositionPixel());
 	}
 
-	else if (::GetAsyncKeyState(VK_UP)){
+	if (::GetAsyncKeyState(VK_UP)){
 		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
 	}
 
-	else if(gameState->Mario->getDirection() == 'R') {
-		gameState->Mario->setTexturePosition(0,0);
-	}
-	else if(gameState->Mario->getDirection() == 'L') {
-		gameState->Mario->setTexturePosition(14,0);
-	}
-	else {
-		gameState->Mario->setTexturePosition(0,0);
-	}
+	//if(gameState->Mario->getDirection() == 'R') {
+	//	gameState->Mario->setTexturePosition(0,0);
+	//	gameState->Mario->setDirection('U');
+	//}
+	//if(gameState->Mario->getDirection() == 'L') {
+	//	gameState->Mario->setTexturePosition(14,0);
+	//	gameState->Mario->setDirection('U');
+	//}
+	//else {
+	//	gameState->Mario->setTexturePosition(0,0);
+	//	gameState->Mario->setDirection('U');
+	//}
 	
 	if (::GetAsyncKeyState(VK_F1)){
 		gameState->changeFactory('D');

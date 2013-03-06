@@ -6,6 +6,7 @@ Character::Character()
 
 void Character :: Walk (char Direction, POINT curPos)
 {
+	SetPosition(walkBehaviour->Walk(Direction, curPos));
 	setDirection(Direction);
 	switch(Direction)
 	{
@@ -46,7 +47,6 @@ void Character :: Walk (char Direction, POINT curPos)
 		}
 		break;
 	}
-	SetPosition(walkBehaviour->Walk(Direction, curPos)); 
 }
 
 void Character :: setWalkBehaviour(WalkBehaviour *qb)
@@ -101,12 +101,19 @@ void Character::Move(char Direction, POINT curPos)
 		this->setTexturePosition(13,1);
 		break;
 	case 'U': //Move Up
+		this->Jump(curPos);
 		break;
 	}
 }
 
-void Character::Jump()
+void Character::Jump(POINT curPos)
 {
+	SetPosition(jumpBehaviour->Jump(this->getDirection(), curPos));
+}
+
+void Character :: setJumpBehaviour(JumpBehaviour *jb)
+{
+	jumpBehaviour = jb;
 }
 
 void Character::Fly()

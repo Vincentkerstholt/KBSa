@@ -5,6 +5,8 @@
 #include "WalkBehaviour.h"
 #include "NormalWalk.h"
 #include "FastWalk.h"
+#include "JumpBehaviour.h"
+#include "NormalJump.h"
 #include <string>
 
 using namespace std;
@@ -16,7 +18,7 @@ public:
 	virtual void Die();
 	virtual void GetPowerUp();
 	virtual void Move(char Direction, POINT curPos);
-	virtual void Jump();
+	virtual void Jump(POINT curPos);
 	virtual void Fly();
 	virtual void Attack();
 	virtual void Walk(char Direction, POINT curPos);
@@ -25,7 +27,9 @@ public:
 	virtual POINT GetPositionIndex();
 	virtual POINT GetPositionPixel();
 	WalkBehaviour *walkBehaviour;
+	JumpBehaviour *jumpBehaviour;
 	virtual void setWalkBehaviour(WalkBehaviour *qb);
+	virtual void setJumpBehaviour(JumpBehaviour *jb);
 	void setTexturePosition(POINT newPoint);
 	void setTexturePosition(int x, int y);
 	void setDirection(char Direction);

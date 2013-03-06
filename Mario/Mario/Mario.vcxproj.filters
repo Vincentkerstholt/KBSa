@@ -62,6 +62,12 @@
     <Filter Include="Header Files\Obstacle">
       <UniqueIdentifier>{6103eb45-860a-4f69-a607-c729e4cc97ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Jump">
+      <UniqueIdentifier>{898b4b58-a643-4f81-8fb4-519fefc22538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Jump">
+      <UniqueIdentifier>{067aa6a7-2d71-4e85-8b53-a1b8356568dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonThemeFactory.cpp">
@@ -125,7 +131,10 @@
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
     <ClCompile Include="NormalWalk.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalJump.cpp">
+      <Filter>Source Files\Jump</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +209,12 @@
     </ClInclude>
     <ClInclude Include="FastWalk.h">
       <Filter>Header Files\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalJump.h">
+      <Filter>Header Files\Jump</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
