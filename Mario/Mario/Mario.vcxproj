@@ -15,6 +15,7 @@
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Ground.cpp" />
@@ -26,6 +27,7 @@
     <ClInclude Include="character.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="XMLParserNode.h" />
     <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="WalkBehaviour.h" />
@@ -126,6 +128,9 @@
     <None Include="res\backgroundSky.bmp" />
     <None Include="res\dungeon.bmp" />
     <None Include="res\forestlandps.bmp" />
+    <None Include="res\testLevel.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="res\world8.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

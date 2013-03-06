@@ -7,6 +7,7 @@
 #include "Hero.h"
 #include "factories.h"
 #include "obstacles.h"
+#include "XMLParser.h"
 
 using namespace std;
 class Hero;
@@ -15,7 +16,6 @@ class Gamestate
 {
 public:
 	Gamestate();
-	Gamestate(int x, int y);
 	void drawCharacters(HDC & hdc);
 	void drawGrid(HDC & hdc);
 	void drawBackground(HDC & hdc);
@@ -37,11 +37,13 @@ private:
 	BITMAP bitmap;
 	HDC hCharacterDC;
 	Hero * Mario;
+	XmlParser * xml;
 
 	void DrawHorizontalBorder(int startX, int startY);
 	void DrawVerticalBorder(int startX, int startY);
 	int ConvertIndexToXY(int index);
 	void CreateWorld();
 	int getIndex(int n, int m);
+	IThemeFactory * getFactory(string name);
 };
 #endif

@@ -1,21 +1,42 @@
 #include "Gamestate.h"
 
-Gamestate::Gamestate(int x, int y)
+Gamestate::Gamestate()
 {
+	xml = new XmlParser("res/testLevel.xml");
+
+	XmlParserNode * levelXml = xml->getNode("level");
+	string width = levelXml->getAttribute("width");
+	string height = levelXml->getAttribute("height");
+	int x = stoi( width );
+	int y = stoi( height );
+
 	this->x = x;
 	this->y = y;
+
 	Mario = new Hero();
 
 	multiplier = 32;
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	level = new Gameobject*[(x * y)];
-	//factory = new DungeonThemeFactory();
-	factory = new LandThemeFactory();
+
+	XmlParserNode * factoryXml = xml->getNode("factory");
+	factory = getFactory(factoryXml->getAttribute("name"));
 
 	multiplier = 32;
 
 	CreateWorld();
+}
+
+IThemeFactory * Gamestate::getFactory(string name){
+	if(name == "landscape")
+		return new LandThemeFactory();
+	else if(name == "dungeon")
+		return new DungeonThemeFactory();
+	else if(name == "sky")
+		return new SkyThemeFactory();
+	else if(name == "water")
+		return new WaterThemeFactory();
 }
 
 int Gamestate::ConvertIndexToXY(int index){
@@ -138,4 +159,7 @@ Gamestate::~Gamestate(){
 
 	delete factory;
 	factory = NULL;
+
+	delete xml;
+	xml = NULL;
 }
