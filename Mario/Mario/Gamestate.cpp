@@ -145,11 +145,36 @@ void Gamestate::CreateWorld(){
 	{
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
-			if(m == y-1)
-				level[index] = new Ground(68,0);
-			else
-				level[index] = NULL;
+			level[index] = NULL;
 		}
+	}
+
+	XmlParserNode * blocks = xml->getNode("blocks");
+	XmlParserNode ** childs = blocks->getChilds();
+
+	for(int i = 0; i < blocks->getChildsLength(); i++){
+		XmlParserNode * child = childs[i];
+		XmlParserNode * childLocation = child->getNode("location");
+		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		level[index] = new Block(0,0);
+	}
+
+	XmlParserNode * grounds = xml->getNode("grounds");
+	childs = grounds->getChilds();
+	for(int i = 0; i < grounds->getChildsLength(); i++){
+		XmlParserNode * child = childs[i];
+		XmlParserNode * childLocation = child->getNode("location");
+		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		level[index] = new Ground(0,0, child->getAttribute("type"));
+	}
+
+	XmlParserNode * pipes = xml->getNode("grounds");
+	childs = pipes->getChilds();
+	for(int i = 0; i < pipes->getChildsLength(); i++){
+		XmlParserNode * child = childs[i];
+		XmlParserNode * childLocation = child->getNode("location");
+		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		level[index] = new Pipe(0,0);
 	}
 }
 

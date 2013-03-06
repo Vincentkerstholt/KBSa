@@ -71,22 +71,31 @@ string XmlParserNode::getAttribute(string key){
 }
 
 XmlParserNode * XmlParserNode::getNode(string tagName){
+	XmlParserNode * node = NULL;
 	for (int i = 0; i < childsLength; i++)
 	{
 		XmlParserNode * xpn = childs[i];
 		if(xpn->getTitle() == tagName){
-			return xpn;
+			node = xpn;
+			break;
+		}
+		else{
+			node = xpn->getNode(tagName);
 		}
 	}
-	return NULL;
+	return node;
+}
+
+XmlParserNode ** XmlParserNode::getChilds(){
+	return childs;
 }
 
 string XmlParserNode::toString(){
 	ostringstream oss;
 	oss << title;
-	//for(map<string, string>::iterator it = attributes.begin(); it !=attributes.end(); ++it){
-		//oss << " " << it->first << ": " << it->second;
-	//}
+	for(map<string, string>::iterator it = (*attributes).begin(); it !=(*attributes).end(); ++it){
+		oss << " " << it->first << ": " << it->second;
+	}
 	oss << endl;
 	for(int i = 0; i < childsLength; i++){
 		XmlParserNode * child = childs[i];

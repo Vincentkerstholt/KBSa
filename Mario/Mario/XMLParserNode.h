@@ -14,6 +14,7 @@ public:
 	void setTitle(string title);
 	string getTitle();
 	void addChild(XmlParserNode * child);
+	XmlParserNode ** getChilds();
 	int getChildsLength();
 	void setEndTag();
 	bool getEndTag();
