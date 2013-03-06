@@ -25,13 +25,22 @@ public:
 	virtual POINT GetPositionIndex();
 	virtual POINT GetPositionPixel();
 	WalkBehaviour *walkBehaviour;
-	virtual void setWalkBehaviour(WalkBehaviour *qb); 
+	virtual void setWalkBehaviour(WalkBehaviour *qb);
+	void setTexturePosition(POINT newPoint);
+	void setTexturePosition(int x, int y);
+	void setDirection(char Direction);
+	char getDirection();
+	POINT getTexturePosition();
+	HANDLE texture;
+
 private:
-	string name;
+	string Name;
+	char Direction;
 	int Health;
 	POINT Position;
 	int Power;
 	int Speed;
+	POINT texturePosition;
 };
 
 #endif

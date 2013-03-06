@@ -55,19 +55,30 @@ void Gamestate::drawCharacters(HDC & hdc){
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
 
-	TransparentBlt(hdc, (Mario->GetPositionPixel().x), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->textureNumber*multiplier), 0, 32,32, GetPixel(hCharacterDC, 0,0));
-
+	TransparentBlt(hdc, (Mario->GetPositionPixel().x), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->getTexturePosition().x*multiplier), Mario->getTexturePosition().y*multiplier, 32,32, GetPixel(hCharacterDC, 0,0));
 	DeleteDC(hCharacterDC);
 }
 
 void Gamestate::drawStatistics(HDC & hdc){
-	int xValue = ConvertIndexToXY(this->Mario->GetPositionPixel().x);
-	int yValue = ConvertIndexToXY(this->Mario->GetPositionPixel().y);
+	int xValue = this->Mario->GetPositionPixel().x;
+	int yValue = this->Mario->GetPositionPixel().y;
 	ostringstream oss;
 
 	oss << xValue << " " << yValue;
 	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
 	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	int xValueTexture = this->Mario->getTexturePosition().x;
+	int yValueTexture = this->Mario->getTexturePosition().y;
+	oss << xValueTexture << " " << yValueTexture;
+	TextOut(hdc, 10, 30, "TexturePos. Mario: ", strlen("TexturePos. Mario: "));
+	TextOut(hdc, 140, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	oss << Mario->getDirection();
+	TextOut(hdc, 10, 50, "Direction Mario: ", strlen("Direction Mario: "));
+	TextOut(hdc, 120, 50, oss.str().c_str(), strlen(oss.str().c_str()));
 
 	oss.str("");
 	oss.clear();

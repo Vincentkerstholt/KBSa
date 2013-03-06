@@ -112,9 +112,6 @@
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NormalWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,6 +123,9 @@
     </ClCompile>
     <ClCompile Include="FastWalk.cpp">
       <Filter>Source Files\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalWalk.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

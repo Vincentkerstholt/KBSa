@@ -6,6 +6,46 @@ Character::Character()
 
 void Character :: Walk (char Direction, POINT curPos)
 {
+	setDirection(Direction);
+	switch(Direction)
+	{
+	case 'L':
+		if(getTexturePosition().y == 0 && getTexturePosition().x == 14)
+		{
+			setTexturePosition(15,0);
+		}
+		else if(getTexturePosition().y == 0 && getTexturePosition().x == 15)
+		{
+			setTexturePosition(14,1);
+		}
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 14)
+		{
+			setTexturePosition(15,1);
+		}
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 15)
+		{
+			setTexturePosition(14,1);
+		}
+		break;
+	case 'R':
+		if(getTexturePosition().y == 0 && getTexturePosition().x == 0)
+		{
+			setTexturePosition(1,0);
+		}
+		else if(getTexturePosition().y == 0 && getTexturePosition().x == 1)
+		{
+			setTexturePosition(0,1);
+		}
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 0)
+		{
+			setTexturePosition(1,1);
+		}
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 1)
+		{
+			setTexturePosition(0,1);
+		}
+		break;
+	}
 	SetPosition(walkBehaviour->Walk(Direction, curPos)); 
 }
 
@@ -58,6 +98,7 @@ void Character::Move(char Direction, POINT curPos)
 		this->Walk('L', curPos);
 		break;
 	case 'D': //Move Down
+		this->setTexturePosition(13,1);
 		break;
 	case 'U': //Move Up
 		break;
@@ -74,4 +115,30 @@ void Character::Fly()
 
 void Character::Attack()
 {
+}
+
+void Character::setTexturePosition(POINT newPoint)
+{
+	texturePosition = newPoint;
+}
+
+void Character::setTexturePosition(int x, int y)
+{
+	texturePosition.x = x;
+	texturePosition.y = y;
+}
+
+POINT Character::getTexturePosition()
+{
+	return texturePosition;
+}
+
+void Character::setDirection(char Direction)
+{
+	this->Direction = Direction;
+}
+
+char Character::getDirection()
+{
+	return Direction;
 }

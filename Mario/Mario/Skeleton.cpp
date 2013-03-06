@@ -32,28 +32,30 @@ void CSkeleton::GameLoop()
 		gameState->drawGrid(graphics);
 		gameState->drawStatistics(graphics);
 	}
-	if (::GetAsyncKeyState(VK_RIGHT)){
+	if(::GetAsyncKeyState(VK_RIGHT)){
 		gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
-		if(gameState->Mario->textureNumber == 8)
-		{
-			gameState->Mario->textureNumber = 1;
-		}
-		else
-		{
-			gameState->Mario->textureNumber += 1;
-		}
 	}
 
-	if (::GetAsyncKeyState(VK_LEFT)){
+	else if (::GetAsyncKeyState(VK_LEFT)){
 		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
 	}
 
-	if (::GetAsyncKeyState(VK_DOWN)){
+	else if (::GetAsyncKeyState(VK_DOWN)){
 		gameState->Mario->Move('D', gameState->Mario->GetPositionPixel());
 	}
 
-	if (::GetAsyncKeyState(VK_UP)){
+	else if (::GetAsyncKeyState(VK_UP)){
 		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
+	}
+
+	else if(gameState->Mario->getDirection() == 'R') {
+		gameState->Mario->setTexturePosition(0,0);
+	}
+	else if(gameState->Mario->getDirection() == 'L') {
+		gameState->Mario->setTexturePosition(14,0);
+	}
+	else {
+		gameState->Mario->setTexturePosition(0,0);
 	}
 	
 	if (::GetAsyncKeyState(VK_F1)){
@@ -90,4 +92,3 @@ LRESULT CSkeleton::MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return CWin::MsgProc(hWnd, uMsg, wParam, lParam);
 }
-
