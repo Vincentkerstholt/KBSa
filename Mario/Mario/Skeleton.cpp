@@ -17,7 +17,7 @@ CSkeleton::~CSkeleton()
 void CSkeleton::GameInit()
 {
 	debugMode = false;
-	SetFPS(60);
+	SetFPS(0);
 }
 
 void CSkeleton::GameLoop()
