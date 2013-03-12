@@ -81,6 +81,14 @@ void Gamestate::drawStatistics(HDC & hdc){
 	TextOut(hdc, 120, 50, oss.str().c_str(), strlen(oss.str().c_str()));
 
 	oss.str("");
+
+	POINT p;
+	GetCursorPos(&p);
+
+	oss << "Cursor X: " << (p.x-3) << " Y: " << (p.y-26);
+	TextOut(hdc,  10, 70, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
 	oss.clear();
 
 }

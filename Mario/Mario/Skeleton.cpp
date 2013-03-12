@@ -47,6 +47,8 @@ void CSkeleton::GameLoop()
 	if (::GetAsyncKeyState(VK_UP)){
 		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
 	}
+	POINT p;
+	GetCursorPos(&p);
 
 	//if(gameState->Mario->getDirection() == 'R') {
 	//	gameState->Mario->setTexturePosition(0,0);
