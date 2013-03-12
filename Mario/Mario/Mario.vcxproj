@@ -17,6 +17,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FastWalk.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="NormalJump.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Skeleton.cpp" />
@@ -29,6 +30,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FastWalk.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="JumpBehaviour.h" />
+    <ClInclude Include="NormalJump.h" />
     <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Skeleton.h" />

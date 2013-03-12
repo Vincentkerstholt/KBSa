@@ -30,7 +30,9 @@ void CSkeleton::GameLoop()
 
 	gameState->draw(graphics, debugMode);
 
-	if (::GetAsyncKeyState(VK_RIGHT)){
+	if (::GetAsyncKeyState(VK_RIGHT))
+	{
+		gameState->Mario->setTexturePosition(1,0);
 		POINT mario;
 		mario = gameState->Mario-> GetPositionPixel();
 		mario.x = ((mario.x+33)/32);
@@ -46,21 +48,13 @@ void CSkeleton::GameLoop()
 		}		
 		else
 		{
+
 			gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
-			if(gameState->Mario->textureNumber == 8)
-			{
-				gameState->Mario->textureNumber = 1;
-			}
-			else
-			{
-				gameState->Mario->textureNumber += 1;
-			}
 		}
 	}
-
 	if (::GetAsyncKeyState(VK_LEFT))
 	{
-		
+		gameState->Mario->setTexturePosition(14,0);
 		POINT mario;
 		mario = gameState->Mario-> GetPositionPixel();
 		mario.x = ((mario.x-1)/32);
@@ -86,11 +80,9 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_UP))
 	{
-
-				gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
-		
+		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
 	}
-	
+
 	if (::GetAsyncKeyState(VK_F1)){
 		gameState->changeFactory('D');
 	}
@@ -125,4 +117,3 @@ LRESULT CSkeleton::MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return CWin::MsgProc(hWnd, uMsg, wParam, lParam);
 }
-

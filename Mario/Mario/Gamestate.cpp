@@ -66,10 +66,42 @@ void Gamestate::drawCharacters(HDC & hdc){
 	hCharacterDC = CreateCompatibleDC(hdc);
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
-
-	TransparentBlt(hdc, (Mario->GetPositionPixel().x)- camera.getXPosition(), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->textureNumber*multiplier), 0, 32,32, GetPixel(hCharacterDC, 0,0));
-
+	TransparentBlt(hdc, (Mario->GetPositionPixel().x), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->getTexturePosition().x*multiplier), Mario->getTexturePosition().y*multiplier, 32,32, GetPixel(hCharacterDC, 0,0));
 	DeleteDC(hCharacterDC);
+}
+
+void Gamestate::drawStatistics(HDC & hdc){
+	int xValue = this->Mario->GetPositionPixel().x;
+	int yValue = this->Mario->GetPositionPixel().y;
+	ostringstream oss;
+
+	oss << xValue << " " << yValue;
+	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
+	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	int xValueTexture = this->Mario->getTexturePosition().x;
+	int yValueTexture = this->Mario->getTexturePosition().y;
+	oss << xValueTexture << " " << yValueTexture;
+	TextOut(hdc, 10, 30, "TexturePos. Mario: ", strlen("TexturePos. Mario: "));
+	TextOut(hdc, 140, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	oss << Mario->getDirection();
+	TextOut(hdc, 10, 50, "Direction Mario: ", strlen("Direction Mario: "));
+	TextOut(hdc, 120, 50, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+
+	POINT p;
+	GetCursorPos(&p);
+
+	oss << "Cursor X: " << (p.x-3) << " Y: " << (p.y-26);
+	TextOut(hdc,  10, 70, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+	oss.clear();
+
 }
 
 void Gamestate::drawBackground(HDC & hdc){
@@ -110,66 +142,6 @@ void Gamestate::drawWorld(HDC & hdc){
 			DeleteObject(hObstacleBitmap);
 		}
 	}
-}
-
-void Gamestate::drawStatistics(HDC & hdc){
-
-	int xValue = this->Mario->GetPositionPixel().x;
-	int yValue = this->Mario->GetPositionPixel().y;
-	ostringstream oss;
-
-
-
-	oss << xValue << " " << yValue;
-	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
-	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-	oss.clear();
-
-	oss << camera.getXPosition();
-	TextOut(hdc, 10, 30, "screen position: ", 16);
-	TextOut(hdc, 120, 30, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-	oss.clear();
-
-	xValue = xValue / 32;
-	yValue = yValue / 32;
-
-	int indexmario = getIndex(xValue, yValue);
-
-	oss << indexmario ;
-	TextOut(hdc, 10, 50, "index Mario: ", 16);
-	TextOut(hdc, 95, 50, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-	oss.clear();
-
-	xValue = this->Mario->GetPositionPixel().x + 31;
-	yValue = this->Mario->GetPositionPixel().y + 16;
-	
-	xValue = xValue / 32;
-	yValue = yValue / 32;
-
-	indexmario = getIndex(xValue, yValue);
-
-	oss << indexmario ;
-	TextOut(hdc, 10, 70, "rechterheup: ", 16);
-	TextOut(hdc, 95, 70, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-	oss.clear();
-
-
-	if (level[indexmario] != NULL)
-	{
-		oss << level[indexmario]->getClassName();
-	}
-	else
-		oss << "NULL";
-
-	TextOut(hdc, 10, 90, "hokje: ", 16);
-	TextOut(hdc, 95, 90, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-	oss.clear();
-
 }
 
 void Gamestate::changeFactory(char firstLetter){

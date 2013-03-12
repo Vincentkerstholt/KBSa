@@ -7,11 +7,12 @@ Character::Character()
 
 void Character :: Walk (char Direction, POINT curPos)
 {
-	if (Direction == 'L' && !WalkBlock[1])
+
+	if (Direction == 'L')
 	{
 	SetPosition(walkBehaviour->Walk(Direction, curPos));
 	}
-	if (Direction == 'R' && !WalkBlock[2])
+	if (Direction == 'R')
 	{
 	SetPosition(walkBehaviour->Walk(Direction, curPos)); 
 	}
@@ -23,22 +24,48 @@ void Character :: Walk (char Direction, POINT curPos)
 	{
 		SetPosition(walkBehaviour->Walk(Direction, curPos)); 
 	}
+
+	setDirection(Direction);
+	switch(Direction)
+	{
+	case 'L':
+		if(getTexturePosition().y == 0 && getTexturePosition().x == 14)
+		{
+			setTexturePosition(15,0);
+		}
+		else if(getTexturePosition().y == 0 && getTexturePosition().x == 15)
+		{
+			setTexturePosition(14,1);
+		}
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 14)
+		{
+			setTexturePosition(15,1);
+		}
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 15)
+		{
+			setTexturePosition(14,1);
+		}
+		break;
+	case 'R':
+		if(getTexturePosition().y == 0 && getTexturePosition().x == 0)
+		{
+			setTexturePosition(1,0);
+		}
+		else if(getTexturePosition().y == 0 && getTexturePosition().x == 1)
+		{
+			setTexturePosition(0,1);
+		}
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 0)
+		{
+			setTexturePosition(1,1);
+		}
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 1)
+		{
+			setTexturePosition(0,1);
+		}
+		break;
+	}
 	
-}
-
-void Character :: SetWalkBlock (char naam , bool mode)
-{
-	if (naam == 'L')
-	{
-		WalkBlock[1] = mode;
-	}
-
-	if (naam == 'R')
-	{
-		WalkBlock[2] = mode;
-	}
-
-
 }
 
 void Character :: setWalkBehaviour(WalkBehaviour *qb)
@@ -92,15 +119,22 @@ void Character::Move(char Direction, POINT curPos)
 		this->Walk('L', curPos);
 		break;
 	case 'D': //Move Down
+		this->setTexturePosition(13,1);
 		break;
-	case 'U':
-		this->Walk('U', curPos);//Move Up
+	case 'U': //Move Up
+		this->Jump(curPos);
 		break;
 	}
 }
 
-void Character::Jump()
+void Character::Jump(POINT curPos)
 {
+	SetPosition(jumpBehaviour->Jump(curPos));
+}
+
+void Character :: setJumpBehaviour(JumpBehaviour *jb)
+{
+	jumpBehaviour = jb;
 }
 
 void Character::Fly()
@@ -111,4 +145,29 @@ void Character::Attack()
 {
 }
 
+void Character::setTexturePosition(POINT newPoint)
+{
+	texturePosition = newPoint;
+}
+
+void Character::setTexturePosition(int x, int y)
+{
+	texturePosition.x = x;
+	texturePosition.y = y;
+}
+
+POINT Character::getTexturePosition()
+{
+	return texturePosition;
+}
+
+void Character::setDirection(char Direction)
+{
+	this->Direction = Direction;
+}
+
+char Character::getDirection()
+{
+	return Direction;
+}
 

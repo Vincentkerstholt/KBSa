@@ -16,6 +16,7 @@ public:
 	int textureNumber;
 	POINT collisionPoint[8];
 	
+
 };
 
 #endif
