@@ -4,8 +4,8 @@ Gamestate::Gamestate(int x, int y)
 {
 	this->x = x;
 	this->y = y;
+	
 	Mario = new Hero();
-
 	multiplier = 32;
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
@@ -125,10 +125,24 @@ void Gamestate::drawWorld(HDC & hdc){
 			if(level[index] == NULL)
 				continue;
 			if(level[index]->getClassName() == "Block")
+			{
 				hObstacleBitmap = factory->getBlock(n, m);
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 50, SRCCOPY);
+
+				DeleteDC(hObstacleDC);
+				DeleteObject(hObstacleBitmap);
+			}
+
 			else if(level[index]->getClassName() == "Pipe")
 				hObstacleBitmap = factory->getPipe(n, m);
 			else if(level[index]->getClassName() == "Ground")
+			{
 				hObstacleBitmap = factory->getGround(n, m);
 
 			hObstacleDC = CreateCompatibleDC(hdc);
@@ -140,6 +154,7 @@ void Gamestate::drawWorld(HDC & hdc){
 
 			DeleteDC(hObstacleDC);
 			DeleteObject(hObstacleBitmap);
+			}
 		}
 	}
 }
@@ -169,7 +184,9 @@ void Gamestate::CreateWorld(){
 
 			if(m == y-1 && n == 10 )
 				level[index] = NULL;
-			else if(m == y-2 && n == 2 )
+			else if(m == y-3 && n == 2 )
+				level[index] = new Block(68,0);
+			else if(m == y-2 && n == 15 )
 				level[index] = new Ground(68,0);
 			else if(m == y-1 )
 				level[index] = new Ground(68,0);
@@ -192,24 +209,64 @@ void Gamestate::DownCollision()
 	POINT mario;
 	POINT mario1;
 	POINT mario2;
-	int marioindex = 0 , marioindex2 = 0;
+	POINT mario3;
+	POINT mario4;
+	int marioindex = 0 , marioindex2 = 0, marioindex3 = 0 , marioindex4 = 0;
+	//down
 	mario = Mario->GetPositionPixel();
 	mario1.x = ((mario.x+31)/32);
 	mario1.y = ((mario.y+33)/32);
-	mario2.x = ((mario.x)/32);
+	mario2.x = ((mario.x+2)/32);
 	mario2.y = ((mario.y+33)/32);
+	//up
+	mario3.x = ((mario.x+31)/32);
+	mario3.y = ((mario.y)/32);
+	mario4.x = ((mario.x+2)/32);
+	mario4.y = ((mario.y)/32);
+
 	marioindex = getIndex(mario1.x,mario1.y);
 	marioindex2 = getIndex(mario2.x,mario2.y);
+	marioindex3 = getIndex(mario3.x,mario3.y);
+	marioindex4 = getIndex(mario4.x,mario4.y);
+
+
 	string check = BoxCheck(marioindex);
 	string check2 = BoxCheck(marioindex2);
+	string check3 = BoxCheck(marioindex3);
+	string check4 = BoxCheck(marioindex4);
+	
 	if ( mario.y < 670)
 	{
+		if(Mario->Jumped < Mario->JumpHeight )
+		{
+			Mario->JumpAbility = true;
+		}
+
+		if (check3 == "Block" || check4 == "Block")
+		{
+			Mario->JumpAbility = false;
+						
+		}
+
 		if (check == "NULL" && check2 == "NULL" )
 		{
+			if (Mario->Jumped == 0)
+			{
+				Mario->JumpAbility = false;
+			}
 			Mario->SetPosition(mario.x, (mario.y+8));
 		}
+		else
+		{
+			Mario->Jumped=0;
+			Mario->JumpAbility = true;
+		}
+		
 	}
-
+	else
+	{
+		Mario->JumpAbility = false;
+	}	
 }
 
 string Gamestate::BoxCheck(int index)
@@ -217,7 +274,7 @@ string Gamestate::BoxCheck(int index)
 	string type;
 	if (level[index] != NULL)
 	{
-		type = "Ground";
+		type = level[index]->getClassName();
 	}
 	else
 	{

@@ -24,16 +24,17 @@ void CSkeleton::GameLoop()
 {
 	int mariopixX = 0;
 	int mariopixY = 0;
-	int marioindex = 0;
+	int marioindex = 0, marioindex2 = 0;
 	RECT rect;
+	POINT mario , mario1;
 	::GetClientRect(m_hWnd, &rect);
 
 	gameState->draw(graphics, debugMode);
 
 	if (::GetAsyncKeyState(VK_RIGHT))
 	{
+
 		gameState->Mario->setTexturePosition(1,0);
-		POINT mario;
 		mario = gameState->Mario-> GetPositionPixel();
 		mario.x = ((mario.x+33)/32);
 		mario.y = ((mario.y+31)/32);
@@ -42,7 +43,7 @@ void CSkeleton::GameLoop()
 
 		string check = gameState->BoxCheck(marioindex);
 
-		if (check == "Ground")
+		if (check == "Ground" || check == "Block")
 		{
 		 int onzin  = 1;		
 		}		
@@ -55,7 +56,6 @@ void CSkeleton::GameLoop()
 	if (::GetAsyncKeyState(VK_LEFT))
 	{
 		gameState->Mario->setTexturePosition(14,0);
-		POINT mario;
 		mario = gameState->Mario-> GetPositionPixel();
 		mario.x = ((mario.x-1)/32);
 		mario.y = ((mario.y+31)/32);
@@ -64,9 +64,9 @@ void CSkeleton::GameLoop()
 
 		string check = gameState->BoxCheck(marioindex);
 
-		if (check == "Ground")
+		if (check == "Ground" || check == "Block")
 		{
-			int onzin  = 1;		
+		
 		}		
 		else
 		{
@@ -80,7 +80,8 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_UP))
 	{
-		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
+			gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
+
 	}
 
 	if (::GetAsyncKeyState(VK_F1)){

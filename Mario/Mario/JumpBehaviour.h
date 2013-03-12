@@ -8,7 +8,7 @@ class JumpBehaviour
 private:
 
 public:
-	virtual POINT Jump(POINT CurPos) = 0;
+	virtual POINT Jump(POINT CurPos,int height) = 0;
 };
 
 #endif

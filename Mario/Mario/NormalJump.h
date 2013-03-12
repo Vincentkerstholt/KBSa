@@ -5,5 +5,5 @@ class NormalJump : public JumpBehaviour
 private:
 
 public:
-	POINT Jump(POINT CurPos);
+	POINT Jump(POINT CurPos, int Height);
 };

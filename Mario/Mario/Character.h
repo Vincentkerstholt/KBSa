@@ -37,8 +37,12 @@ public:
 	char getDirection();
 	POINT getTexturePosition();
 	HANDLE texture;
-
+	BOOL JumpAbility;
+	int JumpHeight;
+	int Jumped;
+	
 private:
+	
 	string Name;
 	char Direction;
 	int Health;
