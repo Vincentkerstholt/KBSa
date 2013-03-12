@@ -81,6 +81,8 @@ void XmlParser::parse(string fileLocation){
 				}
 				else{
 					tagName = cleanLine.substr(beginningTagStart + 1, firstWhiteSpace - 1);
+					if(tagName[0] == '?')
+						continue;
 					if(beginningTagEnd > -1)
 						remaining = cleanLine.substr(firstWhiteSpace + 1, beginningTagEnd - firstWhiteSpace - 1);
 					else

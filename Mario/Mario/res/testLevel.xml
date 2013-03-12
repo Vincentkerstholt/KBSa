@@ -2,7 +2,7 @@
     <factory name="landscape"/>
     <level width="43" height="22">
         <blocks>
-            <block id="b1">
+            <block isSpecial="true">
                 <location x="5" y="17"/>
                 <gadget>
                     <coin value="5"/>

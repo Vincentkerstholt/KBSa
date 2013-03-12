@@ -118,13 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="backgroundCave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\backgroundCave.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="backgroundSky" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\backgroundSky.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ground.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="backgroundCave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backgroundCave.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundCenterCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundCenterCenter.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundTopCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundTopCenter.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Block.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundBottomCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundBottomCenter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundBottomLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundBottomLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundBottomRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundBottomRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundCenterLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundCenterLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundCenterRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundCenterRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundTopLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundTopLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="groundTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\groundTopRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Mario" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SpecialBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SpecialBlock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

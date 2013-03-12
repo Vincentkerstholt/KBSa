@@ -51,6 +51,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -88,6 +89,66 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ground.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundBottomCenter.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundBottomLeft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundBottomRight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundCenterCenter.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundCenterLeft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundCenterRight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundTopCenter.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundTopLeft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundTopRight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpecialBlock.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Block.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundBottomCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundBottomLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundBottomRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundCenterLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundCenterRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundTopLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\groundTopRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpecialBlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mario.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,7 +2,7 @@
 
 Gamestate::Gamestate()
 {
-	xml = new XmlParser("res/testLevel.xml");
+	xml = new XmlParser("res/Landscape.xml");
 
 	XmlParserNode * levelXml = xml->getNode("level");
 	string width = levelXml->getAttribute("width");
