@@ -1,21 +1,23 @@
 #include "Gamestate.h"
 
+const int multiplier = 32;
+
 Gamestate::Gamestate(int x, int y)
 {
 	this->x = x;
 	this->y = y;
 	Mario = new Hero();
 
-	multiplier = 32;
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	level = new Gameobject*[(x * y)];
 	factory = new LandThemeFactory();
 
-	multiplier = 32;
 	frames = 0;
 	curTime = 0;
 	fps = 0;
+	selector = 0;
+	Mario->SetPosition(160,640);
 
 	CreateWorld();
 }
@@ -80,7 +82,7 @@ void Gamestate::drawBackground(HDC & hdc){
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
 
-	StretchBlt(hdc, 0, 0, ConvertIndexToXY(43), ConvertIndexToXY(22), hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
+	StretchBlt(hdc, 0, 0, 1362, 702, hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
 	
 	DeleteDC(hBackgroundDC);
 	DeleteObject(hBackgroundBitmap);
@@ -191,6 +193,65 @@ void Gamestate::CreateWorld(){
 				level[index] = NULL;
 		}
 	}
+}
+
+void Gamestate::menu(HDC & hdc)
+{
+	Sleep(100);
+
+	if(GetAsyncKeyState(VK_UP))	{
+		selector--;
+	}
+	if(GetAsyncKeyState(VK_DOWN))	{
+		selector++;
+	}
+	if (GetAsyncKeyState(VK_ESCAPE))	{
+		Sleep(150);
+		inMenu = false;
+	}
+
+	if (selector < 0)
+		selector = 0;
+	if (selector > 2)
+		selector = 2;
+
+	if (GetAsyncKeyState(VK_RETURN))
+	{
+		switch (selector)
+		{
+		case 0:
+			// reset lvl
+			Mario->SetPosition(160,640);
+			inMenu = false;
+		break;
+		case 1:
+			//save game
+		break;
+		case 2:
+			//load game
+		break;
+		default:
+		break;
+		}
+	}
+
+	hBackgroundBitmap = LoadImage(NULL, "res/menu.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hBackgroundDC = CreateCompatibleDC(hdc);
+
+	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap);
+	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
+
+	DeleteObject(hBackgroundBitmap);
+
+	hBackgroundBitmap = LoadImage(NULL, "res/Arrows.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap);
+	TransparentBlt(hdc,365 , 110 + (selector * 75) , bitmap.bmWidth , bitmap.bmHeight,hBackgroundDC,0,0,bitmap.bmWidth,bitmap.bmHeight,GetPixel(hBackgroundDC,0,0));
+	
+	DeleteDC(hBackgroundDC);
+	DeleteObject(hBackgroundBitmap);
 }
 
 Gamestate::~Gamestate(){
