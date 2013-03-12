@@ -17,3 +17,7 @@ HANDLE LandThemeFactory::getGround(int x, int y){
 HANDLE LandThemeFactory::getBackgroundImage(){
 	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
+
+HANDLE LandThemeFactory::getBackgroundImage2(){
+	return LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+}

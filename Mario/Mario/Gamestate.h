@@ -8,6 +8,7 @@
 #include "factories.h"
 #include "obstacles.h"
 #include "Camera.h"
+#include <time.h>
 #include <sstream>
 
 using namespace std;
@@ -36,13 +37,18 @@ private:
 	int multiplier;
 	HDC hdc;
 	POINT point;
+	
 	HANDLE hBackgroundBitmap;
+	HANDLE hBackgroundBitmap2;
 	HANDLE hObstacleBitmap;
+	
 	HDC hBackgroundDC;
 	HDC hObstacleDC;
 	BITMAP bitmap;
 	HDC hCharacterDC;
 	int frames;
+	int curTime;
+	int fps;
 
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);

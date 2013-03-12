@@ -8,20 +8,25 @@ Gamestate::Gamestate(int x, int y)
 	Mario = new Hero();
 	multiplier = 32;
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-
+	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	level = new Gameobject*[(x * y)];
 	factory = new LandThemeFactory();
 
 	multiplier = 32;
 	frames = 0;
+	curTime = 0;
+	fps = 0;
 
 	CreateWorld();
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
+<<<<<<< HEAD
 
 	frames++;
+=======
+>>>>>>> feature-scroll
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	DownCollision();
 	drawBackground(hdc);
@@ -49,7 +54,7 @@ void Gamestate::DrawHorizontalBorder(int y){
 
 void Gamestate::DrawVerticalBorder(int x){
 	MoveToEx(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(0), &point);
-	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(23));
+	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(22));
 }
 
 void Gamestate::drawGrid(HDC & hdc){
@@ -106,6 +111,7 @@ void Gamestate::drawStatistics(HDC & hdc){
 
 void Gamestate::drawBackground(HDC & hdc){
 	hBackgroundBitmap = factory->getBackgroundImage();
+	
 
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
@@ -113,17 +119,32 @@ void Gamestate::drawBackground(HDC & hdc){
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
 
 	StretchBlt(hdc, 0, 0, ConvertIndexToXY(43), ConvertIndexToXY(22), hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
-
+	
 	DeleteDC(hBackgroundDC);
 	DeleteObject(hBackgroundBitmap);
+
+	hBackgroundBitmap2 = factory->getBackgroundImage2();
+	hBackgroundDC = CreateCompatibleDC(hdc);
+
+	GetObject(hBackgroundBitmap2, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap2);
+
+	TransparentBlt(hdc, -camera.getXPosition()/2%bitmap.bmWidth,				230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
+	TransparentBlt(hdc, bitmap.bmWidth - camera.getXPosition() / 2 % bitmap.bmWidth, 230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
+	DeleteDC(hBackgroundDC);
+	DeleteObject(hBackgroundBitmap2);
 }
 
 void Gamestate::drawWorld(HDC & hdc){
+
+	hObstacleBitmap = factory->getGround(0, 0);
+
 	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 			if(level[index] == NULL)
 				continue;
+<<<<<<< HEAD
 			if(level[index]->getClassName() == "Block")
 			{
 				hObstacleBitmap = factory->getBlock(n, m);
@@ -144,6 +165,14 @@ void Gamestate::drawWorld(HDC & hdc){
 			else if(level[index]->getClassName() == "Ground")
 			{
 				hObstacleBitmap = factory->getGround(n, m);
+=======
+			//if(level[index]->getClassName() == "Block")
+			//	hObstacleBitmap = factory->getBlock(n, m);
+			//else if(level[index]->getClassName() == "Pipe")
+			//	hObstacleBitmap = factory->getPipe(n, m);
+			//else if(level[index]->getClassName() == "Ground")
+			//	hObstacleBitmap = factory->getGround(n, m);
+>>>>>>> feature-scroll
 
 			hObstacleDC = CreateCompatibleDC(hdc);
 
@@ -153,12 +182,53 @@ void Gamestate::drawWorld(HDC & hdc){
 			BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 0, SRCCOPY);
 
 			DeleteDC(hObstacleDC);
+<<<<<<< HEAD
 			DeleteObject(hObstacleBitmap);
 			}
+=======
+>>>>>>> feature-scroll
 		}
 	}
+
+	DeleteObject(hObstacleBitmap);
 }
 
+<<<<<<< HEAD
+=======
+void Gamestate::drawStatistics(HDC & hdc){
+	
+
+	int xValue = this->Mario->GetPositionPixel().x;
+	int yValue = this->Mario->GetPositionPixel().y;
+	ostringstream oss;
+
+	oss << "Pos. Mario: " << xValue << " " << yValue;
+	TextOut(hdc, 10, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+	oss.clear();
+
+	oss << "screen position: " << camera.getXPosition();
+	TextOut(hdc, 10, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+	oss.clear();
+
+	frames++;
+	if (curTime != time(NULL))
+	{
+		curTime = time(NULL);
+		fps = frames;
+		frames = 0;
+	}
+
+	oss << "fps: " << fps;
+	TextOut(hdc, 10, 50, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+	oss.clear();
+}
+
+>>>>>>> feature-scroll
 void Gamestate::changeFactory(char firstLetter){
 	switch(firstLetter){
 	case 'D':
@@ -182,6 +252,7 @@ void Gamestate::CreateWorld(){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 
+<<<<<<< HEAD
 			if(m == y-1 && n == 10 )
 				level[index] = NULL;
 			else if(m == y-3 && n == 2 )
@@ -189,6 +260,11 @@ void Gamestate::CreateWorld(){
 			else if(m == y-2 && n == 15 )
 				level[index] = new Ground(68,0);
 			else if(m == y-1 )
+=======
+			/*if ((m == y-3) && (n%2 == 1))
+				level[index] = new Ground(68,0);
+			else*/ if(m == y-1)
+>>>>>>> feature-scroll
 				level[index] = new Ground(68,0);
 			else
 				level[index] = NULL;
