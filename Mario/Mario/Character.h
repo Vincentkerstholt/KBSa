@@ -26,12 +26,15 @@ public:
 	virtual POINT GetPositionPixel();
 	WalkBehaviour *walkBehaviour;
 	virtual void setWalkBehaviour(WalkBehaviour *qb); 
+	void SetWalkBlock(char side, bool mode);
+	
 private:
 	string name;
 	int Health;
 	POINT Position;
 	int Power;
 	int Speed;
-};
+	BOOL WalkBlock[2];
+	};
 
 #endif

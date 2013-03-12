@@ -20,8 +20,10 @@ Gamestate::Gamestate(int x, int y)
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
+
 	frames++;
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
+	DownCollision();
 	drawBackground(hdc);
 	drawCharacters(hdc);
 	drawWorld(hdc);
@@ -112,9 +114,11 @@ void Gamestate::drawWorld(HDC & hdc){
 
 void Gamestate::drawStatistics(HDC & hdc){
 
-	int xValue = ConvertIndexToXY(this->Mario->GetPositionPixel().x);
-	int yValue = ConvertIndexToXY(this->Mario->GetPositionPixel().y);
+	int xValue = this->Mario->GetPositionPixel().x;
+	int yValue = this->Mario->GetPositionPixel().y;
 	ostringstream oss;
+
+
 
 	oss << xValue << " " << yValue;
 	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
@@ -125,9 +129,47 @@ void Gamestate::drawStatistics(HDC & hdc){
 	oss << camera.getXPosition();
 	TextOut(hdc, 10, 30, "screen position: ", 16);
 	TextOut(hdc, 120, 30, oss.str().c_str(), strlen(oss.str().c_str()));
-
 	oss.str("");
 	oss.clear();
+
+	xValue = xValue / 32;
+	yValue = yValue / 32;
+
+	int indexmario = getIndex(xValue, yValue);
+
+	oss << indexmario ;
+	TextOut(hdc, 10, 50, "index Mario: ", 16);
+	TextOut(hdc, 95, 50, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+	oss.clear();
+
+	xValue = this->Mario->GetPositionPixel().x + 31;
+	yValue = this->Mario->GetPositionPixel().y + 16;
+	
+	xValue = xValue / 32;
+	yValue = yValue / 32;
+
+	indexmario = getIndex(xValue, yValue);
+
+	oss << indexmario ;
+	TextOut(hdc, 10, 70, "rechterheup: ", 16);
+	TextOut(hdc, 95, 70, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+	oss.clear();
+
+
+	if (level[indexmario] != NULL)
+	{
+		oss << level[indexmario]->getClassName();
+	}
+	else
+		oss << "NULL";
+
+	TextOut(hdc, 10, 90, "hokje: ", 16);
+	TextOut(hdc, 95, 90, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+	oss.clear();
+
 }
 
 void Gamestate::changeFactory(char firstLetter){
@@ -153,9 +195,11 @@ void Gamestate::CreateWorld(){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 
-			if ((m == y-3) && (n%2 == 1))
+			if(m == y-1 && n == 10 )
+				level[index] = NULL;
+			else if(m == y-2 && n == 2 )
 				level[index] = new Ground(68,0);
-			else if(m == y-1)
+			else if(m == y-1 )
 				level[index] = new Ground(68,0);
 			else
 				level[index] = NULL;
@@ -170,3 +214,45 @@ Gamestate::~Gamestate(){
 	delete factory;
 	factory = NULL;
 }
+
+void Gamestate::DownCollision()
+{
+	POINT mario;
+	POINT mario1;
+	POINT mario2;
+	int marioindex = 0 , marioindex2 = 0;
+	mario = Mario->GetPositionPixel();
+	mario1.x = ((mario.x+31)/32);
+	mario1.y = ((mario.y+33)/32);
+	mario2.x = ((mario.x)/32);
+	mario2.y = ((mario.y+33)/32);
+	marioindex = getIndex(mario1.x,mario1.y);
+	marioindex2 = getIndex(mario2.x,mario2.y);
+	string check = BoxCheck(marioindex);
+	string check2 = BoxCheck(marioindex2);
+	if ( mario.y < 670)
+	{
+		if (check == "NULL" && check2 == "NULL" )
+		{
+			Mario->SetPosition(mario.x, (mario.y+8));
+		}
+	}
+
+}
+
+string Gamestate::BoxCheck(int index)
+{
+	string type;
+	if (level[index] != NULL)
+	{
+		type = "Ground";
+	}
+	else
+	{
+	type = "NULL";
+	}
+
+	return type;
+	
+}
+

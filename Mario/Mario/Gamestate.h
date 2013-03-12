@@ -21,6 +21,9 @@ public:
 	Gamestate(int x, int y);
 	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
+	string BoxCheck(int index);
+	int getIndex(int n, int m);
+	void DownCollision();
 	Hero * Mario;
 	~Gamestate();
 
@@ -49,7 +52,7 @@ private:
 	void drawWorld(HDC & hdc);
 	int ConvertIndexToXY(int index);
 	void CreateWorld();
-	int getIndex(int n, int m);
 	void Gamestate::drawStatistics(HDC & hdc);
+	
 };
 #endif

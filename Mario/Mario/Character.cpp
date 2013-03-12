@@ -4,9 +4,41 @@ Character::Character()
 {
 }
 
+
 void Character :: Walk (char Direction, POINT curPos)
 {
+	if (Direction == 'L' && !WalkBlock[1])
+	{
+	SetPosition(walkBehaviour->Walk(Direction, curPos));
+	}
+	if (Direction == 'R' && !WalkBlock[2])
+	{
 	SetPosition(walkBehaviour->Walk(Direction, curPos)); 
+	}
+	if (Direction == 'U' )
+	{
+		SetPosition(walkBehaviour->Walk(Direction, curPos)); 
+	}
+	if (Direction == 'D' )
+	{
+		SetPosition(walkBehaviour->Walk(Direction, curPos)); 
+	}
+	
+}
+
+void Character :: SetWalkBlock (char naam , bool mode)
+{
+	if (naam == 'L')
+	{
+		WalkBlock[1] = mode;
+	}
+
+	if (naam == 'R')
+	{
+		WalkBlock[2] = mode;
+	}
+
+
 }
 
 void Character :: setWalkBehaviour(WalkBehaviour *qb)
@@ -25,7 +57,9 @@ POINT Character :: GetPositionIndex()
 
 POINT Character :: GetPositionPixel()
 {
-	return Position;
+	POINT Position2;
+	Position2 = Position;
+	return Position2;
 }
 
 void Character :: SetPosition(int x, int y)
@@ -59,7 +93,8 @@ void Character::Move(char Direction, POINT curPos)
 		break;
 	case 'D': //Move Down
 		break;
-	case 'U': //Move Up
+	case 'U':
+		this->Walk('U', curPos);//Move Up
 		break;
 	}
 }
@@ -75,3 +110,5 @@ void Character::Fly()
 void Character::Attack()
 {
 }
+
+
