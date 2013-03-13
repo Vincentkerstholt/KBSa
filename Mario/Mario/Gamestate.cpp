@@ -29,7 +29,7 @@ Gamestate::Gamestate()
 	selector = 0;
 	Mario->SetPosition(160,608);
 
-	CreateWorld();
+	//CreateWorld();
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
@@ -299,6 +299,7 @@ void Gamestate::CreateWorld(){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		if (index > 0 && index < x * y )
 		level[index] = new Block();
 	}
 
@@ -308,6 +309,7 @@ void Gamestate::CreateWorld(){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		if (index > 0 && index < x * y )
 		level[index] = new Ground(0,0, child->getAttribute("type"));
 	}
 
@@ -318,6 +320,7 @@ void Gamestate::CreateWorld(){
 		
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		if (index > 0 && index < x * y )
 		level[index] = new Pipe(child->getAttribute("type"));
 	}
 }
@@ -349,6 +352,7 @@ void Gamestate::menu(HDC & hdc)
 		case 0:
 			// reset lvl
 			Mario->SetPosition(160,640);
+			CreateWorld();
 			inMenu = false;
 		break;
 		case 1:
