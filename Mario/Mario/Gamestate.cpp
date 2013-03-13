@@ -1,24 +1,36 @@
 #include "Gamestate.h"
 
+
 const int multiplier = 32;
 
-Gamestate::Gamestate(int x, int y)
+Gamestate::Gamestate()
+
 {
+	xml = new XmlParser("res/Landscape.xml");
+
+	XmlParserNode * levelXml = xml->getNode("level");
+	string width = levelXml->getAttribute("width");
+	string height = levelXml->getAttribute("height");
+	int x = stoi( width );
+	int y = stoi( height );
+
 	this->x = x;
 	this->y = y;
-	
+
 	Mario = new Hero();
 
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	level = new Gameobject*[(x * y)];
-	factory = new LandThemeFactory();
+	XmlParserNode * factoryXml = xml->getNode("factory");
+	factory = getFactory(factoryXml->getAttribute("name"));
+
 
 	frames = 0;
 	curTime = 0;
 	fps = 0;
 	selector = 0;
-	Mario->SetPosition(160,640);
+	Mario->SetPosition(160,608);
 
 	CreateWorld();
 }
@@ -37,6 +49,16 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 		drawGrid(hdc);
 		drawStatistics(hdc);
 	}
+}
+IThemeFactory * Gamestate::getFactory(string name){
+	if(name == "landscape")
+		return new LandThemeFactory();
+	else if(name == "dungeon")
+		return new DungeonThemeFactory();
+	else if(name == "sky")
+		return new SkyThemeFactory();
+	else if(name == "water")
+		return new WaterThemeFactory();
 }
 
 int Gamestate::ConvertIndexToXY(int index){
@@ -137,7 +159,6 @@ void Gamestate::drawBackground(HDC & hdc){
 
 void Gamestate::drawWorld(HDC & hdc){
 
-	hObstacleBitmap = factory->getGround(0, 0);
 
 	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
 		for(int m = 0; m < y; m++){
@@ -147,22 +168,11 @@ void Gamestate::drawWorld(HDC & hdc){
 			if(level[index]->getClassName() == "Block")
 			{
 				hObstacleBitmap = factory->getBlock(n, m);
-
-				hObstacleDC = CreateCompatibleDC(hdc);
-
-				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
-				SelectObject(hObstacleDC, hObstacleBitmap);
-
-				BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 50, SRCCOPY);
-
-				DeleteDC(hObstacleDC);
-				DeleteObject(hObstacleBitmap);
 			}
 
-			else if(level[index]->getClassName() == "Pipe")
+			if(level[index]->getClassName() == "Pipe")
 				hObstacleBitmap = factory->getPipe(n, m);
-			else if(level[index]->getClassName() == "Ground")
-			{
+			if(level[index]->getClassName() == "Ground")
 				hObstacleBitmap = factory->getGround(n, m);
 
 			hObstacleDC = CreateCompatibleDC(hdc);
@@ -173,14 +183,12 @@ void Gamestate::drawWorld(HDC & hdc){
 			BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 0, SRCCOPY);
 
 			DeleteDC(hObstacleDC);
-
 			DeleteObject(hObstacleBitmap);
-			}
+			
 
 		}
 	}
 
-	DeleteObject(hObstacleBitmap);
 }
 
 
@@ -206,18 +214,36 @@ void Gamestate::CreateWorld(){
 	{
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
-
-			if(m == y-1 && n == 10 )
-				level[index] = NULL;
-			else if(m == y-3 && n == 2 )
-				level[index] = new Block(68,0);
-			else if(m == y-2 && n == 15 )
-				level[index] = new Ground(68,0);
-			else if(m == y-1)
-				level[index] = new Ground(68,0);
-			else
-				level[index] = NULL;
+			level[index] = NULL;
 		}
+	}
+
+	XmlParserNode * blocks = xml->getNode("blocks");
+	XmlParserNode ** childs = blocks->getChilds();
+
+	for(int i = 0; i < blocks->getChildsLength(); i++){
+		XmlParserNode * child = childs[i];
+		XmlParserNode * childLocation = child->getNode("location");
+		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		level[index] = new Block(0,0);
+	}
+
+	XmlParserNode * grounds = xml->getNode("grounds");
+	childs = grounds->getChilds();
+	for(int i = 0; i < grounds->getChildsLength(); i++){
+		XmlParserNode * child = childs[i];
+		XmlParserNode * childLocation = child->getNode("location");
+		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		level[index] = new Ground(0,0, child->getAttribute("type"));
+	}
+
+	XmlParserNode * pipes = xml->getNode("grounds");
+	childs = pipes->getChilds();
+	for(int i = 0; i < pipes->getChildsLength(); i++){
+		XmlParserNode * child = childs[i];
+		XmlParserNode * childLocation = child->getNode("location");
+		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		level[index] = new Pipe(0,0);
 	}
 }
 
@@ -286,6 +312,8 @@ Gamestate::~Gamestate(){
 
 	delete factory;
 	factory = NULL;
+	delete xml;
+	xml = NULL;
 }
 
 void Gamestate::DownCollision()

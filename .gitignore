@@ -17,8 +17,12 @@
 *.a
 
 *~
-/Mario/ipch
-/Mario/Debug
-/Mario/Mario/Debug
-/Mario/Mario.suo
-/Mario/_ReSharper.Mario
+/Mario/ipch/
+/Mario/Debug/
+/Mario/Mario/Debug/
+/Mario/Mario.suo/
+/Mario/_ReSharper.Mario/
+
+/Levelbuilder/Levelbuilder.v11.suo
+/Levelbuilder/Levelbuilder/bin/
+

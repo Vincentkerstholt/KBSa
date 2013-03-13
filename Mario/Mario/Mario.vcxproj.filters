@@ -67,6 +67,12 @@
     </Filter>
     <Filter Include="Source Files\Jump">
       <UniqueIdentifier>{067aa6a7-2d71-4e85-8b53-a1b8356568dc}</UniqueIdentifier>
+	</Filter>
+    <Filter Include="Header Files\Parser">
+      <UniqueIdentifier>{7c76bc37-d81b-4d99-b798-2a06fbbce2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parser">
+      <UniqueIdentifier>{ef99a131-d612-445c-ad4a-bbc2e2852bd4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +135,12 @@
     </ClCompile>
     <ClCompile Include="NormalJump.cpp">
       <Filter>Source Files\Jump</Filter>
+	  </ClCompile>
+    <ClCompile Include="XMLParser.cpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLParserNode.cpp">
+      <Filter>Source Files\Parser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +209,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
+	</ClInclude>
+    <ClInclude Include="XMLParser.h">
+      <Filter>Header Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLParserNode.h">
+      <Filter>Header Files\Parser</Filter>
     </ClInclude>
     <ClInclude Include="FastWalk.h">
       <Filter>Header Files\Walk</Filter>
@@ -222,6 +240,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\world8.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\testLevel.xml">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

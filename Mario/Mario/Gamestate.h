@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include <time.h>
 #include <sstream>
+#include "XMLParser.h"
 
 using namespace std;
 
@@ -19,7 +20,6 @@ class Gamestate
 {
 public:
 	Gamestate();
-	Gamestate(int x, int y);
 	void menu(HDC & hdc);
 	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
@@ -61,6 +61,8 @@ private:
 	int ConvertIndexToXY(int index);
 	void CreateWorld();
 	void Gamestate::drawStatistics(HDC & hdc);
+	XmlParser * xml;
 	
+	IThemeFactory * getFactory(string name);
 };
 #endif
