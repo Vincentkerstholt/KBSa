@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="landscape" />
+	<hero character="mario" x="2" y="19" />
 	<level width="215" height="22">
 		<blocks>
 			<block isSpecial="false">
@@ -725,6 +726,150 @@
 			</block>
 		</blocks>
 		<pipes>
+			<pipe type="topleft">
+				<location x="63" y="16" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="63" y="17" />
+			</pipe>
+			<pipe type="topcenter">
+				<location x="64" y="16" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="64" y="17" />
+			</pipe>
+			<pipe type="topright">
+				<location x="65" y="16" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="65" y="17" />
+			</pipe>
+			<pipe type="topleft">
+				<location x="158" y="18" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="158" y="19" />
+			</pipe>
+			<pipe type="topcenter">
+				<location x="159" y="18" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="159" y="19" />
+			</pipe>
+			<pipe type="topright">
+				<location x="160" y="18" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="160" y="19" />
+			</pipe>
+			<pipe type="topleft">
+				<location x="174" y="16" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="174" y="17" />
+			</pipe>
+			<pipe type="topcenter">
+				<location x="175" y="16" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="175" y="17" />
+			</pipe>
+			<pipe type="topright">
+				<location x="176" y="16" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="176" y="17" />
+			</pipe>
+			<pipe type="topleft">
+				<location x="178" y="14" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="178" y="15" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="178" y="16" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="178" y="17" />
+			</pipe>
+			<pipe type="topcenter">
+				<location x="179" y="14" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="179" y="15" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="179" y="16" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="179" y="17" />
+			</pipe>
+			<pipe type="topright">
+				<location x="180" y="14" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="180" y="15" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="180" y="16" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="180" y="17" />
+			</pipe>
+			<pipe type="topleft">
+				<location x="182" y="12" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="182" y="13" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="182" y="14" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="182" y="15" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="182" y="16" />
+			</pipe>
+			<pipe type="bottomleft">
+				<location x="182" y="17" />
+			</pipe>
+			<pipe type="topcenter">
+				<location x="183" y="12" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="183" y="13" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="183" y="14" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="183" y="15" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="183" y="16" />
+			</pipe>
+			<pipe type="bottomcenter">
+				<location x="183" y="17" />
+			</pipe>
+			<pipe type="topright">
+				<location x="184" y="12" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="184" y="13" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="184" y="14" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="184" y="15" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="184" y="16" />
+			</pipe>
+			<pipe type="bottomright">
+				<location x="184" y="17" />
+			</pipe>
 		</pipes>
 		<grounds>
 			<ground type="topright">

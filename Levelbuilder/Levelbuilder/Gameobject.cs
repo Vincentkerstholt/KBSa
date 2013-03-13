@@ -19,33 +19,33 @@ namespace Levelbuilder
         public override Image getImage()
         {
             Image returnImage = null;
-            switch (groundType)
+            switch (groundType.ToLower())
             {
-                case "TopLeft":
+                case "topleft":
                     returnImage = Properties.Resources.groundTopLeft;
                     break;
-                case "TopCenter":
+                case "topcenter":
                     returnImage = Properties.Resources.groundTopCenter;
                     break;
-                case "TopRight":
+                case "topright":
                     returnImage = Properties.Resources.groundTopRight;
                     break;
-                case "CenterLeft":
+                case "centerleft":
                     returnImage = Properties.Resources.groundCenterLeft;
                     break;
-                case "CenterCenter":
+                case "centercenter":
                     returnImage = Properties.Resources.groundCenterCenter;
                     break;
-                case "CenterRight":
+                case "centerright":
                     returnImage = Properties.Resources.groundCenterRight;
                     break;
-                case "BottomLeft":
+                case "bottomleft":
                     returnImage = Properties.Resources.groundBottomLeft;
                     break;
-                case "BottomCenter":
+                case "bottomcenter":
                     returnImage = Properties.Resources.groundBottomCenter;
                     break;
-                case "BottomRight":
+                case "bottomright":
                     returnImage = Properties.Resources.groundBottomRight;
                     break;
             }
@@ -59,30 +59,30 @@ namespace Levelbuilder
         public override Image getImage()
         {
             Image returnImage = null;
-            switch (pipeType)
+            switch (pipeType.ToLower())
             {
-                case "TopLeft":
-
+                case "topleft":
+                    returnImage = Properties.Resources.pipeTopLeft;
                     break;
 
-                case "TopCenter":
-
+                case "topcenter":
+                    returnImage = Properties.Resources.pipeTopCenter;
                     break;
 
-                case "TopRight":
-
+                case "topright":
+                    returnImage = Properties.Resources.pipeTopRight;
                     break;
 
-                case "Left":
-
+                case "bottomleft":
+                    returnImage = Properties.Resources.pipeBottomLeft;
                     break;
 
-                case "Center":
-
+                case "bottomcenter":
+                    returnImage = Properties.Resources.pipeBottomCenter;
                     break;
 
-                case "Right":
-
+                case "bottomright":
+                    returnImage = Properties.Resources.pipeBottomRight;
                     break;
             }
 
@@ -108,9 +108,9 @@ namespace Levelbuilder
         public override Image getImage()
         {
             Image returnImage = null;
-            switch (character)
+            switch (character.ToLower())
             {
-                case "Mario":
+                case "mario":
                     returnImage = Properties.Resources.Mario;
                     break;
             }
