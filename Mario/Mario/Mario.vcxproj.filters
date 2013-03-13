@@ -127,6 +127,12 @@
     <ClCompile Include="XMLParserNode.cpp">
       <Filter>Source Files\Parser</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FastWalk.cpp">
+      <Filter>Source Files\Walk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamestate.h">
@@ -194,6 +200,12 @@
     </ClInclude>
     <ClInclude Include="XMLParserNode.h">
       <Filter>Header Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files\Walk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

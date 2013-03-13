@@ -2,8 +2,9 @@
 
 Hero::Hero()
 {
-	SetPosition(0, 20);
-	walkBehaviour = new NormalWalk(); 
+	SetPosition(32, 608);
+	textureNumber = 1;
+	walkBehaviour = new FastWalk(); 
 	texture = LoadImage(NULL, "res/mario_sprite_by.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 

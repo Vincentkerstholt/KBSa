@@ -5,6 +5,5 @@ class NormalWalk : public WalkBehaviour
 private:
 
 public:
-
-	void Walk();
+	POINT Walk(char Direction, POINT CurPos);
 };

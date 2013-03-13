@@ -17,17 +17,31 @@ Gamestate::Gamestate()
 
 	multiplier = 32;
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-
+	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	level = new Gameobject*[(x * y)];
 
 	XmlParserNode * factoryXml = xml->getNode("factory");
 	factory = getFactory(factoryXml->getAttribute("name"));
 
-	multiplier = 32;
+	frames = 0;
+	curTime = 0;
+	fps = 0;
 
 	CreateWorld();
 }
 
+void Gamestate::draw(HDC & hdc, bool debugMode)
+{
+	camera.setXMidPosition(Mario->GetPositionPixel().x);
+	drawBackground(hdc);
+	drawCharacters(hdc);
+	drawWorld(hdc);
+	if (debugMode == true)
+	{
+		drawGrid(hdc);
+		drawStatistics(hdc);
+	}
+}
 IThemeFactory * Gamestate::getFactory(string name){
 	if(name == "landscape")
 		return new LandThemeFactory();
@@ -37,6 +51,7 @@ IThemeFactory * Gamestate::getFactory(string name){
 		return new SkyThemeFactory();
 	else if(name == "water")
 		return new WaterThemeFactory();
+	return new LandThemeFactory();
 }
 
 int Gamestate::ConvertIndexToXY(int index){
@@ -47,28 +62,23 @@ int Gamestate::getIndex(int n, int m){
 	return (m*x)+n;
 }
 
-void Gamestate::DrawHorizontalBorder(int x, int y){
-	MoveToEx(hdc, ConvertIndexToXY(x), ConvertIndexToXY(y), &point);
-	LineTo(hdc, ConvertIndexToXY(x + 1), ConvertIndexToXY(y));
+void Gamestate::DrawHorizontalBorder(int y){
+	MoveToEx(hdc, ConvertIndexToXY(0), ConvertIndexToXY(y), &point);
+	LineTo(hdc, ConvertIndexToXY(43), ConvertIndexToXY(y));
 }
 
-void Gamestate::DrawVerticalBorder(int x, int y){
-	MoveToEx(hdc, ConvertIndexToXY(x), ConvertIndexToXY(y), &point);
-	LineTo(hdc, ConvertIndexToXY(x), ConvertIndexToXY(y + 1));
+void Gamestate::DrawVerticalBorder(int x){
+	MoveToEx(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(0), &point);
+	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(22));
 }
 
 void Gamestate::drawGrid(HDC & hdc){
 	this->hdc = hdc;
-	for (int n = 0; n < x; n++){
-		for(int m = 0; m < y; m++){
-			DrawVerticalBorder(n,m);
-			DrawHorizontalBorder(n,m);
-			if(m == y - 1)
-				DrawHorizontalBorder(n,m+1);
-			if(n == x - 1)
-				DrawVerticalBorder(n+1,m);
-		}
-	}
+	for (int n = 0; n < 44; n++)
+		DrawVerticalBorder(n);
+
+	for(int m = 0; m < 22; m++)
+		DrawHorizontalBorder(m);
 }
 
 void Gamestate::drawCharacters(HDC & hdc){
@@ -77,58 +87,69 @@ void Gamestate::drawCharacters(HDC & hdc){
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
 
-	TransparentBlt(hdc, (Mario->GetPosition().x*multiplier), (Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20, 0, 32,32, GetPixel(hCharacterDC, 0,0));
-	//BitBlt(hdc,(Mario->GetPosition().x*multiplier),(Mario->GetPosition().y*multiplier), 32, 32, hCharacterDC, 20,0, SRCCOPY);
+	TransparentBlt(hdc, (Mario->GetPositionPixel().x)- camera.getXPosition(), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->textureNumber*multiplier), 0, 32,32, GetPixel(hCharacterDC, 0,0));
 
 	DeleteDC(hCharacterDC);
 }
 
 void Gamestate::drawBackground(HDC & hdc){
 	hBackgroundBitmap = factory->getBackgroundImage();
+	
 
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
 
-	StretchBlt(hdc, 0, 0, ConvertIndexToXY(x), ConvertIndexToXY(y), hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
-
+	StretchBlt(hdc, 0, 0, ConvertIndexToXY(43), ConvertIndexToXY(22), hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
+	
 	DeleteDC(hBackgroundDC);
-	DeleteObject(hBackgroundBitmap);
+
+	hBackgroundBitmap2 = factory->getBackgroundImage2();
+	hBackgroundDC = CreateCompatibleDC(hdc);
+
+	GetObject(hBackgroundBitmap2, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap2);
+
+	TransparentBlt(hdc, -camera.getXPosition()/2%bitmap.bmWidth,				230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
+	TransparentBlt(hdc, bitmap.bmWidth - camera.getXPosition() / 2 % bitmap.bmWidth, 230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
+	DeleteDC(hBackgroundDC);
+	
 }
 
 void Gamestate::drawWorld(HDC & hdc){
-	for(int n = 0; n < x; n++){
+	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 			if(level[index] == NULL)
 				continue;
+			
 			if(level[index]->getClassName() == "Block")
 			{
-				hObstacleBitmap = factory->getBlock(n, m);
+				hObstacleBitmap = factory->getBlock();
 
 				hObstacleDC = CreateCompatibleDC(hdc);
 
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
 
-				BitBlt(hdc, ConvertIndexToXY(n), ConvertIndexToXY(m), 32, 32, hObstacleDC, 0, 0, SRCCOPY);
+				BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 0, 0, SRCCOPY);
 			}
 			else if(level[index]->getClassName() == "Pipe")
 			{
-				hObstacleBitmap = factory->getPipe(n, m);
+				hObstacleBitmap = factory->getPipe();
 
 				hObstacleDC = CreateCompatibleDC(hdc);
 
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
 
-				TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
 			}
 			else if(level[index]->getClassName() == "Ground")
 			{
 				Ground * ground = (Ground*)level[index];
-				hObstacleBitmap = factory->getGround(n, m);
+				hObstacleBitmap = factory->getGround();
 
 				hObstacleDC = CreateCompatibleDC(hdc);
 
@@ -139,46 +160,80 @@ void Gamestate::drawWorld(HDC & hdc){
 
 				if(textTureType == "topleft")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "topcenter")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,34,0,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,34,0,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "topright")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,68,0,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,68,0,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "centerleft")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,0,34,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,34,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "centercenter")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,34,34,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,34,34,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "centerright")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,68,34,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,68,34,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "bottomleft")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,0,68,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,68,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "bottomcenter")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,34,68,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,34,68,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "bottomright")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,68,68,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,68,68,32,32,RGB(255,174,201));
 				}
 			}
 			
 			DeleteDC(hObstacleDC);
-			DeleteObject(hObstacleBitmap);
+			//DeleteObject(hObstacleBitmap);
 		}
 	}
+
+}
+
+void Gamestate::drawStatistics(HDC & hdc){
+	
+
+	int xValue = this->Mario->GetPositionPixel().x;
+	int yValue = this->Mario->GetPositionPixel().y;
+	ostringstream oss;
+
+	oss << "Pos. Mario: " << xValue << " " << yValue;
+	TextOut(hdc, 10, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+	oss.clear();
+
+	oss << "screen position: " << camera.getXPosition();
+	TextOut(hdc, 10, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+	oss.clear();
+
+	frames++;
+	if (curTime != time(NULL))
+	{
+		curTime = time(NULL);
+		fps = frames;
+		frames = 0;
+	}
+
+	oss << "fps: " << fps;
+	TextOut(hdc, 10, 50, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+	oss.clear();
 }
 
 void Gamestate::changeFactory(char firstLetter){

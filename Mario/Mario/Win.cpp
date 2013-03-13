@@ -1,7 +1,8 @@
 #include "Win.h"
 #include <tchar.h>
 #include "Character.h"
-
+#include <sstream>
+#include <time.h>
 //////////////////////////////////////////////////////////////////
 // Static Initialisation
 //////////////////////////////////////////////////////////////////
@@ -73,7 +74,14 @@ int CWin::Run()
 
 			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));
 			GameLoop();
-			::BitBlt(hDC, rect.left, rect.top, rect.right, rect.bottom, graphics, 0, 0, SRCCOPY);
+			::BitBlt(hDC, rect.left, rect.top, 1362,702, graphics, 0, 0, SRCCOPY);
+
+			
+			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));
+			GameLoop();
+			::BitBlt(hDC, rect.left, rect.top, 1362,702, graphics, 0, 0, SRCCOPY);
+			
+
 		}
 	}
 

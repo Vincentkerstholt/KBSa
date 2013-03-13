@@ -17,33 +17,38 @@ CSkeleton::~CSkeleton()
 void CSkeleton::GameInit()
 {
 	debugMode = false;
-	SetFPS(60);
+	SetFPS(0);
 }
 
 void CSkeleton::GameLoop()
 {
 	RECT rect;
 	::GetClientRect(m_hWnd, &rect);
-	gameState->drawBackground(graphics);
-	gameState->drawCharacters(graphics);
-	gameState->drawWorld(graphics);
-	if(debugMode)
-		gameState->drawGrid(graphics);
+
+	gameState->draw(graphics, debugMode);
 
 	if (::GetAsyncKeyState(VK_RIGHT)){
-		int onzin = 0;
+		gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
+		if(gameState->Mario->textureNumber == 8)
+		{
+			gameState->Mario->textureNumber = 1;
+		}
+		else
+		{
+			gameState->Mario->textureNumber += 1;
+		}
 	}
 
 	if (::GetAsyncKeyState(VK_LEFT)){
-
+		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
 	}
 
 	if (::GetAsyncKeyState(VK_DOWN)){
-
+		gameState->Mario->Move('D', gameState->Mario->GetPositionPixel());
 	}
 
 	if (::GetAsyncKeyState(VK_UP)){
-
+		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
 	}
 	
 	if (::GetAsyncKeyState(VK_F1)){
@@ -64,7 +69,7 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_F12)){
 		debugMode = !debugMode;
-		Sleep(50);
+		Sleep(60);
 	}
 }
 

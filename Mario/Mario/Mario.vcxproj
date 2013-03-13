@@ -12,8 +12,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FastWalk.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
@@ -24,8 +26,10 @@
     <ClCompile Include="XMLParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FastWalk.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="XMLParserNode.h" />
     <ClInclude Include="NormalWalk.h" />
