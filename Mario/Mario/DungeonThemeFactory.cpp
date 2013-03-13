@@ -2,15 +2,15 @@
 #include "DungeonThemeBlock.h"
 #include "DungeonThemePipe.h"
 
-HANDLE DungeonThemeFactory::getBlock(int x, int y){
+HANDLE DungeonThemeFactory::getBlock(){
 	return LoadImage(NULL, "res/world8.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-HANDLE DungeonThemeFactory::getPipe(int x, int y){
+HANDLE DungeonThemeFactory::getPipe(){
 	return LoadImage(NULL, "res/world8.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-HANDLE DungeonThemeFactory::getGround(int x, int y){
+HANDLE DungeonThemeFactory::getGround(){
 	return LoadImage(NULL, "res/world8.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 

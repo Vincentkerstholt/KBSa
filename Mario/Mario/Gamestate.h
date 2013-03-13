@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include <time.h>
 #include <sstream>
+#include "XMLParser.h"
 
 using namespace std;
 
@@ -46,6 +47,7 @@ private:
 	int frames;
 	int curTime;
 	int fps;
+	XmlParser * xml;
 
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);
@@ -57,5 +59,6 @@ private:
 	void CreateWorld();
 	int getIndex(int n, int m);
 	void Gamestate::drawStatistics(HDC & hdc);
+	IThemeFactory * getFactory(string name);
 };
 #endif

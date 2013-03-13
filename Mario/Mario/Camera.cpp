@@ -13,7 +13,11 @@ int Camera::getXPosition()
 	if (mid == true)
 	{
 		if ( xPos > MIDDLE )
+		{
+			if ( xPos - MIDDLE > 5454)
+				return 5454;
 			return xPos - MIDDLE;
+		}
 		if (XPoint != 0)
 			if ( *XPoint > MIDDLE )
 				return *XPoint - MIDDLE;
@@ -23,9 +27,10 @@ int Camera::getXPosition()
 
 	if ( xPos > 0)
 		return xPos;
-
-	if ( XPoint > 0 )
+	
+	if ( *XPoint > 0 )
 		return *XPoint;
+
 
 	return 0;
 }

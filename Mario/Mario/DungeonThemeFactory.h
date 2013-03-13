@@ -5,9 +5,9 @@
 
 class DungeonThemeFactory : public IThemeFactory{
 public:
-	HANDLE getPipe(int x, int y);
-	HANDLE getBlock(int x, int y);
-	HANDLE getGround(int x, int y);
+	HANDLE getPipe();
+	HANDLE getBlock();
+	HANDLE getGround();
 	HANDLE getBackgroundImage();
 	HANDLE getBackgroundImage2();
 };

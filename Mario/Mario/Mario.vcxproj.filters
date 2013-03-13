@@ -1,218 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- was: no XML declaration present -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Walk">
-      <UniqueIdentifier>{33edc91a-5586-4ac8-bab1-93a4756ca5d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Walk">
-      <UniqueIdentifier>{04831bb8-6e98-453c-b610-8efeb0b0fa13}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Factory">
-      <UniqueIdentifier>{e1824be5-1592-416b-930a-5096d53a09f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Factory">
-      <UniqueIdentifier>{0a67941b-a1c3-4876-9900-edf49aa4f71e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Factory\DungeonTheme">
-      <UniqueIdentifier>{b5c86c13-94b4-4931-a813-fd97e92377ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Factory\LandTheme">
-      <UniqueIdentifier>{523f0cbf-0e36-4beb-a365-645262613018}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Factory\SkyTheme">
-      <UniqueIdentifier>{3049b21c-a7aa-4624-8975-ba07712d860b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Factory\WaterTheme">
-      <UniqueIdentifier>{45c0103a-ec31-4347-9bed-2aae60c80c36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Factory\DungeonTheme">
-      <UniqueIdentifier>{fcd79706-7359-4d6b-9d50-fe0e118e6b90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Factory\WaterTheme">
-      <UniqueIdentifier>{702539f7-d11a-4904-9e11-04ab5c88db0f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Factory\LandTheme">
-      <UniqueIdentifier>{378908b4-7701-4107-b535-3459aeb0c825}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Factory\SkyTheme">
-      <UniqueIdentifier>{90f223e4-2dde-4859-9234-3c9f3db6632c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Program">
-      <UniqueIdentifier>{733d5100-60b8-4b1f-bb35-e888aa4e3309}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Program">
-      <UniqueIdentifier>{bd33181f-fe8b-4612-a152-2b13fb5462f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Obstacle">
-      <UniqueIdentifier>{d6f9edf5-6d10-494c-acd7-cb339208bce4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Obstacle">
-      <UniqueIdentifier>{6103eb45-860a-4f69-a607-c729e4cc97ee}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="character.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FastWalk.cpp" />
+    <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="XMLParserNode.cpp" />
+    <ClCompile Include="NormalWalk.cpp" />
+    <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Win.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="XMLParser.cpp" />
+    <ClCompile Include="Gameobject.cpp" />
+    <ClCompile Include="Gamestate.cpp" />
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="DungeonThemeFactory.cpp" />
+    <ClCompile Include="LandThemeFactory.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="SkyThemeFactory.cpp" />
+    <ClCompile Include="WaterThemeFactory.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DungeonThemeFactory.cpp">
-      <Filter>Source Files\Factory\DungeonTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="LandThemeFactory.cpp">
-      <Filter>Source Files\Factory\LandTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyThemeFactory.cpp">
-      <Filter>Source Files\Factory\SkyTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="WaterThemeFactory.cpp">
-      <Filter>Source Files\Factory\WaterTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="Gamestate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Gameobject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Win.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
-    <ClCompile Include="WinMain.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipe.cpp">
-      <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
-    <ClCompile Include="character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FastWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="character.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FastWalk.h" />
+    <ClInclude Include="Hero.h" />
+    <ClInclude Include="XMLParserNode.h" />
+    <ClInclude Include="NormalWalk.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="WalkBehaviour.h" />
+    <ClInclude Include="DungeonThemeFactory.h" />
+    <ClInclude Include="factories.h" />
+    <ClInclude Include="Ground.h" />
+    <ClInclude Include="obstacles.h" />
+    <ClInclude Include="SkyThemeFactory.h" />
+    <ClInclude Include="WaterThemeFactory.h" />
+    <ClInclude Include="Win.h" />
+    <ClInclude Include="XMLParser.h" />
+    <ClInclude Include="Gameobject.h" />
+    <ClInclude Include="Gamestate.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="LandThemeFactory.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Pipe.h" />
+    <ClInclude Include="ThemeFactory.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Gamestate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Gameobject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WalkBehaviour.h">
-      <Filter>Header Files\Walk</Filter>
-    </ClInclude>
-    <ClInclude Include="ThemeFactory.h">
-      <Filter>Header Files\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="LandThemeFactory.h">
-      <Filter>Header Files\Factory\LandTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="Win.h">
-      <Filter>Header Files\Program</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Header Files\Obstacle</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipe.h">
-      <Filter>Header Files\Obstacle</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>Header Files\Obstacle</Filter>
-    </ClInclude>
-    <ClInclude Include="DungeonThemeFactory.h">
-      <Filter>Header Files\Factory\DungeonTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyThemeFactory.h">
-      <Filter>Header Files\Factory\SkyTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="WaterThemeFactory.h">
-      <Filter>Header Files\Factory\WaterTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="factories.h">
-      <Filter>Header Files\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Header Files\Obstacle</Filter>
-    </ClInclude>
-    <ClInclude Include="obstacles.h">
-      <Filter>Header Files\Obstacle</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalWalk.h">
-      <Filter>Header Files\Walk</Filter>
-    </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Header Files\Program</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files\Walk</Filter>
-    </ClInclude>
+    <ResourceCompile Include="Mario.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\backgroundSky.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\backgroundCave.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\dungeon.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\forestlandps.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\world8.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Mario.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <None Include="res\backgroundCave.bmp" />
+    <None Include="res\backgroundSky.bmp" />
+    <None Include="res\dungeon.bmp" />
+    <None Include="res\forestlandps.bmp" />
+    <None Include="res\testLevel.xml" />
+    <None Include="res\world8.bmp" />
   </ItemGroup>
 </Project>

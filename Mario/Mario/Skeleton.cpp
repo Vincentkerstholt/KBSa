@@ -5,7 +5,7 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-	gameState = new Gamestate(40, 22);
+	gameState = new Gamestate();
 }
 
 CSkeleton::~CSkeleton()
