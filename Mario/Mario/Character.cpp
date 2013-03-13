@@ -3,7 +3,7 @@
 Character::Character()
 {
 	Jumped = 0;
-	JumpHeight = 8;
+	JumpHeight = 3;
 }
 
 
@@ -126,6 +126,7 @@ void Character::Move(char Direction, POINT curPos)
 	case 'U': 
 		if(JumpAbility)
 		{
+		this->setTexturePosition(13,1);
 		this->Jump(curPos); //Move Up
 		Jumped++;
 		}
@@ -138,15 +139,15 @@ void Character::Jump(POINT curPos)
 	switch(Jumped)
 	{
 	case 0:
-		SetPosition(jumpBehaviour->Jump(curPos, 24));
+		SetPosition(jumpBehaviour->Jump(curPos, 32));
 		break;
 	case 1:
 		SetPosition(jumpBehaviour->Jump(curPos, 32));
 		break;
 	case 2:
-		SetPosition(jumpBehaviour->Jump(curPos, 0));
+		SetPosition(jumpBehaviour->Jump(curPos, 32));
 		break;
-
+	
 	}
 
 }
