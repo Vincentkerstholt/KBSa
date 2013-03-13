@@ -31,39 +31,39 @@ void Character :: Walk (char Direction, POINT curPos)
 	switch(Direction)
 	{
 	case 'L':
-		if(getTexturePosition().y == 0 && getTexturePosition().x == 14)
+		if(getTexturePosition().y == 0 && getTexturePosition().x == 1)
 		{
-			setTexturePosition(15,0);
+			setTexturePosition(2,0);
 		}
-		else if(getTexturePosition().y == 0 && getTexturePosition().x == 15)
+		else if(getTexturePosition().y == 0 && getTexturePosition().x == 2)
 		{
-			setTexturePosition(14,1);
+			setTexturePosition(3,0);
 		}
-		else if(getTexturePosition().y == 1 && getTexturePosition().x == 14)
+		else if(getTexturePosition().y == 0 && getTexturePosition().x == 3)
 		{
-			setTexturePosition(15,1);
+			setTexturePosition(4,0);
 		}
-		else if(getTexturePosition().y == 1 && getTexturePosition().x == 15)
+		else if(getTexturePosition().y == 0 && getTexturePosition().x == 4)
 		{
-			setTexturePosition(14,1);
+			setTexturePosition(3,0);
 		}
 		break;
 	case 'R':
-		if(getTexturePosition().y == 0 && getTexturePosition().x == 0)
+		if(getTexturePosition().y == 1 && getTexturePosition().x == 1)
 		{
-			setTexturePosition(1,0);
+			setTexturePosition(2,1);
 		}
-		else if(getTexturePosition().y == 0 && getTexturePosition().x == 1)
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 2)
 		{
-			setTexturePosition(0,1);
+			setTexturePosition(3,1);
 		}
-		else if(getTexturePosition().y == 1 && getTexturePosition().x == 0)
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 3)
 		{
-			setTexturePosition(1,1);
+			setTexturePosition(4,1);
 		}
-		else if(getTexturePosition().y == 1 && getTexturePosition().x == 1)
+		else if(getTexturePosition().y == 1 && getTexturePosition().x == 4)
 		{
-			setTexturePosition(0,1);
+			setTexturePosition(3,1);
 		}
 		break;
 	}

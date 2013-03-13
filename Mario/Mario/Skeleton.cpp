@@ -42,7 +42,7 @@ void CSkeleton::GameLoop()
 	if (::GetAsyncKeyState(VK_RIGHT))
 	{
 
-		gameState->Mario->setTexturePosition(1,0);
+		gameState->Mario->setTexturePosition(1,1);
 		mario = gameState->Mario-> GetPositionPixel();
 		mario1.x = ((mario.x+33)/32);
 		mario1.y = ((mario.y+31)/32);
@@ -71,7 +71,7 @@ void CSkeleton::GameLoop()
 	}
 	if (::GetAsyncKeyState(VK_LEFT))
 	{
-		gameState->Mario->setTexturePosition(14,0);
+		gameState->Mario->setTexturePosition(1,0);
 		mario = gameState->Mario-> GetPositionPixel();
 		mario1.x = ((mario.x-1)/32);
 		mario1.y = ((mario.y+31)/32);
@@ -95,7 +95,7 @@ void CSkeleton::GameLoop()
 		}
 		else
 		{
-		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
+			gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
 		}
 	}
 
@@ -105,7 +105,7 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_UP))
 	{
-			gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
+		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
 
 	}
 
