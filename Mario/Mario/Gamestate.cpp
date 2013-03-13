@@ -1,5 +1,22 @@
 #include "Gamestate.h"
 
+const int GROUND_TOPLEFT = 1;
+const int GROUND_TOPCENTER = 2;
+const int GROUND_TOPRIGHT = 3;
+const int GROUND_CENTERLEFT = 4;
+const int GROUND_CENTERCENTER = 5;
+const int GROUND_CENTERRIGHT = 6;
+const int GROUND_BOTTOMLEFT = 7;
+const int GROUND_BOTTOMCENTER = 8;
+const int GROUND_BOTTOMRIGHT = 9;
+
+const int PIPE_TOPLEFT = 1;
+const int PIPE_TOPCENTER = 2;
+const int PIPE_TOPRIGHT = 3;
+const int PIPE_BOTTOMLEFT = 4;
+const int PIPE_BOTTOMCENTER = 5;
+const int PIPE_BOTTOMRIGHT = 6;
+
 Gamestate::Gamestate()
 {
 	xml = new XmlParser("res/Landscape.xml");
@@ -95,7 +112,6 @@ void Gamestate::drawCharacters(HDC & hdc){
 void Gamestate::drawBackground(HDC & hdc){
 	hBackgroundBitmap = factory->getBackgroundImage();
 	
-
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
@@ -111,7 +127,7 @@ void Gamestate::drawBackground(HDC & hdc){
 	GetObject(hBackgroundBitmap2, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap2);
 
-	TransparentBlt(hdc, -camera.getXPosition()/2%bitmap.bmWidth,				230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
+	TransparentBlt(hdc, -camera.getXPosition()/2%bitmap.bmWidth, 230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
 	TransparentBlt(hdc, bitmap.bmWidth - camera.getXPosition() / 2 % bitmap.bmWidth, 230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
 	DeleteDC(hBackgroundDC);
 	
@@ -145,34 +161,34 @@ void Gamestate::drawWorld(HDC & hdc){
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
 				
-				string textTureType = pipe->getTextureType();
+				int textTureType = pipe->getTextureType();
 
-				if(textTureType == "topleft")
+				switch(textTureType)
 				{
+				case PIPE_TOPLEFT:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "topcenter")
-				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "topright")
-				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "bottomleft")
-				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "bottomcenter")
-				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,32,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "bottomright")
-				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,32,32,32,RGB(255,174,201));
-				}
+					break;
 
-				
+				case PIPE_TOPCENTER:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,RGB(255,174,201));
+					break;
+
+				case PIPE_TOPRIGHT:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
+					break;
+
+				case PIPE_BOTTOMLEFT:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
+					break;
+
+				case PIPE_BOTTOMCENTER:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,32,32,32,RGB(255,174,201));
+					break;
+
+				case PIPE_BOTTOMRIGHT:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,32,32,32,RGB(255,174,201));
+					break;
+				}
 			}
 			else if(level[index]->getClassName() == "Ground")
 			{
@@ -184,43 +200,44 @@ void Gamestate::drawWorld(HDC & hdc){
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
 
-				string textTureType = ground->getTextureType();
+				int textTureType = ground->getTextureType();
 
-				if(textTureType == "topleft")
-				{
+				switch(textTureType){
+				case GROUND_TOPLEFT:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "topcenter")
-				{
+					break;
+
+				case GROUND_TOPCENTER:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "topright")
-				{
+					break;
+
+				case GROUND_TOPRIGHT:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "centerleft")
-				{
+					break;
+
+				case GROUND_CENTERLEFT:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "centercenter")
-				{
+					break;
+
+				case GROUND_CENTERCENTER:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,32,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "centerright")
-				{
+					break;
+
+				case GROUND_CENTERRIGHT:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,32,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "bottomleft")
-				{
+					break;
+
+				case GROUND_BOTTOMLEFT:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,64,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "bottomcenter")
-				{
+					break;
+
+				case GROUND_BOTTOMCENTER:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,64,32,32,RGB(255,174,201));
-				}
-				else if(textTureType == "bottomright")
-				{
+					break;
+
+				case GROUND_BOTTOMRIGHT:
 					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,64,32,32,RGB(255,174,201));
+					break;
 				}
 			}
 			
@@ -306,7 +323,7 @@ void Gamestate::CreateWorld(){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
-		level[index] = new Ground(0,0, child->getAttribute("type"));
+		level[index] = new Ground(0,0, stoi(child->getAttribute("type")));
 	}
 
 	XmlParserNode * pipes = xml->getNode("pipes");
@@ -316,7 +333,7 @@ void Gamestate::CreateWorld(){
 		
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
-		level[index] = new Pipe(child->getAttribute("type"));
+		level[index] = new Pipe(stoi(child->getAttribute("type")));
 	}
 }
 

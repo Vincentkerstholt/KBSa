@@ -200,39 +200,39 @@ namespace Levelbuilder
                     switch (((PictureBox)sender).Name)
                     {
                         case "pictureBox_Ground_TopLeft":
-                            selectedNode.gameObject = new Ground() { groundType = "TopLeft" };
+                            selectedNode.gameObject = new Ground() { groundType = 1 };
                             break;
 
                         case "pictureBox_Ground_TopCenter":
-                            selectedNode.gameObject = new Ground() { groundType = "TopCenter" };
+                            selectedNode.gameObject = new Ground() { groundType = 2 };
                             break;
 
                         case "pictureBox_Ground_TopRight":
-                            selectedNode.gameObject = new Ground() { groundType = "TopRight" };
+                            selectedNode.gameObject = new Ground() { groundType = 3 };
                             break;
 
                         case "pictureBox_Ground_CenterLeft":
-                            selectedNode.gameObject = new Ground() { groundType = "CenterLeft" };
+                            selectedNode.gameObject = new Ground() { groundType = 4 };
                             break;
 
                         case "pictureBox_Ground_CenterCenter":
-                            selectedNode.gameObject = new Ground() { groundType = "CenterCenter" };
+                            selectedNode.gameObject = new Ground() { groundType = 5 };
                             break;
 
                         case "pictureBox_Ground_CenterRight":
-                            selectedNode.gameObject = new Ground() { groundType = "CenterRight" };
+                            selectedNode.gameObject = new Ground() { groundType = 6 };
                             break;
 
                         case "pictureBox_Ground_BottomLeft":
-                            selectedNode.gameObject = new Ground() { groundType = "BottomLeft" };
+                            selectedNode.gameObject = new Ground() { groundType = 7 };
                             break;
 
                         case "pictureBox_Ground_BottomCenter":
-                            selectedNode.gameObject = new Ground() { groundType = "BottomCenter" };
+                            selectedNode.gameObject = new Ground() { groundType = 8 };
                             break;
 
                         case "pictureBox_Ground_BottomRight":
-                            selectedNode.gameObject = new Ground() { groundType = "BottomRight" };
+                            selectedNode.gameObject = new Ground() { groundType = 9 };
                             break;
 
                         case "pictureBox_Block":
@@ -264,27 +264,27 @@ namespace Levelbuilder
                             break;
 
                         case "pictureBox_Pipe_BottomLeft":
-                            selectedNode.gameObject = new Pipe() { pipeType = "BottomLeft" };
+                            selectedNode.gameObject = new Pipe() { pipeType = 4 };
                             break;
 
                         case "pictureBox_Pipe_BottomCenter":
-                            selectedNode.gameObject = new Pipe() { pipeType = "BottomCenter" };
+                            selectedNode.gameObject = new Pipe() { pipeType = 5 };
                             break;
 
                         case "pictureBox_Pipe_BottomRight":
-                            selectedNode.gameObject = new Pipe() { pipeType = "BottomRight" };
+                            selectedNode.gameObject = new Pipe() { pipeType = 6 };
                             break;
 
                         case "pictureBox_Pipe_TopLeft":
-                            selectedNode.gameObject = new Pipe() { pipeType = "TopLeft" };
+                            selectedNode.gameObject = new Pipe() { pipeType = 1 };
                             break;
 
                         case "pictureBox_Pipe_TopCenter":
-                            selectedNode.gameObject = new Pipe() { pipeType = "TopCenter" };
+                            selectedNode.gameObject = new Pipe() { pipeType = 2 };
                             break;
 
                         case "pictureBox_Pipe_TopRight":
-                            selectedNode.gameObject = new Pipe() { pipeType = "TopRight" };
+                            selectedNode.gameObject = new Pipe() { pipeType = 3 };
                             break;
                     }
                 }
@@ -426,7 +426,7 @@ namespace Levelbuilder
                                 //Opening a pipe node
                                 writer.WriteWhitespace("\t\t\t");
                                 writer.WriteStartElement("pipe");
-                                writer.WriteAttributeString("type", ((Pipe)level[i][j].gameObject).pipeType.ToLower());
+                                writer.WriteAttributeString("type", ((Pipe)level[i][j].gameObject).pipeType.ToString());
                                 writer.WriteWhitespace("\n");
 
                                 //Creating a location node
@@ -464,7 +464,7 @@ namespace Levelbuilder
                                 //Opening a ground node
                                 writer.WriteWhitespace("\t\t\t");
                                 writer.WriteStartElement("ground");
-                                writer.WriteAttributeString("type", ((Ground)level[i][j].gameObject).groundType.ToLower());
+                                writer.WriteAttributeString("type", ((Ground)level[i][j].gameObject).groundType.ToString());
                                 writer.WriteWhitespace("\n");
 
                                 //Creating a location node
@@ -557,7 +557,6 @@ namespace Levelbuilder
                                     yLocation = Int32.Parse(blockLocation.Attribute("y").Value);
 
                                     level[xLocation][yLocation].gameObject = new Block(){isSpecial = isSpecial};
-
                                     break;
 
                                 case "ground":
@@ -568,8 +567,7 @@ namespace Levelbuilder
                                     xLocation = Int32.Parse(groundLocation.Attribute("x").Value);
                                     yLocation = Int32.Parse(groundLocation.Attribute("y").Value);
 
-                                    level[xLocation][yLocation].gameObject = new Ground() { groundType = el.Attribute("type").Value };
-
+                                    level[xLocation][yLocation].gameObject = new Ground() { groundType = Int32.Parse(el.Attribute("type").Value) };
                                     break;
 
                                 case "pipe":
@@ -580,8 +578,7 @@ namespace Levelbuilder
                                     xLocation = Int32.Parse(pipeLocation.Attribute("x").Value);
                                     yLocation = Int32.Parse(pipeLocation.Attribute("y").Value);
 
-                                    level[xLocation][yLocation].gameObject = new Pipe() { pipeType = el.Attribute("type").Value };
-
+                                    level[xLocation][yLocation].gameObject = new Pipe() { pipeType = Int32.Parse(el.Attribute("type").Value) };
                                     break;
                             }
                         }
