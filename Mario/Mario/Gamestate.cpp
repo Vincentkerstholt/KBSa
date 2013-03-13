@@ -71,7 +71,7 @@ void Gamestate::drawCharacters(HDC & hdc){
 	hCharacterDC = CreateCompatibleDC(hdc);
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
-	TransparentBlt(hdc, (Mario->GetPositionPixel().x), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->getTexturePosition().x*multiplier), Mario->getTexturePosition().y*multiplier, 32,32, GetPixel(hCharacterDC, 0,0));
+	TransparentBlt(hdc, (Mario->GetPositionPixel().x - camera.getXPosition()), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->getTexturePosition().x*multiplier), Mario->getTexturePosition().y*multiplier, 32,32, GetPixel(hCharacterDC, 0,0));
 	DeleteDC(hCharacterDC);
 }
 
@@ -300,7 +300,7 @@ void Gamestate::DownCollision()
 	mario = Mario->GetPositionPixel();
 	mario1.x = ((mario.x+31)/32);
 	mario1.y = ((mario.y+33)/32);
-	mario2.x = ((mario.x+2)/32);
+	mario2.x = ((mario.x)/32);
 	mario2.y = ((mario.y+33)/32);
 	//up
 	mario3.x = ((mario.x+31)/32);
@@ -326,10 +326,10 @@ void Gamestate::DownCollision()
 			Mario->JumpAbility = true;
 		}
 
-		if (check3 == "Block" || check4 == "Block")
+		if (check3 == "Block" || check4 == "Block" )
 		{
 			Mario->JumpAbility = false;
-						
+									
 		}
 
 		if (check == "NULL" && check2 == "NULL" )

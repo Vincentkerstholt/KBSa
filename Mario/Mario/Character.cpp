@@ -3,7 +3,7 @@
 Character::Character()
 {
 	Jumped = 0;
-	JumpHeight = 3;
+	JumpHeight = 8;
 }
 
 
@@ -138,13 +138,13 @@ void Character::Jump(POINT curPos)
 	switch(Jumped)
 	{
 	case 0:
-		SetPosition(jumpBehaviour->Jump(curPos, 32));
+		SetPosition(jumpBehaviour->Jump(curPos, 24));
 		break;
 	case 1:
 		SetPosition(jumpBehaviour->Jump(curPos, 32));
 		break;
 	case 2:
-		SetPosition(jumpBehaviour->Jump(curPos, 32));
+		SetPosition(jumpBehaviour->Jump(curPos, 0));
 		break;
 
 	}

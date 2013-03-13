@@ -27,7 +27,7 @@ void CSkeleton::GameLoop()
 	int mariopixY = 0;
 	int marioindex = 0, marioindex2 = 0;
 	RECT rect;
-	POINT mario , mario1;
+	POINT mario , mario1, mario2;
 	::GetClientRect(m_hWnd, &rect);
 
 	if (gameState->inMenu)
@@ -44,17 +44,25 @@ void CSkeleton::GameLoop()
 
 		gameState->Mario->setTexturePosition(1,0);
 		mario = gameState->Mario-> GetPositionPixel();
-		mario.x = ((mario.x+33)/32);
-		mario.y = ((mario.y+31)/32);
-		marioindex = gameState->getIndex(mario.x,mario.y);
+		mario1.x = ((mario.x+33)/32);
+		mario1.y = ((mario.y+31)/32);
+		mario2.x = ((mario.x+33)/32);
+		mario2.y = ((mario.y)/32);
+		marioindex = gameState->getIndex(mario1.x,mario1.y);
+		marioindex2 = gameState->getIndex(mario2.x,mario2.y);
 
 
 		string check = gameState->BoxCheck(marioindex);
+		string check2 = gameState->BoxCheck(marioindex2);
 
-		if (check == "Ground" || check == "Block")
+		if (check == "Block" || check2 == "Block")
 		{
 		 int onzin  = 1;		
-		}		
+		}
+		else if (check == "Ground" || check2 == "Ground")
+		{
+
+		}
 		else
 		{
 
@@ -65,17 +73,26 @@ void CSkeleton::GameLoop()
 	{
 		gameState->Mario->setTexturePosition(14,0);
 		mario = gameState->Mario-> GetPositionPixel();
-		mario.x = ((mario.x-1)/32);
-		mario.y = ((mario.y+31)/32);
-		marioindex = gameState->getIndex(mario.x,mario.y);
-	
+		mario1.x = ((mario.x-1)/32);
+		mario1.y = ((mario.y+31)/32);
+		mario2.x = ((mario.x-1)/32);
+		mario2.y = ((mario.y)/32);
+		marioindex = gameState->getIndex(mario1.x,mario1.y);
+		marioindex2 = gameState->getIndex(mario2.x,mario2.y);
+
 
 		string check = gameState->BoxCheck(marioindex);
+		string check2 = gameState->BoxCheck(marioindex2);
+	
 
-		if (check == "Ground" || check == "Block")
+		if (check == "Block" || check2 == "Block")
 		{
 		
 		}		
+		else if (check == "Ground" || check2 == "Ground")
+		{
+
+		}
 		else
 		{
 		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
