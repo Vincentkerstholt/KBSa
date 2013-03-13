@@ -1,6 +1,6 @@
 #include "Pipe.h"
 
-Pipe::Pipe(string textureType){
+Pipe::Pipe(int textureType){
 	this->textureType = textureType;
 }
 
@@ -8,6 +8,6 @@ string Pipe::getClassName(){
 	return "Pipe";
 }
 
-string Pipe::getTextureType(){
+int Pipe::getTextureType(){
 	return textureType;
 }
