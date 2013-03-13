@@ -9,7 +9,7 @@ CSkeleton::CSkeleton()
 
 }
 
-CSkeleton::~CSkeleton()
+ CSkeleton::~CSkeleton()
 {
 	delete gameState;
 	gameState = NULL;
@@ -29,6 +29,13 @@ void CSkeleton::GameLoop()
 	RECT rect;
 	POINT mario , mario1;
 	::GetClientRect(m_hWnd, &rect);
+
+	if (gameState->inMenu)
+	{
+		gameState->menu(graphics);
+		return;
+	}
+	
 
 	gameState->draw(graphics, debugMode);
 
@@ -103,8 +110,14 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_F12)){
 		debugMode = !debugMode;
-		Sleep(60);
+		Sleep(200);
 	}
+	if (::GetAsyncKeyState(VK_ESCAPE)){
+		gameState->inMenu = true;
+		Sleep(200);
+	}
+
+
 }
 
 void CSkeleton::GameEnd() 
