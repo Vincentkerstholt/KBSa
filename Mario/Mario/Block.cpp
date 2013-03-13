@@ -1,8 +1,6 @@
 #include "Block.h"
 
-Block::Block(int spriteX, int spriteY){
-	this->spriteX = spriteX;
-	this->spriteY = spriteY;
+Block::Block(){
 }
 
 string Block::getClassName(){

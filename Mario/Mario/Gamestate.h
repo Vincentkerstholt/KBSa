@@ -21,9 +21,11 @@ class Gamestate
 public:
 	Gamestate();
 	Gamestate(int x, int y);
+	void menu(HDC & hdc);
 	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
 	Hero * Mario;
+	bool inMenu;
 	~Gamestate();
 
 	Camera camera;
@@ -32,10 +34,11 @@ private:
 	Gameobject ** level;
 	int x;
 	int y;
-	int multiplier;
 	HDC hdc;
 	POINT point;
-	
+	int selector;
+
+
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
 	HANDLE hObstacleBitmap;

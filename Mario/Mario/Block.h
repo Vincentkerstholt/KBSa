@@ -5,7 +5,7 @@
 
 class Block : public Obstacle{
 public:
-	Block(int spriteX, int spriteY);
+	Block();
 	string getClassName();
 	int getSpriteX();
 	int getSpriteY();
