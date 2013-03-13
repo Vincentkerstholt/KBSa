@@ -11,18 +11,30 @@ LandThemeFactory::LandThemeFactory(){
 }
 
 LandThemeFactory::~LandThemeFactory(){
-	delete blockBitmap;
+	DeleteObject(blockBitmap);
 	blockBitmap = NULL;
-	delete pipeBitmap;
+	DeleteObject(pipeBitmap);
 	pipeBitmap = NULL;
-	delete groundBitmap;
+	DeleteObject(groundBitmap);
 	groundBitmap = NULL;
-	delete bkGroundBitmap;
+	DeleteObject(bkGroundBitmap);
 	bkGroundBitmap = NULL;
-	delete bkGround2Bitmap;
+	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+}
 
-
+void LandThemeFactory::delImage()
+{
+	DeleteObject(blockBitmap);
+	blockBitmap = NULL;
+	DeleteObject(pipeBitmap);
+	pipeBitmap = NULL;
+	DeleteObject(groundBitmap);
+	groundBitmap = NULL;
+	DeleteObject(bkGroundBitmap);
+	bkGroundBitmap = NULL;
+	DeleteObject(bkGround2Bitmap);
+	bkGround2Bitmap = NULL;
 }
 
 HANDLE LandThemeFactory::getBlock(){

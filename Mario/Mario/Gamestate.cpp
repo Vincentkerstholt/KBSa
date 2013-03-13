@@ -45,7 +45,7 @@ Gamestate::Gamestate()
 	selector = 0;
 	Mario->SetPosition(160,608);
 
-	//CreateWorld();
+	CreateWorld();
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
@@ -282,6 +282,8 @@ void Gamestate::drawStatistics(HDC & hdc){
 }
 
 void Gamestate::changeFactory(char firstLetter){
+	factory->delImage();
+	factory = NULL;
 	switch(firstLetter){
 	case 'D':
 		factory = new DungeonThemeFactory();
@@ -367,6 +369,7 @@ void Gamestate::menu(HDC & hdc)
 		case 0:
 			// reset lvl
 			Mario->SetPosition(160,608);
+			destroyWorld();
 			CreateWorld();
 			inMenu = false;
 		break;
@@ -398,6 +401,23 @@ void Gamestate::menu(HDC & hdc)
 	
 	DeleteDC(hBackgroundDC);
 	DeleteObject(hBackgroundBitmap);
+}
+
+void Gamestate::destroyWorld()
+{
+	int index = 0;
+	for(int i = 0 ; i < x ; i++)
+	{
+		for (int j = 0 ; j < y ; j++)
+		{
+			index = getIndex(i,j);
+			if (level[index] != NULL)
+			{
+				delete level[index];
+				level[index] = NULL;
+			}
+		}
+	}
 }
 
 Gamestate::~Gamestate(){

@@ -23,6 +23,20 @@ SkyThemeFactory::~SkyThemeFactory(){
 	bkGround2Bitmap = NULL;
 }
 
+void SkyThemeFactory::delImage()
+{
+	delete blockBitmap;
+	blockBitmap = NULL;
+	delete pipeBitmap;
+	pipeBitmap = NULL;
+	delete groundBitmap;
+	groundBitmap = NULL;
+	delete bkGroundBitmap;
+	bkGroundBitmap = NULL;
+	delete bkGround2Bitmap;
+	bkGround2Bitmap = NULL;
+}
+
 HANDLE SkyThemeFactory::getBlock(){
 	return blockBitmap;
 }

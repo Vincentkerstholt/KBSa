@@ -60,6 +60,7 @@ private:
 	void drawWorld(HDC & hdc);
 	int ConvertIndexToXY(int index);
 	void CreateWorld();
+	void destroyWorld();
 	int getIndex(int n, int m);
 	void Gamestate::drawStatistics(HDC & hdc);
 	IThemeFactory * getFactory(string name);
