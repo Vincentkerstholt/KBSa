@@ -17,6 +17,11 @@ LandThemeFactory::~LandThemeFactory(){
 	pipeBitmap = NULL;
 	delete groundBitmap;
 	groundBitmap = NULL;
+	delete bkGroundBitmap;
+	bkGroundBitmap = NULL;
+	delete bkGround2Bitmap;
+	bkGround2Bitmap = NULL;
+
 
 }
 

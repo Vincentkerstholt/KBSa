@@ -5,11 +5,19 @@
 
 class WaterThemeFactory : public IThemeFactory{
 public:
+	WaterThemeFactory();
+	~WaterThemeFactory();
 	HANDLE getPipe();
 	HANDLE getBlock();
 	HANDLE getGround();
 	HANDLE getBackgroundImage();
 	HANDLE getBackgroundImage2();
+private:
+	HANDLE pipeBitmap;
+	HANDLE blockBitmap;
+	HANDLE groundBitmap;
+	HANDLE bkGroundBitmap;
+	HANDLE bkGround2Bitmap;
 };
 
 #endif
