@@ -22,11 +22,8 @@ Gamestate::Gamestate(int x, int y)
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
-<<<<<<< HEAD
-
 	frames++;
-=======
->>>>>>> feature-scroll
+
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	DownCollision();
 	drawBackground(hdc);
@@ -144,7 +141,6 @@ void Gamestate::drawWorld(HDC & hdc){
 			int index = getIndex(n,m);
 			if(level[index] == NULL)
 				continue;
-<<<<<<< HEAD
 			if(level[index]->getClassName() == "Block")
 			{
 				hObstacleBitmap = factory->getBlock(n, m);
@@ -165,14 +161,6 @@ void Gamestate::drawWorld(HDC & hdc){
 			else if(level[index]->getClassName() == "Ground")
 			{
 				hObstacleBitmap = factory->getGround(n, m);
-=======
-			//if(level[index]->getClassName() == "Block")
-			//	hObstacleBitmap = factory->getBlock(n, m);
-			//else if(level[index]->getClassName() == "Pipe")
-			//	hObstacleBitmap = factory->getPipe(n, m);
-			//else if(level[index]->getClassName() == "Ground")
-			//	hObstacleBitmap = factory->getGround(n, m);
->>>>>>> feature-scroll
 
 			hObstacleDC = CreateCompatibleDC(hdc);
 
@@ -182,53 +170,17 @@ void Gamestate::drawWorld(HDC & hdc){
 			BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 0, SRCCOPY);
 
 			DeleteDC(hObstacleDC);
-<<<<<<< HEAD
+
 			DeleteObject(hObstacleBitmap);
 			}
-=======
->>>>>>> feature-scroll
+
 		}
 	}
 
 	DeleteObject(hObstacleBitmap);
 }
 
-<<<<<<< HEAD
-=======
-void Gamestate::drawStatistics(HDC & hdc){
-	
 
-	int xValue = this->Mario->GetPositionPixel().x;
-	int yValue = this->Mario->GetPositionPixel().y;
-	ostringstream oss;
-
-	oss << "Pos. Mario: " << xValue << " " << yValue;
-	TextOut(hdc, 10, 10, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-	oss.clear();
-
-	oss << "screen position: " << camera.getXPosition();
-	TextOut(hdc, 10, 30, oss.str().c_str(), strlen(oss.str().c_str()));
-
-	oss.str("");
-	oss.clear();
-
-	frames++;
-	if (curTime != time(NULL))
-	{
-		curTime = time(NULL);
-		fps = frames;
-		frames = 0;
-	}
-
-	oss << "fps: " << fps;
-	TextOut(hdc, 10, 50, oss.str().c_str(), strlen(oss.str().c_str()));
-
-	oss.str("");
-	oss.clear();
-}
-
->>>>>>> feature-scroll
 void Gamestate::changeFactory(char firstLetter){
 	switch(firstLetter){
 	case 'D':
@@ -252,19 +204,13 @@ void Gamestate::CreateWorld(){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 
-<<<<<<< HEAD
 			if(m == y-1 && n == 10 )
 				level[index] = NULL;
 			else if(m == y-3 && n == 2 )
 				level[index] = new Block(68,0);
 			else if(m == y-2 && n == 15 )
 				level[index] = new Ground(68,0);
-			else if(m == y-1 )
-=======
-			/*if ((m == y-3) && (n%2 == 1))
-				level[index] = new Ground(68,0);
-			else*/ if(m == y-1)
->>>>>>> feature-scroll
+			else if(m == y-1)
 				level[index] = new Ground(68,0);
 			else
 				level[index] = NULL;

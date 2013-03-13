@@ -5,11 +5,8 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-<<<<<<< HEAD
 	gameState = new Gamestate(200, 22);
-=======
-	gameState = new Gamestate(40, 22);
->>>>>>> feature-scroll
+
 }
 
 CSkeleton::~CSkeleton()
