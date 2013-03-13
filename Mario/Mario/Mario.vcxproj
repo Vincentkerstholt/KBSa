@@ -115,7 +115,6 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="DungeonThemeFactory.cpp" />
     <ClCompile Include="LandThemeFactory.cpp" />
-    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="SkyThemeFactory.cpp" />
     <ClCompile Include="WaterThemeFactory.cpp" />

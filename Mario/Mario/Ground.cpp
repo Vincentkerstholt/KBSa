@@ -10,13 +10,13 @@ string Ground::getClassName(){
 	return "Ground";
 }
 
-int Ground::getSpriteX(){
-	return spriteX;
-}
-
-int Ground::getSpriteY(){
-	return spriteY;
-}
+//int Ground::getSpriteX(){
+//	return spriteX;
+//}
+//
+//int Ground::getSpriteY(){
+//	return spriteY;
+//}
 
 string Ground::getTextureType(){
 	return textureType;

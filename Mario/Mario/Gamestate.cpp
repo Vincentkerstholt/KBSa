@@ -137,14 +137,42 @@ void Gamestate::drawWorld(HDC & hdc){
 			}
 			else if(level[index]->getClassName() == "Pipe")
 			{
+				Pipe * pipe = (Pipe*)level[index];
 				hObstacleBitmap = factory->getPipe();
-
+				
 				hObstacleDC = CreateCompatibleDC(hdc);
 
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
+				
+				string textTureType = pipe->getTextureType();
 
-				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+				if(textTureType == "topleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "topcenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "topright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomcenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,32,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,32,32,32,RGB(255,174,201));
+				}
+
+				
 			}
 			else if(level[index]->getClassName() == "Ground")
 			{
@@ -164,35 +192,35 @@ void Gamestate::drawWorld(HDC & hdc){
 				}
 				else if(textTureType == "topcenter")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,34,0,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "topright")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,68,0,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "centerleft")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,34,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "centercenter")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,34,34,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,32,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "centerright")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,68,34,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,32,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "bottomleft")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,68,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,64,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "bottomcenter")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,34,68,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,64,32,32,RGB(255,174,201));
 				}
 				else if(textTureType == "bottomright")
 				{
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,68,68,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,64,32,32,RGB(255,174,201));
 				}
 			}
 			
@@ -285,9 +313,10 @@ void Gamestate::CreateWorld(){
 	childs = pipes->getChilds();
 	for(int i = 0; i < pipes->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
+		
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
-		level[index] = new Pipe(0,0);
+		level[index] = new Pipe(child->getAttribute("type"));
 	}
 }
 

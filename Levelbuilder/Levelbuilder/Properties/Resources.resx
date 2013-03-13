@@ -160,4 +160,22 @@
   <data name="SpecialBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SpecialBlock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pipeBottomCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pipeBottomCenter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pipeBottomLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pipeBottomLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pipeBottomRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pipeBottomRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pipeTopCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pipeTopCenter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pipeTopLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pipeTopLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pipeTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pipeTopRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

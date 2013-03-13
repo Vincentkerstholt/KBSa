@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Levelbuilder
 {
@@ -261,6 +262,30 @@ namespace Levelbuilder
                                 }
                             }
                             break;
+
+                        case "pictureBox_Pipe_BottomLeft":
+                            selectedNode.gameObject = new Pipe() { pipeType = "BottomLeft" };
+                            break;
+
+                        case "pictureBox_Pipe_BottomCenter":
+                            selectedNode.gameObject = new Pipe() { pipeType = "BottomCenter" };
+                            break;
+
+                        case "pictureBox_Pipe_BottomRight":
+                            selectedNode.gameObject = new Pipe() { pipeType = "BottomRight" };
+                            break;
+
+                        case "pictureBox_Pipe_TopLeft":
+                            selectedNode.gameObject = new Pipe() { pipeType = "TopLeft" };
+                            break;
+
+                        case "pictureBox_Pipe_TopCenter":
+                            selectedNode.gameObject = new Pipe() { pipeType = "TopCenter" };
+                            break;
+
+                        case "pictureBox_Pipe_TopRight":
+                            selectedNode.gameObject = new Pipe() { pipeType = "TopRight" };
+                            break;
                     }
                 }
                 panel.Invalidate();
@@ -305,6 +330,25 @@ namespace Levelbuilder
                     writer.WriteAttributeString("name", comboBox_Theme.SelectedItem.ToString().ToLower());
                     writer.WriteEndElement();
                     writer.WriteWhitespace("\n");
+
+                    //Creating the hero node
+                    writer.WriteWhitespace("\t");
+                    writer.WriteStartElement("hero");
+                    for (int i = 0; i < COLUMNS; i++)
+                    {
+                        for (int j = 0; j < ROWS; j++)
+                        {
+                            if (level[i][j].gameObject != null && level[i][j].gameObject.GetType().Name == "Hero")
+                            {
+                                writer.WriteAttributeString("character", ((Hero)level[i][j].gameObject).character.ToString().ToLower());
+                                writer.WriteAttributeString("x", i.ToString());
+                                writer.WriteAttributeString("y", j.ToString());
+                            }
+                        }
+                    }
+                    writer.WriteEndElement();
+                    writer.WriteWhitespace("\n");
+
 
                     //Opening the level node
                     writer.WriteWhitespace("\t");
@@ -467,6 +511,93 @@ namespace Levelbuilder
                 MessageBox.Show(ex.ToString());
             }
             button_CreateXML.Enabled = true;
+        }
+
+        private void button_Open_Level_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "XML|*.xml|All files|*.*";
+                ofd.ShowDialog();
+
+                if (ofd.FileName != "")
+                {
+                    foreach (Node[] nodes in level)
+                        foreach (Node node in nodes)
+                            node.gameObject = null;
+
+                    using (XmlReader reader = XmlReader.Create(ofd.FileName))
+                    {
+                        reader.ReadStartElement("superMario");
+                        while (reader.Read())
+                        {
+                            XElement el = null;
+                            int xLocation = -1;
+                            int yLocation = -1;
+
+                            switch (reader.Name)
+                            {
+                                case "hero":
+                                    el = (XElement)XNode.ReadFrom(reader);
+                                    xLocation = Int32.Parse(el.Attribute("x").Value);
+                                    yLocation = Int32.Parse(el.Attribute("y").Value);
+                                    level[xLocation][yLocation].gameObject = new Hero(){character = el.Attribute("character").Value};
+                                    HeroIsSet = true;
+                                    break;
+
+                                case "block":
+                                    el = (XElement)XNode.ReadFrom(reader);
+                                    bool isSpecial = false;
+                                    if (el.Attribute("isSpecial").Value == "true")
+                                        isSpecial = true;
+
+                                    XElement blockLocation = el.Element("location");
+                                    xLocation = Int32.Parse(blockLocation.Attribute("x").Value);
+                                    yLocation = Int32.Parse(blockLocation.Attribute("y").Value);
+
+                                    level[xLocation][yLocation].gameObject = new Block(){isSpecial = isSpecial};
+
+                                    break;
+
+                                case "ground":
+                                    el = (XElement)XNode.ReadFrom(reader);
+
+                                    XElement groundLocation = el.Element("location");
+
+                                    xLocation = Int32.Parse(groundLocation.Attribute("x").Value);
+                                    yLocation = Int32.Parse(groundLocation.Attribute("y").Value);
+
+                                    level[xLocation][yLocation].gameObject = new Ground() { groundType = el.Attribute("type").Value };
+
+                                    break;
+
+                                case "pipe":
+                                    el = (XElement)XNode.ReadFrom(reader);
+
+                                    XElement pipeLocation = el.Element("location");
+
+                                    xLocation = Int32.Parse(pipeLocation.Attribute("x").Value);
+                                    yLocation = Int32.Parse(pipeLocation.Attribute("y").Value);
+
+                                    level[xLocation][yLocation].gameObject = new Pipe() { pipeType = el.Attribute("type").Value };
+
+                                    break;
+                            }
+                        }
+                    }
+
+                    panel.Invalidate();
+                }
+                else
+                {
+                    MessageBox.Show("There is no file selected!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

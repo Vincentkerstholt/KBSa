@@ -7,8 +7,8 @@ class Ground : public Obstacle{
 public:
 	Ground(int spriteX, int spriteY, string textureType);
 	string getClassName();
-	int getSpriteX();
-	int getSpriteY();
+	/*int getSpriteX();
+	int getSpriteY();*/
 	string getTextureType();
 private:
 	int spriteX;
