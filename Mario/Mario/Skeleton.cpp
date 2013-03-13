@@ -25,7 +25,6 @@ void CSkeleton::GameLoop()
 	RECT rect;
 	::GetClientRect(m_hWnd, &rect);
 	gameState->drawBackground(graphics);
-	gameState->drawGrid(graphics);
 	gameState->drawCharacters(graphics);
 	gameState->drawWorld(graphics);
 	if(debugMode)

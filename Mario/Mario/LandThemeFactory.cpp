@@ -3,15 +3,17 @@
 #include "LandThemePipe.h"
 
 HANDLE LandThemeFactory::getBlock(int x, int y){
-	return LoadImage(NULL, "res/forestlandps.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return LoadImage(NULL, "res/Wall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return NULL;
 }
 
 HANDLE LandThemeFactory::getPipe(int x, int y){
-	return LoadImage(NULL, "res/forestlandps.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	//return LoadImage(NULL, "res/forestlandps.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return NULL;
 }
 
 HANDLE LandThemeFactory::getGround(int x, int y){
-	return LoadImage(NULL, "res/forestlandps.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return LoadImage(NULL, "res/forrestsmall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 HANDLE LandThemeFactory::getBackgroundImage(){

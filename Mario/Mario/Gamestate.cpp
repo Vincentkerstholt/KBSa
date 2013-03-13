@@ -104,19 +104,77 @@ void Gamestate::drawWorld(HDC & hdc){
 			if(level[index] == NULL)
 				continue;
 			if(level[index]->getClassName() == "Block")
+			{
 				hObstacleBitmap = factory->getBlock(n, m);
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				BitBlt(hdc, ConvertIndexToXY(n), ConvertIndexToXY(m), 32, 32, hObstacleDC, 0, 0, SRCCOPY);
+			}
 			else if(level[index]->getClassName() == "Pipe")
+			{
 				hObstacleBitmap = factory->getPipe(n, m);
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+			}
 			else if(level[index]->getClassName() == "Ground")
+			{
+				Ground * ground = (Ground*)level[index];
 				hObstacleBitmap = factory->getGround(n, m);
 
-			hObstacleDC = CreateCompatibleDC(hdc);
+				hObstacleDC = CreateCompatibleDC(hdc);
 
-			GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
-			SelectObject(hObstacleDC, hObstacleBitmap);
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
 
-			BitBlt(hdc, ConvertIndexToXY(n), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 0, SRCCOPY);
+				string textTureType = ground->getTextureType();
 
+				if(textTureType == "topleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "topcenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,34,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "topright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,68,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "centerleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,0,34,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "centercenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,34,34,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "centerright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,68,34,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,0,68,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomcenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,34,68,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n), ConvertIndexToXY(m), 32,32,hObstacleDC,68,68,32,32,RGB(255,174,201));
+				}
+			}
+			
 			DeleteDC(hObstacleDC);
 			DeleteObject(hObstacleBitmap);
 		}
@@ -168,7 +226,7 @@ void Gamestate::CreateWorld(){
 		level[index] = new Ground(0,0, child->getAttribute("type"));
 	}
 
-	XmlParserNode * pipes = xml->getNode("grounds");
+	XmlParserNode * pipes = xml->getNode("pipes");
 	childs = pipes->getChilds();
 	for(int i = 0; i < pipes->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
