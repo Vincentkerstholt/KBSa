@@ -5,13 +5,11 @@
 
 class Block : public Obstacle{
 public:
-	Block(int spriteX, int spriteY);
+	Block(bool isSpecial);
 	string getClassName();
-	int getSpriteX();
-	int getSpriteY();
+	bool getIsSpecial();
 private:
-	int spriteX;
-	int spriteY;
+	bool isSpecial;
 };
 
 #endif

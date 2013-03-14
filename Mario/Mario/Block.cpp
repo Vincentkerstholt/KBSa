@@ -1,18 +1,13 @@
 #include "Block.h"
 
-Block::Block(int spriteX, int spriteY){
-	this->spriteX = spriteX;
-	this->spriteY = spriteY;
+Block::Block(bool isSpecial){
+	this->isSpecial = isSpecial;
 }
 
 string Block::getClassName(){
 	return "Block";
 }
 
-int Block::getSpriteX(){
-	return spriteX;
-}
-
-int Block::getSpriteY(){
-	return spriteY;
+bool Block::getIsSpecial(){
+	return isSpecial;
 }
