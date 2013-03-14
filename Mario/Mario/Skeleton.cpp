@@ -46,7 +46,7 @@ void CSkeleton::GameLoop()
 		if ( 0 < mario.y < 670)
 		{
 
-			gameState->Mario->setTexturePosition(1,1);
+			//gameState->Mario->setTexturePosition(1,1);
 			MarioDown.x = ((mario.x+33)/32);
 			MarioDown.y = ((mario.y+31)/32);
 			MarioUp.x = ((mario.x+33)/32);
@@ -75,7 +75,7 @@ void CSkeleton::GameLoop()
 		mario = gameState->Mario-> GetPositionPixel();
 		if ( 0 < mario.y < 670)
 		{
-			gameState->Mario->setTexturePosition(1,0);
+			//gameState->Mario->setTexturePosition(1,0);
 			MarioDown.x = ((mario.x-1)/32);
 			MarioDown.y = ((mario.y+31)/32);
 			MarioUp.x = ((mario.x-1)/32);

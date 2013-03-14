@@ -29,7 +29,6 @@ Gamestate::Gamestate()
 	curTime = 0;
 	fps = 0;
 	selector = 0;
-	Mario->SetPosition(160,608);
 
 	CreateWorld();
 }
@@ -354,7 +353,7 @@ void Gamestate::menu(HDC & hdc)
 		{
 		case 0:
 			// reset lvl
-			Mario->SetPosition(160,640);
+			Mario->SetPosition(160,608);
 			inMenu = false;
 		break;
 		case 1:

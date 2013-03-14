@@ -40,6 +40,7 @@ public:
 	BOOL JumpAbility;
 	int JumpHeight;
 	int Jumped;
+	int textureNumber;
 	
 private:
 	
