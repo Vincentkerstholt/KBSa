@@ -24,15 +24,15 @@ WaterThemeFactory::~WaterThemeFactory(){
 
 void WaterThemeFactory::delImage()
 {
-	delete blockBitmap;
+	DeleteObject(blockBitmap);
 	blockBitmap = NULL;
-	delete pipeBitmap;
+	DeleteObject(pipeBitmap);
 	pipeBitmap = NULL;
-	delete groundBitmap;
+	DeleteObject(groundBitmap);
 	groundBitmap = NULL;
-	delete bkGroundBitmap;
+	DeleteObject(bkGroundBitmap);
 	bkGroundBitmap = NULL;
-	delete bkGround2Bitmap;
+	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
 }
 
