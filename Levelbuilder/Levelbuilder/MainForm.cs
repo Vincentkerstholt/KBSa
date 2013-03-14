@@ -286,6 +286,10 @@ namespace Levelbuilder
                         case "pictureBox_Pipe_TopRight":
                             selectedNode.gameObject = new Pipe() { pipeType = 3 };
                             break;
+
+                        case "pictureBox_Goomba":
+                            selectedNode.gameObject = new Goomba(){};
+                            break;
                     }
                 }
                 panel.Invalidate();
@@ -349,6 +353,49 @@ namespace Levelbuilder
                     writer.WriteEndElement();
                     writer.WriteWhitespace("\n");
 
+                    //Opening the enemies node
+                    writer.WriteWhitespace("\t");
+                    writer.WriteStartElement("enemies");
+                    writer.WriteWhitespace("\n");
+
+                    for (int i = 0; i < COLUMNS; i++)
+                    {
+                        for (int j = 0; j < ROWS; j++)
+                        {
+                            if (level[i][j].gameObject != null)
+                            {
+                                
+                                switch (level[i][j].gameObject.GetType().Name)
+                                {
+                                    case "Goomba":
+                                        //Opening the enemy node
+                                        writer.WriteWhitespace("\t\t");
+                                        writer.WriteStartElement("enemy");
+                                        writer.WriteAttributeString("character", "goomba");
+
+                                        //Creating the location node
+                                        writer.WriteWhitespace("\t\t\t");
+                                        writer.WriteStartElement("location");
+                                        writer.WriteAttributeString("x", i.ToString());
+                                        writer.WriteAttributeString("y", j.ToString());
+                                        writer.WriteEndElement();
+                                        writer.WriteWhitespace("\n");
+
+                                        //Closing the enemy node
+                                        writer.WriteWhitespace("\t\t");
+                                        writer.WriteEndElement();
+                                        writer.WriteWhitespace("\n");
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    
+
+                    //Closing the enemies node
+                    writer.WriteWhitespace("\t");
+                    writer.WriteEndElement();
+                    writer.WriteWhitespace("\n");
 
                     //Opening the level node
                     writer.WriteWhitespace("\t");
