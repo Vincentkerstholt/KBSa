@@ -149,13 +149,20 @@ void Character::GetPowerUp()
 
 void Character::Move(char Direction, POINT curPos)
 {
+	
 	switch(Direction)
 	{
 	case 'R': //Move Right
-		this->Walk('R', curPos);
+		{
+			if(MoveAbilityR)
+			this->Walk('R', curPos);
+		}
 		break;
 	case 'L': //Move Left
-		this->Walk('L', curPos);
+		{
+			if(MoveAbilityL)
+			this->Walk('L', curPos);
+		}
 		break;
 	case 'D': //Move Down
 		this->setTexturePosition(13,1);

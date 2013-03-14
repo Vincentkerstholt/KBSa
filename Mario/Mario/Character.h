@@ -41,6 +41,8 @@ public:
 	int JumpHeight;
 	int Jumped;
 	int textureNumber;
+	bool MoveAbilityL;
+	bool MoveAbilityR;
 	
 private:
 	

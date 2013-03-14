@@ -54,6 +54,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	frames++;
 
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
+	Collision();
 	UpDownCollision();
 	drawBackground(hdc);
 	drawCharacters(hdc);
@@ -635,3 +636,66 @@ void Gamestate::HeroDie()
 		Mario->SetPosition(32, 400);
 	}
 }
+
+void Gamestate::Collision()
+{
+	POINT mario , MarioUp, MarioDown;
+	mario = Mario->GetPositionPixel();
+	if ( 0 < mario.y && mario.y < 670)
+	{
+
+		//gameState->Mario->setTexturePosition(1,1);
+		MarioDown.x = ((mario.x+28)/32);
+		MarioDown.y = ((mario.y+31)/32);
+		MarioUp.x = ((mario.x+28)/32);
+		MarioUp.y = ((mario.y)/32);
+
+		string DownPoint = BoxCheck(getIndex(MarioDown.x,MarioDown.y));
+		string UpPoint = BoxCheck(getIndex(MarioUp.x,MarioUp.y));
+
+		if (DownPoint == "Block" || UpPoint == "Block")
+		{
+			int onzin  = 1;		
+			Mario->MoveAbilityR = false;
+		}
+		else if (DownPoint == "Ground" || UpPoint == "Ground")
+		{
+			Mario->MoveAbilityR = false;
+		}
+		else
+		{
+			Mario->MoveAbilityR = true;
+			
+		}
+	}
+
+
+	mario = Mario->GetPositionPixel();
+	if ( 0 < mario.y && mario.y < 670)
+	{
+		//gameState->Mario->setTexturePosition(1,0);
+		MarioDown.x = ((mario.x+4)/32);
+		MarioDown.y = ((mario.y+31)/32);
+		MarioUp.x = ((mario.x+4)/32);
+		MarioUp.y = ((mario.y)/32);
+
+		string DownPoint = BoxCheck(getIndex(MarioDown.x,MarioDown.y));
+		string UpPoint = BoxCheck(getIndex(MarioUp.x,MarioUp.y));
+
+
+		if (DownPoint == "Block" || UpPoint == "Block")
+		{
+			Mario->MoveAbilityL = false;
+		}		
+		else if (DownPoint == "Ground" || UpPoint == "Ground")
+		{
+			Mario->MoveAbilityL = false;
+		}
+		else
+		{
+			Mario->MoveAbilityL = true;
+		}
+	}
+
+}
+
