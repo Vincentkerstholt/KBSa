@@ -414,8 +414,11 @@ void Gamestate::menu(HDC & hdc)
 		selector++;
 	}
 	if (GetAsyncKeyState(VK_ESCAPE))	{
-		Sleep(150);
-		inMenu = false;
+		if(inMenu == false)
+		{
+			Sleep(150);
+			inMenu = true;
+		}
 	}
 
 	//clear the async key to prevent interacting with the game while in menu
@@ -431,8 +434,8 @@ void Gamestate::menu(HDC & hdc)
 
 	if (selector < 0)
 		selector = 0;
-	if (selector > 2)
-		selector = 2;
+	if (selector > 3)
+		selector = 3;
 
 	if (GetAsyncKeyState(VK_RETURN))
 	{
@@ -451,6 +454,16 @@ void Gamestate::menu(HDC & hdc)
 		case 2:
 			//load game
 		break;
+		case 3:
+			{
+				//Continue game
+				int lives = Mario->getLives();
+				if(lives > 0)
+				{
+					inMenu = false;
+				}
+			}
+			break;
 		default:
 		break;
 		}
@@ -516,14 +529,14 @@ void Gamestate::UpDownCollision()
 
 	//down points for collision
 	mario = Mario->GetPositionPixel();
-	MarioRightFeet.x = ((mario.x+31)/32); // Rightfeet x
+	MarioRightFeet.x = ((mario.x+28)/32); // Rightfeet x
 	MarioRightFeet.y = ((mario.y+33)/32); //rightfeet y
-	MarioLeftFeet.x = ((mario.x)/32); //left feet x
+	MarioLeftFeet.x = ((mario.x+4)/32); //left feet x
 	MarioLeftFeet.y = ((mario.y+33)/32); //left feet y
 	//up point for collision
-	MarioRightHead.x = ((mario.x+22)/32); //Righthead x
+	MarioRightHead.x = ((mario.x+28)/32); //Righthead x
 	MarioRightHead.y = ((mario.y)/32); //Righthead y
-	MarioLeftHead.x = ((mario.x- 4)/32); //Lefthead x
+	MarioLeftHead.x = ((mario.x+ 4)/32); //Lefthead x
 	MarioLeftHead.y = ((mario.y)/32); //leftthead y
 	MarioMidHead.x = ((mario.x+16)/32);
 	MarioMidHead.y = ((mario.y)/32);
@@ -552,7 +565,10 @@ void Gamestate::UpDownCollision()
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;			
 		}
-
+		if (RightHead == "Ground" || LeftHead == "Ground" )
+		{			
+		Mario->JumpAbility = false; 	
+		}
 		if (RightFeet == "NULL" && LeftFeet == "NULL" ) // if there is no block below mario
 		{
 			if (Mario->Jumped == 0) // if mario had not jumped yet
@@ -577,7 +593,7 @@ void Gamestate::UpDownCollision()
 		}
 		else
 		{
-			Mario->Die();
+			HeroDie();
 		}
 		Mario->JumpAbility = false; // stop mario from jumping 
 	}	
@@ -595,7 +611,27 @@ string Gamestate::BoxCheck(int index)
 	type = "NULL";
 	}
 
+	/*if (type=="Block")  //preparation for the special check
+	{ 
+	level[index]->
+	}*/
+
 	return type;
 	
 }
 
+void Gamestate::HeroDie()
+{
+	if(Mario->getLives() == 0)
+	{
+		Mario->Die();
+		inMenu = true;
+	}
+	else
+	{
+		Mario->Die();
+		destroyWorld();
+		CreateWorld(1);
+		Mario->SetPosition(32, 400);
+	}
+}

@@ -27,7 +27,7 @@ int Hero::getCoins()
 
 int Hero::getLives()
 {
-	return lives;
+	return this->lives;
 }
 
 void Hero::Die()

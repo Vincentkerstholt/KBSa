@@ -27,6 +27,7 @@ public:
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
 	void UpDownCollision();
+	void HeroDie();
 	Hero * Mario;
 	bool inMenu;
 	~Gamestate();
