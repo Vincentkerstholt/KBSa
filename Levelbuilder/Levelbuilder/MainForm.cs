@@ -22,6 +22,7 @@ namespace Levelbuilder
         bool shiftKeyIsDown = false;
         bool HeroIsSet = false;
         Point lastSelectedNode = new Point(-1,-1);
+        Enemy selectedEnemy = null;
 
         public MainForm()
         {
@@ -88,9 +89,21 @@ namespace Levelbuilder
                 for (int y = 0; y < ROWS; y++)
                 {
                     level[x - 1][y].drawGameObject(e.Graphics, x - viewColumn, y);
-
+                    
                     if (selectedNodes.Contains(level[x - 1][y]))
-                        e.Graphics.FillRectangle(b, (x - viewColumn) * 32, y * 32, 32, 32);
+                    {
+                        if (selectedEnemy != null)
+                        {
+                            b = new SolidBrush(Color.FromArgb(150, Color.Green));
+                            e.Graphics.FillRectangle(b, (x - viewColumn) * 32, y * 32, 32, 32);
+                        }
+                        else
+                        {
+                            if (level[x - 1][y].gameObject != null && level[x - 1][y].gameObject == selectedEnemy)
+                                b = new SolidBrush(Color.FromArgb(150, Color.Green));
+                            e.Graphics.FillRectangle(b, (x - viewColumn) * 32, y * 32, 32, 32);
+                        }
+                    }
                 }
             }
 
@@ -112,6 +125,11 @@ namespace Levelbuilder
 
             if (shiftKeyIsDown)
             {
+                selectedNodes.Clear();
+
+                if (selectedEnemy != null)
+                    selectedEnemy.endPoint = new Point(x - 1, y);
+                
                 if (x < lastSelectedNode.X)
                 {
                     for (int i = x - 1; i <= lastSelectedNode.X; i++)
@@ -157,8 +175,58 @@ namespace Levelbuilder
             {
                 selectedNodes.Clear();
                 selectedNodes.Add(level[x - 1][y]);
+                if (level[x - 1][y].gameObject != null && level[x - 1][y].gameObject.GetType().BaseType == typeof(Enemy))
+                {
+                    selectedEnemy = (Enemy)level[x - 1][y].gameObject;
+                    if (selectedEnemy.endPoint.X > -1 && selectedEnemy.endPoint.Y > -1)
+                    {
+                        if (x < selectedEnemy.endPoint.X)
+                        {
+                            for (int i = x - 1; i <= selectedEnemy.endPoint.X; i++)
+                            {
+                                if (y < selectedEnemy.endPoint.Y)
+                                {
+                                    for (int j = y; j <= selectedEnemy.endPoint.Y; j++)
+                                    {
+                                        selectedNodes.Add(level[i][j]);
+                                    }
+                                }
+                                else if (y >= selectedEnemy.endPoint.Y)
+                                {
+                                    for (int j = selectedEnemy.endPoint.Y; j <= y; j++)
+                                    {
+                                        selectedNodes.Add(level[i][j]);
+                                    }
+                                }
+                            }
+                        }
+                        else if (x >= selectedEnemy.endPoint.X)
+                        {
+                            for (int i = selectedEnemy.endPoint.X; i < x; i++)
+                            {
+                                if (y < selectedEnemy.endPoint.Y)
+                                {
+                                    for (int j = y; j <= selectedEnemy.endPoint.Y; j++)
+                                    {
+                                        selectedNodes.Add(level[i][j]);
+                                    }
+                                }
+                                else if (y >= selectedEnemy.endPoint.Y)
+                                {
+                                    for (int j = selectedEnemy.endPoint.Y; j <= y; j++)
+                                    {
+                                        selectedNodes.Add(level[i][j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                    selectedEnemy = null;
+               
+                lastSelectedNode = new Point(x - 1, y);
             }
-            lastSelectedNode = new Point(x - 1, y);
 
             panel.Invalidate();
         }
@@ -288,7 +356,7 @@ namespace Levelbuilder
                             break;
 
                         case "pictureBox_Goomba":
-                            selectedNode.gameObject = new Goomba(){};
+                            selectedNode.gameObject = new Goomba(){ endPoint = new Point(-1,-1) };
                             break;
                     }
                 }
@@ -299,7 +367,7 @@ namespace Levelbuilder
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Shift)
+            if (e.Shift)
                 shiftKeyIsDown = true;
         }
 
@@ -368,6 +436,7 @@ namespace Levelbuilder
                                 switch (level[i][j].gameObject.GetType().Name)
                                 {
                                     case "Goomba":
+                                        Goomba goomba = (Goomba)level[i][j].gameObject;
                                         //Opening the enemy node
                                         writer.WriteWhitespace("\t\t");
                                         writer.WriteStartElement("enemy");
@@ -378,6 +447,14 @@ namespace Levelbuilder
                                         writer.WriteStartElement("location");
                                         writer.WriteAttributeString("x", i.ToString());
                                         writer.WriteAttributeString("y", j.ToString());
+                                        writer.WriteEndElement();
+                                        writer.WriteWhitespace("\n");
+
+                                        //Creating the endPath node
+                                        writer.WriteWhitespace("\t\t\t");
+                                        writer.WriteStartElement("endPath");
+                                        writer.WriteAttributeString("x", goomba.endPoint.X.ToString());
+                                        writer.WriteAttributeString("y", goomba.endPoint.Y.ToString());
                                         writer.WriteEndElement();
                                         writer.WriteWhitespace("\n");
 
@@ -626,6 +703,24 @@ namespace Levelbuilder
                                     yLocation = Int32.Parse(pipeLocation.Attribute("y").Value);
 
                                     level[xLocation][yLocation].gameObject = new Pipe() { pipeType = Int32.Parse(el.Attribute("type").Value) };
+                                    break;
+
+                                case "enemy":
+                                    el = (XElement)XNode.ReadFrom(reader);
+
+                                    XElement enemyLocation = el.Element("location");
+                                    XElement enemyEndPosition = el.Element("endPath");
+
+                                    xLocation = Int32.Parse(enemyLocation.Attribute("x").Value);
+                                    yLocation = Int32.Parse(enemyLocation.Attribute("y").Value);
+
+                                    switch (el.Attribute("character").Value)
+                                    {
+                                        case "goomba":
+                                            level[xLocation][yLocation].gameObject = new Goomba() { endPoint = new Point(Int32.Parse(enemyEndPosition.Attribute("x").Value), Int32.Parse(enemyEndPosition.Attribute("y").Value)) };
+                                            break;
+                                    }
+                                    
                                     break;
                             }
                         }

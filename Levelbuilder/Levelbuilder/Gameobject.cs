@@ -121,7 +121,7 @@ namespace Levelbuilder
 
     abstract class Enemy : Gameobject
     {
-
+        public Point endPoint { get; set; }
     }
 
     class Goomba : Enemy
