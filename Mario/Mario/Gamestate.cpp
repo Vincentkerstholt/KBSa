@@ -21,32 +21,14 @@ const int PIPE_BOTTOMRIGHT = 6;
 
 Gamestate::Gamestate()
 {
-	xml = new XmlParser("res/Landscape.xml");
+	CreateWorld(0);
 
-	XmlParserNode * levelXml = xml->getNode("level");
-	string width = levelXml->getAttribute("width");
-	string height = levelXml->getAttribute("height");
-	x = stoi( width );
-	y = stoi( height );
-
-
-	Mario = new Hero();
-
-	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	level = new Gameobject*[(x * y)];
-
-	XmlParserNode * factoryXml = xml->getNode("factory");
-	factory = getFactory(factoryXml->getAttribute("name"));
 
 	frames = 0;
 	curTime = 0;
 	fps = 0;
 	selector = 0;
-	
-	Mario->SetPosition(160,608);
-	CreateWorld(0);
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
@@ -371,6 +353,13 @@ void Gamestate::CreateWorld(int number){
 	default:
 	break;
 	}
+
+	XmlParserNode * levelXml = xml->getNode("level");
+	x = stoi( levelXml->getAttribute("width") );
+	y = stoi( levelXml->getAttribute("height") );
+
+	level = new Gameobject*[(x * y)];
+
 	for(int n = 0; n < x; n++)
 	{
 		for(int m = 0; m < y; m++){
@@ -378,6 +367,18 @@ void Gamestate::CreateWorld(int number){
 			level[index] = NULL;
 		}
 	}
+
+	XmlParserNode * marioXml = xml->getNode("hero");
+
+	Mario = new Hero();
+
+	int xMario = stoi(marioXml->getAttribute("x"));
+	int yMario = stoi(marioXml->getAttribute("y"));
+
+	Mario->SetPosition(xMario * 32, yMario * 32);
+
+	XmlParserNode * factoryXml = xml->getNode("factory");
+	factory = getFactory(factoryXml->getAttribute("name"));
 
 	XmlParserNode * blocks = xml->getNode("blocks");
 	XmlParserNode ** childs = blocks->getChilds();
@@ -470,7 +471,6 @@ void Gamestate::menu(HDC & hdc)
 		{
 		case 0:
 			// reset lvl
-			Mario->SetPosition(160,608);
 			destroyWorld();
 			CreateWorld(1);
 			inMenu = false;
@@ -659,6 +659,5 @@ void Gamestate::HeroDie()
 		Mario->Die();
 		destroyWorld();
 		CreateWorld(1);
-		Mario->SetPosition(32, 400);
 	}
 }

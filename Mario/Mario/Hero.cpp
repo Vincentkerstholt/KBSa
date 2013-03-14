@@ -2,7 +2,6 @@
 
 Hero::Hero()
 {
-	SetPosition(64, 400);
 	textureNumber = 1;
 	coins = 0;
 	lives = 5;
