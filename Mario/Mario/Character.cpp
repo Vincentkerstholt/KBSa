@@ -138,9 +138,9 @@ void Character :: SetPosition(POINT newPos)
 {
 	Position = newPos;
 }
-
 void Character::Die()
 {
+
 }
 
 void Character::GetPowerUp()

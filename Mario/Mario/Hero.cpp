@@ -2,9 +2,10 @@
 
 Hero::Hero()
 {
-
 	SetPosition(64, 400);
 	textureNumber = 1;
+	coins = 0;
+	lives = 5;
 	walkBehaviour = new FastWalk(); 
 	setDirection('R');
 	setTexturePosition(0,0);
@@ -19,3 +20,17 @@ Hero::~Hero()
 	walkBehaviour = 0;
 }
 
+int Hero::getCoins()
+{
+	return coins;
+}
+
+int Hero::getLives()
+{
+	return lives;
+}
+
+void Hero::Die()
+{
+	this->lives -= 1;
+}

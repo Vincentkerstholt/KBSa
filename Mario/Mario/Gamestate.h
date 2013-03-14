@@ -44,12 +44,14 @@ private:
 
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
+	HANDLE SpecialSheet;
 	HANDLE hObstacleBitmap;
 	
 	HDC hBackgroundDC;
 	HDC hObstacleDC;
 	BITMAP bitmap;
 	HDC hCharacterDC;
+	HDC hLivesDC;
 	int frames;
 	int curTime;
 	int fps;
@@ -63,6 +65,7 @@ private:
 	int ConvertIndexToXY(int index);
 	void CreateWorld();
 	void Gamestate::drawStatistics(HDC & hdc);
+	void Gamestate::drawHUD(HDC & hdc);
 	IThemeFactory * getFactory(string name);
 };
 #endif

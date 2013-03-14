@@ -37,6 +37,7 @@ Gamestate::Gamestate()
 
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	level = new Gameobject*[(x * y)];
 	XmlParserNode * factoryXml = xml->getNode("factory");
 	factory = getFactory(factoryXml->getAttribute("name"));
@@ -57,6 +58,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	UpDownCollision();
 	drawBackground(hdc);
 	drawCharacters(hdc);
+	drawHUD(hdc);
 	drawWorld(hdc);
 	if (debugMode == true)
 	{
@@ -64,6 +66,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 		drawStatistics(hdc);
 	}
 }
+
 IThemeFactory * Gamestate::getFactory(string name){
 	if(name == "landscape")
 		return new LandThemeFactory();
@@ -113,6 +116,7 @@ void Gamestate::drawCharacters(HDC & hdc){
 }
 
 void Gamestate::drawStatistics(HDC & hdc){
+	SetBkMode(hdc,TRANSPARENT);
 	int xValue = this->Mario->GetPositionPixel().x;
 	int yValue = this->Mario->GetPositionPixel().y;
 	ostringstream oss;
@@ -144,6 +148,38 @@ void Gamestate::drawStatistics(HDC & hdc){
 	oss.str("");
 	oss.clear();
 
+}
+
+void Gamestate::drawHUD(HDC & hdc){
+	SetBkMode(hdc,TRANSPARENT);
+	ostringstream oss;
+
+	oss << "Coins: " << Mario->getCoins() ;
+	TextOut(hdc, 600, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	oss << "Lives: " << Mario->getLives() ;
+	TextOut(hdc, 600, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	SIZE imgSize;
+
+	hLivesDC = CreateCompatibleDC(hdc);
+	GetObject(SpecialSheet, sizeof(BITMAP), &bitmap);
+	SelectObject(hLivesDC, SpecialSheet);
+
+	imgSize.cx = bitmap.bmWidth;
+	imgSize.cy = bitmap.bmHeight;
+
+
+	int x = 660;
+	for (int i = 0; i < Mario->getLives(); i++)
+	{
+		TransparentBlt(hdc, x, 30, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
+		x += 18;
+	}
+
+	DeleteDC(hLivesDC);
 }
 
 void Gamestate::drawBackground(HDC & hdc){
@@ -292,7 +328,6 @@ void Gamestate::drawWorld(HDC & hdc){
 	}
 
 }
-
 
 void Gamestate::changeFactory(char firstLetter){
 	switch(firstLetter){
@@ -494,6 +529,10 @@ void Gamestate::UpDownCollision()
 		{
 			Mario->Jumped = 15; // max jump position. Mario can't jump anymore
 			Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
+		}
+		else
+		{
+			Mario->Die();
 		}
 		Mario->JumpAbility = false; // stop mario from jumping 
 	}	
