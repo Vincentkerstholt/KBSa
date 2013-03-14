@@ -63,7 +63,6 @@ void XmlParserNode::setParent(XmlParserNode * parent){
 
 void XmlParserNode::setAttribute(string key, string setValue){
 	(*attributes)[key] = setValue;
-	//attributes->at(key) = setValue;
 }
 
 string XmlParserNode::getAttribute(string key){

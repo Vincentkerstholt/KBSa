@@ -441,6 +441,7 @@ namespace Levelbuilder
                                         writer.WriteWhitespace("\t\t");
                                         writer.WriteStartElement("enemy");
                                         writer.WriteAttributeString("character", "goomba");
+                                        writer.WriteWhitespace("\n");
 
                                         //Creating the location node
                                         writer.WriteWhitespace("\t\t\t");

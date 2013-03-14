@@ -284,7 +284,7 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 				}
 			}
-			else if(level[index]->getClassName() == "Ground")
+			else if(level[index]->getClassName() == "Goomba")
 			{
 				Goomba * goomba = (Goomba*)level[index];
 				hObstacleBitmap = factory->getGoomba();
@@ -293,6 +293,8 @@ void Gamestate::drawWorld(HDC & hdc){
 
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,36,32,32,RGB(255,174,201));
 			}
 			
 			DeleteDC(hObstacleDC);
