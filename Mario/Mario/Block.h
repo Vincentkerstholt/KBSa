@@ -8,8 +8,10 @@ public:
 	Block(bool isSpecial);
 	string getClassName();
 	bool getIsSpecial();
+	int getPosX();
 private:
 	bool isSpecial;
+	int posX;
 };
 
 #endif

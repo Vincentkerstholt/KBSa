@@ -150,10 +150,13 @@ void Gamestate::drawWorld(HDC & hdc){
 
 				Block * block = (Block *)level[index];
 
-				if(block->getIsSpecial())
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
-				else
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
+				int blockX = block->getPosX() * 34;
+				int blockY = 0;
+				
+				if(!block->getIsSpecial())
+					blockY = 32;
+				
+				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,blockX,blockY,32,32,RGB(255,174,201));
 			}
 			else if(level[index]->getClassName() == "Pipe")
 			{
