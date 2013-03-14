@@ -109,6 +109,11 @@
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
+
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Source Files\Obstacle</Filter>
+    </ClCompile>
+
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>

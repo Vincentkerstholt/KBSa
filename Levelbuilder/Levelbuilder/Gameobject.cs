@@ -14,38 +14,38 @@ namespace Levelbuilder
     
     class Ground : Gameobject
     {
-        public string groundType { get; set; }
+        public int groundType { get; set; }
 
         public override Image getImage()
         {
             Image returnImage = null;
-            switch (groundType.ToLower())
+            switch (groundType)
             {
-                case "topleft":
+                case 1:
                     returnImage = Properties.Resources.groundTopLeft;
                     break;
-                case "topcenter":
+                case 2:
                     returnImage = Properties.Resources.groundTopCenter;
                     break;
-                case "topright":
+                case 3:
                     returnImage = Properties.Resources.groundTopRight;
                     break;
-                case "centerleft":
+                case 4:
                     returnImage = Properties.Resources.groundCenterLeft;
                     break;
-                case "centercenter":
+                case 5:
                     returnImage = Properties.Resources.groundCenterCenter;
                     break;
-                case "centerright":
+                case 6:
                     returnImage = Properties.Resources.groundCenterRight;
                     break;
-                case "bottomleft":
+                case 7:
                     returnImage = Properties.Resources.groundBottomLeft;
                     break;
-                case "bottomcenter":
+                case 8:
                     returnImage = Properties.Resources.groundBottomCenter;
                     break;
-                case "bottomright":
+                case 9:
                     returnImage = Properties.Resources.groundBottomRight;
                     break;
             }
@@ -55,33 +55,33 @@ namespace Levelbuilder
 
     class Pipe : Gameobject
     {
-        public string pipeType { get; set; }
+        public int pipeType { get; set; }
         public override Image getImage()
         {
             Image returnImage = null;
-            switch (pipeType.ToLower())
+            switch (pipeType)
             {
-                case "topleft":
+                case 1:
                     returnImage = Properties.Resources.pipeTopLeft;
                     break;
 
-                case "topcenter":
+                case 2:
                     returnImage = Properties.Resources.pipeTopCenter;
                     break;
 
-                case "topright":
+                case 3:
                     returnImage = Properties.Resources.pipeTopRight;
                     break;
 
-                case "bottomleft":
+                case 4:
                     returnImage = Properties.Resources.pipeBottomLeft;
                     break;
 
-                case "bottomcenter":
+                case 5:
                     returnImage = Properties.Resources.pipeBottomCenter;
                     break;
 
-                case "bottomright":
+                case 6:
                     returnImage = Properties.Resources.pipeBottomRight;
                     break;
             }

@@ -2,22 +2,43 @@
 #include "SkyThemeBlock.h"
 #include "SkyThemePipe.h"
 
+SkyThemeFactory::SkyThemeFactory(){
+	blockBitmap = LoadImage(NULL, "res/Wall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	groundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+}
+
+SkyThemeFactory::~SkyThemeFactory(){
+	delete blockBitmap;
+	blockBitmap = NULL;
+	delete pipeBitmap;
+	pipeBitmap = NULL;
+	delete groundBitmap;
+	groundBitmap = NULL;
+	delete bkGroundBitmap;
+	bkGroundBitmap = NULL;
+	delete bkGround2Bitmap;
+	bkGround2Bitmap = NULL;
+}
+
 HANDLE SkyThemeFactory::getBlock(){
-	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return blockBitmap;
 }
 
 HANDLE SkyThemeFactory::getPipe(){
-	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return pipeBitmap;
 }
 
 HANDLE SkyThemeFactory::getGround(){
-	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return groundBitmap;
 }
 
 HANDLE SkyThemeFactory::getBackgroundImage(){
-	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return bkGroundBitmap;
 }
 
 HANDLE SkyThemeFactory::getBackgroundImage2(){
-	return LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	return bkGround2Bitmap;
 }

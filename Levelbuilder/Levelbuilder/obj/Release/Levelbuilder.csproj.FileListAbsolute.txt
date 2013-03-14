@@ -1,0 +1,9 @@
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\bin\Release\Levelbuilder.exe.config
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\bin\Release\Levelbuilder.exe
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\bin\Release\Levelbuilder.pdb
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\obj\Release\Levelbuilder.csprojResolveAssemblyReference.cache
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\obj\Release\Levelbuilder.MainForm.resources
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\obj\Release\Levelbuilder.Properties.Resources.resources
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\obj\Release\Levelbuilder.csproj.GenerateResource.Cache
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\obj\Release\Levelbuilder.exe
+D:\gitProjects\KBSa\Levelbuilder\Levelbuilder\obj\Release\Levelbuilder.pdb

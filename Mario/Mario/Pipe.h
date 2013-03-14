@@ -5,11 +5,11 @@
 
 class Pipe : public Obstacle{
 public:
-	Pipe(string textureType);
+	Pipe(int textureType);
 	string getClassName();
-	string getTextureType();
+	int getTextureType();
 private:
-	string textureType;
+	int textureType;
 };
 
 #endif
