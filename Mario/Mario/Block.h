@@ -6,12 +6,13 @@
 class Block : public Obstacle{
 public:
 	Block();
+	Block(bool isSpecial);
 	string getClassName();
-	int getSpriteX();
-	int getSpriteY();
+	bool getIsSpecial();
+	int getPosX();
 private:
-	int spriteX;
-	int spriteY;
+	bool isSpecial;
+	int posX;
 };
 
 #endif

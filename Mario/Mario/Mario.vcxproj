@@ -17,6 +17,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FastWalk.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="NormalJump.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
     <ClCompile Include="Skeleton.cpp" />
@@ -31,6 +32,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FastWalk.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="JumpBehaviour.h" />
+    <ClInclude Include="NormalJump.h" />
     <ClInclude Include="XMLParserNode.h" />
     <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />
@@ -108,6 +111,7 @@
   <ItemGroup>
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="Gamestate.cpp" />
+	<ClCompile Include="Skeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gameobject.h" />

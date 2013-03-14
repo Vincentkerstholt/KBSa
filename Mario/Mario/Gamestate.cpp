@@ -1,6 +1,5 @@
 #include "Gamestate.h"
 
-
 const int multiplier = 32;
 const int GROUND_TOPLEFT = 1;
 const int GROUND_TOPCENTER = 2;
@@ -18,6 +17,7 @@ const int PIPE_TOPRIGHT = 3;
 const int PIPE_BOTTOMLEFT = 4;
 const int PIPE_BOTTOMCENTER = 5;
 const int PIPE_BOTTOMRIGHT = 6;
+
 
 Gamestate::Gamestate()
 {
@@ -43,14 +43,17 @@ Gamestate::Gamestate()
 	curTime = 0;
 	fps = 0;
 	selector = 0;
+	
 	Mario->SetPosition(160,608);
-
 	CreateWorld(0);
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
+	frames++;
+
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
+	UpDownCollision();
 	drawBackground(hdc);
 	drawCharacters(hdc);
 	drawWorld(hdc);
@@ -104,10 +107,42 @@ void Gamestate::drawCharacters(HDC & hdc){
 	hCharacterDC = CreateCompatibleDC(hdc);
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
-
-	TransparentBlt(hdc, (Mario->GetPositionPixel().x)- camera.getXPosition(), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->textureNumber*multiplier), 0, 32,32, GetPixel(hCharacterDC, 0,0));
-
+	TransparentBlt(hdc, (Mario->GetPositionPixel().x - camera.getXPosition()), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->getTexturePosition().x*multiplier), Mario->getTexturePosition().y*multiplier, 32,32, GetPixel(hCharacterDC, 0,0));
 	DeleteDC(hCharacterDC);
+}
+
+void Gamestate::drawStatistics(HDC & hdc){
+	int xValue = this->Mario->GetPositionPixel().x;
+	int yValue = this->Mario->GetPositionPixel().y;
+	ostringstream oss;
+
+	oss << xValue << " " << yValue;
+	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
+	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	int xValueTexture = this->Mario->getTexturePosition().x;
+	int yValueTexture = this->Mario->getTexturePosition().y;
+	oss << xValueTexture << " " << yValueTexture;
+	TextOut(hdc, 10, 30, "TexturePos. Mario: ", strlen("TexturePos. Mario: "));
+	TextOut(hdc, 140, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	oss << Mario->getDirection();
+	TextOut(hdc, 10, 50, "Direction Mario: ", strlen("Direction Mario: "));
+	TextOut(hdc, 120, 50, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+
+	POINT p;
+	GetCursorPos(&p);
+
+	oss << "Cursor X: " << (p.x-3) << " Y: " << (p.y-26);
+	TextOut(hdc,  10, 70, oss.str().c_str(), strlen(oss.str().c_str()));
+
+	oss.str("");
+	oss.clear();
+
 }
 
 void Gamestate::drawBackground(HDC & hdc){
@@ -134,12 +169,13 @@ void Gamestate::drawBackground(HDC & hdc){
 }
 
 void Gamestate::drawWorld(HDC & hdc){
+
 	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 			if(level[index] == NULL)
-				continue;
-			
+			continue;
+
 			if(level[index]->getClassName() == "Block")
 			{
 				hObstacleBitmap = factory->getBlock();
@@ -149,7 +185,15 @@ void Gamestate::drawWorld(HDC & hdc){
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
 
-				BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 0, 0, SRCCOPY);
+				Block * block = (Block *)level[index];
+
+				int blockX = block->getPosX() * 34;
+				int blockY = 0;
+				
+				if(!block->getIsSpecial())
+					blockY = 32;
+				
+				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,blockX,blockY,32,32,RGB(255,174,201));
 			}
 			else if(level[index]->getClassName() == "Pipe")
 			{
@@ -248,38 +292,6 @@ void Gamestate::drawWorld(HDC & hdc){
 
 }
 
-void Gamestate::drawStatistics(HDC & hdc){
-	
-
-	int xValue = this->Mario->GetPositionPixel().x;
-	int yValue = this->Mario->GetPositionPixel().y;
-	ostringstream oss;
-
-	oss << "Pos. Mario: " << xValue << " " << yValue;
-	TextOut(hdc, 10, 10, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-	oss.clear();
-
-	oss << "screen position: " << camera.getXPosition();
-	TextOut(hdc, 10, 30, oss.str().c_str(), strlen(oss.str().c_str()));
-
-	oss.str("");
-	oss.clear();
-
-	frames++;
-	if (curTime != time(NULL))
-	{
-		curTime = time(NULL);
-		fps = frames;
-		frames = 0;
-	}
-
-	oss << "fps: " << fps;
-	TextOut(hdc, 10, 50, oss.str().c_str(), strlen(oss.str().c_str()));
-
-	oss.str("");
-	oss.clear();
-}
 
 void Gamestate::changeFactory(char firstLetter){
 	factory->delImage();
@@ -327,8 +339,11 @@ void Gamestate::CreateWorld(int number){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
-		if (index > 0 && index < x * y )
-		level[index] = new Block();
+
+		if (child->getAttribute("isSpecial") == "true")
+			level[index] = new Block(true);
+		else
+			level[index] = new Block(false);
 	}
 
 	XmlParserNode * grounds = xml->getNode("grounds");
@@ -448,7 +463,100 @@ Gamestate::~Gamestate(){
 
 	delete factory;
 	factory = NULL;
-
 	delete xml;
 	xml = NULL;
 }
+
+void Gamestate::UpDownCollision()
+{
+	/* This collision detection is based on points. This function checks for every point in witch tile it is and what's in that tile.
+	*/
+
+	POINT mario;
+	POINT MarioRightFeet;
+	POINT MarioLeftFeet;
+	POINT MarioRightHead;
+	POINT MarioLeftHead;
+	POINT MarioMidHead;
+
+	//down points for collision
+	mario = Mario->GetPositionPixel();
+	MarioRightFeet.x = ((mario.x+31)/32); // Rightfeet x
+	MarioRightFeet.y = ((mario.y+33)/32); //rightfeet y
+	MarioLeftFeet.x = ((mario.x)/32); //left feet x
+	MarioLeftFeet.y = ((mario.y+33)/32); //left feet y
+	//up point for collision
+	MarioRightHead.x = ((mario.x+22)/32); //Righthead x
+	MarioRightHead.y = ((mario.y)/32); //Righthead y
+	MarioLeftHead.x = ((mario.x- 4)/32); //Lefthead x
+	MarioLeftHead.y = ((mario.y)/32); //leftthead y
+	MarioMidHead.x = ((mario.x+16)/32);
+	MarioMidHead.y = ((mario.y)/32);
+	
+	if (mario.y < 662 && mario.y > 0 )
+	{
+	string RightFeet = BoxCheck(getIndex(MarioRightFeet.x,MarioRightFeet.y));
+	string LeftFeet = BoxCheck(getIndex(MarioLeftFeet.x,MarioLeftFeet.y));
+	string RightHead = BoxCheck(getIndex(MarioRightHead.x,MarioRightHead.y));
+	string LeftHead = BoxCheck(getIndex(MarioLeftHead.x,MarioLeftHead.y));
+	string MidHead = BoxCheck(getIndex(MarioMidHead.x,MarioMidHead.y));
+		
+		if(Mario->Jumped < Mario->JumpHeight )
+		{
+			Mario->JumpAbility = true;
+		}
+
+		if (RightHead == "Block" || LeftHead == "Block" )
+		{			
+				int index = getIndex(MarioMidHead.x,MarioMidHead.y);
+				Mario->JumpAbility = false;
+				Mario->Jumped = 15;
+				delete level[index];
+				level[index] = NULL;
+			
+			Mario->JumpAbility = false;
+			Mario->Jumped = 15;			
+		}
+
+		if (RightFeet == "NULL" && LeftFeet == "NULL" ) // if there is no block below mario
+		{
+			if (Mario->Jumped == 0) // if mario had not jumped yet
+			{
+				Mario->JumpAbility = false; // set the jump ability false
+			}
+			Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
+		}
+		else
+		{
+			Mario->Jumped=0; // if there is air below, let mario jump again. 
+			Mario->JumpAbility = true; 
+		}
+		
+	}
+	else
+	{
+		if ( mario.y < 662) // if mario is not at the ground, so must be at the top of the level.
+		{
+			Mario->Jumped = 15; // max jump position. Mario can't jump anymore
+			Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
+		}
+		Mario->JumpAbility = false; // stop mario from jumping 
+	}	
+}
+
+string Gamestate::BoxCheck(int index)
+{
+	string type;
+	if (level[index] != NULL)
+	{
+		type = level[index]->getClassName();
+	}
+	else
+	{
+	type = "NULL";
+	}
+
+	return type;
+	
+}
+

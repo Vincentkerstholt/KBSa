@@ -20,10 +20,13 @@ class Gamestate
 {
 public:
 	Gamestate();
-	Gamestate(int x, int y);
 	void menu(HDC & hdc);
+	Gamestate(int x, int y);
 	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
+	string BoxCheck(int index);
+	int getIndex(int n, int m);
+	void UpDownCollision();
 	Hero * Mario;
 	bool inMenu;
 	~Gamestate();
@@ -61,7 +64,7 @@ private:
 	int ConvertIndexToXY(int index);
 	void CreateWorld(int number);
 	void destroyWorld();
-	int getIndex(int n, int m);
+	void CreateWorld();
 	void Gamestate::drawStatistics(HDC & hdc);
 	IThemeFactory * getFactory(string name);
 };

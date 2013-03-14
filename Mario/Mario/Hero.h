@@ -8,11 +8,16 @@ private:
 	int coins;
 	int score;
 	int lives;
+	int jumping;
+	
 public:
 	Hero();
 	~Hero();
 	HANDLE texture;
 	int textureNumber;
+	POINT collisionPoint[8];
+	
+
 };
 
 #endif
