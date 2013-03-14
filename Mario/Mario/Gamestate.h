@@ -27,6 +27,7 @@ public:
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
 	void UpDownCollision();
+	void HeroDie();
 	Hero * Mario;
 	bool inMenu;
 	~Gamestate();
@@ -44,12 +45,14 @@ private:
 
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
+	HANDLE SpecialSheet;
 	HANDLE hObstacleBitmap;
 	
 	HDC hBackgroundDC;
 	HDC hObstacleDC;
 	BITMAP bitmap;
 	HDC hCharacterDC;
+	HDC hLivesDC;
 	int frames;
 	int curTime;
 	int fps;
@@ -66,6 +69,7 @@ private:
 	void destroyWorld();
 	void CreateWorld();
 	void Gamestate::drawStatistics(HDC & hdc);
+	void Gamestate::drawHUD(HDC & hdc);
 	IThemeFactory * getFactory(string name);
 };
 #endif

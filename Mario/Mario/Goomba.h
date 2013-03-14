@@ -10,6 +10,7 @@ public:
 	~Goomba();
 	int getEndPoint(char valuePoint);
 	string getClassName();
+	void Die();
 private:
 	int endPointX;
 	int endPointY;

@@ -34,6 +34,7 @@ Gamestate::Gamestate()
 
 	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	level = new Gameobject*[(x * y)];
 
 	XmlParserNode * factoryXml = xml->getNode("factory");
@@ -56,6 +57,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	UpDownCollision();
 	drawBackground(hdc);
 	drawCharacters(hdc);
+	drawHUD(hdc);
 	drawWorld(hdc);
 	if (debugMode == true)
 	{
@@ -63,6 +65,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 		drawStatistics(hdc);
 	}
 }
+
 IThemeFactory * Gamestate::getFactory(string name){
 	if(name == "landscape")
 		return new LandThemeFactory();
@@ -112,6 +115,7 @@ void Gamestate::drawCharacters(HDC & hdc){
 }
 
 void Gamestate::drawStatistics(HDC & hdc){
+	SetBkMode(hdc,TRANSPARENT);
 	int xValue = this->Mario->GetPositionPixel().x;
 	int yValue = this->Mario->GetPositionPixel().y;
 	ostringstream oss;
@@ -143,6 +147,38 @@ void Gamestate::drawStatistics(HDC & hdc){
 	oss.str("");
 	oss.clear();
 
+}
+
+void Gamestate::drawHUD(HDC & hdc){
+	SetBkMode(hdc,TRANSPARENT);
+	ostringstream oss;
+
+	oss << "Coins: " << Mario->getCoins() ;
+	TextOut(hdc, 600, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	oss << "Lives: " << Mario->getLives() ;
+	TextOut(hdc, 600, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	SIZE imgSize;
+
+	hLivesDC = CreateCompatibleDC(hdc);
+	GetObject(SpecialSheet, sizeof(BITMAP), &bitmap);
+	SelectObject(hLivesDC, SpecialSheet);
+
+	imgSize.cx = bitmap.bmWidth;
+	imgSize.cy = bitmap.bmHeight;
+
+
+	int x = 660;
+	for (int i = 0; i < Mario->getLives(); i++)
+	{
+		TransparentBlt(hdc, x, 30, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
+		x += 18;
+	}
+
+	DeleteDC(hLivesDC);
 }
 
 void Gamestate::drawBackground(HDC & hdc){
@@ -405,8 +441,11 @@ void Gamestate::menu(HDC & hdc)
 		selector++;
 	}
 	if (GetAsyncKeyState(VK_ESCAPE))	{
-		Sleep(150);
-		inMenu = false;
+		if(inMenu == false)
+		{
+			Sleep(150);
+			inMenu = true;
+		}
 	}
 
 	//clear the async key to prevent interacting with the game while in menu
@@ -422,8 +461,8 @@ void Gamestate::menu(HDC & hdc)
 
 	if (selector < 0)
 		selector = 0;
-	if (selector > 2)
-		selector = 2;
+	if (selector > 3)
+		selector = 3;
 
 	if (GetAsyncKeyState(VK_RETURN))
 	{
@@ -442,6 +481,16 @@ void Gamestate::menu(HDC & hdc)
 		case 2:
 			//load game
 		break;
+		case 3:
+			{
+				//Continue game
+				int lives = Mario->getLives();
+				if(lives > 0)
+				{
+					inMenu = false;
+				}
+			}
+			break;
 		default:
 		break;
 		}
@@ -507,14 +556,14 @@ void Gamestate::UpDownCollision()
 
 	//down points for collision
 	mario = Mario->GetPositionPixel();
-	MarioRightFeet.x = ((mario.x+31)/32); // Rightfeet x
+	MarioRightFeet.x = ((mario.x+28)/32); // Rightfeet x
 	MarioRightFeet.y = ((mario.y+33)/32); //rightfeet y
-	MarioLeftFeet.x = ((mario.x)/32); //left feet x
+	MarioLeftFeet.x = ((mario.x+4)/32); //left feet x
 	MarioLeftFeet.y = ((mario.y+33)/32); //left feet y
 	//up point for collision
-	MarioRightHead.x = ((mario.x+22)/32); //Righthead x
+	MarioRightHead.x = ((mario.x+28)/32); //Righthead x
 	MarioRightHead.y = ((mario.y)/32); //Righthead y
-	MarioLeftHead.x = ((mario.x- 4)/32); //Lefthead x
+	MarioLeftHead.x = ((mario.x+ 4)/32); //Lefthead x
 	MarioLeftHead.y = ((mario.y)/32); //leftthead y
 	MarioMidHead.x = ((mario.x+16)/32);
 	MarioMidHead.y = ((mario.y)/32);
@@ -543,7 +592,10 @@ void Gamestate::UpDownCollision()
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;			
 		}
-
+		if (RightHead == "Ground" || LeftHead == "Ground" )
+		{			
+		Mario->JumpAbility = false; 	
+		}
 		if (RightFeet == "NULL" && LeftFeet == "NULL" ) // if there is no block below mario
 		{
 			if (Mario->Jumped == 0) // if mario had not jumped yet
@@ -566,6 +618,10 @@ void Gamestate::UpDownCollision()
 			Mario->Jumped = 15; // max jump position. Mario can't jump anymore
 			Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
 		}
+		else
+		{
+			HeroDie();
+		}
 		Mario->JumpAbility = false; // stop mario from jumping 
 	}	
 }
@@ -582,6 +638,27 @@ string Gamestate::BoxCheck(int index)
 	type = "NULL";
 	}
 
+	/*if (type=="Block")  //preparation for the special check
+	{ 
+	level[index]->
+	}*/
+
 	return type;
 	
+}
+
+void Gamestate::HeroDie()
+{
+	if(Mario->getLives() == 0)
+	{
+		Mario->Die();
+		inMenu = true;
+	}
+	else
+	{
+		Mario->Die();
+		destroyWorld();
+		CreateWorld(1);
+		Mario->SetPosition(32, 400);
+	}
 }

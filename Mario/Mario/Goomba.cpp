@@ -19,3 +19,7 @@ int Goomba::getEndPoint(char valuePoint){
 string Goomba::getClassName(){
 	return "Goomba";
 }
+
+void Goomba::Die(){
+
+}

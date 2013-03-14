@@ -16,7 +16,7 @@ class Character : public Gameobject
 {
 public:
 	Character();
-	virtual void Die();
+	virtual void Die() =0;
 	virtual void GetPowerUp();
 	virtual void Move(char Direction, POINT curPos);
 	virtual void Jump(POINT curPos);

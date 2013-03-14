@@ -131,8 +131,11 @@ void CSkeleton::GameLoop()
 		Sleep(200);
 	}
 	if (::GetAsyncKeyState(VK_ESCAPE)){
-		gameState->inMenu = true;
-		Sleep(200);
+		if(gameState->inMenu != true)
+		{
+			gameState->inMenu = true;
+			Sleep(200);
+		}
 	}
 
 
