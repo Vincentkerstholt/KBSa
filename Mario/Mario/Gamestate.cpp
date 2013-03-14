@@ -481,14 +481,14 @@ void Gamestate::UpDownCollision()
 
 	//down points for collision
 	mario = Mario->GetPositionPixel();
-	MarioRightFeet.x = ((mario.x+31)/32); // Rightfeet x
+	MarioRightFeet.x = ((mario.x+22)/32); // Rightfeet x
 	MarioRightFeet.y = ((mario.y+33)/32); //rightfeet y
-	MarioLeftFeet.x = ((mario.x)/32); //left feet x
+	MarioLeftFeet.x = ((mario.x+ 4)/32); //left feet x
 	MarioLeftFeet.y = ((mario.y+33)/32); //left feet y
 	//up point for collision
 	MarioRightHead.x = ((mario.x+22)/32); //Righthead x
 	MarioRightHead.y = ((mario.y)/32); //Righthead y
-	MarioLeftHead.x = ((mario.x- 4)/32); //Lefthead x
+	MarioLeftHead.x = ((mario.x+ 4)/32); //Lefthead x
 	MarioLeftHead.y = ((mario.y)/32); //leftthead y
 	MarioMidHead.x = ((mario.x+16)/32);
 	MarioMidHead.y = ((mario.y)/32);
