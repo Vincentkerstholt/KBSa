@@ -45,7 +45,7 @@ Gamestate::Gamestate()
 	selector = 0;
 	Mario->SetPosition(160,608);
 
-	CreateWorld();
+	CreateWorld(0);
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
@@ -300,7 +300,18 @@ void Gamestate::changeFactory(char firstLetter){
 	}
 }
 
-void Gamestate::CreateWorld(){
+void Gamestate::CreateWorld(int number){
+	switch(number)
+	{
+	case 0:
+		xml = new XmlParser("res/Landscape.xml");
+	break;
+	case 1:
+		xml = new XmlParser("res/Landscape2.xml");
+	break;
+	default:
+	break;
+	}
 	for(int n = 0; n < x; n++)
 	{
 		for(int m = 0; m < y; m++){
@@ -381,7 +392,7 @@ void Gamestate::menu(HDC & hdc)
 			// reset lvl
 			Mario->SetPosition(160,608);
 			destroyWorld();
-			CreateWorld();
+			CreateWorld(1);
 			inMenu = false;
 		break;
 		case 1:

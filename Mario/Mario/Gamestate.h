@@ -59,7 +59,7 @@ private:
 	void drawBackground(HDC & hdc);
 	void drawWorld(HDC & hdc);
 	int ConvertIndexToXY(int index);
-	void CreateWorld();
+	void CreateWorld(int number);
 	void destroyWorld();
 	int getIndex(int n, int m);
 	void Gamestate::drawStatistics(HDC & hdc);
