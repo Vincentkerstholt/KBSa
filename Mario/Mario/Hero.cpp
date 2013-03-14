@@ -13,6 +13,10 @@ Hero::Hero()
 	texture = LoadImage(NULL, "res/bigMarioMoves.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
+string Hero::getClassName(){
+	return "Hero";
+}
+
 Hero::~Hero()
 {
 	delete walkBehaviour;

@@ -8,10 +8,11 @@
 #include "JumpBehaviour.h"
 #include "NormalJump.h"
 #include <string>
+#include "GameObject.h"
 
 using namespace std;
 
-class Character
+class Character : public Gameobject
 {
 public:
 	Character();

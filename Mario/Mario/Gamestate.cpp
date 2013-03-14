@@ -284,6 +284,16 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 				}
 			}
+			else if(level[index]->getClassName() == "Ground")
+			{
+				Goomba * goomba = (Goomba*)level[index];
+				hObstacleBitmap = factory->getGoomba();
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+			}
 			
 			DeleteDC(hObstacleDC);
 			//DeleteObject(hObstacleBitmap);
@@ -291,7 +301,6 @@ void Gamestate::drawWorld(HDC & hdc){
 	}
 
 }
-
 
 void Gamestate::changeFactory(char firstLetter){
 	factory->delImage();
@@ -365,6 +374,21 @@ void Gamestate::CreateWorld(int number){
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 		level[index] = new Pipe(stoi(child->getAttribute("type")));
+	}
+
+	XmlParserNode * enemies = xml->getNode("enemies");
+	childs = enemies->getChilds();
+	for(int i = 0; i < enemies->getChildsLength(); i++)
+	{
+		XmlParserNode * child = childs[i];
+
+		XmlParserNode * childLocation = child->getNode("location");
+		XmlParserNode * childEndPath = child->getNode("endPath");
+		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+
+		if(child->getAttribute("character") == "goomba"){
+			level[index] = new Goomba(stoi(childEndPath->getAttribute("x")), stoi(childEndPath->getAttribute("y")));
+		}
 	}
 }
 
@@ -559,4 +583,3 @@ string Gamestate::BoxCheck(int index)
 	return type;
 	
 }
-

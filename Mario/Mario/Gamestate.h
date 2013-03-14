@@ -4,9 +4,9 @@
 #include <typeinfo>
 #include "Win.h"
 #include "GameObject.h"
-#include "Hero.h"
 #include "factories.h"
 #include "obstacles.h"
+#include "characters.h"
 #include "Camera.h"
 #include <time.h>
 #include <sstream>

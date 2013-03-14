@@ -16,6 +16,7 @@
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FastWalk.cpp" />
+    <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="NormalJump.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
@@ -29,8 +30,10 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="character.h" />
+    <ClInclude Include="characters.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FastWalk.h" />
+    <ClInclude Include="Goomba.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="JumpBehaviour.h" />
     <ClInclude Include="NormalJump.h" />
@@ -111,7 +114,7 @@
   <ItemGroup>
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="Gamestate.cpp" />
-	<ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gameobject.h" />

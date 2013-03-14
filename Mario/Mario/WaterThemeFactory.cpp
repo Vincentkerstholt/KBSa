@@ -6,6 +6,7 @@ WaterThemeFactory::WaterThemeFactory(){
 	blockBitmap = LoadImage(NULL, "res/Wall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
@@ -18,6 +19,8 @@ WaterThemeFactory::~WaterThemeFactory(){
 	groundBitmap = NULL;
 	delete bkGroundBitmap;
 	bkGroundBitmap = NULL;
+	DeleteObject(goombaBitmap);
+	goombaBitmap = NULL;
 	delete bkGround2Bitmap;
 	bkGround2Bitmap = NULL;
 }
@@ -30,6 +33,8 @@ void WaterThemeFactory::delImage()
 	pipeBitmap = NULL;
 	DeleteObject(groundBitmap);
 	groundBitmap = NULL;
+	DeleteObject(goombaBitmap);
+	goombaBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
@@ -46,6 +51,10 @@ HANDLE WaterThemeFactory::getPipe(){
 
 HANDLE WaterThemeFactory::getGround(){
 	return groundBitmap;
+}
+
+HANDLE WaterThemeFactory::getGoomba(){
+	return goombaBitmap;
 }
 
 HANDLE WaterThemeFactory::getBackgroundImage(){

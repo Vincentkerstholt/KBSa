@@ -16,8 +16,7 @@ public:
 	HANDLE texture;
 	int textureNumber;
 	POINT collisionPoint[8];
-	
-
+	string getClassName();
 };
 
 #endif

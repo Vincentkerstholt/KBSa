@@ -67,12 +67,18 @@
     </Filter>
     <Filter Include="Source Files\Jump">
       <UniqueIdentifier>{067aa6a7-2d71-4e85-8b53-a1b8356568dc}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Header Files\Parser">
       <UniqueIdentifier>{7c76bc37-d81b-4d99-b798-2a06fbbce2c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Parser">
       <UniqueIdentifier>{ef99a131-d612-445c-ad4a-bbc2e2852bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Characters">
+      <UniqueIdentifier>{02ee8ac5-76b0-4014-81f6-8bfa882bfc8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Characters">
+      <UniqueIdentifier>{65272cdf-85e6-4d1a-af2d-3d58d2778ac0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,22 +115,8 @@
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
-
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
-
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
-    <ClCompile Include="character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files\Program</Filter>
@@ -137,12 +129,30 @@
     </ClCompile>
     <ClCompile Include="NormalJump.cpp">
       <Filter>Source Files\Jump</Filter>
-	  </ClCompile>
+    </ClCompile>
     <ClCompile Include="XMLParser.cpp">
       <Filter>Source Files\Parser</Filter>
     </ClCompile>
     <ClCompile Include="XMLParserNode.cpp">
       <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalWalk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="character.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Source Files\Characters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,15 +160,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gameobject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WalkBehaviour.h">
@@ -209,12 +210,9 @@
     <ClInclude Include="Skeleton.h">
       <Filter>Header Files\Program</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="XMLParser.h">
       <Filter>Header Files\Parser</Filter>
     </ClInclude>
@@ -229,6 +227,21 @@
     </ClInclude>
     <ClInclude Include="NormalJump.h">
       <Filter>Header Files\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="character.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="characters.h">
+      <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
