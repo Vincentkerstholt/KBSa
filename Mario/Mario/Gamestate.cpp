@@ -357,6 +357,17 @@ void Gamestate::menu(HDC & hdc)
 		inMenu = false;
 	}
 
+	//clear the async key to prevent interacting with the game while in menu
+	GetAsyncKeyState(VK_RIGHT);
+	GetAsyncKeyState(VK_LEFT);
+	GetAsyncKeyState(VK_F1);
+	GetAsyncKeyState(VK_F2);
+	GetAsyncKeyState(VK_F3);
+	GetAsyncKeyState(VK_F4);
+	GetAsyncKeyState(VK_F12);
+
+
+
 	if (selector < 0)
 		selector = 0;
 	if (selector > 2)
