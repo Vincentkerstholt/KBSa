@@ -5,6 +5,7 @@
 
 class Block : public Obstacle{
 public:
+	Block();
 	Block(bool isSpecial);
 	string getClassName();
 	bool getIsSpecial();

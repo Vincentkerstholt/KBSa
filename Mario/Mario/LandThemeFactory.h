@@ -12,6 +12,7 @@ public:
 	HANDLE getGround();
 	HANDLE getBackgroundImage();
 	HANDLE getBackgroundImage2();
+	void delImage();
 private:
 	HANDLE pipeBitmap;
 	HANDLE blockBitmap;

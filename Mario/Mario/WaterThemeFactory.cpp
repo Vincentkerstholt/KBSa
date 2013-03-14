@@ -21,6 +21,21 @@ WaterThemeFactory::~WaterThemeFactory(){
 	delete bkGround2Bitmap;
 	bkGround2Bitmap = NULL;
 }
+
+void WaterThemeFactory::delImage()
+{
+	DeleteObject(blockBitmap);
+	blockBitmap = NULL;
+	DeleteObject(pipeBitmap);
+	pipeBitmap = NULL;
+	DeleteObject(groundBitmap);
+	groundBitmap = NULL;
+	DeleteObject(bkGroundBitmap);
+	bkGroundBitmap = NULL;
+	DeleteObject(bkGround2Bitmap);
+	bkGround2Bitmap = NULL;
+}
+
 HANDLE WaterThemeFactory::getBlock(){
 	return blockBitmap;
 }

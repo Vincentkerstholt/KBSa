@@ -43,7 +43,7 @@ void CSkeleton::GameLoop()
 	if (::GetAsyncKeyState(VK_RIGHT))
 	{
 		mario = gameState->Mario-> GetPositionPixel();
-		if ( 0 < mario.y < 670)
+		if ( 0 < mario.y && mario.y < 670)
 		{
 
 			//gameState->Mario->setTexturePosition(1,1);
@@ -73,7 +73,7 @@ void CSkeleton::GameLoop()
 	if (::GetAsyncKeyState(VK_LEFT))
 	{
 		mario = gameState->Mario-> GetPositionPixel();
-		if ( 0 < mario.y < 670)
+		if ( 0 < mario.y && mario.y < 670)
 		{
 			//gameState->Mario->setTexturePosition(1,0);
 			MarioDown.x = ((mario.x-1)/32);

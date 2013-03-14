@@ -1,5 +1,7 @@
 #include "Block.h"
 
+Block::Block(){}
+
 Block::Block(bool isSpecial){
 	this->isSpecial = isSpecial;
 	posX = 0;

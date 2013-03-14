@@ -56,6 +56,7 @@ private:
 	int curTime;
 	int fps;
 	XmlParser * xml;
+
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);
 	void drawCharacters(HDC & hdc);
@@ -63,6 +64,8 @@ private:
 	void drawBackground(HDC & hdc);
 	void drawWorld(HDC & hdc);
 	int ConvertIndexToXY(int index);
+	void CreateWorld(int number);
+	void destroyWorld();
 	void CreateWorld();
 	void Gamestate::drawStatistics(HDC & hdc);
 	void Gamestate::drawHUD(HDC & hdc);

@@ -20,18 +20,15 @@ const int PIPE_BOTTOMRIGHT = 6;
 
 
 Gamestate::Gamestate()
-
 {
 	xml = new XmlParser("res/Landscape.xml");
 
 	XmlParserNode * levelXml = xml->getNode("level");
 	string width = levelXml->getAttribute("width");
 	string height = levelXml->getAttribute("height");
-	int x = stoi( width );
-	int y = stoi( height );
+	x = stoi( width );
+	y = stoi( height );
 
-	this->x = x;
-	this->y = y;
 
 	Mario = new Hero();
 
@@ -39,6 +36,7 @@ Gamestate::Gamestate()
 	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	level = new Gameobject*[(x * y)];
+
 	XmlParserNode * factoryXml = xml->getNode("factory");
 	factory = getFactory(factoryXml->getAttribute("name"));
 
@@ -46,8 +44,9 @@ Gamestate::Gamestate()
 	curTime = 0;
 	fps = 0;
 	selector = 0;
-
-	CreateWorld();
+	
+	Mario->SetPosition(160,608);
+	CreateWorld(0);
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
@@ -76,7 +75,7 @@ IThemeFactory * Gamestate::getFactory(string name){
 		return new SkyThemeFactory();
 	else if(name == "water")
 		return new WaterThemeFactory();
-
+	return new LandThemeFactory();
 }
 
 int Gamestate::ConvertIndexToXY(int index){
@@ -330,6 +329,8 @@ void Gamestate::drawWorld(HDC & hdc){
 }
 
 void Gamestate::changeFactory(char firstLetter){
+	factory->delImage();
+	factory = NULL;
 	switch(firstLetter){
 	case 'D':
 		factory = new DungeonThemeFactory();
@@ -346,7 +347,18 @@ void Gamestate::changeFactory(char firstLetter){
 	}
 }
 
-void Gamestate::CreateWorld(){
+void Gamestate::CreateWorld(int number){
+	switch(number)
+	{
+	case 0:
+		xml = new XmlParser("res/Landscape.xml");
+	break;
+	case 1:
+		xml = new XmlParser("res/Landscape2.xml");
+	break;
+	default:
+	break;
+	}
 	for(int n = 0; n < x; n++)
 	{
 		for(int m = 0; m < y; m++){
@@ -362,6 +374,7 @@ void Gamestate::CreateWorld(){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+
 		if (child->getAttribute("isSpecial") == "true")
 			level[index] = new Block(true);
 		else
@@ -373,7 +386,9 @@ void Gamestate::CreateWorld(){
 	for(int i = 0; i < grounds->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
-		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		int x = stoi(childLocation->getAttribute("x"));
+		int y = stoi(childLocation->getAttribute("y"));
+		int index = getIndex(x, y);
 		level[index] = new Ground(0,0, stoi(child->getAttribute("type")));
 	}
 
@@ -403,6 +418,17 @@ void Gamestate::menu(HDC & hdc)
 		inMenu = false;
 	}
 
+	//clear the async key to prevent interacting with the game while in menu
+	GetAsyncKeyState(VK_RIGHT);
+	GetAsyncKeyState(VK_LEFT);
+	GetAsyncKeyState(VK_F1);
+	GetAsyncKeyState(VK_F2);
+	GetAsyncKeyState(VK_F3);
+	GetAsyncKeyState(VK_F4);
+	GetAsyncKeyState(VK_F12);
+
+
+
 	if (selector < 0)
 		selector = 0;
 	if (selector > 2)
@@ -415,6 +441,8 @@ void Gamestate::menu(HDC & hdc)
 		case 0:
 			// reset lvl
 			Mario->SetPosition(160,608);
+			destroyWorld();
+			CreateWorld(1);
 			inMenu = false;
 		break;
 		case 1:
@@ -445,6 +473,23 @@ void Gamestate::menu(HDC & hdc)
 	
 	DeleteDC(hBackgroundDC);
 	DeleteObject(hBackgroundBitmap);
+}
+
+void Gamestate::destroyWorld()
+{
+	int index = 0;
+	for(int i = 0 ; i < x ; i++)
+	{
+		for (int j = 0 ; j < y ; j++)
+		{
+			index = getIndex(i,j);
+			if (level[index] != NULL)
+			{
+				delete level[index];
+				level[index] = NULL;
+			}
+		}
+	}
 }
 
 Gamestate::~Gamestate(){
