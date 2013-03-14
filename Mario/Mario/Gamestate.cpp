@@ -148,7 +148,15 @@ void Gamestate::drawWorld(HDC & hdc){
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
 
-				BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 0, 0, SRCCOPY);
+				Block * block = (Block *)level[index];
+
+				int blockX = block->getPosX() * 34;
+				int blockY = 0;
+				
+				if(!block->getIsSpecial())
+					blockY = 32;
+				
+				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,blockX,blockY,32,32,RGB(255,174,201));
 			}
 			else if(level[index]->getClassName() == "Pipe")
 			{
@@ -313,7 +321,10 @@ void Gamestate::CreateWorld(){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
-		level[index] = new Block(0,0);
+		if (child->getAttribute("isSpecial") == "true")
+			level[index] = new Block(true);
+		else
+			level[index] = new Block(false);
 	}
 
 	XmlParserNode * grounds = xml->getNode("grounds");

@@ -1,18 +1,26 @@
 #include "Block.h"
 
-Block::Block(int spriteX, int spriteY){
-	this->spriteX = spriteX;
-	this->spriteY = spriteY;
+Block::Block(bool isSpecial){
+	this->isSpecial = isSpecial;
+	posX = 0;
 }
 
 string Block::getClassName(){
 	return "Block";
 }
 
-int Block::getSpriteX(){
-	return spriteX;
+bool Block::getIsSpecial(){
+	return isSpecial;
 }
 
-int Block::getSpriteY(){
-	return spriteY;
+int Block::getPosX(){
+	if(isSpecial)
+		posX++;
+
+	if(posX == 56)
+	{
+		posX = 0;
+	}
+
+	return posX/2;
 }
