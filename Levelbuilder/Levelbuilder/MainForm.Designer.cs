@@ -30,12 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.gb_Tiles = new System.Windows.Forms.GroupBox();
+            this.button_Open_Level = new System.Windows.Forms.Button();
             this.button_CreateXML = new System.Windows.Forms.Button();
             this.comboBox_Theme = new System.Windows.Forms.ComboBox();
             this.label_Theme = new System.Windows.Forms.Label();
             this.hScrollBar = new System.Windows.Forms.HScrollBar();
-            this.button_Open_Level = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
+            this.pictureBox_Goomba = new System.Windows.Forms.PictureBox();
             this.pictureBox_Pipe_BottomRight = new System.Windows.Forms.PictureBox();
             this.pictureBox_Pipe_BottomCenter = new System.Windows.Forms.PictureBox();
             this.pictureBox_Pipe_BottomLeft = new System.Windows.Forms.PictureBox();
@@ -56,6 +57,7 @@
             this.pictureBox_Ground_TopCenter = new System.Windows.Forms.PictureBox();
             this.pictureBox_Ground_TopLeft = new System.Windows.Forms.PictureBox();
             this.gb_Tiles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Goomba)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Pipe_BottomRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Pipe_BottomCenter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Pipe_BottomLeft)).BeginInit();
@@ -79,6 +81,7 @@
             // 
             // gb_Tiles
             // 
+            this.gb_Tiles.Controls.Add(this.pictureBox_Goomba);
             this.gb_Tiles.Controls.Add(this.pictureBox_Pipe_BottomRight);
             this.gb_Tiles.Controls.Add(this.pictureBox_Pipe_BottomCenter);
             this.gb_Tiles.Controls.Add(this.pictureBox_Pipe_BottomLeft);
@@ -108,6 +111,17 @@
             this.gb_Tiles.TabIndex = 0;
             this.gb_Tiles.TabStop = false;
             this.gb_Tiles.Text = "Tiles";
+            // 
+            // button_Open_Level
+            // 
+            this.button_Open_Level.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button_Open_Level.Location = new System.Drawing.Point(3, 670);
+            this.button_Open_Level.Name = "button_Open_Level";
+            this.button_Open_Level.Size = new System.Drawing.Size(278, 32);
+            this.button_Open_Level.TabIndex = 17;
+            this.button_Open_Level.Text = "Open existing level";
+            this.button_Open_Level.UseVisualStyleBackColor = true;
+            this.button_Open_Level.Click += new System.EventHandler(this.button_Open_Level_Click);
             // 
             // button_CreateXML
             // 
@@ -151,17 +165,6 @@
             this.hScrollBar.TabIndex = 12;
             this.hScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar_Scroll);
             // 
-            // button_Open_Level
-            // 
-            this.button_Open_Level.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button_Open_Level.Location = new System.Drawing.Point(3, 670);
-            this.button_Open_Level.Name = "button_Open_Level";
-            this.button_Open_Level.Size = new System.Drawing.Size(278, 32);
-            this.button_Open_Level.TabIndex = 17;
-            this.button_Open_Level.Text = "Open existing level";
-            this.button_Open_Level.UseVisualStyleBackColor = true;
-            this.button_Open_Level.Click += new System.EventHandler(this.button_Open_Level_Click);
-            // 
             // panel
             // 
             this.panel.BackgroundImage = global::Levelbuilder.Properties.Resources.backgroundSky;
@@ -172,6 +175,17 @@
             this.panel.TabIndex = 11;
             this.panel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Paint);
             this.panel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_MouseClick);
+            // 
+            // pictureBox_Goomba
+            // 
+            this.pictureBox_Goomba.BackgroundImage = global::Levelbuilder.Properties.Resources.Goomba;
+            this.pictureBox_Goomba.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_Goomba.Location = new System.Drawing.Point(45, 207);
+            this.pictureBox_Goomba.Name = "pictureBox_Goomba";
+            this.pictureBox_Goomba.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox_Goomba.TabIndex = 24;
+            this.pictureBox_Goomba.TabStop = false;
+            this.pictureBox_Goomba.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // pictureBox_Pipe_BottomRight
             // 
@@ -243,7 +257,7 @@
             // 
             this.pictureBox_Mario.BackgroundImage = global::Levelbuilder.Properties.Resources.Mario;
             this.pictureBox_Mario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_Mario.Location = new System.Drawing.Point(7, 196);
+            this.pictureBox_Mario.Location = new System.Drawing.Point(7, 207);
             this.pictureBox_Mario.Name = "pictureBox_Mario";
             this.pictureBox_Mario.Size = new System.Drawing.Size(32, 32);
             this.pictureBox_Mario.TabIndex = 16;
@@ -394,6 +408,7 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             this.gb_Tiles.ResumeLayout(false);
             this.gb_Tiles.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Goomba)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Pipe_BottomRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Pipe_BottomCenter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Pipe_BottomLeft)).EndInit();
@@ -445,6 +460,7 @@
         private System.Windows.Forms.PictureBox pictureBox_Pipe_TopRight;
         private System.Windows.Forms.PictureBox pictureBox_Pipe_TopCenter;
         private System.Windows.Forms.PictureBox pictureBox_Pipe_TopLeft;
+        private System.Windows.Forms.PictureBox pictureBox_Goomba;
     }
 }
 

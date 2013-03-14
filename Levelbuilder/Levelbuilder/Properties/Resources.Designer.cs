@@ -93,6 +93,16 @@ namespace Levelbuilder.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Goomba {
+            get {
+                object obj = ResourceManager.GetObject("Goomba", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap groundBottomCenter {
             get {
                 object obj = ResourceManager.GetObject("groundBottomCenter", resourceCulture);
