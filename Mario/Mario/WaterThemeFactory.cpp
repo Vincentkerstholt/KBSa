@@ -2,15 +2,15 @@
 #include "WaterThemeBlock.h"
 #include "WaterThemePipe.h"
 
-HANDLE WaterThemeFactory::getBlock(int x, int y){
+HANDLE WaterThemeFactory::getBlock(){
 	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-HANDLE WaterThemeFactory::getPipe(int x, int y){
+HANDLE WaterThemeFactory::getPipe(){
 	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-HANDLE WaterThemeFactory::getGround(int x, int y){
+HANDLE WaterThemeFactory::getGround(){
 	return LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 

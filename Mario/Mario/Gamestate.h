@@ -21,11 +21,12 @@ class Gamestate
 public:
 	Gamestate();
 	void menu(HDC & hdc);
+	Gamestate(int x, int y);
 	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
-	void DownCollision();
+	void UpDownCollision();
 	Hero * Mario;
 	bool inMenu;
 	~Gamestate();
@@ -52,6 +53,7 @@ private:
 	int frames;
 	int curTime;
 	int fps;
+	XmlParser * xml;
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);
 	void drawCharacters(HDC & hdc);
@@ -61,8 +63,6 @@ private:
 	int ConvertIndexToXY(int index);
 	void CreateWorld();
 	void Gamestate::drawStatistics(HDC & hdc);
-	XmlParser * xml;
-	
 	IThemeFactory * getFactory(string name);
 };
 #endif

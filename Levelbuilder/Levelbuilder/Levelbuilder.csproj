@@ -150,6 +150,24 @@
   <ItemGroup>
     <None Include="Resources\Mario.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pipeBottomCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pipeBottomLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pipeBottomRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pipeTopCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pipeTopLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pipeTopRight.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

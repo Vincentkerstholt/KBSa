@@ -3,7 +3,7 @@
 Character::Character()
 {
 	Jumped = 0;
-	JumpHeight = 3;
+	JumpHeight = 15;
 }
 
 
@@ -126,7 +126,7 @@ void Character::Move(char Direction, POINT curPos)
 	case 'U': 
 		if(JumpAbility)
 		{
-		this->setTexturePosition(13,1);
+		this->setTexturePosition(2,1);
 		this->Jump(curPos); //Move Up
 		Jumped++;
 		}
@@ -139,13 +139,49 @@ void Character::Jump(POINT curPos)
 	switch(Jumped)
 	{
 	case 0:
-		SetPosition(jumpBehaviour->Jump(curPos, 32));
+		SetPosition(jumpBehaviour->Jump(curPos, 12));
 		break;
 	case 1:
-		SetPosition(jumpBehaviour->Jump(curPos, 32));
+		SetPosition(jumpBehaviour->Jump(curPos, 12));
 		break;
 	case 2:
-		SetPosition(jumpBehaviour->Jump(curPos, 32));
+		SetPosition(jumpBehaviour->Jump(curPos, 12));
+		break;
+	case 3:
+		SetPosition(jumpBehaviour->Jump(curPos, 12));
+		break;
+	case 4:
+		SetPosition(jumpBehaviour->Jump(curPos, 12));
+		break;
+	case 5:
+		SetPosition(jumpBehaviour->Jump(curPos, 12));
+		break;
+	case 6:
+		SetPosition(jumpBehaviour->Jump(curPos, 12));
+		break;
+	case 7:
+		SetPosition(jumpBehaviour->Jump(curPos, 8));
+		break;
+	case 8:
+		SetPosition(jumpBehaviour->Jump(curPos, 8));
+		break;
+	case 9:
+		SetPosition(jumpBehaviour->Jump(curPos, 8));
+		break;
+	case 10:
+		SetPosition(jumpBehaviour->Jump(curPos, 8));
+		break;
+	case 11:
+		SetPosition(jumpBehaviour->Jump(curPos, 16));
+		break;
+	case 12:
+		SetPosition(jumpBehaviour->Jump(curPos, 16));
+		break;
+	case 13:
+		SetPosition(jumpBehaviour->Jump(curPos, 16));
+		break;
+	case 14:
+		SetPosition(jumpBehaviour->Jump(curPos, 16));
 		break;
 	
 	}

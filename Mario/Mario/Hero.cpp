@@ -2,7 +2,9 @@
 
 Hero::Hero()
 {
-	SetPosition(160, 640);
+
+	SetPosition(32, 608);
+	textureNumber = 1;
 	walkBehaviour = new FastWalk(); 
 	setDirection('R');
 	setTexturePosition(0,0);

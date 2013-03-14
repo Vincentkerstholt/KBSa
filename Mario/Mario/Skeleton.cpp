@@ -6,7 +6,9 @@
 CSkeleton::CSkeleton()
 {
 
+
 	gameState = new Gamestate();
+
 
 }
 
@@ -19,16 +21,14 @@ CSkeleton::CSkeleton()
 void CSkeleton::GameInit()
 {
 	debugMode = false;
-	SetFPS(0);
+	SetFPS(60);
 }
 
 void CSkeleton::GameLoop()
 {
-	int mariopixX = 0;
-	int mariopixY = 0;
-	int marioindex = 0, marioindex2 = 0;
+	
 	RECT rect;
-	POINT mario , mario1, mario2;
+	POINT mario , MarioUp, MarioDown;
 	::GetClientRect(m_hWnd, &rect);
 
 	if (gameState->inMenu)
@@ -42,61 +42,61 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_RIGHT))
 	{
-
-		gameState->Mario->setTexturePosition(1,1);
 		mario = gameState->Mario-> GetPositionPixel();
-		mario1.x = ((mario.x+33)/32);
-		mario1.y = ((mario.y+31)/32);
-		mario2.x = ((mario.x+33)/32);
-		mario2.y = ((mario.y)/32);
-		marioindex = gameState->getIndex(mario1.x,mario1.y);
-		marioindex2 = gameState->getIndex(mario2.x,mario2.y);
-
-
-		string check = gameState->BoxCheck(marioindex);
-		string check2 = gameState->BoxCheck(marioindex2);
-
-		if (check == "Block" || check2 == "Block")
-		{
-		 int onzin  = 1;		
-		}
-		else if (check == "Ground" || check2 == "Ground")
+		if ( 0 < mario.y < 670)
 		{
 
-		}
-		else
-		{
+			gameState->Mario->setTexturePosition(1,1);
+			MarioDown.x = ((mario.x+33)/32);
+			MarioDown.y = ((mario.y+31)/32);
+			MarioUp.x = ((mario.x+33)/32);
+			MarioUp.y = ((mario.y)/32);
 
-			gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
+			string DownPoint = gameState->BoxCheck(gameState->getIndex(MarioDown.x,MarioDown.y));
+			string UpPoint = gameState->BoxCheck(gameState->getIndex(MarioUp.x,MarioUp.y));
+
+			if (DownPoint == "Block" || UpPoint == "Block")
+			{
+				int onzin  = 1;		
+			}
+			else if (DownPoint == "Ground" || UpPoint == "Ground")
+			{
+
+			}
+			else
+			{
+
+				gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
+			}
 		}
 	}
 	if (::GetAsyncKeyState(VK_LEFT))
 	{
-		gameState->Mario->setTexturePosition(1,0);
 		mario = gameState->Mario-> GetPositionPixel();
-		mario1.x = ((mario.x-1)/32);
-		mario1.y = ((mario.y+31)/32);
-		mario2.x = ((mario.x-1)/32);
-		mario2.y = ((mario.y)/32);
-		marioindex = gameState->getIndex(mario1.x,mario1.y);
-		marioindex2 = gameState->getIndex(mario2.x,mario2.y);
+		if ( 0 < mario.y < 670)
+		{
+			gameState->Mario->setTexturePosition(1,0);
+			MarioDown.x = ((mario.x-1)/32);
+			MarioDown.y = ((mario.y+31)/32);
+			MarioUp.x = ((mario.x-1)/32);
+			MarioUp.y = ((mario.y)/32);
 
-
-		string check = gameState->BoxCheck(marioindex);
-		string check2 = gameState->BoxCheck(marioindex2);
+			string DownPoint = gameState->BoxCheck(gameState->getIndex(MarioDown.x,MarioDown.y));
+			string UpPoint = gameState->BoxCheck(gameState->getIndex(MarioUp.x,MarioUp.y));
 	
 
-		if (check == "Block" || check2 == "Block")
-		{
+			if (DownPoint == "Block" || UpPoint == "Block")
+			{
 		
-		}		
-		else if (check == "Ground" || check2 == "Ground")
-		{
+			}		
+			else if (DownPoint == "Ground" || UpPoint == "Ground")
+			{
 
-		}
-		else
-		{
-			gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
+			}
+			else
+			{
+				gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
+			}
 		}
 	}
 

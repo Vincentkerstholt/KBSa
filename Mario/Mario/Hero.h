@@ -8,6 +8,7 @@ private:
 	int coins;
 	int score;
 	int lives;
+	int jumping;
 	
 public:
 	Hero();

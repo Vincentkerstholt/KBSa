@@ -20,6 +20,7 @@
     <ClCompile Include="NormalJump.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Win.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -35,7 +36,6 @@
     <ClInclude Include="NormalJump.h" />
     <ClInclude Include="XMLParserNode.h" />
     <ClInclude Include="NormalWalk.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="WalkBehaviour.h" />
     <ClInclude Include="DungeonThemeFactory.h" />
@@ -119,7 +119,6 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="DungeonThemeFactory.cpp" />
     <ClCompile Include="LandThemeFactory.cpp" />
-    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="SkyThemeFactory.cpp" />
     <ClCompile Include="WaterThemeFactory.cpp" />
@@ -140,9 +139,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="res\world8.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Mario.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

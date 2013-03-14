@@ -25,7 +25,6 @@ Gamestate::Gamestate()
 	XmlParserNode * factoryXml = xml->getNode("factory");
 	factory = getFactory(factoryXml->getAttribute("name"));
 
-
 	frames = 0;
 	curTime = 0;
 	fps = 0;
@@ -40,7 +39,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	frames++;
 
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
-	DownCollision();
+	UpDownCollision();
 	drawBackground(hdc);
 	drawCharacters(hdc);
 	drawWorld(hdc);
@@ -59,6 +58,7 @@ IThemeFactory * Gamestate::getFactory(string name){
 		return new SkyThemeFactory();
 	else if(name == "water")
 		return new WaterThemeFactory();
+
 }
 
 int Gamestate::ConvertIndexToXY(int index){
@@ -143,7 +143,6 @@ void Gamestate::drawBackground(HDC & hdc){
 	StretchBlt(hdc, 0, 0, 1362, 702, hBackgroundDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
 	
 	DeleteDC(hBackgroundDC);
-	DeleteObject(hBackgroundBitmap);
 
 	hBackgroundBitmap2 = factory->getBackgroundImage2();
 	hBackgroundDC = CreateCompatibleDC(hdc);
@@ -154,38 +153,119 @@ void Gamestate::drawBackground(HDC & hdc){
 	TransparentBlt(hdc, -camera.getXPosition()/2%bitmap.bmWidth,				230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
 	TransparentBlt(hdc, bitmap.bmWidth - camera.getXPosition() / 2 % bitmap.bmWidth, 230, bitmap.bmWidth,bitmap.bmHeight, hBackgroundDC, 0, 0, bitmap.bmWidth,bitmap.bmHeight, GetPixel(hBackgroundDC, 0,0));
 	DeleteDC(hBackgroundDC);
-	DeleteObject(hBackgroundBitmap2);
+	
 }
 
 void Gamestate::drawWorld(HDC & hdc){
-
 
 	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 			if(level[index] == NULL)
-				continue;
+			continue;
+
 			if(level[index]->getClassName() == "Block")
 			{
-				hObstacleBitmap = factory->getBlock(n, m);
+				hObstacleBitmap = factory->getBlock();
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 0, 0, SRCCOPY);
 			}
+			else if(level[index]->getClassName() == "Pipe")
+			{
+				Pipe * pipe = (Pipe*)level[index];
+				hObstacleBitmap = factory->getPipe();
+				
+				hObstacleDC = CreateCompatibleDC(hdc);
 
-			if(level[index]->getClassName() == "Pipe")
-				hObstacleBitmap = factory->getPipe(n, m);
-			if(level[index]->getClassName() == "Ground")
-				hObstacleBitmap = factory->getGround(n, m);
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+				
+				string textTureType = pipe->getTextureType();
 
-			hObstacleDC = CreateCompatibleDC(hdc);
+				if(textTureType == "topleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "topcenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "topright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomcenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,32,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,32,32,32,RGB(255,174,201));
+				}
 
-			GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
-			SelectObject(hObstacleDC, hObstacleBitmap);
+				
+			}
+			else if(level[index]->getClassName() == "Ground")
+			{
+				Ground * ground = (Ground*)level[index];
+				hObstacleBitmap = factory->getGround();
 
-			BitBlt(hdc, ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32, 32, hObstacleDC, 68, 0, SRCCOPY);
+				hObstacleDC = CreateCompatibleDC(hdc);
 
-			DeleteDC(hObstacleDC);
-			DeleteObject(hObstacleBitmap);
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				string textTureType = ground->getTextureType();
+
+				if(textTureType == "topleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "topcenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "topright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "centerleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "centercenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,32,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "centerright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,32,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomleft")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,64,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomcenter")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,64,32,32,RGB(255,174,201));
+				}
+				else if(textTureType == "bottomright")
+				{
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,64,32,32,RGB(255,174,201));
+				}
+			}
 			
-
+			DeleteDC(hObstacleDC);
+			//DeleteObject(hObstacleBitmap);
 		}
 	}
 
@@ -237,13 +317,14 @@ void Gamestate::CreateWorld(){
 		level[index] = new Ground(0,0, child->getAttribute("type"));
 	}
 
-	XmlParserNode * pipes = xml->getNode("grounds");
+	XmlParserNode * pipes = xml->getNode("pipes");
 	childs = pipes->getChilds();
 	for(int i = 0; i < pipes->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
+		
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
-		level[index] = new Pipe(0,0);
+		level[index] = new Pipe(child->getAttribute("type"));
 	}
 }
 
@@ -316,68 +397,80 @@ Gamestate::~Gamestate(){
 	xml = NULL;
 }
 
-void Gamestate::DownCollision()
+void Gamestate::UpDownCollision()
 {
+	/* This collision detection is based on points. This function checks for every point in witch tile it is and what's in that tile.
+	*/
+
 	POINT mario;
-	POINT mario1;
-	POINT mario2;
-	POINT mario3;
-	POINT mario4;
-	int marioindex = 0 , marioindex2 = 0, marioindex3 = 0 , marioindex4 = 0;
-	//down
+	POINT MarioRightFeet;
+	POINT MarioLeftFeet;
+	POINT MarioRightHead;
+	POINT MarioLeftHead;
+	POINT MarioMidHead;
+
+	//down points for collision
 	mario = Mario->GetPositionPixel();
-	mario1.x = ((mario.x+31)/32);
-	mario1.y = ((mario.y+33)/32);
-	mario2.x = ((mario.x)/32);
-	mario2.y = ((mario.y+33)/32);
-	//up
-	mario3.x = ((mario.x+31)/32);
-	mario3.y = ((mario.y)/32);
-	mario4.x = ((mario.x+2)/32);
-	mario4.y = ((mario.y)/32);
-
-	marioindex = getIndex(mario1.x,mario1.y);
-	marioindex2 = getIndex(mario2.x,mario2.y);
-	marioindex3 = getIndex(mario3.x,mario3.y);
-	marioindex4 = getIndex(mario4.x,mario4.y);
-
-
-	string check = BoxCheck(marioindex);
-	string check2 = BoxCheck(marioindex2);
-	string check3 = BoxCheck(marioindex3);
-	string check4 = BoxCheck(marioindex4);
+	MarioRightFeet.x = ((mario.x+31)/32); // Rightfeet x
+	MarioRightFeet.y = ((mario.y+33)/32); //rightfeet y
+	MarioLeftFeet.x = ((mario.x)/32); //left feet x
+	MarioLeftFeet.y = ((mario.y+33)/32); //left feet y
+	//up point for collision
+	MarioRightHead.x = ((mario.x+22)/32); //Righthead x
+	MarioRightHead.y = ((mario.y)/32); //Righthead y
+	MarioLeftHead.x = ((mario.x- 4)/32); //Lefthead x
+	MarioLeftHead.y = ((mario.y)/32); //leftthead y
+	MarioMidHead.x = ((mario.x+16)/32);
+	MarioMidHead.y = ((mario.y)/32);
 	
-	if ( mario.y < 670)
+	if (mario.y < 662 && mario.y > 0 )
 	{
+	string RightFeet = BoxCheck(getIndex(MarioRightFeet.x,MarioRightFeet.y));
+	string LeftFeet = BoxCheck(getIndex(MarioLeftFeet.x,MarioLeftFeet.y));
+	string RightHead = BoxCheck(getIndex(MarioRightHead.x,MarioRightHead.y));
+	string LeftHead = BoxCheck(getIndex(MarioLeftHead.x,MarioLeftHead.y));
+	string MidHead = BoxCheck(getIndex(MarioMidHead.x,MarioMidHead.y));
+		
 		if(Mario->Jumped < Mario->JumpHeight )
 		{
 			Mario->JumpAbility = true;
 		}
 
-		if (check3 == "Block" || check4 == "Block" )
-		{
+		if (RightHead == "Block" || LeftHead == "Block" )
+		{			
+				int index = getIndex(MarioMidHead.x,MarioMidHead.y);
+				Mario->JumpAbility = false;
+				Mario->Jumped = 15;
+				delete level[index];
+				level[index] = NULL;
+			
 			Mario->JumpAbility = false;
-									
+			Mario->Jumped = 15;			
 		}
 
-		if (check == "NULL" && check2 == "NULL" )
+		if (RightFeet == "NULL" && LeftFeet == "NULL" ) // if there is no block below mario
 		{
-			if (Mario->Jumped == 0)
+			if (Mario->Jumped == 0) // if mario had not jumped yet
 			{
-				Mario->JumpAbility = false;
+				Mario->JumpAbility = false; // set the jump ability false
 			}
-			Mario->SetPosition(mario.x, (mario.y+8));
+			Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
 		}
 		else
 		{
-			Mario->Jumped=0;
-			Mario->JumpAbility = true;
+			Mario->Jumped=0; // if there is air below, let mario jump again. 
+			Mario->JumpAbility = true; 
 		}
 		
 	}
 	else
 	{
-		Mario->JumpAbility = false;
+		if ( mario.y < 662) // if mario is not at the ground, so must be at the top of the level.
+		{
+			Mario->Jumped = 15; // max jump position. Mario can't jump anymore
+			Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
+		}
+		Mario->JumpAbility = false; // stop mario from jumping 
 	}	
 }
 

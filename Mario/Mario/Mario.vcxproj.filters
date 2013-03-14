@@ -88,6 +88,9 @@
     <ClCompile Include="WaterThemeFactory.cpp">
       <Filter>Source Files\Factory\WaterTheme</Filter>
     </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files\Program</Filter>
+    </ClCompile>
     <ClCompile Include="Gamestate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -104,9 +107,6 @@
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
-      <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
@@ -128,9 +128,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FastWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalWalk.cpp">
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
     <ClCompile Include="NormalJump.cpp">
@@ -167,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="LandThemeFactory.h">
       <Filter>Header Files\Factory\LandTheme</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files\Program</Filter>
     </ClInclude>
     <ClInclude Include="Win.h">
       <Filter>Header Files\Program</Filter>
@@ -245,10 +245,5 @@
     <None Include="res\testLevel.xml">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Mario.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

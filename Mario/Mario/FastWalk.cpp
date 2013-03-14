@@ -6,11 +6,11 @@ POINT FastWalk::Walk(char Direction, POINT CurPos)
 	switch(Direction)
 	{
 	case 'R': //Move Right
-		returnPoint.x = (CurPos.x+16);
+		returnPoint.x = (CurPos.x+4);
 		returnPoint.y = (CurPos.y);
 		break;
 	case 'L': //Move Left
-		returnPoint.x = (CurPos.x-16);
+		returnPoint.x = (CurPos.x-4);
 		returnPoint.y = (CurPos.y);
 		break;
 	}
