@@ -54,8 +54,9 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	frames++;
 
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
-	Collision();
+
 	UpDownCollision();
+	Collision();
 	drawBackground(hdc);
 	drawCharacters(hdc);
 	drawHUD(hdc);
@@ -645,9 +646,9 @@ void Gamestate::Collision()
 	{
 
 		//gameState->Mario->setTexturePosition(1,1);
-		MarioDown.x = ((mario.x+28)/32);
+		MarioDown.x = ((mario.x+33)/32);
 		MarioDown.y = ((mario.y+31)/32);
-		MarioUp.x = ((mario.x+28)/32);
+		MarioUp.x = ((mario.x+33)/32);
 		MarioUp.y = ((mario.y)/32);
 
 		string DownPoint = BoxCheck(getIndex(MarioDown.x,MarioDown.y));
@@ -674,9 +675,9 @@ void Gamestate::Collision()
 	if ( 0 < mario.y && mario.y < 670)
 	{
 		//gameState->Mario->setTexturePosition(1,0);
-		MarioDown.x = ((mario.x+4)/32);
+		MarioDown.x = ((mario.x-1)/32);
 		MarioDown.y = ((mario.y+31)/32);
-		MarioUp.x = ((mario.x+4)/32);
+		MarioUp.x = ((mario.x-1)/32);
 		MarioUp.y = ((mario.y)/32);
 
 		string DownPoint = BoxCheck(getIndex(MarioDown.x,MarioDown.y));
