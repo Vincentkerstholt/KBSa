@@ -16,6 +16,7 @@ public:
 	virtual HANDLE getBackgroundImage() = 0;
 	virtual HANDLE getBackgroundImage2() = 0;
 	virtual void delImage() = 0;
+	virtual string getName() = 0;
 };
 
 #endif

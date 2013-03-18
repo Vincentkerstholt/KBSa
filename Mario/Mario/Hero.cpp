@@ -17,6 +17,14 @@ string Hero::getClassName(){
 	return "Hero";
 }
 
+void Hero::setName(string name){
+	this->name = name;
+}
+
+string Hero::getName(){
+	return name;
+}
+
 Hero::~Hero()
 {
 	delete walkBehaviour;

@@ -26,6 +26,10 @@ LandThemeFactory::~LandThemeFactory(){
 	bkGround2Bitmap = NULL;
 }
 
+string LandThemeFactory::getName(){
+	return "landscape";
+}
+
 void LandThemeFactory::delImage()
 {
 	DeleteObject(blockBitmap);

@@ -31,6 +31,29 @@ Gamestate::Gamestate()
 	selector = 0;
 }
 
+Gameobject ** Gamestate::getLevel(){
+	return level;
+}
+
+int Gamestate::getX(){
+	return x;
+}
+
+int Gamestate::getY(){
+	return y;
+}
+
+void Gamestate::saveGame(){
+	xml->saveGame(this);
+	inMenu = false;
+}
+
+void Gamestate::loadGame(){
+	destroyWorld();
+	CreateWorld(9);
+	inMenu = false;
+}
+
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
 	frames++;
@@ -342,14 +365,18 @@ void Gamestate::changeFactory(char firstLetter){
 }
 
 void Gamestate::CreateWorld(int number){
+	xml = new XmlParser();
+
 	switch(number)
 	{
 	case 0:
-		xml = new XmlParser("res/Landscape.xml");
+		xml->parse("res/Landscape.xml");
 	break;
 	case 1:
-		xml = new XmlParser("res/Landscape2.xml");
+		xml->parse("res/Landscape2.xml");
 	break;
+	case 9:
+		xml->parse("res/saveGame.xml");
 	default:
 	break;
 	}
@@ -376,6 +403,7 @@ void Gamestate::CreateWorld(int number){
 	int yMario = stoi(marioXml->getAttribute("y"));
 
 	Mario->SetPosition(xMario * 32, yMario * 32);
+	Mario->setName(marioXml->getAttribute("character"));
 
 	XmlParserNode * factoryXml = xml->getNode("factory");
 	factory = getFactory(factoryXml->getAttribute("name"));
@@ -477,9 +505,11 @@ void Gamestate::menu(HDC & hdc)
 		break;
 		case 1:
 			//save game
+			saveGame();
 		break;
 		case 2:
 			//load game
+			loadGame();
 		break;
 		case 3:
 			{
@@ -530,6 +560,8 @@ void Gamestate::destroyWorld()
 			}
 		}
 	}
+	delete xml;
+	xml = NULL;
 }
 
 Gamestate::~Gamestate(){
@@ -660,4 +692,8 @@ void Gamestate::HeroDie()
 		destroyWorld();
 		CreateWorld(1);
 	}
+}
+
+string Gamestate::getCurrentFactory(){
+	return factory->getName();
 }

@@ -3,16 +3,24 @@
 
 #include <stdio.h>
 #include <sstream>
+#include <fstream>
 #include <Windows.h>
 #include "XMLParserNode.h"
+#include "characters.h"
+#include "obstacles.h"
+#include "Gamestate.h"
 
 using namespace std;
+
+class Gamestate;
 
 class XmlParser
 {
 public:
-	XmlParser(string fileLocation);
+	XmlParser();
 	XmlParserNode * getNode(string tagName);
+	void saveGame(Gamestate * gameState);
+	void parse(string fileLocation);
 	~XmlParser();
 private:
 	FILE * file;
@@ -21,7 +29,6 @@ private:
 	string tagNames[300];
 	int tagNamesLength;
 
-	void parse(string fileLocation);
 	void parseError(string eMessage);
 };
 

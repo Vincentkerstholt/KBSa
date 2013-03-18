@@ -9,14 +9,17 @@ private:
 	int score;
 	int lives;
 	int jumping;
-	
+	string name;
 public:
 	Hero();
 	~Hero();
 	HANDLE texture;
 	int textureNumber;
 	POINT collisionPoint[8];
+
+	void setName(string name);
 	string getClassName();
+	string getName();
 	int getCoins();
 	int getLives();
 	void Die();

@@ -25,6 +25,10 @@ WaterThemeFactory::~WaterThemeFactory(){
 	bkGround2Bitmap = NULL;
 }
 
+string WaterThemeFactory::getName(){
+	return "water";
+}
+
 void WaterThemeFactory::delImage()
 {
 	DeleteObject(blockBitmap);

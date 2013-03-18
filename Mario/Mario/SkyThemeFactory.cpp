@@ -26,6 +26,10 @@ SkyThemeFactory::~SkyThemeFactory(){
 	bkGround2Bitmap = NULL;
 }
 
+string SkyThemeFactory::getName(){
+	return "sky";
+}
+
 void SkyThemeFactory::delImage()
 {
 	DeleteObject(blockBitmap);

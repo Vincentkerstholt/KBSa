@@ -13,6 +13,7 @@ public:
 	HANDLE getGoomba();
 	HANDLE getBackgroundImage();
 	HANDLE getBackgroundImage2();
+	string getName();
 	void delImage();
 private:
 	HANDLE pipeBitmap;

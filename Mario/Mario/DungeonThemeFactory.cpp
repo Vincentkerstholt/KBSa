@@ -26,6 +26,10 @@ DungeonThemeFactory::~DungeonThemeFactory(){
 	bkGround2Bitmap = NULL;
 }
 
+string DungeonThemeFactory::getName(){
+	return "dungeon";
+}
+
 void DungeonThemeFactory::delImage()
 {
 	DeleteObject(blockBitmap);

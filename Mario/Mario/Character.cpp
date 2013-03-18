@@ -8,11 +8,8 @@ Character::Character()
 	JumpHeight = 15;
 }
 
-
 void Character :: Walk (char Direction, POINT curPos)
 {
-	
-
 	if (Direction == 'L')
 	{
 		int x = textureNumber;
@@ -263,4 +260,3 @@ char Character::getDirection()
 {
 	return Direction;
 }
-

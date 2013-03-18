@@ -15,6 +15,13 @@ bool Block::getIsSpecial(){
 	return isSpecial;
 }
 
+string Block::getIsSpecialString(){
+	if(isSpecial)
+		return "true";
+	else
+		return "false";
+}
+
 int Block::getPosX(){
 	if(isSpecial)
 		posX++;

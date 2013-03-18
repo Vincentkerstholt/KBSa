@@ -154,6 +154,12 @@
     <ClCompile Include="Goomba.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamestate.h">
@@ -260,7 +266,10 @@
     <None Include="res\world8.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\testLevel.xml">
+    <None Include="res\Landscape.xml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Landscape2.xml">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

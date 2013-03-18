@@ -9,6 +9,7 @@ public:
 	Block(bool isSpecial);
 	string getClassName();
 	bool getIsSpecial();
+	string getIsSpecialString();
 	int getPosX();
 private:
 	bool isSpecial;

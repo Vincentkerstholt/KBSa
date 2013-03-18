@@ -138,9 +138,8 @@
     <None Include="res\backgroundSky.bmp" />
     <None Include="res\dungeon.bmp" />
     <None Include="res\forestlandps.bmp" />
-    <None Include="res\testLevel.xml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="res\Landscape.xml" />
+    <None Include="res\Landscape2.xml" />
     <None Include="res\world8.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
