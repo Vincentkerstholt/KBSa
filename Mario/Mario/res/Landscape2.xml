@@ -2,6 +2,12 @@
 <superMario>
 	<factory name="landscape" />
 	<hero character="mario" x="3" y="19" />
+        <enemies>
+            <enemy character="goomba">
+			<location x="38" y="20" />
+			<endPath x="31" y="20" />
+		</enemy>
+        </enemies>
 	<level width="215" height="22">
 		<blocks>
 			<block isSpecial="false">

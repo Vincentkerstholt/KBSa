@@ -16,10 +16,10 @@ public:
 	HANDLE texture;
 	int textureNumber;
 	POINT collisionPoint[8];
+	string getClassName();
 	int getCoins();
 	int getLives();
 	void Die();
-
 };
 
 #endif

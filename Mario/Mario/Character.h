@@ -8,14 +8,15 @@
 #include "JumpBehaviour.h"
 #include "NormalJump.h"
 #include <string>
+#include "GameObject.h"
 
 using namespace std;
 
-class Character
+class Character : public Gameobject
 {
 public:
 	Character();
-	virtual void Die() =0;
+	virtual void Die() = 0;
 	virtual void GetPowerUp();
 	virtual void Move(char Direction, POINT curPos);
 	virtual void Jump(POINT curPos);

@@ -3,9 +3,10 @@
 #include "DungeonThemePipe.h"
 
 DungeonThemeFactory::DungeonThemeFactory(){
-	blockBitmap = LoadImage(NULL, "res/Wall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	blockBitmap = LoadImage(NULL, "res/Block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/world8.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/backgroundCave.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundrocks.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
@@ -17,6 +18,8 @@ DungeonThemeFactory::~DungeonThemeFactory(){
 	pipeBitmap = NULL;
 	delete groundBitmap;
 	groundBitmap = NULL;
+	DeleteObject(goombaBitmap);
+	goombaBitmap = NULL;
 	delete bkGroundBitmap;
 	bkGroundBitmap = NULL;
 	delete bkGround2Bitmap;
@@ -31,6 +34,8 @@ void DungeonThemeFactory::delImage()
 	pipeBitmap = NULL;
 	DeleteObject(groundBitmap) ;
 	groundBitmap = NULL;
+	DeleteObject(goombaBitmap);
+	goombaBitmap = NULL;
 	DeleteObject(bkGroundBitmap) ;
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap) ;
@@ -47,6 +52,10 @@ HANDLE DungeonThemeFactory::getPipe(){
 
 HANDLE DungeonThemeFactory::getGround(){
 	return groundBitmap;
+}
+
+HANDLE DungeonThemeFactory::getGoomba(){
+	return goombaBitmap;
 }
 
 HANDLE DungeonThemeFactory::getBackgroundImage(){
