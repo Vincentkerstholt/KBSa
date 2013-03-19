@@ -67,12 +67,24 @@
     </Filter>
     <Filter Include="Source Files\Jump">
       <UniqueIdentifier>{067aa6a7-2d71-4e85-8b53-a1b8356568dc}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Header Files\Parser">
       <UniqueIdentifier>{7c76bc37-d81b-4d99-b798-2a06fbbce2c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Parser">
       <UniqueIdentifier>{ef99a131-d612-445c-ad4a-bbc2e2852bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gadget">
+      <UniqueIdentifier>{39682537-b532-4b6d-b45c-1d02551beb6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gadget">
+      <UniqueIdentifier>{fed793e3-21ad-43b8-80f7-537ae9dcdfda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gadget\Powerup">
+      <UniqueIdentifier>{4f7d8346-16f4-44ed-81d2-7932184b549e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gadget\Powerup">
+      <UniqueIdentifier>{1553d6ee-f310-47fb-b559-4d8c7c462e95}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,11 +121,6 @@
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
-
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
-
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
@@ -137,12 +144,30 @@
     </ClCompile>
     <ClCompile Include="NormalJump.cpp">
       <Filter>Source Files\Jump</Filter>
-	  </ClCompile>
+    </ClCompile>
     <ClCompile Include="XMLParser.cpp">
       <Filter>Source Files\Parser</Filter>
     </ClCompile>
     <ClCompile Include="XMLParserNode.cpp">
       <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalWalk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Gadget</Filter>
+    </ClCompile>
+    <ClCompile Include="LiveUp.cpp">
+      <Filter>Source Files\Gadget</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Source Files\Gadget\Powerup</Filter>
+    </ClCompile>
+    <ClCompile Include="Flower.cpp">
+      <Filter>Source Files\Gadget\Powerup</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,12 +234,9 @@
     <ClInclude Include="Skeleton.h">
       <Filter>Header Files\Program</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="XMLParser.h">
       <Filter>Header Files\Parser</Filter>
     </ClInclude>
@@ -229,6 +251,24 @@
     </ClInclude>
     <ClInclude Include="NormalJump.h">
       <Filter>Header Files\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="Gadget.h">
+      <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="LiveUp.h">
+      <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="Powerup.h">
+      <Filter>Header Files\Gadget\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Header Files\Gadget\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="Flower.h">
+      <Filter>Header Files\Gadget\Powerup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

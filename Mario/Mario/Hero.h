@@ -16,6 +16,7 @@ public:
 	HANDLE texture;
 	int textureNumber;
 	POINT collisionPoint[8];
+	void grabcoin();
 	int getCoins();
 	int getLives();
 	void Die();

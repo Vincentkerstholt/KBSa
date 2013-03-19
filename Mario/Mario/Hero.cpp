@@ -34,3 +34,8 @@ void Hero::Die()
 {
 	this->lives -= 1;
 }
+
+void Hero::grabcoin()
+{
+	this->coins += 1;
+}

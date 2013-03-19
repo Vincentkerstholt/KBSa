@@ -14,9 +14,13 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FastWalk.cpp" />
+    <ClCompile Include="Flower.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="LiveUp.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="NormalJump.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
@@ -29,11 +33,17 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="character.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FastWalk.h" />
+    <ClInclude Include="Flower.h" />
+    <ClInclude Include="Gadget.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="JumpBehaviour.h" />
+    <ClInclude Include="LiveUp.h" />
+    <ClInclude Include="Mushroom.h" />
     <ClInclude Include="NormalJump.h" />
+    <ClInclude Include="Powerup.h" />
     <ClInclude Include="XMLParserNode.h" />
     <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />
@@ -111,7 +121,7 @@
   <ItemGroup>
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="Gamestate.cpp" />
-	<ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gameobject.h" />

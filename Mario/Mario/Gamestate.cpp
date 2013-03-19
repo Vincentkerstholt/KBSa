@@ -86,6 +86,11 @@ int Gamestate::getIndex(int n, int m){
 	return (m*x)+n;
 }
 
+int Gamestate::getIndex(POINT & pnt)
+{
+	return (pnt.y*x)+pnt.x;
+}
+
 void Gamestate::DrawHorizontalBorder(int y){
 	MoveToEx(hdc, ConvertIndexToXY(0), ConvertIndexToXY(y), &point);
 	LineTo(hdc, ConvertIndexToXY(43), ConvertIndexToXY(y));
@@ -145,6 +150,16 @@ void Gamestate::drawStatistics(HDC & hdc){
 	TextOut(hdc,  10, 70, oss.str().c_str(), strlen(oss.str().c_str()));
 
 	oss.str("");
+
+	frames++;
+	if(time(NULL) != curTime)
+	{
+		curTime = time(NULL);
+		fps = frames;
+		frames = 0;
+	}
+	oss << "Frames per second: " << fps;
+	TextOut(hdc,  10, 90, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.clear();
 
 }
@@ -320,6 +335,16 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 				}
 			}
+			else if (level[index]->getClassName() == "Coin")
+			{
+				hObstacleBitmap = factory->getGadget();
+				hObstacleDC = CreateCompatibleDC(hdc);
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+				
+				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,GetPixel(hObstacleDC,0,0));
+
+			}
 			
 			DeleteDC(hObstacleDC);
 			//DeleteObject(hObstacleBitmap);
@@ -401,6 +426,7 @@ void Gamestate::CreateWorld(int number){
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 		level[index] = new Pipe(stoi(child->getAttribute("type")));
 	}
+	level[15*x+5] = new Block(false,COIN,5);
 }
 
 void Gamestate::menu(HDC & hdc)
@@ -517,9 +543,7 @@ Gamestate::~Gamestate(){
 
 void Gamestate::UpDownCollision()
 {
-	/* This collision detection is based on points. This function checks for every point in witch tile it is and what's in that tile.
-	*/
-
+	// This collision detection is based on points. This function checks for every point in witch tile it is and what's in that tile.
 	POINT mario;
 	POINT MarioRightFeet;
 	POINT MarioLeftFeet;
@@ -543,31 +567,74 @@ void Gamestate::UpDownCollision()
 	
 	if (mario.y < 662 && mario.y > 0 )
 	{
-	string RightFeet = BoxCheck(getIndex(MarioRightFeet.x,MarioRightFeet.y));
-	string LeftFeet = BoxCheck(getIndex(MarioLeftFeet.x,MarioLeftFeet.y));
-	string RightHead = BoxCheck(getIndex(MarioRightHead.x,MarioRightHead.y));
-	string LeftHead = BoxCheck(getIndex(MarioLeftHead.x,MarioLeftHead.y));
-	string MidHead = BoxCheck(getIndex(MarioMidHead.x,MarioMidHead.y));
+	string RightFeet = BoxCheck(getIndex(MarioRightFeet));
+	string LeftFeet = BoxCheck(getIndex(MarioLeftFeet));
+	string RightHead = BoxCheck(getIndex(MarioRightHead));
+	string LeftHead = BoxCheck(getIndex(MarioLeftHead));
+	string MidHead = BoxCheck(getIndex(MarioMidHead));
 		
 		if(Mario->Jumped < Mario->JumpHeight )
 		{
 			Mario->JumpAbility = true;
 		}
 
+		if (RightHead == "Coin"){
+			delete level[getIndex(MarioRightHead)];
+			level[getIndex(MarioRightHead)] = NULL;
+			Mario->grabcoin();
+		}
+		else if (LeftHead == "Coin")
+		{
+			delete level[getIndex(MarioLeftHead)];
+			level[getIndex(MarioLeftHead)] = NULL;
+			Mario->grabcoin();
+		}
+		else if (LeftFeet == "Coin")
+		{
+			delete level[getIndex(MarioLeftFeet)];
+			level[getIndex(MarioLeftFeet)] = NULL;
+			Mario->grabcoin();
+		}
+		else if (RightHead == "Coin")
+		{
+			delete level[getIndex(MarioRightHead)];
+			level[getIndex(MarioRightHead)] = NULL;
+			Mario->grabcoin();
+		}
+
 		if (RightHead == "Block" || LeftHead == "Block" )
 		{			
-				int index = getIndex(MarioMidHead.x,MarioMidHead.y);
+				int index = getIndex(MarioMidHead);
 				Mario->JumpAbility = false;
 				Mario->Jumped = 15;
-				delete level[index];
-				level[index] = NULL;
+				if (BoxCheck(index) == "Block" )
+				{
+					Block * temp = (Block *)level[index];
+					Gadget * tempg = temp->getGadget();
+					if (tempg != NULL)
+					{
+						string test = tempg->getClassName();
+						if ( test == "Coin")
+						level[index-x] = new Coin();
+					}
+					else
+					{
+						delete level[index];
+						level[index] = NULL;
+					}
+				}
+				if (BoxCheck(index) == "Coin")
+				{
+					Mario->grabcoin();
+					delete level[index];
+				}
 			
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;			
 		}
 		if (RightHead == "Ground" || LeftHead == "Ground" )
 		{			
-		Mario->JumpAbility = false; 	
+			Mario->JumpAbility = false; 	
 		}
 		if (RightFeet == "NULL" && LeftFeet == "NULL" ) // if there is no block below mario
 		{
