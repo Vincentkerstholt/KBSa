@@ -471,13 +471,7 @@ void Gamestate::CreateWorld(int number){
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 		level[index] = new Pipe(stoi(child->getAttribute("type")));
 	}
-	Gadget ** gadgets;
-	gadgets = new Gadget*[5];
-	for (int n=0; n<5 ; n++)
-	{
-		gadgets[n]=new Coin(getPixelPoint(15*x+12));
-	}
-	level[15*x+12] = new Block(false, gadgets,5);
+
 }
 
 void Gamestate::menu(HDC & hdc)
