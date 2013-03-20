@@ -259,6 +259,44 @@ void XmlParser::saveGame(Gamestate * gameState){
 					goombaXPN->setParent(enemies);
 					enemies->addChild(goombaXPN);
 				}
+				else if(gameState->getLevel()[index]->getClassName() == "Koopa"){
+					Koopa * koopa = (Koopa *)gameState->getLevel()[index];
+					XmlParserNode * koopaXPN = new XmlParserNode();
+					koopaXPN->setTitle("enemy");
+					koopaXPN->setAttribute("character","koopa");
+
+					XmlParserNode * location = new XmlParserNode();
+					location->setTitle("location");
+					location->setEndTag();
+					location->setParent(koopaXPN);
+					oss << i;
+					location->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+
+					oss << j;
+					location->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+					koopaXPN->addChild(location);
+
+					XmlParserNode * endPath = new XmlParserNode();
+					endPath->setTitle("endPath");
+					endPath->setEndTag();
+					endPath->setParent(koopaXPN);
+					oss << koopa->getEndPoint('x');
+					endPath->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+					oss << koopa->getEndPoint('y');
+					endPath->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+					koopaXPN->addChild(endPath);
+
+					koopaXPN->setParent(enemies);
+					enemies->addChild(koopaXPN);
+				}
 			}
 		}
 	}
