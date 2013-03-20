@@ -11,6 +11,7 @@
 #include <time.h>
 #include <sstream>
 #include "XMLParser.h"
+#include "Castle.h"
 
 using namespace std;
 

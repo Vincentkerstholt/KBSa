@@ -18,6 +18,13 @@ const int PIPE_BOTTOMLEFT = 4;
 const int PIPE_BOTTOMCENTER = 5;
 const int PIPE_BOTTOMRIGHT = 6;
 
+const int CASTLE_BATTLEMENT = 1;
+const int CASTLE_BATTLEMENT_WALL = 2;
+const int CASTLE_WALL = 3;
+const int CASTLE_DOOR = 4;
+const int CASTLE_LEFTGAP = 5;
+const int CASTLE_GAP = 6;
+const int CASTLE_RIGHTGAP = 7;
 
 Gamestate::Gamestate()
 {
@@ -417,9 +424,13 @@ void Gamestate::CreateWorld(int number){
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 
 		if (child->getAttribute("isSpecial") == "true")
+		{
 			level[index] = new Block(true);
+		}
 		else
+		{
 			level[index] = new Block(false);
+		}
 	}
 
 	XmlParserNode * grounds = xml->getNode("grounds");
@@ -430,7 +441,7 @@ void Gamestate::CreateWorld(int number){
 		int x = stoi(childLocation->getAttribute("x"));
 		int y = stoi(childLocation->getAttribute("y"));
 		int index = getIndex(x, y);
-		level[index] = new Ground(0,0, stoi(child->getAttribute("type")));
+		level[index] = new Ground(stoi(child->getAttribute("type")));
 	}
 
 	XmlParserNode * pipes = xml->getNode("pipes");
@@ -456,6 +467,17 @@ void Gamestate::CreateWorld(int number){
 		if(child->getAttribute("character") == "goomba"){
 			level[index] = new Goomba(stoi(childEndPath->getAttribute("x")), stoi(childEndPath->getAttribute("y")));
 		}
+	}
+
+	XmlParserNode * castles = xml->getNode("castles");
+	childs = castles->getChilds();
+	for(int i = 0; i < castles->getChildsLength(); i++){
+		XmlParserNode * child = childs[i];
+		XmlParserNode * childLocation = child->getNode("location");
+		int x = stoi(childLocation->getAttribute("x"));
+		int y = stoi(childLocation->getAttribute("y"));
+		int index = getIndex(x, y);
+		level[index] = new Castle(stoi(child->getAttribute("type")));
 	}
 }
 
