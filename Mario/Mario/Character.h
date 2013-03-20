@@ -44,6 +44,7 @@ public:
 	int textureNumber;
 	bool MoveAbilityL;
 	bool MoveAbilityR;
+	string side;
 	
 private:
 	

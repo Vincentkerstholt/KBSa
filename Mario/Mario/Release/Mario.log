@@ -1,4 +1,4 @@
-﻿Build started 20-3-2013 9:32:33.
+﻿Build started 20-3-2013 11:52:11.
      1>Project "C:\Users\vincent\Documents\Github\mario\KBSa\Mario\Mario\Mario.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Touching "Release\Mario.unsuccessfulbuild".
@@ -55,4 +55,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:00.17
+Time Elapsed 00:00:01.48

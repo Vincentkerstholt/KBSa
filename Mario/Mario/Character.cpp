@@ -50,7 +50,8 @@ void Character :: Walk (char Direction, POINT curPos)
 		default:
 			break;
 
-		}
+		
+	}
 	SetPosition(walkBehaviour->Walk(Direction, curPos));
 
 	}
@@ -58,6 +59,7 @@ void Character :: Walk (char Direction, POINT curPos)
 	{
 		//POINT pos = getTexturePosition();
 		int x = textureNumber;
+
 
 		switch (x)
 		{
@@ -91,7 +93,7 @@ void Character :: Walk (char Direction, POINT curPos)
 			break;
 		default:
 			break;
-
+		
 	}
 	SetPosition(walkBehaviour->Walk(Direction, curPos)); 
 	}
@@ -168,7 +170,14 @@ void Character::Move(char Direction, POINT curPos)
 	case 'U': 
 		if(JumpAbility)
 		{
-			this->setTexturePosition(2,1);
+			if(side == "Right")
+			{
+				this->setTexturePosition(13,1);
+			}
+			else if (side == "Left")
+			{
+				this->setTexturePosition(13,0);
+			}
 			this->Jump(curPos); //Move Up
 			Jumped++;
 		}

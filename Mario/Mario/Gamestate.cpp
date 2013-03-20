@@ -580,12 +580,12 @@ void Gamestate::UpDownCollision()
 
 	//down points for collision
 	mario = Mario->GetPositionPixel();
-	MarioRightFeet.x = ((mario.x+23)/32); // Rightfeet x
+	MarioRightFeet.x = ((mario.x+24)/32); // Rightfeet x
 	MarioRightFeet.y = ((mario.y+32)/32); //rightfeet y
 	MarioLeftFeet.x = ((mario.x+ 4)/32); //left feet x
 	MarioLeftFeet.y = ((mario.y+32)/32); //left feet y
 	//up point for collision
-	MarioRightHead.x = ((mario.x+23)/32); //Righthead x
+	MarioRightHead.x = ((mario.x+24)/32); //Righthead x
 	MarioRightHead.y = ((mario.y)/32); //Righthead y
 	MarioLeftHead.x = ((mario.x+4)/32); //Lefthead x
 	MarioLeftHead.y = ((mario.y)/32); //leftthead y
@@ -609,6 +609,44 @@ void Gamestate::UpDownCollision()
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;	
 			
+		}
+
+		//this part below is a error fix for the 1 pixel on a block problem.
+		else if (RightFeet == "Block"  || RightFeet == "Pipe"  ||   RightFeet == "Ground"   )
+		{		
+						
+				int ypos = Mario->GetPositionPixel().y;
+				if( ypos %32 != 0)
+				{
+					if(RightHead == "Null")
+					{
+
+					}
+					else
+					{
+					Mario->SetPosition(mario.x, (mario.y+4));
+					}
+				}
+				
+		}
+
+		else if (LeftFeet == "Block"  || LeftFeet == "Pipe"  ||   LeftFeet == "Ground"   )
+		{		
+
+			int ypos = Mario->GetPositionPixel().y;
+			int xpos = Mario->GetPositionPixel().x;
+			if( ypos %32 != 0)
+			{
+				if(LeftHead == "Null")
+				{
+
+				}
+				else
+				{
+					Mario->SetPosition(mario.x, (mario.y+4));
+				}
+			}
+
 		}
 
 		else if (RightHead == "Ground" || LeftHead == "Ground" )
@@ -652,6 +690,7 @@ void Gamestate::UpDownCollision()
 
 				if(mari.y < 33)
 				{
+					mari.x = mari.x * (-1);
 					if(mari.x < 20)
 					{
 					delete level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
@@ -679,11 +718,14 @@ void Gamestate::UpDownCollision()
 			{
 			Mario->JumpAbility = true;
 			}
+			
+			
 			Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
 			/*}*/
 		}
 		else
 		{
+		
 			Mario->Jumped=0; // if there is no air below, let mario jump again. 
 			Mario->JumpAbility = true; 
 		}
@@ -762,7 +804,7 @@ void Gamestate::Collision()
 
 		if (DownPoint == "Block" || UpPoint == "Block")
 		{
-			int onzin  = 1;		
+					
 			Mario->MoveAbilityR = false;
 			
 		}

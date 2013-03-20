@@ -42,10 +42,14 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_RIGHT))
 	{
-				gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
+		
+		gameState->Mario->side = "Right";
+		gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
 	}
 	if (::GetAsyncKeyState(VK_LEFT))
 	{
+	
+		gameState->Mario->side = "Left";
 		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());		
 	}
 
@@ -55,6 +59,7 @@ void CSkeleton::GameLoop()
 
 	if (::GetAsyncKeyState(VK_UP))
 	{
+	
 		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
 
 	}
