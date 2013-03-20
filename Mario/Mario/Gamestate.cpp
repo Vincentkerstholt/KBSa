@@ -631,7 +631,7 @@ void Gamestate::UpDownCollision()
 					
 					if(mari.y < 33)
 					{
-						if(mari.x < 13)
+						if(mari.x < 20)
 						{
 						delete level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
 						level[getIndex(MarioRightFeet.x,MarioRightFeet.y)]= NULL;
@@ -652,7 +652,7 @@ void Gamestate::UpDownCollision()
 
 				if(mari.y < 33)
 				{
-					if(mari.x < 13)
+					if(mari.x < 20)
 					{
 					delete level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
 					level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)]= NULL;

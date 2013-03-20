@@ -1,0 +1,58 @@
+﻿Build started 20-3-2013 9:32:33.
+     1>Project "C:\Users\vincent\Documents\Github\mario\KBSa\Mario\Mario\Mario.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Release\Mario.unsuccessfulbuild".
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\Mario.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp character.cpp Enemy.cpp FastWalk.cpp Goomba.cpp Hero.cpp NormalJump.cpp XMLParserNode.cpp NormalWalk.cpp Skeleton.cpp Ground.cpp Win.cpp WinMain.cpp XMLParser.cpp Gameobject.cpp Gamestate.cpp Skeleton.cpp Block.cpp DungeonThemeFactory.cpp LandThemeFactory.cpp Pipe.cpp SkyThemeFactory.cpp WaterThemeFactory.cpp
+         Camera.cpp
+     1>Camera.cpp(69): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         character.cpp
+     1>character.cpp(272): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Enemy.cpp
+     1>Enemy.cpp(1): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         FastWalk.cpp
+     1>FastWalk.cpp(19): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Goomba.cpp
+     1>Goomba.cpp(40): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Hero.cpp
+     1>Hero.cpp(47): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         NormalJump.cpp
+     1>NormalJump.cpp(11): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         XMLParserNode.cpp
+     1>XMLParserNode.cpp(112): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         NormalWalk.cpp
+     1>NormalWalk.cpp(19): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Skeleton.cpp
+     1>Skeleton.cpp(105): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Ground.cpp
+     1>Ground.cpp(16): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Win.cpp
+     1>Win.cpp(166): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         WinMain.cpp
+     1>WinMain.cpp(17): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         XMLParser.cpp
+     1>XMLParser.cpp(205): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Gameobject.cpp
+     1>Gameobject.cpp(4): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Gamestate.cpp
+     1>Gamestate.cpp(879): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Skeleton.cpp
+     1>Skeleton.cpp(105): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Block.cpp
+     1>Block.cpp(29): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         DungeonThemeFactory.cpp
+     1>DungeonThemeFactory.cpp(68): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         LandThemeFactory.cpp
+     1>LandThemeFactory.cpp(68): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         Compiling...
+         Pipe.cpp
+     1>Pipe.cpp(14): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         SkyThemeFactory.cpp
+     1>SkyThemeFactory.cpp(68): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         WaterThemeFactory.cpp
+     1>WaterThemeFactory.cpp(67): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+     1>Done Building Project "C:\Users\vincent\Documents\Github\mario\KBSa\Mario\Mario\Mario.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.17
