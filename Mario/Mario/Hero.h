@@ -10,6 +10,7 @@ private:
 	int lives;
 	int jumping;
 	string name;
+	bool powerUp;
 public:
 	Hero();
 	~Hero();
@@ -20,9 +21,15 @@ public:
 	void setName(string name);
 	string getClassName();
 	string getName();
+	void grabcoin();
 	int getCoins();
 	int getLives();
+	bool getPowerUp();
+	void grabPowerUp();
+	void hurt();
+	void addLive();
 	void Die();
+	void increaseScore(int points);
 };
 
 #endif

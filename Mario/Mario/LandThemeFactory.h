@@ -11,6 +11,7 @@ public:
 	HANDLE getBlock();
 	HANDLE getGround();
 	HANDLE getGoomba();
+	HANDLE getGadget();
 	HANDLE getBackgroundImage();
 	HANDLE getBackgroundImage2();
 	string getName();
@@ -20,6 +21,7 @@ private:
 	HANDLE blockBitmap;
 	HANDLE groundBitmap;
 	HANDLE goombaBitmap;
+	HANDLE gadgetBitmap;
 	HANDLE bkGroundBitmap;
 	HANDLE bkGround2Bitmap;
 };

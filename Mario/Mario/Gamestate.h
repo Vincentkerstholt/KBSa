@@ -29,6 +29,8 @@ public:
 	void changeFactory(char firstLetter);
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
+	int getIndex(POINT & pnt);
+	POINT getPixelPoint(int index);
 	void UpDownCollision();
 	string getCurrentFactory();
 	int getX();

@@ -98,6 +98,19 @@ int Gamestate::getIndex(int n, int m){
 	return (m*x)+n;
 }
 
+int Gamestate::getIndex(POINT & pnt)
+{
+	return (pnt.y*x)+pnt.x;
+}
+
+POINT Gamestate::getPixelPoint(int index)
+{
+	POINT temp;
+	temp.y = (index / x) * 32;
+	temp.x = (index % x) * 32;
+	return temp;
+}
+
 void Gamestate::DrawHorizontalBorder(int y){
 	MoveToEx(hdc, ConvertIndexToXY(0), ConvertIndexToXY(y), &point);
 	LineTo(hdc, ConvertIndexToXY(43), ConvertIndexToXY(y));
@@ -157,6 +170,16 @@ void Gamestate::drawStatistics(HDC & hdc){
 	TextOut(hdc,  10, 70, oss.str().c_str(), strlen(oss.str().c_str()));
 
 	oss.str("");
+
+	frames++;
+	if(time(NULL) != curTime)
+	{
+		curTime = (int)time(NULL);
+		fps = frames;
+		frames = 0;
+	}
+	oss << "Frames per second: " << fps;
+	TextOut(hdc,  10, 90, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.clear();
 
 }
@@ -345,6 +368,54 @@ void Gamestate::drawWorld(HDC & hdc){
 				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,36,32,32,RGB(255,174,201));
 			}
 			
+			if (level[index]->getClassName() == "Coin" || level[index]->getClassName() == "Flower" || level[index]->getClassName() == "LiveUp" || level[index]->getClassName() == "Mushroom")
+			{
+				if (level[index]->getClassName() == "Coin")
+				{
+					Gadget * tempGadget = (Gadget*)level[index];
+					hObstacleBitmap = factory->getGadget();
+					hObstacleDC = CreateCompatibleDC(hdc);
+					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+					SelectObject(hObstacleDC, hObstacleBitmap);
+					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,0,0,32,32,GetPixel(hObstacleDC,0,0));
+					tempGadget->updateGadget();
+					if (tempGadget->progress == 32)
+					{
+						delete level[index];
+						level[index] = NULL;
+						Mario->grabcoin();
+						continue;
+					}
+				}
+				else if (level[index]->getClassName() == "LiveUp")
+				{
+					hObstacleBitmap = factory->getGadget();
+					hObstacleDC = CreateCompatibleDC(hdc);
+					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+					SelectObject(hObstacleDC, hObstacleBitmap);
+
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,GetPixel(hObstacleDC,0,0));
+				}
+				else if (level[index]->getClassName() == "Mushroom")
+				{
+					hObstacleBitmap = factory->getGadget();
+					hObstacleDC = CreateCompatibleDC(hdc);
+					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+					SelectObject(hObstacleDC, hObstacleBitmap);
+
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,96,0,32,32,GetPixel(hObstacleDC,0,0));
+				}
+				else if (level[index]->getClassName() == "Flower")
+				{
+					hObstacleBitmap = factory->getGadget();
+					hObstacleDC = CreateCompatibleDC(hdc);
+					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+					SelectObject(hObstacleDC, hObstacleBitmap);
+
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
+				}
+			}
+
 			DeleteDC(hObstacleDC);
 			//DeleteObject(hObstacleBitmap);
 		}
@@ -598,9 +669,7 @@ Gamestate::~Gamestate(){
 
 void Gamestate::UpDownCollision()
 {
-	/* This collision detection is based on points. This function checks for every point in witch tile it is and what's in that tile.
-	*/
-
+	// This collision detection is based on points. This function checks for every point in witch tile it is and what's in that tile.
 	POINT mario;
 	POINT MarioRightFeet;
 	POINT MarioLeftFeet;
@@ -624,38 +693,161 @@ void Gamestate::UpDownCollision()
 	
 	if (mario.y < 662 && mario.y > 0 )
 	{
-	string RightFeet = BoxCheck(getIndex(MarioRightFeet.x,MarioRightFeet.y));
-	string LeftFeet = BoxCheck(getIndex(MarioLeftFeet.x,MarioLeftFeet.y));
-	string RightHead = BoxCheck(getIndex(MarioRightHead.x,MarioRightHead.y));
-	string LeftHead = BoxCheck(getIndex(MarioLeftHead.x,MarioLeftHead.y));
-	string MidHead = BoxCheck(getIndex(MarioMidHead.x,MarioMidHead.y));
+	string RightFeet = BoxCheck(getIndex(MarioRightFeet));
+	string LeftFeet = BoxCheck(getIndex(MarioLeftFeet));
+	string RightHead = BoxCheck(getIndex(MarioRightHead));
+	string LeftHead = BoxCheck(getIndex(MarioLeftHead));
+	string MidHead = BoxCheck(getIndex(MarioMidHead));
 		
 		if(Mario->Jumped < Mario->JumpHeight )
 		{
 			Mario->JumpAbility = true;
 		}
 
+		if ( RightHead == "Coin" || RightFeet == "Coin" || LeftHead == "Coin" || LeftFeet == "Coin" )
+		{
+			if (RightHead == "Coin"){
+				delete level[getIndex(MarioRightHead)];
+				level[getIndex(MarioRightHead)] = NULL;
+				Mario->grabcoin();
+			}
+			else if (LeftHead == "Coin"){
+				delete level[getIndex(MarioLeftHead)];
+				level[getIndex(MarioLeftHead)] = NULL;
+				Mario->grabcoin();
+			}
+			else if (LeftFeet == "Coin"){
+				delete level[getIndex(MarioLeftFeet)];
+				level[getIndex(MarioLeftFeet)] = NULL;
+				Mario->grabcoin();
+			}
+			else if (RightFeet == "Coin"){
+				delete level[getIndex(MarioRightFeet)];
+				level[getIndex(MarioRightFeet)] = NULL;
+				Mario->grabcoin();
+			}
+		}
+
+		if ( RightHead == "LiveUp" || RightFeet == "LiveUp" || LeftHead == "LiveUp" || LeftFeet == "LiveUp" )
+		{
+			if (RightHead == "LiveUp"){
+				delete level[getIndex(MarioRightHead)];
+				level[getIndex(MarioRightHead)] = NULL;
+				Mario->addLive();
+			}
+			else if (LeftHead == "LiveUp"){
+				delete level[getIndex(MarioLeftHead)];
+				level[getIndex(MarioLeftHead)] = NULL;
+				Mario->addLive();
+			}
+			else if (LeftFeet == "LiveUp"){
+				delete level[getIndex(MarioLeftFeet)];
+				level[getIndex(MarioLeftFeet)] = NULL;
+				Mario->addLive();
+			}
+			else if (RightFeet == "LiveUp"){
+				delete level[getIndex(MarioRightFeet)];
+				level[getIndex(MarioRightFeet)] = NULL;
+				Mario->addLive();
+			}
+		}
+
+		if ( RightHead == "Mushroom" || RightFeet == "Mushroom" || LeftHead == "Mushroom" || LeftFeet == "Mushroom" )
+		{
+			if (RightHead == "Mushroom"){
+				delete level[getIndex(MarioRightHead)];
+				level[getIndex(MarioRightHead)] = NULL;
+				Mario->grabPowerUp();
+			}
+			else if (LeftHead == "Mushroom"){
+				delete level[getIndex(MarioLeftHead)];
+				level[getIndex(MarioLeftHead)] = NULL;
+				Mario->grabPowerUp();
+			}
+			else if (LeftFeet == "Mushroom"){
+				delete level[getIndex(MarioLeftFeet)];
+				level[getIndex(MarioLeftFeet)] = NULL;
+				Mario->grabPowerUp();
+			}
+			else if (RightFeet == "Mushroom"){
+				delete level[getIndex(MarioRightFeet)];
+				level[getIndex(MarioRightFeet)] = NULL;
+				Mario->grabPowerUp();
+
+			}
+		}
+
+		if ( RightHead == "Flower" || RightFeet == "Flower" || LeftHead == "Flower" || LeftFeet == "Flower" )
+		{
+			if (RightHead == "Flower"){
+				delete level[getIndex(MarioRightHead)];
+				level[getIndex(MarioRightHead)] = NULL;
+				Mario->increaseScore(200);
+			}
+			else if (LeftHead == "Flower"){
+				delete level[getIndex(MarioLeftHead)];
+				level[getIndex(MarioLeftHead)] = NULL;
+				Mario->increaseScore(200);
+			}
+			else if (LeftFeet == "Flower"){
+				delete level[getIndex(MarioLeftFeet)];
+				level[getIndex(MarioLeftFeet)] = NULL;
+				Mario->increaseScore(200);
+			}
+			else if (RightFeet == "Flower"){
+				delete level[getIndex(MarioRightFeet)];
+				level[getIndex(MarioRightFeet)] = NULL;
+				Mario->increaseScore(200);
+			}
+		}
+
 		if (RightHead == "Block" || LeftHead == "Block" )
 		{			
-				int index = getIndex(MarioMidHead.x,MarioMidHead.y);
+				int index = getIndex(MarioMidHead);
 				Mario->JumpAbility = false;
 				Mario->Jumped = 15;
-				delete level[index];
-				level[index] = NULL;
-			
+				if (BoxCheck(index) == "Block" )
+				{
+ 					Block * tempBlock = ((Block *)level[index]);
+ 					Gadget * tempGadget = tempBlock->getGadget();
+
+					if (tempGadget != NULL)
+					{
+						string className = tempGadget->getClassName();
+						if ( className == "Coin")
+							level[index-x] = new Coin(getPixelPoint(index));
+						if ( className == "LiveUp")
+							level[index-x] = new LiveUp(getPixelPoint(index));
+						if ( className == "Mushroom")
+						{
+							if (Mario->getPowerUp() == false)
+								level[index-x] = new Mushroom(getPixelPoint(index));
+							else
+								level[index-x] = new Flower(getPixelPoint(index));
+						}
+					}
+					else
+					{
+						delete level[index];
+						level[index] = NULL;
+					}
+				}
+				if (BoxCheck(index) == "Coin")
+				{
+					Mario->grabcoin();
+					delete level[index];
+				}
 			Mario->JumpAbility = false;
-			Mario->Jumped = 15;			
+			Mario->Jumped = 15;
 		}
 		if (RightHead == "Ground" || LeftHead == "Ground" )
 		{			
-		Mario->JumpAbility = false; 	
+			Mario->JumpAbility = false;
 		}
-		if (RightFeet == "NULL" && LeftFeet == "NULL" ) // if there is no block below mario
+		if (RightFeet == "NULL" && LeftFeet == "NULL" ) //if there is no block below mario
 		{
-			if (Mario->Jumped == 0) // if mario had not jumped yet
-			{
-				Mario->JumpAbility = false; // set the jump ability false
-			}
+			if (Mario->Jumped == 0) //if mario had not jumped yet
+				Mario->JumpAbility = false; //set the jump ability false
 			Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
 		}
 		else
@@ -663,7 +855,6 @@ void Gamestate::UpDownCollision()
 			Mario->Jumped=0; // if there is air below, let mario jump again. 
 			Mario->JumpAbility = true; 
 		}
-		
 	}
 	else
 	{
