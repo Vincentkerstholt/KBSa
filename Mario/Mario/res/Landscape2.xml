@@ -2354,6 +2354,585 @@
 			</ground>
 		</grounds>
 		<castles>
+			<castle type="1">
+				<location x="191" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="191" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="191" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="191" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="191" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="191" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="191" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="191" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="191" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="192" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="192" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="192" y="13" />
+			</castle>
+			<castle type="5">
+				<location x="192" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="192" y="15" />
+			</castle>
+			<castle type="5">
+				<location x="192" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="192" y="17" />
+			</castle>
+			<castle type="5">
+				<location x="192" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="192" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="192" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="193" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="193" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="193" y="13" />
+			</castle>
+			<castle type="7">
+				<location x="193" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="193" y="15" />
+			</castle>
+			<castle type="7">
+				<location x="193" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="193" y="17" />
+			</castle>
+			<castle type="7">
+				<location x="193" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="193" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="193" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="194" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="194" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="194" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="194" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="194" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="194" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="194" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="194" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="194" y="20" />
+			</castle>
+			<castle type="3">
+				<location x="195" y="19" />
+			</castle>
+			<castle type="5">
+				<location x="195" y="20" />
+			</castle>
+			<castle type="3">
+				<location x="196" y="19" />
+			</castle>
+			<castle type="7">
+				<location x="196" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="197" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="197" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="197" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="197" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="197" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="197" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="197" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="197" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="197" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="198" y="8" />
+			</castle>
+			<castle type="3">
+				<location x="198" y="9" />
+			</castle>
+			<castle type="3">
+				<location x="198" y="10" />
+			</castle>
+			<castle type="3">
+				<location x="198" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="198" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="198" y="13" />
+			</castle>
+			<castle type="6">
+				<location x="198" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="198" y="15" />
+			</castle>
+			<castle type="6">
+				<location x="198" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="198" y="17" />
+			</castle>
+			<castle type="6">
+				<location x="198" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="198" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="198" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="199" y="8" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="9" />
+			</castle>
+			<castle type="6">
+				<location x="199" y="10" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="199" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="199" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="200" y="8" />
+			</castle>
+			<castle type="3">
+				<location x="200" y="9" />
+			</castle>
+			<castle type="3">
+				<location x="200" y="10" />
+			</castle>
+			<castle type="3">
+				<location x="200" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="200" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="200" y="13" />
+			</castle>
+			<castle type="6">
+				<location x="200" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="200" y="15" />
+			</castle>
+			<castle type="6">
+				<location x="200" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="200" y="17" />
+			</castle>
+			<castle type="6">
+				<location x="200" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="200" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="200" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="201" y="8" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="9" />
+			</castle>
+			<castle type="6">
+				<location x="201" y="10" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="201" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="19" />
+			</castle>
+			<castle type="4">
+				<location x="201" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="202" y="8" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="9" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="10" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="202" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="13" />
+			</castle>
+			<castle type="6">
+				<location x="202" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="15" />
+			</castle>
+			<castle type="6">
+				<location x="202" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="17" />
+			</castle>
+			<castle type="6">
+				<location x="202" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="203" y="8" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="9" />
+			</castle>
+			<castle type="6">
+				<location x="203" y="10" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="203" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="204" y="8" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="9" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="10" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="204" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="13" />
+			</castle>
+			<castle type="6">
+				<location x="204" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="15" />
+			</castle>
+			<castle type="6">
+				<location x="204" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="17" />
+			</castle>
+			<castle type="6">
+				<location x="204" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="205" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="20" />
+			</castle>
+			<castle type="3">
+				<location x="206" y="19" />
+			</castle>
+			<castle type="5">
+				<location x="206" y="20" />
+			</castle>
+			<castle type="3">
+				<location x="207" y="19" />
+			</castle>
+			<castle type="7">
+				<location x="207" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="208" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="209" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="209" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="209" y="13" />
+			</castle>
+			<castle type="5">
+				<location x="209" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="209" y="15" />
+			</castle>
+			<castle type="5">
+				<location x="209" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="209" y="17" />
+			</castle>
+			<castle type="5">
+				<location x="209" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="209" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="209" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="210" y="11" />
+			</castle>
+			<castle type="2">
+				<location x="210" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="210" y="13" />
+			</castle>
+			<castle type="7">
+				<location x="210" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="210" y="15" />
+			</castle>
+			<castle type="7">
+				<location x="210" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="210" y="17" />
+			</castle>
+			<castle type="7">
+				<location x="210" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="210" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="210" y="20" />
+			</castle>
+			<castle type="1">
+				<location x="211" y="12" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="13" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="15" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="18" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="19" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="20" />
+			</castle>
 	</castles>
 	</level>
 </superMario>
