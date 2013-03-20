@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- was: no XML declaration present -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -193,6 +193,12 @@
     <ClCompile Include="Castle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamestate.h">
@@ -305,6 +311,21 @@
     </ClInclude>
     <ClInclude Include="Flower.h">
       <Filter>Header Files\Gadget\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gadgets.h">
+      <Filter>Header Files\Gadget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

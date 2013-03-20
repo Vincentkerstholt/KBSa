@@ -68,7 +68,6 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	UpDownCollision();
 	drawBackground(hdc);
-	drawCharacters(hdc);
 	drawHUD(hdc);
 	drawWorld(hdc);
 	if (debugMode == true)
@@ -76,6 +75,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 		drawGrid(hdc);
 		drawStatistics(hdc);
 	}
+	drawCharacters(hdc);
 }
 
 IThemeFactory * Gamestate::getFactory(string name){
@@ -384,7 +384,6 @@ void Gamestate::drawWorld(HDC & hdc){
 						delete level[index];
 						level[index] = NULL;
 						Mario->grabcoin();
-						continue;
 					}
 				}
 				else if (level[index]->getClassName() == "LiveUp")
@@ -494,13 +493,41 @@ void Gamestate::CreateWorld(int number){
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 
+		XmlParserNode * gadget = child->getNode("gadget");
+		Gadget ** gadgetArray = NULL;
+		int gadgetLength = gadget->getChildsLength();
+		if(gadgetLength > 0){
+			gadgetArray = new Gadget * [gadgetLength];
+			XmlParserNode ** gadgetChilds = gadget->getChilds();
+			for(int j = 0; j < gadgetLength; j++)
+			{
+				XmlParserNode * gadgetChild = gadgetChilds[j];
+				string gadgetChildTitle = gadgetChild->getTitle();
+				if(gadgetChildTitle == "coin"){
+					gadgetArray[j] = new Coin(getPixelPoint(index));
+				}
+				else if(gadgetChildTitle == "liveup"){
+					gadgetArray[j] = new LiveUp(getPixelPoint(index));
+				}
+				else if(gadgetChildTitle == "powerup"){
+					gadgetArray[j] = new Mushroom(getPixelPoint(index));
+				}
+			}
+		}
+
 		if (child->getAttribute("isSpecial") == "true")
 		{
-			level[index] = new Block(true);
+			if(gadgetLength > 0)
+				level[index] = new Block(true, gadgetArray, gadgetLength);
+			else
+				level[index] = new Block(true);
 		}
 		else
 		{
-			level[index] = new Block(false);
+			if(gadgetLength > 0)
+				level[index] = new Block(false, gadgetArray, gadgetLength);
+			else
+				level[index] = new Block(false);
 		}
 	}
 

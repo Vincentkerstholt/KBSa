@@ -12,6 +12,7 @@
 #include <sstream>
 #include "XMLParser.h"
 #include "Castle.h"
+#include "gadgets.h"
 
 using namespace std;
 
