@@ -124,7 +124,10 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FastWalk.cpp">
+    <ClCompile Include="NormalWalk.cpp">
+      <Filter>Source Files\Walk</Filter>
+    </ClCompile>
+	 <ClCompile Include="FastWalk.cpp">
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
     <ClCompile Include="NormalJump.cpp">

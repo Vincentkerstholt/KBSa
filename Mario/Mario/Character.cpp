@@ -116,16 +116,14 @@ POINT Character :: GetPositionIndex()
 {
 	POINT returnValue;
 
-	returnValue.x = (Position.x/32);
-	returnValue.y = (Position.y/32);
+	returnValue.x = (this->Position.x/32);
+	returnValue.y = (this->Position.y/32);
 	return returnValue;
 }
 
 POINT Character :: GetPositionPixel()
 {
-	POINT Position2;
-	Position2 = Position;
-	return Position2;
+	return Position;
 }
 
 void Character :: SetPosition(int x, int y)
@@ -170,9 +168,9 @@ void Character::Move(char Direction, POINT curPos)
 	case 'U': 
 		if(JumpAbility)
 		{
-		this->setTexturePosition(2,1);
-		this->Jump(curPos); //Move Up
-		Jumped++;
+			this->setTexturePosition(2,1);
+			this->Jump(curPos); //Move Up
+			Jumped++;
 		}
 		break;
 	}

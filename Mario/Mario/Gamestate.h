@@ -26,12 +26,15 @@ public:
 	void changeFactory(char firstLetter);
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
+	int getIndex(POINT & pnt);
 	void UpDownCollision();
 	void Collision();
+	void UpdateEnemy(int index);
 	void HeroDie();
 	Hero * Mario;
 	bool inMenu;
 	~Gamestate();
+	bool firsttime;
 
 	Camera camera;
 private:

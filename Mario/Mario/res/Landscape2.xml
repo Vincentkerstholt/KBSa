@@ -5,9 +5,13 @@
         <enemies>
             <enemy character="goomba">
 			<location x="38" y="20" />
-			<endPath x="31" y="20" />
-		</enemy>
-        </enemies>
+			<endPath x="40" y="20" />
+			</enemy>
+			<enemy character="goomba">
+			<location x="17" y="15" />
+			<endPath x="22" y="15" />
+			</enemy>
+			 </enemies>
 	<level width="215" height="22">
 		<blocks>
 			<block isSpecial="false">

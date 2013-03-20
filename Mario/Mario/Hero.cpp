@@ -32,6 +32,13 @@ int Hero::getLives()
 {
 	return this->lives;
 }
+void Hero::setLives(int lives)
+{
+	lives = lives;
+}
+
+
+
 
 void Hero::Die()
 {

@@ -19,6 +19,7 @@ public:
 	string getClassName();
 	int getCoins();
 	int getLives();
+	void setLives(int lives);
 	void Die();
 };
 

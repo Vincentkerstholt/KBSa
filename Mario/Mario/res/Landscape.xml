@@ -4,7 +4,7 @@
 	<hero character="mario" x="2" y="19" />
 	<enemies>
 		<enemy character="goomba">
-			<location x="38" y="19" />
+			<location x="39" y="19" />
 			<endPath x="31" y="19" />
 		</enemy>
 		<enemy character="goomba">
