@@ -10,14 +10,17 @@ public:
 	HANDLE getPipe();
 	HANDLE getBlock();
 	HANDLE getGround();
+	HANDLE getGoomba();
 	HANDLE getGadget();
 	HANDLE getBackgroundImage();
 	HANDLE getBackgroundImage2();
+	string getName();
 	void delImage();
 private:
 	HANDLE pipeBitmap;
 	HANDLE blockBitmap;
 	HANDLE groundBitmap;
+	HANDLE goombaBitmap;
 	HANDLE gadgetBitmap;
 	HANDLE bkGroundBitmap;
 	HANDLE bkGround2Bitmap;

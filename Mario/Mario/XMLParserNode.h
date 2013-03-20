@@ -24,6 +24,7 @@ public:
 	void setAttribute(string key, string setValue);
 	XmlParserNode * getNode(string tagName);
 	string getAttribute(string key);
+	string toXML(int depth);
 private:
 	string title;
 	int childsLength;

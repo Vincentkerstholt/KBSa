@@ -9,6 +9,7 @@ private:
 	int score;
 	int lives;
 	int jumping;
+	string name;
 	bool powerUp;
 public:
 	Hero();
@@ -16,6 +17,10 @@ public:
 	HANDLE texture;
 	int textureNumber;
 	POINT collisionPoint[8];
+
+	void setName(string name);
+	string getClassName();
+	string getName();
 	void grabcoin();
 	int getCoins();
 	int getLives();

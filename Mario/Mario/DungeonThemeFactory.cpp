@@ -6,12 +6,17 @@ DungeonThemeFactory::DungeonThemeFactory(){
 	blockBitmap = LoadImage(NULL, "res/Block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/world8.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/backgroundCave.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundrocks.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 DungeonThemeFactory::~DungeonThemeFactory(){}
+
+string DungeonThemeFactory::getName(){
+	return "dungeon";
+}
 
 void DungeonThemeFactory::delImage()
 {
@@ -21,6 +26,9 @@ void DungeonThemeFactory::delImage()
 	pipeBitmap = NULL;
 	DeleteObject(groundBitmap);
 	groundBitmap = NULL;
+	DeleteObject(goombaBitmap);
+	goombaBitmap = NULL;
+	DeleteObject(bkGroundBitmap) ;
 	DeleteObject(gadgetBitmap);
 	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
@@ -39,6 +47,10 @@ HANDLE DungeonThemeFactory::getPipe(){
 
 HANDLE DungeonThemeFactory::getGround(){
 	return groundBitmap;
+}
+
+HANDLE DungeonThemeFactory::getGoomba(){
+	return goombaBitmap;
 }
 
 HANDLE DungeonThemeFactory::getGadget(){

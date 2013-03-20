@@ -18,35 +18,47 @@ const int PIPE_BOTTOMLEFT = 4;
 const int PIPE_BOTTOMCENTER = 5;
 const int PIPE_BOTTOMRIGHT = 6;
 
+const int CASTLE_BATTLEMENT = 1;
+const int CASTLE_BATTLEMENT_WALL = 2;
+const int CASTLE_WALL = 3;
+const int CASTLE_DOOR = 4;
+const int CASTLE_LEFTGAP = 5;
+const int CASTLE_GAP = 6;
+const int CASTLE_RIGHTGAP = 7;
 
 Gamestate::Gamestate()
 {
-	xml = new XmlParser("res/Landscape.xml");
+	CreateWorld(0);
 
-	XmlParserNode * levelXml = xml->getNode("level");
-	string width = levelXml->getAttribute("width");
-	string height = levelXml->getAttribute("height");
-	x = stoi( width );
-	y = stoi( height );
-
-
-	Mario = new Hero();
-
-	hBackgroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	hBackgroundBitmap2 = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	level = new Gameobject*[(x * y)];
-
-	XmlParserNode * factoryXml = xml->getNode("factory");
-	factory = getFactory(factoryXml->getAttribute("name"));
 
 	frames = 0;
 	curTime = 0;
 	fps = 0;
 	selector = 0;
-	
-	Mario->SetPosition(160,608);
-	CreateWorld(0);
+}
+
+Gameobject ** Gamestate::getLevel(){
+	return level;
+}
+
+int Gamestate::getX(){
+	return x;
+}
+
+int Gamestate::getY(){
+	return y;
+}
+
+void Gamestate::saveGame(){
+	xml->saveGame(this);
+	inMenu = false;
+}
+
+void Gamestate::loadGame(){
+	destroyWorld();
+	CreateWorld(9);
+	inMenu = false;
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
@@ -56,7 +68,6 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	UpDownCollision();
 	drawBackground(hdc);
-	drawCharacters(hdc);
 	drawHUD(hdc);
 	drawWorld(hdc);
 	if (debugMode == true)
@@ -64,6 +75,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 		drawGrid(hdc);
 		drawStatistics(hdc);
 	}
+	drawCharacters(hdc);
 }
 
 IThemeFactory * Gamestate::getFactory(string name){
@@ -343,6 +355,19 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 				}
 			}
+			else if(level[index]->getClassName() == "Goomba")
+			{
+				Goomba * goomba = (Goomba*)level[index];
+				hObstacleBitmap = factory->getGoomba();
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,36,32,32,RGB(255,174,201));
+			}
+			
 			if (level[index]->getClassName() == "Coin" || level[index]->getClassName() == "Flower" || level[index]->getClassName() == "LiveUp" || level[index]->getClassName() == "Mushroom")
 			{
 				if (level[index]->getClassName() == "Coin")
@@ -419,17 +444,28 @@ void Gamestate::changeFactory(char firstLetter){
 }
 
 void Gamestate::CreateWorld(int number){
+	xml = new XmlParser();
+
 	switch(number)
 	{
 	case 0:
-		xml = new XmlParser("res/Landscape.xml");
+		xml->parse("res/Landscape.xml");
 	break;
 	case 1:
-		xml = new XmlParser("res/Landscape2.xml");
+		xml->parse("res/Landscape2.xml");
 	break;
+	case 9:
+		xml->parse("res/saveGame.xml");
 	default:
 	break;
 	}
+
+	XmlParserNode * levelXml = xml->getNode("level");
+	x = stoi( levelXml->getAttribute("width") );
+	y = stoi( levelXml->getAttribute("height") );
+
+	level = new Gameobject*[(x * y)];
+
 	for(int n = 0; n < x; n++)
 	{
 		for(int m = 0; m < y; m++){
@@ -437,6 +473,19 @@ void Gamestate::CreateWorld(int number){
 			level[index] = NULL;
 		}
 	}
+
+	XmlParserNode * marioXml = xml->getNode("hero");
+
+	Mario = new Hero();
+
+	int xMario = stoi(marioXml->getAttribute("x"));
+	int yMario = stoi(marioXml->getAttribute("y"));
+
+	Mario->SetPosition(xMario * 32, yMario * 32);
+	Mario->setName(marioXml->getAttribute("character"));
+
+	XmlParserNode * factoryXml = xml->getNode("factory");
+	factory = getFactory(factoryXml->getAttribute("name"));
 
 	XmlParserNode * blocks = xml->getNode("blocks");
 	XmlParserNode ** childs = blocks->getChilds();
@@ -446,10 +495,42 @@ void Gamestate::CreateWorld(int number){
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 
+		XmlParserNode * gadget = child->getNode("gadget");
+		Gadget ** gadgetArray = NULL;
+		int gadgetLength = gadget->getChildsLength();
+		if(gadgetLength > 0){
+			gadgetArray = new Gadget * [gadgetLength];
+			XmlParserNode ** gadgetChilds = gadget->getChilds();
+			for(int j = 0; j < gadgetLength; j++)
+			{
+				XmlParserNode * gadgetChild = gadgetChilds[j];
+				string gadgetChildTitle = gadgetChild->getTitle();
+				if(gadgetChildTitle == "coin"){
+					gadgetArray[j] = new Coin(getPixelPoint(index));
+				}
+				else if(gadgetChildTitle == "liveup"){
+					gadgetArray[j] = new LiveUp(getPixelPoint(index));
+				}
+				else if(gadgetChildTitle == "powerup"){
+					gadgetArray[j] = new Mushroom(getPixelPoint(index));
+				}
+			}
+		}
+
 		if (child->getAttribute("isSpecial") == "true")
-			level[index] = new Block(true);
+		{
+			if(gadgetLength > 0)
+				level[index] = new Block(true, gadgetArray, gadgetLength);
+			else
+				level[index] = new Block(true);
+		}
 		else
-			level[index] = new Block(false);
+		{
+			if(gadgetLength > 0)
+				level[index] = new Block(false, gadgetArray, gadgetLength);
+			else
+				level[index] = new Block(false);
+		}
 	}
 
 	XmlParserNode * grounds = xml->getNode("grounds");
@@ -460,7 +541,7 @@ void Gamestate::CreateWorld(int number){
 		int x = stoi(childLocation->getAttribute("x"));
 		int y = stoi(childLocation->getAttribute("y"));
 		int index = getIndex(x, y);
-		level[index] = new Ground(0,0, stoi(child->getAttribute("type")));
+		level[index] = new Ground(stoi(child->getAttribute("type")));
 	}
 
 	XmlParserNode * pipes = xml->getNode("pipes");
@@ -471,6 +552,32 @@ void Gamestate::CreateWorld(int number){
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 		level[index] = new Pipe(stoi(child->getAttribute("type")));
+	}
+
+	XmlParserNode * enemies = xml->getNode("enemies");
+	childs = enemies->getChilds();
+	for(int i = 0; i < enemies->getChildsLength(); i++)
+	{
+		XmlParserNode * child = childs[i];
+
+		XmlParserNode * childLocation = child->getNode("location");
+		XmlParserNode * childEndPath = child->getNode("endPath");
+		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+
+		if(child->getAttribute("character") == "goomba"){
+			level[index] = new Goomba(stoi(childEndPath->getAttribute("x")), stoi(childEndPath->getAttribute("y")));
+		}
+	}
+
+	XmlParserNode * castles = xml->getNode("castles");
+	childs = castles->getChilds();
+	for(int i = 0; i < castles->getChildsLength(); i++){
+		XmlParserNode * child = childs[i];
+		XmlParserNode * childLocation = child->getNode("location");
+		int x = stoi(childLocation->getAttribute("x"));
+		int y = stoi(childLocation->getAttribute("y"));
+		int index = getIndex(x, y);
+		level[index] = new Castle(stoi(child->getAttribute("type")));
 	}
 }
 
@@ -514,16 +621,17 @@ void Gamestate::menu(HDC & hdc)
 		{
 		case 0:
 			// reset lvl
-			Mario->SetPosition(160,608);
 			destroyWorld();
 			CreateWorld(1);
 			inMenu = false;
 		break;
 		case 1:
 			//save game
+			saveGame();
 		break;
 		case 2:
 			//load game
+			loadGame();
 		break;
 		case 3:
 			{
@@ -574,6 +682,8 @@ void Gamestate::destroyWorld()
 			}
 		}
 	}
+	delete xml;
+	xml = NULL;
 }
 
 Gamestate::~Gamestate(){
@@ -828,6 +938,9 @@ void Gamestate::HeroDie()
 		Mario->Die();
 		destroyWorld();
 		CreateWorld(1);
-		Mario->SetPosition(32, 400);
 	}
+}
+
+string Gamestate::getCurrentFactory(){
+	return factory->getName();
 }

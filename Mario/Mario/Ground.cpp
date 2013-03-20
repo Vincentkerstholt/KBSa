@@ -1,8 +1,6 @@
 #include "Ground.h"
 
-Ground::Ground(int spriteX, int spriteY, int textureType){
-	this->spriteX = spriteX;
-	this->spriteY = spriteY;
+Ground::Ground(int textureType){
 	this->textureType = textureType;
 }
 

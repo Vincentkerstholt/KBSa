@@ -63,7 +63,6 @@ void XmlParserNode::setParent(XmlParserNode * parent){
 
 void XmlParserNode::setAttribute(string key, string setValue){
 	(*attributes)[key] = setValue;
-	//attributes->at(key) = setValue;
 }
 
 string XmlParserNode::getAttribute(string key){
@@ -101,6 +100,36 @@ string XmlParserNode::toString(){
 		XmlParserNode * child = childs[i];
 		oss << child->toString();
 	}
+	return oss.str();
+}
+
+string XmlParserNode::toXML(int depth){
+	ostringstream oss;
+
+	oss << "<" << title;
+	for(map<string, string>::iterator it = (*attributes).begin(); it !=(*attributes).end(); ++it){
+		oss << " " << it->first << "=\"" << it->second << "\"";
+	}
+	if (childsLength == 0)
+	{
+		oss << "/>";
+	} 
+	else
+	{
+		oss << ">" << endl;
+		for(int i = 0; i < childsLength; i++){
+			XmlParserNode * child = childs[i];
+			for(int j = 0; j <= depth; j++){
+				oss << "\t";
+			}
+			oss << child->toXML(depth + 1) << endl;
+		}
+		for(int j = 0; j < depth; j++){
+			oss << "\t";
+		}
+		oss << "</" << title << ">";
+	}
+
 	return oss.str();
 }
 

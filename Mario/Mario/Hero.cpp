@@ -2,7 +2,6 @@
 
 Hero::Hero()
 {
-	SetPosition(64, 400);
 	textureNumber = 1;
 	coins = 0;
 	lives = 5;
@@ -13,6 +12,18 @@ Hero::Hero()
 	jumpBehaviour = new NormalJump(); 
 	texture = LoadImage(NULL, "res/bigMarioMoves.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	powerUp = false;
+}
+
+string Hero::getClassName(){
+	return "Hero";
+}
+
+void Hero::setName(string name){
+	this->name = name;
+}
+
+string Hero::getName(){
+	return name;
 }
 
 Hero::~Hero()

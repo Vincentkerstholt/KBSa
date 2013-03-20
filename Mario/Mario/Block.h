@@ -17,6 +17,7 @@ public:
 	Gadget * getGadget();
 	string getClassName();
 	bool getIsSpecial();
+	string getIsSpecialString();
 	int getPosX();
 private:
 	Gadget ** gadget;
