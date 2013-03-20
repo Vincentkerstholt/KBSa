@@ -5,9 +5,10 @@
 class Coin : public Gadget
 {
 public:
-	Coin();
+	Coin(POINT & pixelpnt);
 	~Coin();
 	string getClassName();
+	void updateGadget();
 };
 
 #endif //COIN_H

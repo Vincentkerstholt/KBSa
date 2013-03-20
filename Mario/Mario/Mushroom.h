@@ -6,7 +6,10 @@
 class Mushroom : public PowerUp
 {
 public:
+	Mushroom(POINT & pixelpnt);
+	~Mushroom();
 	string getClassName();
+	void updateGadget();
 };
 
 #endif //MUSHROOM_H

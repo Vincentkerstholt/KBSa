@@ -12,39 +12,12 @@ Block::Block(bool isSpecial){
 	gadgetAmount = 0;
 }
 
-Block::Block(bool isSpecial, int gadgetType, int amount)
+Block::Block(bool isSpecial, Gadget ** gadgetType, int amount)
 {
-	gadget = new Gadget*[amount];
-	this->isSpecial = isSpecial;
 	posX = 0;
-
-	switch (gadgetType)
-	{
-	case COIN:
-		for (int n=0 ; n < amount ; n++)
-		{
-			gadget[n] = new Coin();
-		}
-		gadgetAmount = amount;
-	break;
-	case LIVEUP:
-		gadget[0] = new LiveUp();
-		gadgetAmount = 1;
-	break;
-	case FLOWER:
-		gadget[0] = new Flower();
-		gadgetAmount = 1;
-	break;
-	case MUSHROOM:
-		gadget[0] = new Mushroom();
-		gadgetAmount = 1;
-	break;
-	default:
-		gadget[0] = NULL;
-		gadgetAmount = 0;
-	break;
-	}
-
+	gadget = gadgetType;
+	gadgetAmount = amount;
+	this->isSpecial = isSpecial;
 }
 
 Gadget * Block::getGadget(){

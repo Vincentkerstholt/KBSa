@@ -11,7 +11,9 @@ const int MUSHROOM = 4;
 class Gadget :public Gameobject
 {
 public:
+	POINT position;
+	int progress;
 	virtual string getClassName() = 0;
-
+	virtual void updateGadget() = 0;
 };
 #endif //GADGET_H

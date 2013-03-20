@@ -12,7 +12,7 @@ class Block : public Obstacle{
 public:
 	Block();
 	Block(bool isSpecial);
-	Block(bool isSpecial, int gadgetType, int amount);
+	Block(bool isSpecial, Gadget ** gadgetType, int amount);
 	~Block();
 	Gadget * getGadget();
 	string getClassName();

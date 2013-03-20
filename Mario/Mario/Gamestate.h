@@ -27,6 +27,7 @@ public:
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
 	int getIndex(POINT & pnt);
+	POINT getPixelPoint(int index);
 	void UpDownCollision();
 	void HeroDie();
 	Hero * Mario;

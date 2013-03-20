@@ -6,9 +6,10 @@
 class LiveUp : public Gadget
 {
 public:
-	LiveUp();
+	LiveUp(POINT & pixelpnt);
 	~LiveUp();
 	string getClassName();
+	void updateGadget();
 };
 
 #endif //LIVEUP_H
