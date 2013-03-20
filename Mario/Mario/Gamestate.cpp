@@ -372,12 +372,11 @@ void Gamestate::drawWorld(HDC & hdc){
 			{
 				if (level[index]->getClassName() == "Coin")
 				{
-					Gadget * tempGadget = (Gadget*)level[index];
-
 					hObstacleBitmap = factory->getGadget();
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 					SelectObject(hObstacleDC, hObstacleBitmap);
+					Gadget * tempGadget = (Gadget*)level[index];
 					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,0,0,32,32,GetPixel(hObstacleDC,0,0));
 					tempGadget->updateGadget();
 					if (tempGadget->progress == 32)
@@ -386,7 +385,6 @@ void Gamestate::drawWorld(HDC & hdc){
 						level[index] = NULL;
 						Mario->grabcoin();
 					}
-					
 				}
 				else if (level[index]->getClassName() == "LiveUp")
 				{
@@ -394,8 +392,9 @@ void Gamestate::drawWorld(HDC & hdc){
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 					SelectObject(hObstacleDC, hObstacleBitmap);
-
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,GetPixel(hObstacleDC,0,0));
+					Gadget * tempGadget = (Gadget*)level[index];
+					tempGadget->updateGadget();
+					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,32,0,32,32,GetPixel(hObstacleDC,0,0));
 				}
 				else if (level[index]->getClassName() == "Mushroom")
 				{
@@ -403,8 +402,9 @@ void Gamestate::drawWorld(HDC & hdc){
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 					SelectObject(hObstacleDC, hObstacleBitmap);
-
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,96,0,32,32,GetPixel(hObstacleDC,0,0));
+					Gadget * tempGadget = (Gadget*)level[index];
+					tempGadget->updateGadget();
+					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,96,0,32,32,GetPixel(hObstacleDC,0,0));
 				}
 				else if (level[index]->getClassName() == "Flower")
 				{
@@ -412,8 +412,9 @@ void Gamestate::drawWorld(HDC & hdc){
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 					SelectObject(hObstacleDC, hObstacleBitmap);
-
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
+					Gadget * tempGadget = (Gadget*)level[index];
+					tempGadget->updateGadget();
+					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
 				}
 			}
 
