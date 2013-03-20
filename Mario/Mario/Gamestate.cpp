@@ -348,6 +348,7 @@ void Gamestate::drawWorld(HDC & hdc){
 				if (level[index]->getClassName() == "Coin")
 				{
 					Gadget * tempGadget = (Gadget*)level[index];
+
 					hObstacleBitmap = factory->getGadget();
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
@@ -359,8 +360,8 @@ void Gamestate::drawWorld(HDC & hdc){
 						delete level[index];
 						level[index] = NULL;
 						Mario->grabcoin();
-						continue;
 					}
+					
 				}
 				else if (level[index]->getClassName() == "LiveUp")
 				{
@@ -471,7 +472,6 @@ void Gamestate::CreateWorld(int number){
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 		level[index] = new Pipe(stoi(child->getAttribute("type")));
 	}
-
 }
 
 void Gamestate::menu(HDC & hdc)
@@ -734,15 +734,20 @@ void Gamestate::UpDownCollision()
 					{
 						string className = tempGadget->getClassName();
 						if ( className == "Coin")
-							level[index-x] = new Coin(getPixelPoint(index));
+							level[index-x] = tempGadget;
 						if ( className == "LiveUp")
-							level[index-x] = new LiveUp(getPixelPoint(index));
+							level[index-x] = tempGadget;
 						if ( className == "Mushroom")
 						{
 							if (Mario->getPowerUp() == false)
-								level[index-x] = new Mushroom(getPixelPoint(index));
+								level[index-x] = tempGadget;
 							else
-								level[index-x] = new Flower(getPixelPoint(index));
+							{
+								POINT tempPoint = tempGadget->position;
+								delete tempGadget;
+								level[index-x] = new Flower(tempPoint);
+							}
+								level[index-x] = tempGadget;
 						}
 					}
 					else
