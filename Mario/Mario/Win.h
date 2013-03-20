@@ -2,7 +2,7 @@
 #define WIN_H
 
 #include <windows.h>
-#include <StdAfx.h>
+//#include <StdAfx.h>
 
 class CWin
 {

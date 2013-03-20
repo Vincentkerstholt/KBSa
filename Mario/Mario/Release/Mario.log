@@ -1,9 +1,11 @@
-﻿Build started 20-3-2013 9:32:33.
-     1>Project "C:\Users\vincent\Documents\Github\mario\KBSa\Mario\Mario\Mario.vcxproj" on node 2 (build target(s)).
-     1>InitializeBuildStatus:
+﻿Build started 20.3.2013 13:11:44.
+     1>Project "C:\Users\uygar\GitProjects\KBSa\Mario\Mario\Mario.vcxproj" on node 2 (build target(s)).
+     1>PrepareForBuild:
+         Creating directory "C:\Users\uygar\GitProjects\KBSa\Mario\Release\".
+       InitializeBuildStatus:
          Touching "Release\Mario.unsuccessfulbuild".
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\Mario.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp character.cpp Enemy.cpp FastWalk.cpp Goomba.cpp Hero.cpp NormalJump.cpp XMLParserNode.cpp NormalWalk.cpp Skeleton.cpp Ground.cpp Win.cpp WinMain.cpp XMLParser.cpp Gameobject.cpp Gamestate.cpp Skeleton.cpp Block.cpp DungeonThemeFactory.cpp LandThemeFactory.cpp Pipe.cpp SkyThemeFactory.cpp WaterThemeFactory.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D "WIN32" /D NDEBUG /D "_WINDOWS" /D "_UNICODE" /D "UNICODE" /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\Mario.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp character.cpp Enemy.cpp FastWalk.cpp Goomba.cpp Hero.cpp NormalJump.cpp XMLParserNode.cpp NormalWalk.cpp Skeleton.cpp Ground.cpp Win.cpp WinMain.cpp XMLParser.cpp Gameobject.cpp Gamestate.cpp Skeleton.cpp Block.cpp DungeonThemeFactory.cpp LandThemeFactory.cpp Pipe.cpp SkyThemeFactory.cpp WaterThemeFactory.cpp
          Camera.cpp
      1>Camera.cpp(69): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
          character.cpp
@@ -51,8 +53,8 @@
      1>SkyThemeFactory.cpp(68): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
          WaterThemeFactory.cpp
      1>WaterThemeFactory.cpp(67): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
-     1>Done Building Project "C:\Users\vincent\Documents\Github\mario\KBSa\Mario\Mario\Mario.vcxproj" (build target(s)) -- FAILED.
+     1>Done Building Project "C:\Users\uygar\GitProjects\KBSa\Mario\Mario\Mario.vcxproj" (build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:00.17
+Time Elapsed 00:00:00.25
