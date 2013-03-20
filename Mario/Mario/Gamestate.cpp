@@ -514,21 +514,19 @@ void Gamestate::CreateWorld(int number){
 				}
 			}
 		}
+		bool isSpecial = false;
+		bool isFixed = false;
+
 
 		if (child->getAttribute("isSpecial") == "true")
-		{
-			if(gadgetLength > 0)
-				level[index] = new Block(true, gadgetArray, gadgetLength);
-			else
-				level[index] = new Block(true);
-		}
+			isSpecial = true;
+		if(child->getAttribute("isFixed") == "true")
+			isFixed = true;
+
+		if(gadgetLength > 0)
+			level[index] = new Block(isSpecial, isFixed, gadgetArray, gadgetLength);
 		else
-		{
-			if(gadgetLength > 0)
-				level[index] = new Block(false, gadgetArray, gadgetLength);
-			else
-				level[index] = new Block(false);
-		}
+			level[index] = new Block(isSpecial, isFixed);
 	}
 
 	XmlParserNode * grounds = xml->getNode("grounds");

@@ -62,6 +62,9 @@ void XmlParser::saveGame(Gamestate * gameState){
 	XmlParserNode * grounds = new XmlParserNode();
 	grounds->setTitle("grounds");
 
+	XmlParserNode * castles = new XmlParserNode();
+	castles->setTitle("castles");
+
 	XmlParserNode * enemies = new XmlParserNode();
 	enemies->setTitle("enemies");
 
@@ -75,6 +78,7 @@ void XmlParser::saveGame(Gamestate * gameState){
 					XmlParserNode * blockXPN = new XmlParserNode();
 					blockXPN->setTitle("block");
 					blockXPN->setAttribute("isSpecial", block->getIsSpecialString());
+					blockXPN->setAttribute("isFixed", block->getIsFixedString());
 
 					XmlParserNode * location = new XmlParserNode();
 					location->setTitle("location");
@@ -90,20 +94,44 @@ void XmlParser::saveGame(Gamestate * gameState){
 					oss.str("");
 					oss.clear();
 
-					XmlParserNode * gadget = new XmlParserNode();
-					gadget->setTitle("gadget");
-					gadget->setParent(blockXPN);
+					XmlParserNode * gadgetXPN = new XmlParserNode();
+					gadgetXPN->setTitle("gadget");
+					gadgetXPN->setParent(blockXPN);
 
-					XmlParserNode * coin = new XmlParserNode();
-					coin->setTitle("coin");
-					coin->setEndTag();
-					coin->setParent(gadget);
-					coin->setAttribute("value","5");
+					while(true){
+						Gadget * gadget = block->getGadget();
+						if(gadget == NULL) break;
+						if(gadget->getClassName() == "Coin")
+						{
+							XmlParserNode * coinXPN = new XmlParserNode();
+							coinXPN->setTitle("coin");
+							coinXPN->setEndTag();
+							coinXPN->setParent(gadgetXPN);
 
-					gadget->addChild(coin);
+							gadgetXPN->addChild(coinXPN);
+						}
+						else if(gadget->getClassName() == "Mushroom")
+						{
+							XmlParserNode * powerUpXPN = new XmlParserNode();
+							powerUpXPN->setTitle("powerup");
+							powerUpXPN->setEndTag();
+							powerUpXPN->setParent(gadgetXPN);
+
+							gadgetXPN->addChild(powerUpXPN);
+						}
+						else if(gadget->getClassName() == "LiveUp")
+						{
+							XmlParserNode * liveUpXPN = new XmlParserNode();
+							liveUpXPN->setTitle("liveup");
+							liveUpXPN->setEndTag();
+							liveUpXPN->setParent(gadgetXPN);
+
+							gadgetXPN->addChild(liveUpXPN);
+						}
+					}
 
 					blockXPN->addChild(location);
-					blockXPN->addChild(gadget);
+					blockXPN->addChild(gadgetXPN);
 					
 					blockXPN->setParent(blocks);
 					blocks->addChild(blockXPN);
@@ -164,6 +192,35 @@ void XmlParser::saveGame(Gamestate * gameState){
 					groundXPN->setParent(grounds);
 					grounds->addChild(groundXPN);
 				}
+				else if(gameState->getLevel()[index]->getClassName() == "Castle")
+				{
+					Castle * castle = (Castle *)gameState->getLevel()[index];
+					XmlParserNode * castleXPN = new XmlParserNode();
+					castleXPN->setTitle("ground");
+					oss << castle->getTextureType();
+					castleXPN->setAttribute("type",oss.str());
+					oss.str("");
+					oss.clear();
+
+					XmlParserNode * location = new XmlParserNode();
+					location->setTitle("location");
+					location->setEndTag();
+					location->setParent(castleXPN);
+					oss << i;
+					location->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+
+					oss << j;
+					location->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+
+					castleXPN->addChild(location);
+
+					castleXPN->setParent(castles);
+					castles->addChild(castleXPN);
+				}
 				else if(gameState->getLevel()[index]->getClassName() == "Goomba"){
 					Goomba * goomba = (Goomba *)gameState->getLevel()[index];
 					XmlParserNode * goombaXPN = new XmlParserNode();
@@ -209,6 +266,7 @@ void XmlParser::saveGame(Gamestate * gameState){
 	level->addChild(blocks);
 	level->addChild(pipes);
 	level->addChild(grounds);
+	level->addChild(castles);
 
 	root->addChild(enemies);
 	root->addChild(level);
