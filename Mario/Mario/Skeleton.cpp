@@ -5,11 +5,8 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-
-
+	splashscreenBitmap = LoadImage(NULL, "res/splashscreen.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gameState = new Gamestate();
-
-
 }
 
  CSkeleton::~CSkeleton()
@@ -20,8 +17,11 @@ CSkeleton::CSkeleton()
 
 void CSkeleton::GameInit()
 {
+	startUp = true;
+	gameState->inMenu = false;
 	debugMode = false;
 	SetFPS(60);
+
 }
 
 void CSkeleton::GameLoop()
@@ -36,9 +36,21 @@ void CSkeleton::GameLoop()
 		gameState->menu(graphics);
 		return;
 	}
-	
+	else if(startUp){
+		hSplashscreenDC = CreateCompatibleDC(graphics);
 
-	gameState->draw(graphics, debugMode);
+		GetObject(splashscreenBitmap, sizeof(BITMAP), &bitmap);
+		SelectObject(hSplashscreenDC, splashscreenBitmap);
+
+		BitBlt(graphics,0,0,1362,702,hSplashscreenDC,0,0,SRCCOPY);
+		//StretchBlt(graphics, 0, 0, 1362, 702, hSplashscreenDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
+
+		Sleep(5000);
+		startUp = false;
+		gameState->inMenu = true;
+	}
+	else
+		gameState->draw(graphics, debugMode);
 
 	if (::GetAsyncKeyState(VK_RIGHT))
 	{

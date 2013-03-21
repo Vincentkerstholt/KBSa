@@ -14,6 +14,10 @@ class CSkeleton : public CWin
 private:
 	Gamestate * gameState;
 	bool debugMode;
+	HANDLE splashscreenBitmap;
+	HDC hSplashscreenDC;
+	BITMAP bitmap;
+	bool startUp;
 public:
 	CSkeleton();
 	~CSkeleton();
