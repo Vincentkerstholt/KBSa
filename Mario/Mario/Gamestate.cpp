@@ -263,6 +263,9 @@ void Gamestate::drawWorld(HDC & hdc){
 				
 				if(!block->getIsSpecial())
 					blockY = 32;
+
+				if(block->getIsFixed())
+					blockY = 64;
 				
 				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,blockX,blockY,32,32,RGB(255,174,201));
 			}
