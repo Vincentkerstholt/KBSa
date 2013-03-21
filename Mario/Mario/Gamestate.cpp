@@ -26,10 +26,9 @@ const int CASTLE_LEFTGAP = 5;
 const int CASTLE_GAP = 6;
 const int CASTLE_RIGHTGAP = 7;
 
+
 Gamestate::Gamestate()
 {
-	CreateWorld(0);
-
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	frames = 0;
@@ -55,21 +54,17 @@ void Gamestate::saveGame(){
 	inMenu = false;
 }
 
-void Gamestate::loadGame(){
-	destroyWorld();
-	CreateWorld(9);
-	inMenu = false;
-}
-
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
 	frames++;
 
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
+	Collision();
 	UpDownCollision();
 	drawBackground(hdc);
 	drawHUD(hdc);
 	drawWorld(hdc);
+
 	if (debugMode == true)
 	{
 		drawGrid(hdc);
@@ -100,7 +95,7 @@ int Gamestate::getIndex(int n, int m){
 
 int Gamestate::getIndex(POINT & pnt)
 {
-	return (pnt.y*x)+pnt.x;
+	return getIndex(pnt.x, pnt.y);
 }
 
 POINT Gamestate::getPixelPoint(int index)
@@ -171,6 +166,7 @@ void Gamestate::drawStatistics(HDC & hdc){
 
 	oss.str("");
 
+
 	frames++;
 	if(time(NULL) != curTime)
 	{
@@ -180,6 +176,7 @@ void Gamestate::drawStatistics(HDC & hdc){
 	}
 	oss << "Frames per second: " << fps;
 	TextOut(hdc,  10, 90, oss.str().c_str(), strlen(oss.str().c_str()));
+
 	oss.clear();
 
 }
@@ -245,9 +242,10 @@ void Gamestate::drawWorld(HDC & hdc){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
 			if(level[index] == NULL)
-			continue;
-
-			if(level[index]->getClassName() == "Block")
+				continue;
+			
+			string className = level[index]->getClassName();
+			if(className == "Block")
 			{
 				hObstacleBitmap = factory->getBlock();
 
@@ -269,7 +267,7 @@ void Gamestate::drawWorld(HDC & hdc){
 				
 				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,blockX,blockY,32,32,RGB(255,174,201));
 			}
-			else if(level[index]->getClassName() == "Pipe")
+			else if(className == "Pipe")
 			{
 				Pipe * pipe = (Pipe*)level[index];
 				hObstacleBitmap = factory->getPipe();
@@ -308,7 +306,7 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 				}
 			}
-			else if(level[index]->getClassName() == "Castle")
+			else if(className == "Castle")
 			{
 				Castle * castle = (Castle*)level[index];
 				hObstacleBitmap = factory->getCastle();
@@ -351,7 +349,7 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 				}
 			}
-			else if(level[index]->getClassName() == "Ground")
+			else if(className == "Ground")
 			{
 				Ground * ground = (Ground*)level[index];
 				hObstacleBitmap = factory->getGround();
@@ -401,7 +399,7 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 				}
 			}
-			else if(level[index]->getClassName() == "Goomba")
+			else if(className == "Goomba")
 			{
 				Goomba * goomba = (Goomba*)level[index];
 				hObstacleBitmap = factory->getGoomba();
@@ -411,64 +409,60 @@ void Gamestate::drawWorld(HDC & hdc){
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 				SelectObject(hObstacleDC, hObstacleBitmap);
 
-				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,36,32,32,RGB(255,174,201));
+				TransparentBlt(hdc, (goomba->GetPositionPixel().x - camera.getXPosition()), (goomba->GetPositionPixel().y), 32, 32, hObstacleDC, (goomba->getTexturePosition().x*multiplier), goomba->getTexturePosition().y*multiplier, 32,32, RGB(255,174,201));
+				UpdateEnemy(index);
+								
 			}
-			
-			if (level[index]->getClassName() == "Coin" || level[index]->getClassName() == "Flower" || level[index]->getClassName() == "LiveUp" || level[index]->getClassName() == "Mushroom")
+			else if (className == "Coin")
 			{
-				if (level[index]->getClassName() == "Coin")
+				hObstacleBitmap = factory->getGadget();
+				hObstacleDC = CreateCompatibleDC(hdc);
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+				Gadget * tempGadget = (Gadget*)level[index];
+				TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,0,0,32,32,GetPixel(hObstacleDC,0,0));
+				tempGadget->updateGadget();
+				if (tempGadget->progress == 32)
 				{
-					hObstacleBitmap = factory->getGadget();
-					hObstacleDC = CreateCompatibleDC(hdc);
-					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
-					SelectObject(hObstacleDC, hObstacleBitmap);
-					Gadget * tempGadget = (Gadget*)level[index];
-					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,0,0,32,32,GetPixel(hObstacleDC,0,0));
-					tempGadget->updateGadget();
-					if (tempGadget->progress == 32)
-					{
-						delete level[index];
-						level[index] = NULL;
-						Mario->grabcoin();
-					}
-				}
-				else if (level[index]->getClassName() == "LiveUp")
-				{
-					hObstacleBitmap = factory->getGadget();
-					hObstacleDC = CreateCompatibleDC(hdc);
-					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
-					SelectObject(hObstacleDC, hObstacleBitmap);
-					Gadget * tempGadget = (Gadget*)level[index];
-					tempGadget->updateGadget();
-					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,32,0,32,32,GetPixel(hObstacleDC,0,0));
-				}
-				else if (level[index]->getClassName() == "Mushroom")
-				{
-					hObstacleBitmap = factory->getGadget();
-					hObstacleDC = CreateCompatibleDC(hdc);
-					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
-					SelectObject(hObstacleDC, hObstacleBitmap);
-					Gadget * tempGadget = (Gadget*)level[index];
-					tempGadget->updateGadget();
-					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,96,0,32,32,GetPixel(hObstacleDC,0,0));
-				}
-				else if (level[index]->getClassName() == "Flower")
-				{
-					hObstacleBitmap = factory->getGadget();
-					hObstacleDC = CreateCompatibleDC(hdc);
-					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
-					SelectObject(hObstacleDC, hObstacleBitmap);
-					Gadget * tempGadget = (Gadget*)level[index];
-					tempGadget->updateGadget();
-					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
+					Mario->grabcoin();
+					delete level[index];
+					level[index] = NULL;
 				}
 			}
-
+			else if (level[index]->getClassName() == "LiveUp")
+			{
+				hObstacleBitmap = factory->getGadget();
+				hObstacleDC = CreateCompatibleDC(hdc);
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+				Gadget * tempGadget = (Gadget*)level[index];
+				tempGadget->updateGadget();
+				TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,32,0,32,32,GetPixel(hObstacleDC,0,0));
+			}
+			else if (level[index]->getClassName() == "Mushroom")
+			{
+				hObstacleBitmap = factory->getGadget();
+				hObstacleDC = CreateCompatibleDC(hdc);
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+				Gadget * tempGadget = (Gadget*)level[index];
+				tempGadget->updateGadget();
+				TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,96,0,32,32,GetPixel(hObstacleDC,0,0));
+			}
+			else if (level[index]->getClassName() == "Flower")
+			{
+				hObstacleBitmap = factory->getGadget();
+				hObstacleDC = CreateCompatibleDC(hdc);
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+				Gadget * tempGadget = (Gadget*)level[index];
+				tempGadget->updateGadget();
+				TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
+			}
 			DeleteDC(hObstacleDC);
 			//DeleteObject(hObstacleBitmap);
 		}
 	}
-
 }
 
 void Gamestate::changeFactory(char firstLetter){
@@ -490,23 +484,126 @@ void Gamestate::changeFactory(char firstLetter){
 	}
 }
 
-void Gamestate::CreateWorld(int number){
+void Gamestate::CreateWorld(){
+	currentLevel = 1;
 	xml = new XmlParser();
+	xml->parse("res/World 1-1.xml");
 
-	switch(number)
+	createLevel();
+	createHero();
+	createFactory();
+	createBlocks();
+	createGrounds();
+	createPipes();
+	createEnemies();
+	createCastles();
+}
+
+void Gamestate::resetWorld(){
+	destroyWorld();
+
+	createLevel();
+	createBlocks();
+	createGrounds();
+	createPipes();
+	createEnemies();
+	createCastles();
+
+	Mario->ResetPosition();
+}
+
+void Gamestate::destroyWorld()
+{
+	for(int i = 0 ; i < x ; i++)
 	{
-	case 0:
-		xml->parse("res/Landscape.xml");
-	break;
+		for (int j = 0 ; j < y ; j++)
+		{
+			int index = getIndex(i,j);
+			if (level[index] != NULL)
+			{
+				delete level[index];
+				level[index] = NULL;
+			}
+		}
+	}
+}
+
+void Gamestate::loadGame(){
+	destroyWorld();
+
+	xml->parse("res/saveGame.xml");
+	
+	createLevel();
+	createHero();
+	createFactory();
+	createBlocks();
+	createGrounds();
+	createPipes();
+	createEnemies();
+	createCastles();
+
+	inMenu = false;
+}
+
+void Gamestate::nextLevel()
+{
+	currentLevel++;
+	destroyWorld();
+	switch(currentLevel)
+	{
 	case 1:
+		xml->parse("res/World 1-1.xml");
+		break;
+
+	case 2:
 		xml->parse("res/Landscape2.xml");
-	break;
-	case 9:
-		xml->parse("res/saveGame.xml");
-	default:
-	break;
+		break;
+
+	case 3:
+		xml->parse("res/Landscape.xml");
+		break;
+
+	case 4:
+		//xml->parse("res/Landscape.xml");
+		inMenu = true;
+		break;
 	}
 
+	if(!inMenu)
+	{
+		createLevel();
+		createFactory();
+		createBlocks();
+		createGrounds();
+		createPipes();
+		createEnemies();
+		createCastles();
+
+		XmlParserNode * marioXml = xml->getNode("hero");
+
+		int xMario = stoi(marioXml->getAttribute("x"));
+		int yMario = stoi(marioXml->getAttribute("y"));
+
+		Mario->SetStartPosition(xMario * 32, yMario * 32);
+		Mario->SetPosition(xMario * 32, yMario * 32);
+		Mario->setDirection('R');
+		Mario->setTexturePosition(0,1);
+	}
+}
+
+void Gamestate::createHero(){
+	XmlParserNode * marioXml = xml->getNode("hero");
+
+	Mario = new Hero();
+
+	int xMario = stoi(marioXml->getAttribute("x"));
+	int yMario = stoi(marioXml->getAttribute("y"));
+
+	Mario->SetStartPosition(xMario * 32, yMario * 32);
+	Mario->setName(marioXml->getAttribute("character"));
+}
+
+void Gamestate::createLevel(){
 	XmlParserNode * levelXml = xml->getNode("level");
 	x = stoi( levelXml->getAttribute("width") );
 	y = stoi( levelXml->getAttribute("height") );
@@ -520,20 +617,14 @@ void Gamestate::CreateWorld(int number){
 			level[index] = NULL;
 		}
 	}
+}
 
-	XmlParserNode * marioXml = xml->getNode("hero");
-
-	Mario = new Hero();
-
-	int xMario = stoi(marioXml->getAttribute("x"));
-	int yMario = stoi(marioXml->getAttribute("y"));
-
-	Mario->SetPosition(xMario * 32, yMario * 32);
-	Mario->setName(marioXml->getAttribute("character"));
-
+void Gamestate::createFactory(){
 	XmlParserNode * factoryXml = xml->getNode("factory");
 	factory = getFactory(factoryXml->getAttribute("name"));
+}
 
+void Gamestate::createBlocks(){
 	XmlParserNode * blocks = xml->getNode("blocks");
 	XmlParserNode ** childs = blocks->getChilds();
 
@@ -577,9 +668,11 @@ void Gamestate::CreateWorld(int number){
 		else
 			level[index] = new Block(isSpecial, isFixed);
 	}
+}
 
+void Gamestate::createGrounds(){
 	XmlParserNode * grounds = xml->getNode("grounds");
-	childs = grounds->getChilds();
+	XmlParserNode ** childs = grounds->getChilds();
 	for(int i = 0; i < grounds->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
@@ -588,41 +681,59 @@ void Gamestate::CreateWorld(int number){
 		int index = getIndex(x, y);
 		level[index] = new Ground(stoi(child->getAttribute("type")));
 	}
+}
 
+void Gamestate::createPipes(){
 	XmlParserNode * pipes = xml->getNode("pipes");
-	childs = pipes->getChilds();
+	XmlParserNode ** childs = pipes->getChilds();
 	for(int i = 0; i < pipes->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
-		
+
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 		level[index] = new Pipe(stoi(child->getAttribute("type")));
 	}
+}
 
+void Gamestate::createEnemies(){
 	XmlParserNode * enemies = xml->getNode("enemies");
-	childs = enemies->getChilds();
+	XmlParserNode ** childs = enemies->getChilds();
 	for(int i = 0; i < enemies->getChildsLength(); i++)
 	{
 		XmlParserNode * child = childs[i];
 
 		XmlParserNode * childLocation = child->getNode("location");
 		XmlParserNode * childEndPath = child->getNode("endPath");
-		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
+		int locationX = stoi(childLocation->getAttribute("x"));
+		int locationY = stoi(childLocation->getAttribute("y"));
+		int index = getIndex(locationX, locationY);
 
 		int endPathX = stoi(childEndPath->getAttribute("x"));
 		int endPathY = stoi(childEndPath->getAttribute("y"));
 		string characterName = child->getAttribute("character");
-
-		if(characterName == "goomba"){
-			level[index] = new Goomba(endPathX, endPathY);
+		POINT P;
+		if(characterName == "goomba")
+		{
+			Goomba * goomba = new Goomba(locationX, locationY, endPathX, endPathY);
+			P.x = goomba->getStartPoint('x') *32;	
+			P.y = goomba->getStartPoint('y') *32;	
+			goomba->Move('R', P);
+			level[getIndex(goomba->GetPositionIndex())] = goomba;
 		}
-		else if(characterName == "koopa"){
-			level[index] = new Koopa(endPathX, endPathY);
+		else if(characterName == "koopa")
+		{
+			Koopa * koopa = new Koopa(locationX, locationY, endPathX, endPathY);
+			P.x = koopa->getStartPoint('x') *32;	
+			P.y = koopa->getStartPoint('y') *32;	
+			koopa->Move('R', P);
+			level[getIndex(koopa->GetPositionIndex())] = koopa;
 		}
 	}
+}
 
+void Gamestate::createCastles(){
 	XmlParserNode * castles = xml->getNode("castles");
-	childs = castles->getChilds();
+	XmlParserNode ** childs = castles->getChilds();
 	for(int i = 0; i < castles->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
@@ -660,8 +771,6 @@ void Gamestate::menu(HDC & hdc)
 	GetAsyncKeyState(VK_F4);
 	GetAsyncKeyState(VK_F12);
 
-
-
 	if (selector < 0)
 		selector = 0;
 	if (selector > 3)
@@ -673,8 +782,7 @@ void Gamestate::menu(HDC & hdc)
 		{
 		case 0:
 			// reset lvl
-			destroyWorld();
-			CreateWorld(1);
+			CreateWorld();
 			inMenu = false;
 		break;
 		case 1:
@@ -688,11 +796,11 @@ void Gamestate::menu(HDC & hdc)
 		case 3:
 			{
 				//Continue game
-				int lives = Mario->getLives();
-				if(lives > 0)
-				{
-					inMenu = false;
-				}
+				//int lives = Mario->getLives();
+				//if(lives > 0)
+				//{
+				//	inMenu = false;
+				//}
 			}
 			break;
 		default:
@@ -719,26 +827,8 @@ void Gamestate::menu(HDC & hdc)
 	DeleteObject(hBackgroundBitmap);
 }
 
-void Gamestate::destroyWorld()
+Gamestate::~Gamestate()
 {
-	int index = 0;
-	for(int i = 0 ; i < x ; i++)
-	{
-		for (int j = 0 ; j < y ; j++)
-		{
-			index = getIndex(i,j);
-			if (level[index] != NULL)
-			{
-				delete level[index];
-				level[index] = NULL;
-			}
-		}
-	}
-	delete xml;
-	xml = NULL;
-}
-
-Gamestate::~Gamestate(){
 	delete [] level;
 	level = NULL;
 
@@ -757,17 +847,20 @@ void Gamestate::UpDownCollision()
 	POINT MarioRightHead;
 	POINT MarioLeftHead;
 	POINT MarioMidHead;
+	BOOL selfjump;
+
+	selfjump=false;
 
 	//down points for collision
 	mario = Mario->GetPositionPixel();
-	MarioRightFeet.x = ((mario.x+28)/32); // Rightfeet x
-	MarioRightFeet.y = ((mario.y+33)/32); //rightfeet y
-	MarioLeftFeet.x = ((mario.x+4)/32); //left feet x
-	MarioLeftFeet.y = ((mario.y+33)/32); //left feet y
+	MarioRightFeet.x = ((mario.x+24)/32); // Rightfeet x
+	MarioRightFeet.y = ((mario.y+32)/32); //rightfeet y
+	MarioLeftFeet.x = ((mario.x+ 4)/32); //left feet x
+	MarioLeftFeet.y = ((mario.y+32)/32); //left feet y
 	//up point for collision
-	MarioRightHead.x = ((mario.x+28)/32); //Righthead x
+	MarioRightHead.x = ((mario.x+24)/32); //Righthead x
 	MarioRightHead.y = ((mario.y)/32); //Righthead y
-	MarioLeftHead.x = ((mario.x+ 4)/32); //Lefthead x
+	MarioLeftHead.x = ((mario.x+4)/32); //Lefthead x
 	MarioLeftHead.y = ((mario.y)/32); //leftthead y
 	MarioMidHead.x = ((mario.x+16)/32);
 	MarioMidHead.y = ((mario.y)/32);
@@ -779,37 +872,83 @@ void Gamestate::UpDownCollision()
 	string RightHead = BoxCheck(getIndex(MarioRightHead));
 	string LeftHead = BoxCheck(getIndex(MarioLeftHead));
 	string MidHead = BoxCheck(getIndex(MarioMidHead));
-		
-		if(Mario->Jumped < Mario->JumpHeight )
-		{
-			Mario->JumpAbility = true;
-		}
+	int index = getIndex(MarioMidHead);
 
-		if ( RightHead == "Coin" || RightFeet == "Coin" || LeftHead == "Coin" || LeftFeet == "Coin" )
+		if (RightHead == "Block" || LeftHead == "Block" )
+		{			
+			Mario->JumpAbility = false;
+			Mario->Jumped = 15;
+			string boxCheck = BoxCheck(index);
+			if (boxCheck == "Block" )
+			{
+				Block * tempBlock = ((Block *)level[index]);
+				Gadget * tempGadget = tempBlock->getGadget();
+
+				if (tempGadget != NULL)
+				{
+					string className = tempGadget->getClassName();
+					if ( className == "Coin")
+						level[index-x] = tempGadget;
+					if ( className == "LiveUp")
+						level[index-x] = tempGadget;
+					if ( className == "Mushroom")
+					{
+						if (Mario->getPowerUp() == false)
+							level[index-x] = tempGadget;
+						else
+						{
+							POINT tempPoint = tempGadget->position;
+							delete tempGadget;
+							level[index-x] = new Flower(tempPoint);
+						}
+						level[index-x] = tempGadget;
+					}
+				}
+				else
+				{
+					delete level[index];
+					level[index] = NULL;
+				}
+			}
+			if (boxCheck == "Coin")
+			{
+				Mario->grabcoin();
+				delete level[index];
+			}
+			
+			Mario->JumpAbility = false;
+			Mario->Jumped = 15;
+			
+		}
+		else if(RightHead == "Castle" || LeftHead == "Castle")
 		{
-			if (RightHead == "Coin"){
-				delete level[getIndex(MarioRightHead)];
-				level[getIndex(MarioRightHead)] = NULL;
-				Mario->grabcoin();
-			}
-			else if (LeftHead == "Coin"){
-				delete level[getIndex(MarioLeftHead)];
-				level[getIndex(MarioLeftHead)] = NULL;
-				Mario->grabcoin();
-			}
-			else if (LeftFeet == "Coin"){
-				delete level[getIndex(MarioLeftFeet)];
-				level[getIndex(MarioLeftFeet)] = NULL;
-				Mario->grabcoin();
-			}
-			else if (RightFeet == "Coin"){
-				delete level[getIndex(MarioRightFeet)];
-				level[getIndex(MarioRightFeet)] = NULL;
-				Mario->grabcoin();
+			if(BoxCheck(index) == "Castle")
+			{
+				Castle * castle = (Castle *) level[index];
+				if(castle->getTextureType() == CASTLE_DOOR)
+				{
+					nextLevel();
+					return;
+				}
 			}
 		}
+		//this part below is a error fix for the 1 pixel on a block problem.
+		else if (RightFeet == "Block"  || RightFeet == "Pipe"  ||   RightFeet == "Ground"   )
+		{		
+			int ypos = Mario->GetPositionPixel().y;
+			if( ypos %32 != 0)
+			{
+				if(RightHead == "Null")
+				{
 
-		if ( RightHead == "LiveUp" || RightFeet == "LiveUp" || LeftHead == "LiveUp" || LeftFeet == "LiveUp" )
+				}
+				else
+				{
+					Mario->SetPosition(mario.x, (mario.y+4));
+				}
+			}
+		}
+		else if ( RightHead == "LiveUp" || RightFeet == "LiveUp" || LeftHead == "LiveUp" || LeftFeet == "LiveUp" )
 		{
 			if (RightHead == "LiveUp"){
 				delete level[getIndex(MarioRightHead)];
@@ -833,7 +972,7 @@ void Gamestate::UpDownCollision()
 			}
 		}
 
-		if ( RightHead == "Mushroom" || RightFeet == "Mushroom" || LeftHead == "Mushroom" || LeftFeet == "Mushroom" )
+		else if ( RightHead == "Mushroom" || RightFeet == "Mushroom" || LeftHead == "Mushroom" || LeftFeet == "Mushroom" )
 		{
 			if (RightHead == "Mushroom"){
 				delete level[getIndex(MarioRightHead)];
@@ -858,7 +997,7 @@ void Gamestate::UpDownCollision()
 			}
 		}
 
-		if ( RightHead == "Flower" || RightFeet == "Flower" || LeftHead == "Flower" || LeftFeet == "Flower" )
+		else if ( RightHead == "Flower" || RightFeet == "Flower" || LeftHead == "Flower" || LeftFeet == "Flower" )
 		{
 			if (RightHead == "Flower"){
 				delete level[getIndex(MarioRightHead)];
@@ -882,54 +1021,78 @@ void Gamestate::UpDownCollision()
 			}
 		}
 
-		if (RightHead == "Block" || LeftHead == "Block" )
-		{			
-				int index = getIndex(MarioMidHead);
-				Mario->JumpAbility = false;
-				Mario->Jumped = 15;
-				if (BoxCheck(index) == "Block" )
-				{
- 					Block * tempBlock = ((Block *)level[index]);
- 					Gadget * tempGadget = tempBlock->getGadget();
+		
 
-					if (tempGadget != NULL)
-					{
-						string className = tempGadget->getClassName();
-						if ( className == "Coin")
-							level[index-x] = tempGadget;
-						if ( className == "LiveUp")
-							level[index-x] = tempGadget;
-						if ( className == "Mushroom")
-						{
-							if (Mario->getPowerUp() == false)
-								level[index-x] = tempGadget;
-							else
-							{
-								POINT tempPoint = tempGadget->position;
-								delete tempGadget;
-								level[index-x] = new Flower(tempPoint);
-							}
-								level[index-x] = tempGadget;
-						}
-					}
-					else
-					{
-						delete level[index];
-						level[index] = NULL;
-					}
-				}
-				if (BoxCheck(index) == "Coin")
+		else if (LeftFeet == "Block"  || LeftFeet == "Pipe"  ||   LeftFeet == "Ground"   )
+		{		
+
+			int ypos = Mario->GetPositionPixel().y;
+			int xpos = Mario->GetPositionPixel().x;
+			if( ypos %32 != 0)
+			{
+				if(LeftHead == "Null")
 				{
-					Mario->grabcoin();
-					delete level[index];
+
 				}
-			Mario->JumpAbility = false;
-			Mario->Jumped = 15;
+				else
+				{
+					Mario->SetPosition(mario.x, (mario.y+4));
+				}
+			}
+
 		}
-		if (RightHead == "Ground" || LeftHead == "Ground" )
+
+		else if (RightHead == "Ground" || LeftHead == "Ground" )
 		{			
-			Mario->JumpAbility = false;
+			Mario->JumpAbility = false; 	
+			Mario->Jumped = 15;	
 		}
+				
+		else if (RightFeet == "Goomba" || LeftFeet == "Goomba" )
+		{
+			if (RightFeet == "Goomba")
+			{
+				Goomba * goomba = (Goomba*)level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
+				POINT goom = goomba->GetPositionPixel();
+				POINT mari = Mario->GetPositionPixel();
+				mari.y = goom.y - mari.y;
+				mari.x = goom.x - mari.x;
+					
+				if(mari.y < 33)
+				{
+					if(mari.x < 20)
+					{
+						delete level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
+						level[getIndex(MarioRightFeet.x,MarioRightFeet.y)]= NULL;
+						Mario->SetPosition(mario.x, (mario.y-32)); // let mario jump
+
+						selfjump=true;
+					}
+				}
+			}
+			else if (LeftFeet == "Goomba")
+			{
+				Goomba * goomba = (Goomba*)level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
+				POINT goom = goomba->GetPositionPixel();
+				POINT mari = Mario->GetPositionPixel();
+				mari.y = goom.y - mari.y;
+				mari.x = goom.x - mari.x;
+
+				if(mari.y < 33)
+				{
+					mari.x = mari.x * (-1);
+					if(mari.x < 20)
+					{
+					delete level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
+					level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)]= NULL;
+					Mario->SetPosition(mario.x, (mario.y-32)); // let mario jump
+
+					selfjump=true;
+					}
+				}
+			}
+		}
+				
 		if (RightFeet == "NULL" && LeftFeet == "NULL" ) //if there is no block below mario
 		{
 			if (Mario->Jumped == 0) //if mario had not jumped yet
@@ -938,8 +1101,17 @@ void Gamestate::UpDownCollision()
 		}
 		else
 		{
-			Mario->Jumped=0; // if there is air below, let mario jump again. 
+			if (RightFeet == "Castle" || LeftFeet == "Castle")
+			{
+				if (Mario->Jumped == 0) //if mario had not jumped yet
+					Mario->JumpAbility = false; //set the jump ability false
+				Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
+			}
+			else
+			{
+			Mario->Jumped=0; // if there is no air below, let mario jump again. 
 			Mario->JumpAbility = true; 
+			}
 		}
 	}
 	else
@@ -969,28 +1141,131 @@ string Gamestate::BoxCheck(int index)
 	type = "NULL";
 	}
 
-	/*if (type=="Block")  //preparation for the special check
-	{ 
-	level[index]->
-	}*/
-
 	return type;
-	
 }
 
 void Gamestate::HeroDie()
 {
-	if(Mario->getLives() == 0)
+	if(Mario->hurt())
 	{
-		Mario->Die();
+		  /////////////////
+		 //Add HighScore//
+		/////////////////
+
 		inMenu = true;
 	}
 	else
 	{
-		Mario->Die();
-		destroyWorld();
-		CreateWorld(1);
+		resetWorld();
 	}
+}
+
+void Gamestate::Collision()
+{
+	POINT mario , MarioUp, MarioDown;
+	mario = Mario->GetPositionPixel();
+	if ( 0 < mario.y && mario.y < 670)
+	{
+		//gameState->Mario->setTexturePosition(1,1);
+		MarioDown.x = ((mario.x+28)/32);
+		MarioDown.y = ((mario.y+31)/32);
+		MarioUp.x = ((mario.x+28)/32);
+		MarioUp.y = ((mario.y)/32);
+
+		string DownPoint = BoxCheck(getIndex(MarioDown.x,MarioDown.y));
+		string UpPoint = BoxCheck(getIndex(MarioUp.x,MarioUp.y));
+
+		if (DownPoint == "Block" || UpPoint == "Block")
+			Mario->MoveAbilityR = false;
+
+		else if (DownPoint == "Ground" || UpPoint == "Ground")
+			Mario->MoveAbilityR = false;
+
+		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
+			Mario->MoveAbilityR = false;
+
+		else if (DownPoint == "Goomba" || UpPoint == "Goomba")
+		{
+			if(DownPoint == "Goomba")
+			{
+				Goomba * goomba = (Goomba*)level[getIndex(MarioDown.x,MarioDown.y)];
+				POINT goom = goomba->GetPositionPixel();
+				POINT mari = Mario->GetPositionPixel();
+				mari.x = goom.x - mari.x;
+				if(mari.x < 15)
+				{
+					HeroDie();
+				}
+				else
+				{
+					Mario->MoveAbilityR = true;
+				}
+			}
+			else if(UpPoint == "Goomba")
+			{
+				Goomba * goomba = (Goomba*)level[getIndex(MarioUp.x,MarioUp.y)];
+				POINT goom = goomba->GetPositionPixel();
+				POINT mari = Mario->GetPositionPixel();
+				mari.x = goom.x - mari.x;
+				if(mari.x < 15)
+				{
+					HeroDie();
+				}
+				else
+				{
+					Mario->MoveAbilityR = true;
+				}
+			}
+		}
+		else
+		{
+			Mario->MoveAbilityR = true;
+			
+		}
+	}
+
+	mario = Mario->GetPositionPixel();
+	if ( 0 < mario.y && mario.y < 670)
+	{
+		
+		MarioDown.x = ((mario.x+2)/32);
+		MarioDown.y = ((mario.y+31)/32);
+		MarioUp.x = ((mario.x+2)/32);
+		MarioUp.y = ((mario.y)/32);
+
+		string DownPoint = BoxCheck(getIndex(MarioDown.x,MarioDown.y));
+		string UpPoint = BoxCheck(getIndex(MarioUp.x,MarioUp.y));
+
+
+		if (DownPoint == "Block" || UpPoint == "Block")
+			Mario->MoveAbilityL = false;
+
+		else if (DownPoint == "Ground" || UpPoint == "Ground")
+			Mario->MoveAbilityL = false;
+
+		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
+			Mario->MoveAbilityL = false;
+
+		else if (DownPoint == "Goomba" || UpPoint == "Goomba")
+			HeroDie();
+
+		else
+			Mario->MoveAbilityL = true;
+	}
+}
+
+void Gamestate::UpdateEnemy(int index)
+{
+	Goomba * goomba = (Goomba*)level[index];
+		
+	if (goomba->GetPositionIndex().x == goomba->getEndPoint('x') )
+		goomba->setDirection('R');
+	else if (goomba->GetPositionIndex().x == goomba->getStartPoint('x'))
+		goomba->setDirection('L');
+
+	level[getIndex(goomba->GetPositionIndex())] = NULL;
+	goomba->Move(goomba->getDirection(), goomba->GetPositionPixel());
+	level[getIndex(goomba->GetPositionIndex())] = goomba;
 }
 
 string Gamestate::getCurrentFactory(){

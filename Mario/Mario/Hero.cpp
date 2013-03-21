@@ -41,6 +41,10 @@ int Hero::getLives()
 {
 	return this->lives;
 }
+void Hero::setLives(int lives)
+{
+	this->lives = lives;
+}
 
 void Hero::Die()
 {
@@ -62,12 +66,16 @@ bool Hero::getPowerUp()
 	return powerUp;
 }
 
-void Hero::hurt()
+bool Hero::hurt()
 {
 	if (powerUp == true)
 		powerUp = false;
 	else
 		Die();
+
+	if(lives == -1)
+		return true;
+	return false;
 }
 
 void Hero::addLive()

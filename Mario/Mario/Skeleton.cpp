@@ -57,69 +57,26 @@ void CSkeleton::GameLoop()
 		gameState->draw(graphics, debugMode);
 
 	if (::GetAsyncKeyState(VK_RIGHT))
-	{
-		mario = gameState->Mario-> GetPositionPixel();
-		if ( 0 < mario.y && mario.y < 670)
-		{
-			//gameState->Mario->setTexturePosition(1,1);
-			MarioDown.x = ((mario.x+33)/32);
-			MarioDown.y = ((mario.y+31)/32);
-			MarioUp.x = ((mario.x+33)/32);
-			MarioUp.y = ((mario.y)/32);
+	{		
+		gameState->Mario->side = "Right";
+		gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
 
-			string DownPoint = gameState->BoxCheck(gameState->getIndex(MarioDown.x,MarioDown.y));
-			string UpPoint = gameState->BoxCheck(gameState->getIndex(MarioUp.x,MarioUp.y));
-
-			if (DownPoint == "Block" || UpPoint == "Block")
-			{
-				int onzin  = 1;		
-			}
-			else if (DownPoint == "Ground" || UpPoint == "Ground")
-			{
-
-			}
-			else
-			{
-
-				gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
-			}
-		}
 	}
 	if (::GetAsyncKeyState(VK_LEFT))
-	{
-		mario = gameState->Mario-> GetPositionPixel();
-		if ( 0 < mario.y && mario.y < 670)
-		{
-			//gameState->Mario->setTexturePosition(1,0);
-			MarioDown.x = ((mario.x-1)/32);
-			MarioDown.y = ((mario.y+31)/32);
-			MarioUp.x = ((mario.x-1)/32);
-			MarioUp.y = ((mario.y)/32);
-
-			string DownPoint = gameState->BoxCheck(gameState->getIndex(MarioDown.x,MarioDown.y));
-			string UpPoint = gameState->BoxCheck(gameState->getIndex(MarioUp.x,MarioUp.y));
-	
-
-			if (DownPoint == "Block" || UpPoint == "Block")
-			{
-		
-			}		
-			else if (DownPoint == "Ground" || UpPoint == "Ground")
-			{
-
-			}
-			else
-			{
-				gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());
-			}
-		}
+	{	
+		gameState->Mario->side = "Left";
+		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());		
 	}
 
 	if (::GetAsyncKeyState(VK_DOWN))
+	{
 		gameState->Mario->Move('D', gameState->Mario->GetPositionPixel());
+	}
 
 	if (::GetAsyncKeyState(VK_UP))
+	{
 		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
+	}
 
 	if (::GetAsyncKeyState(VK_F1))
 		gameState->changeFactory('D');

@@ -24,9 +24,10 @@ public:
 	void grabcoin();
 	int getCoins();
 	int getLives();
+	void setLives(int lives);
 	bool getPowerUp();
 	void grabPowerUp();
-	void hurt();
+	bool hurt();
 	void addLive();
 	void Die();
 	void increaseScore(int points);
