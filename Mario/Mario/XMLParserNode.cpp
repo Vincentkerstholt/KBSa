@@ -110,7 +110,7 @@ string XmlParserNode::toXML(int depth){
 	for(map<string, string>::iterator it = (*attributes).begin(); it !=(*attributes).end(); ++it){
 		oss << " " << it->first << "=\"" << it->second << "\"";
 	}
-	if (childsLength == 0)
+	if (hasEndTag)
 	{
 		oss << "/>";
 	} 

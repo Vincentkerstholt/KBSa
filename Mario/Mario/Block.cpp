@@ -5,19 +5,21 @@ Block::Block(){
 	gadgetAmount = 0;
 }
 
-Block::Block(bool isSpecial){
+Block::Block(bool isSpecial, bool isFixed){
 	this->isSpecial = isSpecial;
+	this->isFixed = isFixed;
 	posX = 0;
 	gadget = NULL;
 	gadgetAmount = 0;
 }
 
-Block::Block(bool isSpecial, Gadget ** gadgetType, int amount)
+Block::Block(bool isSpecial, bool isFixed, Gadget ** gadgetType, int amount)
 {
 	posX = 0;
 	gadget = gadgetType;
 	gadgetAmount = amount;
 	this->isSpecial = isSpecial;
+	this->isFixed = isFixed;
 }
 
 Gadget * Block::getGadget(){
@@ -39,6 +41,17 @@ bool Block::getIsSpecial(){
 
 string Block::getIsSpecialString(){
 	if(isSpecial)
+		return "true";
+	else
+		return "false";
+}
+
+bool Block::getIsFixed(){
+	return isFixed;
+}
+
+string Block::getIsFixedString(){
+	if(isFixed)
 		return "true";
 	else
 		return "false";

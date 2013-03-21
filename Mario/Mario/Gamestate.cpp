@@ -517,21 +517,19 @@ void Gamestate::CreateWorld(int number){
 				}
 			}
 		}
+		bool isSpecial = false;
+		bool isFixed = false;
+
 
 		if (child->getAttribute("isSpecial") == "true")
-		{
-			if(gadgetLength > 0)
-				level[index] = new Block(true, gadgetArray, gadgetLength);
-			else
-				level[index] = new Block(true);
-		}
+			isSpecial = true;
+		if(child->getAttribute("isFixed") == "true")
+			isFixed = true;
+
+		if(gadgetLength > 0)
+			level[index] = new Block(isSpecial, isFixed, gadgetArray, gadgetLength);
 		else
-		{
-			if(gadgetLength > 0)
-				level[index] = new Block(false, gadgetArray, gadgetLength);
-			else
-				level[index] = new Block(false);
-		}
+			level[index] = new Block(isSpecial, isFixed);
 	}
 
 	XmlParserNode * grounds = xml->getNode("grounds");
@@ -565,8 +563,15 @@ void Gamestate::CreateWorld(int number){
 		XmlParserNode * childEndPath = child->getNode("endPath");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 
-		if(child->getAttribute("character") == "goomba"){
-			level[index] = new Goomba(stoi(childEndPath->getAttribute("x")), stoi(childEndPath->getAttribute("y")));
+		int endPathX = stoi(childEndPath->getAttribute("x"));
+		int endPathY = stoi(childEndPath->getAttribute("y"));
+		string characterName = child->getAttribute("character");
+
+		if(characterName == "goomba"){
+			level[index] = new Goomba(endPathX, endPathY);
+		}
+		else if(characterName == "koopa"){
+			level[index] = new Koopa(endPathX, endPathY);
 		}
 	}
 
