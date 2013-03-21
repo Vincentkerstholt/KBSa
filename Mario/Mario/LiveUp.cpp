@@ -16,8 +16,8 @@ void LiveUp::updateGadget()
 {
 	if (progress < 32)
 	{
-		progress += 1;
-		position.y -= 1;
+		progress += 2;
+		position.y -= 2;
 	}
 	else; //enter code here for walk function
 }
