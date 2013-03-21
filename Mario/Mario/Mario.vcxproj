@@ -13,11 +13,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Castle.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FastWalk.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="Koopa.cpp" />
+    <ClCompile Include="Flower.cpp" />
+    <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="LiveUp.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="NormalJump.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
@@ -29,14 +36,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="character.h" />
+    <ClInclude Include="Castle.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="characters.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FastWalk.h" />
+    <ClInclude Include="gadgets.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="JumpBehaviour.h" />
+    <ClInclude Include="Koopa.h" />
+    <ClInclude Include="Coin.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FastWalk.h" />
+    <ClInclude Include="Flower.h" />
+    <ClInclude Include="Gadget.h" />
+    <ClInclude Include="Hero.h" />
+    <ClInclude Include="JumpBehaviour.h" />
+    <ClInclude Include="LiveUp.h" />
+    <ClInclude Include="Mushroom.h" />
     <ClInclude Include="NormalJump.h" />
+    <ClInclude Include="Powerup.h" />
     <ClInclude Include="XMLParserNode.h" />
     <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />
@@ -138,9 +158,8 @@
     <None Include="res\backgroundSky.bmp" />
     <None Include="res\dungeon.bmp" />
     <None Include="res\forestlandps.bmp" />
-    <None Include="res\testLevel.xml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="res\Landscape.xml" />
+    <None Include="res\Landscape2.xml" />
     <None Include="res\world8.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

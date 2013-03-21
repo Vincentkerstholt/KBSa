@@ -1,7 +1,322 @@
 #include "XMLParser.h"
 
-XmlParser::XmlParser(string fileLocation){
-	parse(fileLocation);
+XmlParser::XmlParser(){
+}
+
+void XmlParser::saveGame(Gamestate * gameState){
+	ostringstream oss;
+
+	//Creating the root node
+	XmlParserNode * root = new XmlParserNode();
+	root->setTitle("superMario");
+	
+	//Creating the factory node
+	XmlParserNode * factory = new XmlParserNode();
+	factory->setTitle("factory");
+	factory->setAttribute("name",gameState->getCurrentFactory());
+
+	factory->setParent(root);
+	factory->setEndTag();
+	//Adding the factory node to the root node
+	root->addChild(factory);
+
+	//Creating the hero node
+	int marioX = (int)(gameState->Mario->GetPositionPixel().x) / 32;
+	int marioY = (int)(gameState->Mario->GetPositionPixel().y) / 32;
+	XmlParserNode * hero = new XmlParserNode();
+	hero->setTitle("hero");
+	hero->setAttribute("character",gameState->Mario->getName());
+	oss << marioX;
+	hero->setAttribute("x",oss.str());
+	oss.str("");
+	oss.clear();
+
+	oss << marioY;
+	hero->setAttribute("y","" + oss.str());
+	oss.str("");
+	oss.clear();
+
+	hero->setParent(root);
+	hero->setEndTag();
+	//Adding the hero node to the root node
+	root->addChild(hero);
+
+	XmlParserNode * level = new XmlParserNode();
+	level->setTitle("level");
+	oss << gameState->getX();
+	level->setAttribute("width", oss.str());
+	oss.str("");
+	oss.clear();
+
+	oss << gameState->getY();
+	level->setAttribute("height", oss.str());
+	oss.str("");
+	oss.clear();
+
+	XmlParserNode * blocks = new XmlParserNode();
+	blocks->setTitle("blocks");
+
+	XmlParserNode * pipes = new XmlParserNode();
+	pipes->setTitle("pipes");
+
+	XmlParserNode * grounds = new XmlParserNode();
+	grounds->setTitle("grounds");
+
+	XmlParserNode * castles = new XmlParserNode();
+	castles->setTitle("castles");
+
+	XmlParserNode * enemies = new XmlParserNode();
+	enemies->setTitle("enemies");
+
+	for(int i = 0; i < gameState->getX(); i++){
+		for(int j = 0; j < gameState->getY(); j++){
+			int index = gameState->getIndex(i,j);
+			if(gameState->getLevel()[index] != NULL){
+				if(gameState->getLevel()[index]->getClassName() == "Block")
+				{
+					Block * block = (Block *)gameState->getLevel()[index];
+					XmlParserNode * blockXPN = new XmlParserNode();
+					blockXPN->setTitle("block");
+					blockXPN->setAttribute("isSpecial", block->getIsSpecialString());
+					blockXPN->setAttribute("isFixed", block->getIsFixedString());
+
+					XmlParserNode * location = new XmlParserNode();
+					location->setTitle("location");
+					location->setEndTag();
+					location->setParent(blockXPN);
+					oss << i;
+					location->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+
+					oss << j;
+					location->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+
+					XmlParserNode * gadgetXPN = new XmlParserNode();
+					gadgetXPN->setTitle("gadget");
+					gadgetXPN->setParent(blockXPN);
+
+					while(true){
+						Gadget * gadget = block->getGadget();
+						if(gadget == NULL) break;
+						if(gadget->getClassName() == "Coin")
+						{
+							XmlParserNode * coinXPN = new XmlParserNode();
+							coinXPN->setTitle("coin");
+							coinXPN->setEndTag();
+							coinXPN->setParent(gadgetXPN);
+
+							gadgetXPN->addChild(coinXPN);
+						}
+						else if(gadget->getClassName() == "Mushroom")
+						{
+							XmlParserNode * powerUpXPN = new XmlParserNode();
+							powerUpXPN->setTitle("powerup");
+							powerUpXPN->setEndTag();
+							powerUpXPN->setParent(gadgetXPN);
+
+							gadgetXPN->addChild(powerUpXPN);
+						}
+						else if(gadget->getClassName() == "LiveUp")
+						{
+							XmlParserNode * liveUpXPN = new XmlParserNode();
+							liveUpXPN->setTitle("liveup");
+							liveUpXPN->setEndTag();
+							liveUpXPN->setParent(gadgetXPN);
+
+							gadgetXPN->addChild(liveUpXPN);
+						}
+					}
+
+					blockXPN->addChild(location);
+					blockXPN->addChild(gadgetXPN);
+					
+					blockXPN->setParent(blocks);
+					blocks->addChild(blockXPN);
+				}
+				else if(gameState->getLevel()[index]->getClassName() == "Pipe")
+				{
+					Pipe * pipe = (Pipe *)gameState->getLevel()[index];
+					XmlParserNode * pipeXPN = new XmlParserNode();
+					pipeXPN->setTitle("pipe");
+					oss << pipe->getTextureType();
+					pipeXPN->setAttribute("type",oss.str());
+					oss.str("");
+					oss.clear();
+
+					XmlParserNode * location = new XmlParserNode();
+					location->setTitle("location");
+					location->setEndTag();
+					location->setParent(pipeXPN);
+					oss << i;
+					location->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+
+					oss << j;
+					location->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+
+					pipeXPN->addChild(location);
+					pipes->addChild(pipeXPN);
+				}
+				else if(gameState->getLevel()[index]->getClassName() == "Ground")
+				{
+					Ground * ground = (Ground *)gameState->getLevel()[index];
+					XmlParserNode * groundXPN = new XmlParserNode();
+					groundXPN->setTitle("ground");
+					oss << ground->getTextureType();
+					groundXPN->setAttribute("type",oss.str());
+					oss.str("");
+					oss.clear();
+
+					XmlParserNode * location = new XmlParserNode();
+					location->setTitle("location");
+					location->setEndTag();
+					location->setParent(groundXPN);
+					oss << i;
+					location->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+
+					oss << j;
+					location->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+
+					groundXPN->addChild(location);
+
+					groundXPN->setParent(grounds);
+					grounds->addChild(groundXPN);
+				}
+				else if(gameState->getLevel()[index]->getClassName() == "Castle")
+				{
+					Castle * castle = (Castle *)gameState->getLevel()[index];
+					XmlParserNode * castleXPN = new XmlParserNode();
+					castleXPN->setTitle("ground");
+					oss << castle->getTextureType();
+					castleXPN->setAttribute("type",oss.str());
+					oss.str("");
+					oss.clear();
+
+					XmlParserNode * location = new XmlParserNode();
+					location->setTitle("location");
+					location->setEndTag();
+					location->setParent(castleXPN);
+					oss << i;
+					location->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+
+					oss << j;
+					location->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+
+					castleXPN->addChild(location);
+
+					castleXPN->setParent(castles);
+					castles->addChild(castleXPN);
+				}
+				else if(gameState->getLevel()[index]->getClassName() == "Goomba"){
+					Goomba * goomba = (Goomba *)gameState->getLevel()[index];
+					XmlParserNode * goombaXPN = new XmlParserNode();
+					goombaXPN->setTitle("enemy");
+					goombaXPN->setAttribute("character","goomba");
+
+					XmlParserNode * location = new XmlParserNode();
+					location->setTitle("location");
+					location->setEndTag();
+					location->setParent(goombaXPN);
+					oss << i;
+					location->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+
+					oss << j;
+					location->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+					goombaXPN->addChild(location);
+
+					XmlParserNode * endPath = new XmlParserNode();
+					endPath->setTitle("endPath");
+					endPath->setEndTag();
+					endPath->setParent(goombaXPN);
+					oss << goomba->getEndPoint('x');
+					endPath->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+					oss << goomba->getEndPoint('y');
+					endPath->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+					goombaXPN->addChild(endPath);
+
+					goombaXPN->setParent(enemies);
+					enemies->addChild(goombaXPN);
+				}
+				else if(gameState->getLevel()[index]->getClassName() == "Koopa"){
+					Koopa * koopa = (Koopa *)gameState->getLevel()[index];
+					XmlParserNode * koopaXPN = new XmlParserNode();
+					koopaXPN->setTitle("enemy");
+					koopaXPN->setAttribute("character","koopa");
+
+					XmlParserNode * location = new XmlParserNode();
+					location->setTitle("location");
+					location->setEndTag();
+					location->setParent(koopaXPN);
+					oss << i;
+					location->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+
+					oss << j;
+					location->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+					koopaXPN->addChild(location);
+
+					XmlParserNode * endPath = new XmlParserNode();
+					endPath->setTitle("endPath");
+					endPath->setEndTag();
+					endPath->setParent(koopaXPN);
+					oss << koopa->getEndPoint('x');
+					endPath->setAttribute("x",oss.str());
+					oss.str("");
+					oss.clear();
+					oss << koopa->getEndPoint('y');
+					endPath->setAttribute("y",oss.str());
+					oss.str("");
+					oss.clear();
+					koopaXPN->addChild(endPath);
+
+					koopaXPN->setParent(enemies);
+					enemies->addChild(koopaXPN);
+				}
+			}
+		}
+	}
+
+	level->addChild(blocks);
+	level->addChild(pipes);
+	level->addChild(grounds);
+	level->addChild(castles);
+
+	root->addChild(enemies);
+	root->addChild(level);
+
+	string xml = root->toXML(0);
+	ofstream myfile;
+	myfile.open ("res/saveGame.xml");
+	myfile << "<?xml version=\"1.0\"?>" << endl << xml;
+	myfile.close();
+
+	delete root;
+	root = NULL;
 }
 
 void XmlParser::parse(string fileLocation){
@@ -180,8 +495,6 @@ void XmlParser::parse(string fileLocation){
 			}
 		}
 		fclose(file);
-		//oss << root->toString();
-		//MessageBox(NULL, oss.str().c_str(), "Tree", NULL);
 	}
 }
 

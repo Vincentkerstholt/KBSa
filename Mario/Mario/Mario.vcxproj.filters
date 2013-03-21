@@ -80,6 +80,18 @@
     <Filter Include="Source Files\Characters">
       <UniqueIdentifier>{65272cdf-85e6-4d1a-af2d-3d58d2778ac0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gadget">
+      <UniqueIdentifier>{39682537-b532-4b6d-b45c-1d02551beb6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gadget">
+      <UniqueIdentifier>{fed793e3-21ad-43b8-80f7-537ae9dcdfda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gadget\Powerup">
+      <UniqueIdentifier>{4f7d8346-16f4-44ed-81d2-7932184b549e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gadget\Powerup">
+      <UniqueIdentifier>{1553d6ee-f310-47fb-b559-4d8c7c462e95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonThemeFactory.cpp">
@@ -156,6 +168,39 @@
     </ClCompile>
     <ClCompile Include="Goomba.cpp">
       <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Gadget</Filter>
+    </ClCompile>
+    <ClCompile Include="LiveUp.cpp">
+      <Filter>Source Files\Gadget</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Source Files\Gadget\Powerup</Filter>
+    </ClCompile>
+    <ClCompile Include="Flower.cpp">
+      <Filter>Source Files\Gadget\Powerup</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Castle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +291,45 @@
     <ClInclude Include="characters.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Castle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Gadget.h">
+      <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="LiveUp.h">
+      <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="Powerup.h">
+      <Filter>Header Files\Gadget\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Header Files\Gadget\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="Flower.h">
+      <Filter>Header Files\Gadget\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gadgets.h">
+      <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\backgroundSky.bmp">
@@ -263,7 +347,10 @@
     <None Include="res\world8.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\testLevel.xml">
+    <None Include="res\Landscape.xml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Landscape2.xml">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

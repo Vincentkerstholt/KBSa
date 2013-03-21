@@ -2,3 +2,4 @@
 #include "Enemy.h"
 #include "Hero.h"
 #include "Goomba.h"
+#include "Koopa.h"
