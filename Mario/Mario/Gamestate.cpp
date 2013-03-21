@@ -311,6 +311,49 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 				}
 			}
+			else if(className == "Castle")
+			{
+				Castle * castle = (Castle*)level[index];
+				hObstacleBitmap = factory->getCastle();
+				
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+				
+				int textTureType = castle->getTextureType();
+
+				switch(textTureType)
+				{
+				case CASTLE_BATTLEMENT:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,32,32,32,RGB(255,174,201));
+					break;
+
+				case CASTLE_BATTLEMENT_WALL:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,32,32,32,RGB(255,174,201));
+					break;
+
+				case CASTLE_WALL:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,0,32,32,RGB(255,174,201));
+					break;
+
+				case CASTLE_DOOR:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,32,32,32,RGB(255,174,201));
+					break;
+
+				case CASTLE_LEFTGAP:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,RGB(255,174,201));
+					break;
+
+				case CASTLE_GAP:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,64,32,32,RGB(255,174,201));
+					break;
+
+				case CASTLE_RIGHTGAP:
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
+					break;
+				}
+			}
 			else if(className == "Ground")
 			{
 				Ground * ground = (Ground*)level[index];

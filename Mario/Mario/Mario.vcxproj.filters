@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8' ?> 
 <!-- was: no XML declaration present -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -121,9 +121,6 @@
     <ClCompile Include="Block.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
-    <ClCompile Include="Pipe.cpp">
-      <Filter>Source Files\Obstacle</Filter>
-    </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
@@ -147,9 +144,6 @@
     </ClCompile>
     <ClCompile Include="XMLParserNode.cpp">
       <Filter>Source Files\Parser</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalWalk.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files</Filter>
@@ -204,6 +198,18 @@
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files\Program</Filter>
+    </ClCompile>
+    <ClCompile Include="FastWalk.cpp">
+      <Filter>Source Files\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalWalk.cpp">
+      <Filter>Source Files\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +338,18 @@
     </ClInclude>
     <ClInclude Include="gadgets.h">
       <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>

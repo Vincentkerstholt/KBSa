@@ -7,6 +7,7 @@ class DungeonThemeFactory : public IThemeFactory{
 public:
 	DungeonThemeFactory();
 	~DungeonThemeFactory();
+	HANDLE getCastle();
 	HANDLE getPipe();
 	HANDLE getBlock();
 	HANDLE getGround();
@@ -24,6 +25,7 @@ private:
 	HANDLE gadgetBitmap;
 	HANDLE bkGroundBitmap;
 	HANDLE bkGround2Bitmap;
+	HANDLE castleBitmap;
 };
 
 #endif

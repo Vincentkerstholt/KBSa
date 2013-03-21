@@ -4,6 +4,7 @@
 
 LandThemeFactory::LandThemeFactory(){
 	blockBitmap = LoadImage(NULL, "res/block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/forrestsmall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -34,10 +35,17 @@ void LandThemeFactory::delImage()
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+	DeleteObject(castleBitmap);
+	castleBitmap = NULL;
+
 }
 
 HANDLE LandThemeFactory::getBlock(){
 	return blockBitmap;
+}
+
+HANDLE LandThemeFactory::getCastle(){
+	return castleBitmap;
 }
 
 HANDLE LandThemeFactory::getPipe(){

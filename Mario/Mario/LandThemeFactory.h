@@ -8,6 +8,7 @@ public:
 	LandThemeFactory();
 	~LandThemeFactory();
 	HANDLE getPipe();
+	HANDLE getCastle();
 	HANDLE getBlock();
 	HANDLE getGround();
 	HANDLE getGoomba();
@@ -24,6 +25,7 @@ private:
 	HANDLE gadgetBitmap;
 	HANDLE bkGroundBitmap;
 	HANDLE bkGround2Bitmap;
+	HANDLE castleBitmap;
 };
 
 #endif
