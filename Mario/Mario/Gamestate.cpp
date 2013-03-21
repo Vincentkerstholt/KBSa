@@ -344,7 +344,7 @@ void Gamestate::drawWorld(HDC & hdc){
 					break;
 
 				case CASTLE_RIGHTGAP:
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,0,64,32,32,RGB(255,174,201));
+					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,RGB(255,174,201));
 					break;
 				}
 			}
