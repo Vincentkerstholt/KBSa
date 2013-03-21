@@ -15,8 +15,8 @@ void Coin::updateGadget()
 {
 	if (progress < 32)
 	{
-		progress += 2;
-		position.y -= 2; 
+		progress += 4;
+		position.y -= 4; 
 	}
 }
 

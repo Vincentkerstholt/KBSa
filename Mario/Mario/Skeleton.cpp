@@ -5,11 +5,8 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-
-
+	splashscreenBitmap = LoadImage(NULL, "res/splashscreen.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gameState = new Gamestate();
-
-
 }
 
  CSkeleton::~CSkeleton()
@@ -20,70 +17,84 @@ CSkeleton::CSkeleton()
 
 void CSkeleton::GameInit()
 {
+	startUp = true;
+	gameState->inMenu = false;
 	debugMode = false;
 	SetFPS(60);
+	loop = 0;
 }
 
 void CSkeleton::GameLoop()
 {
-	
 	RECT rect;
 	POINT mario , MarioUp, MarioDown;
 	::GetClientRect(m_hWnd, &rect);
 
-	if (gameState->inMenu)
-	{
-		gameState->menu(graphics);
-		return;
-	}
-	
+	if(startUp && loop == 0){
+		hSplashscreenDC = CreateCompatibleDC(graphics);
 
-	gameState->draw(graphics, debugMode);
+		GetObject(splashscreenBitmap, sizeof(BITMAP), &bitmap);
+		SelectObject(hSplashscreenDC, splashscreenBitmap);
+
+		BitBlt(graphics,0,0,1362,702,hSplashscreenDC,0,0,SRCCOPY);
+		//StretchBlt(graphics, 0, 0, 1362, 702, hSplashscreenDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
+
+		DeleteDC(hSplashscreenDC);
+	}
+	else if(startUp && loop > 0)
+	{
+		Sleep(2000);
+
+		startUp = false;
+		gameState->inMenu = true;
+	}
+ 	else if (gameState->inMenu)
+ 	{
+ 		gameState->menu(graphics);
+ 		return;
+ 	}
+	else
+		gameState->draw(graphics, debugMode);
 
 	if (::GetAsyncKeyState(VK_RIGHT))
-	{
-		
+	{		
 		gameState->Mario->side = "Right";
 		gameState->Mario->Move('R', gameState->Mario->GetPositionPixel());
+
 	}
 	if (::GetAsyncKeyState(VK_LEFT))
-	{
-	
+	{	
 		gameState->Mario->side = "Left";
 		gameState->Mario->Move('L', gameState->Mario->GetPositionPixel());		
 	}
 
-	if (::GetAsyncKeyState(VK_DOWN)){
+	if (::GetAsyncKeyState(VK_DOWN))
+	{
 		gameState->Mario->Move('D', gameState->Mario->GetPositionPixel());
 	}
 
 	if (::GetAsyncKeyState(VK_UP))
 	{
-	
 		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
-
 	}
 
-	if (::GetAsyncKeyState(VK_F1)){
+	if (::GetAsyncKeyState(VK_F1))
 		gameState->changeFactory('D');
-	}
 
-	if (::GetAsyncKeyState(VK_F2)){
+	if (::GetAsyncKeyState(VK_F2))
 		gameState->changeFactory('L');
-	}
 
-	if (::GetAsyncKeyState(VK_F3)){
+	if (::GetAsyncKeyState(VK_F3))
 		gameState->changeFactory('S');
-	}
 
-	if (::GetAsyncKeyState(VK_F4)){
+	if (::GetAsyncKeyState(VK_F4))
 		gameState->changeFactory('W');
-	}
 
 	if (::GetAsyncKeyState(VK_F12)){
 		debugMode = !debugMode;
 		Sleep(200);
 	}
+
 	if (::GetAsyncKeyState(VK_ESCAPE)){
 		if(gameState->inMenu != true)
 		{
@@ -92,11 +103,12 @@ void CSkeleton::GameLoop()
 		}
 	}
 
-
+	loop++;
 }
 
 void CSkeleton::GameEnd() 
 {
+
 }
 
 /////////////////////////////////////

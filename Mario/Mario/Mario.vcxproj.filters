@@ -106,9 +106,6 @@
     <ClCompile Include="WaterThemeFactory.cpp">
       <Filter>Source Files\Factory\WaterTheme</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
     <ClCompile Include="Gamestate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -201,6 +198,12 @@
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files\Program</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +332,18 @@
     </ClInclude>
     <ClInclude Include="gadgets.h">
       <Filter>Header Files\Gadget</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
