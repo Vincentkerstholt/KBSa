@@ -490,10 +490,10 @@ void Gamestate::changeFactory(char firstLetter){
 }
 
 void Gamestate::CreateWorld(int number){
-
+	currentLevel = number;
 	xml = new XmlParser();
 
-	switch(number)
+	switch(currentLevel)
 	{
 	case 0:
 		xml->parse("res/Landscape.xml");
@@ -1060,18 +1060,17 @@ string Gamestate::BoxCheck(int index)
 
 void Gamestate::HeroDie()
 {
-	if(Mario->getLives() == 0)
+	if(Mario->hurt())
 	{
-		Mario->Die();
+		  /////////////////
+		 //Add HighScore//
+		/////////////////
+
 		inMenu = true;
 	}
 	else
 	{
-		int lives = Mario->getLives();
-		destroyWorld();
-		CreateWorld(1);
-		Mario->Die();
-		Mario->setLives(lives - 1);
+		resetWorld();
 	}
 }
 
@@ -1199,3 +1198,8 @@ string Gamestate::getCurrentFactory(){
 	return factory->getName();
 }
 
+void Gamestate::resetWorld(){
+	destroyWorld();
+
+	CreateWorld(currentLevel);
+}

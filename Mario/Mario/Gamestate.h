@@ -51,7 +51,7 @@ private:
 	HDC hdc;
 	POINT point;
 	int selector;
-
+	int currentLevel;
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
 	HANDLE SpecialSheet;
@@ -82,5 +82,6 @@ private:
 	void saveGame();
 	void Gamestate::drawStatistics(HDC & hdc);
 	void Gamestate::drawHUD(HDC & hdc);
+	void resetWorld();
 };
 #endif
