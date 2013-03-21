@@ -69,33 +69,33 @@ int Block::getPosX(){
 	return posX/2;
 }
 
- Block::~Block(){
-	for (int n = 0; n < gadgetAmount; n++)
+Block::~Block(){
+	for (int i = 0; i < gadgetAmount; i++)
 	{
-		string gadgetName = gadget[n]->getClassName();
+		string gadgetName = gadget[i]->getClassName();
 		if(gadgetName == "Coin")
 		{
-			Coin * coin = (Coin *)gadget[n];
+			Coin * coin = (Coin *)gadget[i];
 			delete coin;
 			coin = NULL;
 		}
-		else if(gadgetName == "LiveUp")
-		{
-			LiveUp * liveUp = (LiveUp *)gadget[n];
-			delete liveUp;
-			liveUp = NULL;
-		}
 		else if(gadgetName == "Mushroom")
 		{
-			Mushroom * mushroom = (Mushroom *)gadget[n];
+			Mushroom * mushroom = (Mushroom *)gadget[i];
 			delete mushroom;
 			mushroom = NULL;
 		}
 		else if(gadgetName == "Flower")
 		{
-			Flower * flower = (Flower *)gadget[n];
+			Flower * flower = (Flower *)gadget[i];
 			delete flower;
 			flower = NULL;
 		}
+		else if(gadgetName == "LiveUp")
+		{
+			LiveUp * liveUp = (LiveUp *)gadget[i];
+			delete liveUp;
+			liveUp = NULL;
+		}
 	}
- }
+}
