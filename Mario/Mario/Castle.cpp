@@ -11,3 +11,7 @@ string Castle::getClassName(){
 int Castle::getTextureType(){
 	return textureType;
 }
+
+Castle::~Castle(){
+
+}

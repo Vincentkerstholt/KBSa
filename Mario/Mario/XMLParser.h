@@ -21,6 +21,7 @@ public:
 	XmlParserNode * getNode(string tagName);
 	void saveGame(Gamestate * gameState);
 	void parse(string fileLocation);
+	void Clear();
 	~XmlParser();
 private:
 	FILE * file;

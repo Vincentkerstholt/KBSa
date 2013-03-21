@@ -3,6 +3,7 @@
 #include "WaterThemePipe.h"
 
 WaterThemeFactory::WaterThemeFactory(){
+	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	blockBitmap = LoadImage(NULL, "res/block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -35,6 +36,8 @@ void WaterThemeFactory::delImage()
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+	DeleteObject(castleBitmap);
+	castleBitmap = NULL;
 }
 
 HANDLE WaterThemeFactory::getBlock(){
@@ -55,6 +58,10 @@ HANDLE WaterThemeFactory::getGoomba(){
 
 HANDLE WaterThemeFactory::getGadget(){
 	return gadgetBitmap;
+}
+
+HANDLE WaterThemeFactory::getCastle(){
+	return castleBitmap;
 }
 
 HANDLE WaterThemeFactory::getBackgroundImage(){

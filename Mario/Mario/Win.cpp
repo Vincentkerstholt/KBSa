@@ -3,6 +3,7 @@
 #include "Character.h"
 #include <sstream>
 #include <time.h>
+
 //////////////////////////////////////////////////////////////////
 // Static Initialisation
 //////////////////////////////////////////////////////////////////
@@ -24,24 +25,23 @@ CWin::CWin()
 {
 	g_pCWin		 = this;
 
-	this->m_hWnd = NULL;
+	this->m_hWnd				= NULL;
 	this->m_dwCreationFlags		= 0L;
 	this->m_dwWindowStyle		= WS_OVERLAPPEDWINDOW;
 	this->m_dwExWindowStyle		= WS_EX_OVERLAPPEDWINDOW;
-	this->m_dwCreationFlags		= SW_MAXIMIZE;
-	this->m_PosX				= CW_USEDEFAULT;	
-	this->m_PosY				= CW_USEDEFAULT;	
-	this->m_dwCreationWidth		= CW_USEDEFAULT;
-	this->m_dwCreationHeight	= CW_USEDEFAULT;
+	this->m_dwCreationFlags		= SW_SHOWDEFAULT;
+	this->m_PosX				= CW_USEDEFAULT;
+	this->m_PosY				= CW_USEDEFAULT;
+	this->m_dwCreationWidth		= 1366;
+	this->m_dwCreationHeight	= 752;
 	this->m_hbrWindowColor		= (HBRUSH)(COLOR_WINDOW+1);
 	this->m_hIcon				= LoadIcon(m_hInstance, (LPCTSTR)IDI_APPLICATION);
 	this->m_strWindowTitle		= _T("Super Mario!");
-	this->m_hMenu				= NULL; 	
+	this->m_hMenu				= NULL;
 
 	::QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
 
 	fps = freq;
-	
 }
 
 CWin::~CWin()
@@ -75,13 +75,10 @@ int CWin::Run()
 			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));
 			GameLoop();
 			::BitBlt(hDC, rect.left, rect.top, 1362,702, graphics, 0, 0, SRCCOPY);
-
 			
 			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));
 			GameLoop();
 			::BitBlt(hDC, rect.left, rect.top, 1362,702, graphics, 0, 0, SRCCOPY);
-			
-
 		}
 	}
 
@@ -92,7 +89,6 @@ int CWin::Run()
 
 HRESULT CWin::Create()
 {
-	
 	WNDCLASSEX wcex;
 
 	wcex.cbSize = sizeof(WNDCLASSEX); 
@@ -110,6 +106,14 @@ HRESULT CWin::Create()
 	wcex.hIconSm		= NULL;
 
 	::RegisterClassEx(&wcex);
+	
+	const HWND h_Desktop = GetDesktopWindow();
+	RECT desktopRect;
+
+	GetWindowRect(h_Desktop, &desktopRect);
+
+	m_PosX = (desktopRect.right - m_dwCreationWidth) / 2;
+	m_PosY = (desktopRect.bottom - m_dwCreationHeight) / 2;
 
 	m_hWnd = ::CreateWindowEx(m_dwExWindowStyle,_T("Skeleton"), m_strWindowTitle, m_dwWindowStyle,
 	  m_PosX, m_PosY, m_dwCreationWidth, m_dwCreationHeight, NULL, m_hMenu, m_hInstance, NULL);

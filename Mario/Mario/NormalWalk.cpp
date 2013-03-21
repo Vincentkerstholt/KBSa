@@ -6,11 +6,11 @@ POINT NormalWalk::Walk(char Direction, POINT CurPos)
 	switch(Direction)
 	{
 	case 'R': //Move Right
-		returnPoint.x = (CurPos.x+8);
+		returnPoint.x = (CurPos.x+2);
 		returnPoint.y = (CurPos.y);
 		break;
 	case 'L': //Move Left
-		returnPoint.x = (CurPos.x-8);
+		returnPoint.x = (CurPos.x-2);
 		returnPoint.y = (CurPos.y);
 		break;
 	}

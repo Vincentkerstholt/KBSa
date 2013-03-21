@@ -1,6 +1,5 @@
 #include "Camera.h"
 
-
 Camera::Camera()
 {
 	XPoint = 0;

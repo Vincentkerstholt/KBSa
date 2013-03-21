@@ -507,11 +507,15 @@ XmlParserNode * XmlParser::getNode(string tagName){
 	return xpn;
 }
 
-XmlParser::~XmlParser(){
+void XmlParser::Clear(){
 	delete buffer;
 	delete root;
 
 	file = NULL;
 	buffer = NULL;
 	root = NULL;
+}
+
+XmlParser::~XmlParser(){
+	Clear();
 }

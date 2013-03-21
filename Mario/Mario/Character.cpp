@@ -47,7 +47,8 @@ void Character :: Walk (char Direction, POINT curPos)
 		default:
 			break;
 
-		}
+		
+	}
 	SetPosition(walkBehaviour->Walk(Direction, curPos));
 
 	}
@@ -55,6 +56,7 @@ void Character :: Walk (char Direction, POINT curPos)
 	{
 		//POINT pos = getTexturePosition();
 		int x = textureNumber;
+
 
 		switch (x)
 		{
@@ -88,7 +90,7 @@ void Character :: Walk (char Direction, POINT curPos)
 			break;
 		default:
 			break;
-
+		
 	}
 	SetPosition(walkBehaviour->Walk(Direction, curPos)); 
 	}
@@ -113,16 +115,14 @@ POINT Character :: GetPositionIndex()
 {
 	POINT returnValue;
 
-	returnValue.x = (Position.x/32);
-	returnValue.y = (Position.y/32);
+	returnValue.x = (this->Position.x/32);
+	returnValue.y = (this->Position.y/32);
 	return returnValue;
 }
 
 POINT Character :: GetPositionPixel()
 {
-	POINT Position2;
-	Position2 = Position;
-	return Position2;
+	return Position;
 }
 
 void Character :: SetPosition(int x, int y)
@@ -135,6 +135,22 @@ void Character :: SetPosition(POINT newPos)
 {
 	Position = newPos;
 }
+
+void Character::ResetPosition(){
+	Position = StartPosition;
+}
+
+void Character::SetStartPosition(POINT point){
+	SetStartPosition(point.x, point.y);
+}
+
+void Character::SetStartPosition(int x, int y){
+	StartPosition.x = x;
+	StartPosition.y = y;
+
+	SetPosition(x,y);
+}
+
 void Character::Die()
 {
 
@@ -146,13 +162,20 @@ void Character::GetPowerUp()
 
 void Character::Move(char Direction, POINT curPos)
 {
+	
 	switch(Direction)
 	{
 	case 'R': //Move Right
-		this->Walk('R', curPos);
+		{
+			if(MoveAbilityR)
+			this->Walk('R', curPos);
+		}
 		break;
 	case 'L': //Move Left
-		this->Walk('L', curPos);
+		{
+			if(MoveAbilityL)
+			this->Walk('L', curPos);
+		}
 		break;
 	case 'D': //Move Down
 		this->setTexturePosition(13,1);
@@ -160,9 +183,16 @@ void Character::Move(char Direction, POINT curPos)
 	case 'U': 
 		if(JumpAbility)
 		{
-		this->setTexturePosition(2,1);
-		this->Jump(curPos); //Move Up
-		Jumped++;
+			if(side == "Right")
+			{
+				this->setTexturePosition(13,1);
+			}
+			else if (side == "Left")
+			{
+				this->setTexturePosition(13,0);
+			}
+			this->Jump(curPos); //Move Up
+			Jumped++;
 		}
 		break;
 	}

@@ -31,6 +31,8 @@ public:
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
 	int getIndex(POINT & pnt);
+	void Collision();
+	void UpdateEnemy(int index);
 	POINT getPixelPoint(int index);
 	void UpDownCollision();
 	string getCurrentFactory();
@@ -55,6 +57,7 @@ private:
 	HFONT hFontOld;
 	bool inHighScore;
 
+	int currentLevel;
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
 	HANDLE SpecialSheet;
@@ -86,5 +89,15 @@ private:
 	void saveGame();
 	void Gamestate::drawStatistics(HDC & hdc);
 	void Gamestate::drawHUD(HDC & hdc);
+	void resetWorld();
+	void createHero();
+	void createLevel();
+	void createFactory();
+	void createBlocks();
+	void createGrounds();
+	void createPipes();
+	void createEnemies();
+	void createCastles();
+	void nextLevel();
 };
 #endif

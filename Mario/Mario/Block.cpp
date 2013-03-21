@@ -70,9 +70,32 @@ int Block::getPosX(){
 }
 
  Block::~Block(){
-	 for (int n=0 ; n < gadgetAmount ; n++)
-	 {
-		 delete gadget[n];
-		 gadget[n] = NULL;
-	 }
+	for (int n = 0; n < gadgetAmount; n++)
+	{
+		string gadgetName = gadget[n]->getClassName();
+		if(gadgetName == "Coin")
+		{
+			Coin * coin = (Coin *)gadget[n];
+			delete coin;
+			coin = NULL;
+		}
+		else if(gadgetName == "LiveUp")
+		{
+			LiveUp * liveUp = (LiveUp *)gadget[n];
+			delete liveUp;
+			liveUp = NULL;
+		}
+		else if(gadgetName == "Mushroom")
+		{
+			Mushroom * mushroom = (Mushroom *)gadget[n];
+			delete mushroom;
+			mushroom = NULL;
+		}
+		else if(gadgetName == "Flower")
+		{
+			Flower * flower = (Flower *)gadget[n];
+			delete flower;
+			flower = NULL;
+		}
+	}
  }

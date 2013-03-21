@@ -8,6 +8,7 @@ public:
 	WaterThemeFactory();
 	~WaterThemeFactory();
 	HANDLE getPipe();
+	HANDLE getCastle();
 	HANDLE getBlock();
 	HANDLE getGround();
 	HANDLE getGoomba();
@@ -17,6 +18,7 @@ public:
 	string getName();
 	void delImage();
 private:
+	HANDLE castleBitmap;
 	HANDLE pipeBitmap;
 	HANDLE blockBitmap;
 	HANDLE groundBitmap;
