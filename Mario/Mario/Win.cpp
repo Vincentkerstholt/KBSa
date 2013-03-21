@@ -32,7 +32,7 @@ CWin::CWin()
 	this->m_dwCreationFlags		= SW_SHOWDEFAULT;
 	this->m_PosX				= CW_USEDEFAULT;
 	this->m_PosY				= CW_USEDEFAULT;
-	this->m_dwCreationWidth		= 1384;
+	this->m_dwCreationWidth		= 1366;
 	this->m_dwCreationHeight	= 752;
 	this->m_hbrWindowColor		= (HBRUSH)(COLOR_WINDOW+1);
 	this->m_hIcon				= LoadIcon(m_hInstance, (LPCTSTR)IDI_APPLICATION);
