@@ -1,5 +1,6 @@
 #include "Gamestate.h"
 
+#pragma region CONST
 const int multiplier = 32;
 const int GROUND_TOPLEFT = 1;
 const int GROUND_TOPCENTER = 2;
@@ -25,7 +26,7 @@ const int CASTLE_DOOR = 4;
 const int CASTLE_LEFTGAP = 5;
 const int CASTLE_GAP = 6;
 const int CASTLE_RIGHTGAP = 7;
-
+#pragma endregion CONST
 
 Gamestate::Gamestate()
 {
