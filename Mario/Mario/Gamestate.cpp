@@ -1156,10 +1156,10 @@ void Gamestate::UpdateEnemy(int index)
 {
 	Goomba * goomba = (Goomba*)level[index];
 		
-	if (goomba->GetPositionIndex().x > goomba->getEndPoint('x') && goomba->getDirection() == 'R')
-		goomba->setDirection('L');
-	if (goomba->GetPositionIndex().x < goomba->getStartPoint('x') && goomba->getDirection() == 'L')
+	if (goomba->GetPositionIndex().x == goomba->getEndPoint('x') )
 		goomba->setDirection('R');
+	else if (goomba->GetPositionIndex().x == goomba->getStartPoint('x'))
+		goomba->setDirection('L');
 
 	level[getIndex(goomba->GetPositionIndex())] = NULL;
 	goomba->Move(goomba->getDirection(), goomba->GetPositionPixel());
