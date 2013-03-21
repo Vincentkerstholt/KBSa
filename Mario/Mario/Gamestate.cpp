@@ -780,12 +780,7 @@ void Gamestate::UpDownCollision()
 		}
 
 
-		if(Mario->Jumped < Mario->JumpHeight )
-		{
-			Mario->JumpAbility = true;
-		}
-
-		if ( RightHead == "Coin" || RightFeet == "Coin" || LeftHead == "Coin" || LeftFeet == "Coin" )
+		else if ( RightHead == "Coin" || RightFeet == "Coin" || LeftHead == "Coin" || LeftFeet == "Coin" )
 		{
 			if (RightHead == "Coin"){
 				delete level[getIndex(MarioRightHead)];
@@ -809,7 +804,7 @@ void Gamestate::UpDownCollision()
 			}
 		}
 
-		if ( RightHead == "LiveUp" || RightFeet == "LiveUp" || LeftHead == "LiveUp" || LeftFeet == "LiveUp" )
+		else if ( RightHead == "LiveUp" || RightFeet == "LiveUp" || LeftHead == "LiveUp" || LeftFeet == "LiveUp" )
 		{
 			if (RightHead == "LiveUp"){
 				delete level[getIndex(MarioRightHead)];
@@ -833,7 +828,7 @@ void Gamestate::UpDownCollision()
 			}
 		}
 
-		if ( RightHead == "Mushroom" || RightFeet == "Mushroom" || LeftHead == "Mushroom" || LeftFeet == "Mushroom" )
+		else if ( RightHead == "Mushroom" || RightFeet == "Mushroom" || LeftHead == "Mushroom" || LeftFeet == "Mushroom" )
 		{
 			if (RightHead == "Mushroom"){
 				delete level[getIndex(MarioRightHead)];
@@ -858,7 +853,7 @@ void Gamestate::UpDownCollision()
 			}
 		}
 
-		if ( RightHead == "Flower" || RightFeet == "Flower" || LeftHead == "Flower" || LeftFeet == "Flower" )
+		else if ( RightHead == "Flower" || RightFeet == "Flower" || LeftHead == "Flower" || LeftFeet == "Flower" )
 		{
 			if (RightHead == "Flower"){
 				delete level[getIndex(MarioRightHead)];
@@ -882,7 +877,7 @@ void Gamestate::UpDownCollision()
 			}
 		}
 
-		if (RightHead == "Block" || LeftHead == "Block" )
+		else if (RightHead == "Block" || LeftHead == "Block" )
 		{			
 				int index = getIndex(MarioMidHead);
 				Mario->JumpAbility = false;
@@ -991,23 +986,7 @@ void Gamestate::UpDownCollision()
 				}
 			}
 		}
-		
-		if (RightFeet == "NULL" && LeftFeet == "NULL" ) // if there is no block below mario
-		{
-			if(Mario->Jumped == 0)
-			{
-			Mario->JumpAbility = false;
-			}
-			else
-			{
-			Mario->JumpAbility = true;
-			}
-			if(selfjump)
-			{
-			Mario->JumpAbility = true;
-			}
-			Mario->JumpAbility = false;
-		}
+				
 		if (RightFeet == "NULL" && LeftFeet == "NULL" ) //if there is no block below mario
 		{
 			if (Mario->Jumped == 0) //if mario had not jumped yet
