@@ -415,11 +415,11 @@ void Gamestate::drawWorld(HDC & hdc){
 			{
 				if (level[index]->getClassName() == "Coin")
 				{
-					Gadget * tempGadget = (Gadget*)level[index];
 					hObstacleBitmap = factory->getGadget();
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 					SelectObject(hObstacleDC, hObstacleBitmap);
+					Gadget * tempGadget = (Gadget*)level[index];
 					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,0,0,32,32,GetPixel(hObstacleDC,0,0));
 					tempGadget->updateGadget();
 					if (tempGadget->progress == 32)
@@ -435,8 +435,9 @@ void Gamestate::drawWorld(HDC & hdc){
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 					SelectObject(hObstacleDC, hObstacleBitmap);
-
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,32,0,32,32,GetPixel(hObstacleDC,0,0));
+					Gadget * tempGadget = (Gadget*)level[index];
+					tempGadget->updateGadget();
+					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,32,0,32,32,GetPixel(hObstacleDC,0,0));
 				}
 				else if (level[index]->getClassName() == "Mushroom")
 				{
@@ -444,8 +445,9 @@ void Gamestate::drawWorld(HDC & hdc){
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 					SelectObject(hObstacleDC, hObstacleBitmap);
-
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,96,0,32,32,GetPixel(hObstacleDC,0,0));
+					Gadget * tempGadget = (Gadget*)level[index];
+					tempGadget->updateGadget();
+					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,96,0,32,32,GetPixel(hObstacleDC,0,0));
 				}
 				else if (level[index]->getClassName() == "Flower")
 				{
@@ -453,8 +455,9 @@ void Gamestate::drawWorld(HDC & hdc){
 					hObstacleDC = CreateCompatibleDC(hdc);
 					GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
 					SelectObject(hObstacleDC, hObstacleBitmap);
-
-					TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
+					Gadget * tempGadget = (Gadget*)level[index];
+					tempGadget->updateGadget();
+					TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
 				}
 			}
 
@@ -557,21 +560,19 @@ void Gamestate::CreateWorld(int number){
 				}
 			}
 		}
+		bool isSpecial = false;
+		bool isFixed = false;
+
 
 		if (child->getAttribute("isSpecial") == "true")
-		{
-			if(gadgetLength > 0)
-				level[index] = new Block(true, gadgetArray, gadgetLength);
-			else
-				level[index] = new Block(true);
-		}
+			isSpecial = true;
+		if(child->getAttribute("isFixed") == "true")
+			isFixed = true;
+
+		if(gadgetLength > 0)
+			level[index] = new Block(isSpecial, isFixed, gadgetArray, gadgetLength);
 		else
-		{
-			if(gadgetLength > 0)
-				level[index] = new Block(false, gadgetArray, gadgetLength);
-			else
-				level[index] = new Block(false);
-		}
+			level[index] = new Block(isSpecial, isFixed);
 	}
 
 	XmlParserNode * grounds = xml->getNode("grounds");
@@ -605,8 +606,15 @@ void Gamestate::CreateWorld(int number){
 		XmlParserNode * childEndPath = child->getNode("endPath");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 
-		if(child->getAttribute("character") == "goomba"){
-			level[index] = new Goomba(stoi(childEndPath->getAttribute("x")), stoi(childEndPath->getAttribute("y")));
+		int endPathX = stoi(childEndPath->getAttribute("x"));
+		int endPathY = stoi(childEndPath->getAttribute("y"));
+		string characterName = child->getAttribute("character");
+
+		if(characterName == "goomba"){
+			level[index] = new Goomba(endPathX, endPathY);
+		}
+		else if(characterName == "koopa"){
+			level[index] = new Koopa(endPathX, endPathY);
 		}
 	}
 
@@ -885,15 +893,20 @@ void Gamestate::UpDownCollision()
 					{
 						string className = tempGadget->getClassName();
 						if ( className == "Coin")
-							level[index-x] = new Coin(getPixelPoint(index));
+							level[index-x] = tempGadget;
 						if ( className == "LiveUp")
-							level[index-x] = new LiveUp(getPixelPoint(index));
+							level[index-x] = tempGadget;
 						if ( className == "Mushroom")
 						{
 							if (Mario->getPowerUp() == false)
-								level[index-x] = new Mushroom(getPixelPoint(index));
+								level[index-x] = tempGadget;
 							else
-								level[index-x] = new Flower(getPixelPoint(index));
+							{
+								POINT tempPoint = tempGadget->position;
+								delete tempGadget;
+								level[index-x] = new Flower(tempPoint);
+							}
+								level[index-x] = tempGadget;
 						}
 					}
 					else

@@ -11,18 +11,21 @@
 class Block : public Obstacle{
 public:
 	Block();
-	Block(bool isSpecial);
-	Block(bool isSpecial, Gadget ** gadgetType, int amount);
+	Block(bool isSpecial, bool isFixed);
+	Block(bool isSpecial, bool isFixed, Gadget ** gadgetType, int amount);
 	~Block();
 	Gadget * getGadget();
 	string getClassName();
 	bool getIsSpecial();
 	string getIsSpecialString();
+	bool getIsFixed();
+	string getIsFixedString();
 	int getPosX();
 private:
 	Gadget ** gadget;
 	int gadgetAmount;
 	bool isSpecial;
+	bool isFixed;
 	int posX;
 };
 
