@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- was: no XML declaration present -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -133,7 +133,7 @@
     <ClCompile Include="NormalWalk.cpp">
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
-	 <ClCompile Include="FastWalk.cpp">
+    <ClCompile Include="FastWalk.cpp">
       <Filter>Source Files\Walk</Filter>
     </ClCompile>
     <ClCompile Include="NormalJump.cpp">
@@ -152,9 +152,6 @@
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files\Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
     <ClCompile Include="Goomba.cpp">
@@ -210,6 +207,9 @@
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Source Files\Characters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -288,12 +288,6 @@
     <ClInclude Include="character.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
     <ClInclude Include="Goomba.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
@@ -362,6 +356,18 @@
     </ClInclude>
     <ClInclude Include="JumpBehaviour.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

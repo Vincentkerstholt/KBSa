@@ -135,6 +135,22 @@ void Character :: SetPosition(POINT newPos)
 {
 	Position = newPos;
 }
+
+void Character::ResetPosition(){
+	Position = StartPosition;
+}
+
+void Character::SetStartPosition(POINT point){
+	SetStartPosition(point.x, point.y);
+}
+
+void Character::SetStartPosition(int x, int y){
+	StartPosition.x = x;
+	StartPosition.y = y;
+
+	SetPosition(x,y);
+}
+
 void Character::Die()
 {
 

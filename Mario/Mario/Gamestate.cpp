@@ -29,8 +29,6 @@ const int CASTLE_RIGHTGAP = 7;
 
 Gamestate::Gamestate()
 {
-	CreateWorld(0);
-
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	frames = 0;
@@ -56,11 +54,7 @@ void Gamestate::saveGame(){
 	inMenu = false;
 }
 
-void Gamestate::loadGame(){
-	destroyWorld();
-	CreateWorld(9);
-	inMenu = false;
-}
+
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
@@ -489,24 +483,79 @@ void Gamestate::changeFactory(char firstLetter){
 	}
 }
 
-void Gamestate::CreateWorld(int number){
-
+void Gamestate::CreateWorld(){
 	xml = new XmlParser();
+	xml->parse("res/Landscape.xml");
 
-	switch(number)
+	createLevel();
+	createHero();
+	createFactory();
+	createBlocks();
+	createGrounds();
+	createPipes();
+	createEnemies();
+	createCastles();
+}
+
+void Gamestate::resetWorld(){
+	destroyWorld();
+
+	createLevel();
+	createBlocks();
+	createGrounds();
+	createPipes();
+	createEnemies();
+	createCastles();
+
+	Mario->ResetPosition();
+}
+
+void Gamestate::destroyWorld()
+{
+	for(int i = 0 ; i < x ; i++)
 	{
-	case 0:
-		xml->parse("res/Landscape.xml");
-	break;
-	case 1:
-		xml->parse("res/Landscape2.xml");
-	break;
-	case 9:
-		xml->parse("res/saveGame.xml");
-	default:
-	break;
+		for (int j = 0 ; j < y ; j++)
+		{
+			int index = getIndex(i,j);
+			if (level[index] != NULL)
+			{
+				delete level[index];
+				level[index] = NULL;
+			}
+		}
 	}
+}
 
+void Gamestate::loadGame(){
+	destroyWorld();
+
+	xml->parse("res/saveGame.xml");
+	
+	createLevel();
+	createHero();
+	createFactory();
+	createBlocks();
+	createGrounds();
+	createPipes();
+	createEnemies();
+	createCastles();
+
+	inMenu = false;
+}
+
+void Gamestate::createHero(){
+	XmlParserNode * marioXml = xml->getNode("hero");
+
+	Mario = new Hero();
+
+	int xMario = stoi(marioXml->getAttribute("x"));
+	int yMario = stoi(marioXml->getAttribute("y"));
+
+	Mario->SetStartPosition(xMario * 32, yMario * 32);
+	Mario->setName(marioXml->getAttribute("character"));
+}
+
+void Gamestate::createLevel(){
 	XmlParserNode * levelXml = xml->getNode("level");
 	x = stoi( levelXml->getAttribute("width") );
 	y = stoi( levelXml->getAttribute("height") );
@@ -520,20 +569,14 @@ void Gamestate::CreateWorld(int number){
 			level[index] = NULL;
 		}
 	}
+}
 
-	XmlParserNode * marioXml = xml->getNode("hero");
-
-	Mario = new Hero();
-
-	int xMario = stoi(marioXml->getAttribute("x"));
-	int yMario = stoi(marioXml->getAttribute("y"));
-
-	Mario->SetPosition(xMario * 32, yMario * 32);
-	Mario->setName(marioXml->getAttribute("character"));
-
+void Gamestate::createFactory(){
 	XmlParserNode * factoryXml = xml->getNode("factory");
 	factory = getFactory(factoryXml->getAttribute("name"));
+}
 
+void Gamestate::createBlocks(){
 	XmlParserNode * blocks = xml->getNode("blocks");
 	XmlParserNode ** childs = blocks->getChilds();
 
@@ -577,9 +620,11 @@ void Gamestate::CreateWorld(int number){
 		else
 			level[index] = new Block(isSpecial, isFixed);
 	}
+}
 
+void Gamestate::createGrounds(){
 	XmlParserNode * grounds = xml->getNode("grounds");
-	childs = grounds->getChilds();
+	XmlParserNode ** childs = grounds->getChilds();
 	for(int i = 0; i < grounds->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
@@ -588,19 +633,23 @@ void Gamestate::CreateWorld(int number){
 		int index = getIndex(x, y);
 		level[index] = new Ground(stoi(child->getAttribute("type")));
 	}
+}
 
+void Gamestate::createPipes(){
 	XmlParserNode * pipes = xml->getNode("pipes");
-	childs = pipes->getChilds();
+	XmlParserNode ** childs = pipes->getChilds();
 	for(int i = 0; i < pipes->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
-		
+
 		XmlParserNode * childLocation = child->getNode("location");
 		int index = getIndex(stoi(childLocation->getAttribute("x")), stoi(childLocation->getAttribute("y")));
 		level[index] = new Pipe(stoi(child->getAttribute("type")));
 	}
+}
 
+void Gamestate::createEnemies(){
 	XmlParserNode * enemies = xml->getNode("enemies");
-	childs = enemies->getChilds();
+	XmlParserNode ** childs = enemies->getChilds();
 	for(int i = 0; i < enemies->getChildsLength(); i++)
 	{
 		XmlParserNode * child = childs[i];
@@ -610,7 +659,7 @@ void Gamestate::CreateWorld(int number){
 		int locationX = stoi(childLocation->getAttribute("x"));
 		int locationY = stoi(childLocation->getAttribute("y"));
 		int index = getIndex(locationX, locationY);
-		
+
 		int endPathX = stoi(childEndPath->getAttribute("x"));
 		int endPathY = stoi(childEndPath->getAttribute("y"));
 		string characterName = child->getAttribute("character");
@@ -632,9 +681,11 @@ void Gamestate::CreateWorld(int number){
 			level[getIndex(koopa->GetPositionIndex())] = koopa;
 		}
 	}
+}
 
+void Gamestate::createCastles(){
 	XmlParserNode * castles = xml->getNode("castles");
-	childs = castles->getChilds();
+	XmlParserNode ** childs = castles->getChilds();
 	for(int i = 0; i < castles->getChildsLength(); i++){
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
@@ -672,8 +723,6 @@ void Gamestate::menu(HDC & hdc)
 	GetAsyncKeyState(VK_F4);
 	GetAsyncKeyState(VK_F12);
 
-
-
 	if (selector < 0)
 		selector = 0;
 	if (selector > 3)
@@ -685,8 +734,7 @@ void Gamestate::menu(HDC & hdc)
 		{
 		case 0:
 			// reset lvl
-			destroyWorld();
-			CreateWorld(1);
+			CreateWorld();
 			inMenu = false;
 		break;
 		case 1:
@@ -700,11 +748,11 @@ void Gamestate::menu(HDC & hdc)
 		case 3:
 			{
 				//Continue game
-				int lives = Mario->getLives();
-				if(lives > 0)
-				{
-					inMenu = false;
-				}
+				//int lives = Mario->getLives();
+				//if(lives > 0)
+				//{
+				//	inMenu = false;
+				//}
 			}
 			break;
 		default:
@@ -729,25 +777,6 @@ void Gamestate::menu(HDC & hdc)
 	
 	DeleteDC(hBackgroundDC);
 	DeleteObject(hBackgroundBitmap);
-}
-
-void Gamestate::destroyWorld()
-{
-	int index = 0;
-	for(int i = 0 ; i < x ; i++)
-	{
-		for (int j = 0 ; j < y ; j++)
-		{
-			index = getIndex(i,j);
-			if (level[index] != NULL)
-			{
-				delete level[index];
-				level[index] = NULL;
-			}
-		}
-	}
-	delete xml;
-	xml = NULL;
 }
 
 Gamestate::~Gamestate()
@@ -1060,18 +1089,17 @@ string Gamestate::BoxCheck(int index)
 
 void Gamestate::HeroDie()
 {
-	if(Mario->getLives() == 0)
+	if(Mario->hurt())
 	{
-		Mario->Die();
+		  /////////////////
+		 //Add HighScore//
+		/////////////////
+
 		inMenu = true;
 	}
 	else
 	{
-		int lives = Mario->getLives();
-		destroyWorld();
-		CreateWorld(1);
-		Mario->Die();
-		Mario->setLives(lives - 1);
+		resetWorld();
 	}
 }
 
@@ -1198,4 +1226,3 @@ void Gamestate::UpdateEnemy(int index)
 string Gamestate::getCurrentFactory(){
 	return factory->getName();
 }
-
