@@ -18,6 +18,7 @@ private:
 	HDC hSplashscreenDC;
 	BITMAP bitmap;
 	bool startUp;
+	int loop;
 public:
 	CSkeleton();
 	~CSkeleton();
