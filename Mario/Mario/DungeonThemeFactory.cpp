@@ -37,6 +37,10 @@ void DungeonThemeFactory::delImage()
 	bkGround2Bitmap = NULL;
 }
 
+HANDLE DungeonThemeFactory::getCastle()
+{
+	return castleBitmap;
+}
 HANDLE DungeonThemeFactory::getBlock(){
 	return blockBitmap;
 }

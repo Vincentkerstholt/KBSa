@@ -9,6 +9,7 @@ using namespace std;
 
 class IThemeFactory{
 public:
+	virtual HANDLE getCastle() = 0;
 	virtual HANDLE getPipe() = 0;
 	virtual HANDLE getBlock() = 0;
 	virtual HANDLE getGround() = 0;

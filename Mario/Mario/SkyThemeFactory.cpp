@@ -3,6 +3,7 @@
 #include "SkyThemePipe.h"
 
 SkyThemeFactory::SkyThemeFactory(){
+	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	blockBitmap = LoadImage(NULL, "res/block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -34,6 +35,8 @@ void SkyThemeFactory::delImage()
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+	DeleteObject(castleBitmap);
+	castleBitmap = NULL;
 }
 
 HANDLE SkyThemeFactory::getBlock(){
@@ -50,6 +53,10 @@ HANDLE SkyThemeFactory::getGround(){
 
 HANDLE SkyThemeFactory::getGoomba(){
 	return goombaBitmap;
+}
+
+HANDLE SkyThemeFactory::getCastle(){
+	return castleBitmap;
 }
 
 HANDLE SkyThemeFactory::getGadget(){
