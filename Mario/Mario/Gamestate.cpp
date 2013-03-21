@@ -995,8 +995,17 @@ void Gamestate::UpDownCollision()
 		}
 		else
 		{
+			if (RightFeet == "Castle" || LeftFeet == "Castle")
+			{
+				if (Mario->Jumped == 0) //if mario had not jumped yet
+					Mario->JumpAbility = false; //set the jump ability false
+				Mario->SetPosition(mario.x, (mario.y+4)); // let mario fall
+			}
+			else
+			{
 			Mario->Jumped=0; // if there is no air below, let mario jump again. 
 			Mario->JumpAbility = true; 
+			}
 		}
 	}
 	else
