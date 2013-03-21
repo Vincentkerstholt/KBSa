@@ -420,7 +420,6 @@ void Gamestate::drawWorld(HDC & hdc){
 			}
 			else if (className == "Coin")
 			{
-				
 				hObstacleBitmap = factory->getGadget();
 				hObstacleDC = CreateCompatibleDC(hdc);
 				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
@@ -430,9 +429,9 @@ void Gamestate::drawWorld(HDC & hdc){
 				tempGadget->updateGadget();
 				if (tempGadget->progress == 32)
 				{
+					Mario->grabcoin();
 					delete level[index];
 					level[index] = NULL;
-					Mario->grabcoin();
 				}
 			}
 			else if (level[index]->getClassName() == "LiveUp")
@@ -799,14 +798,54 @@ void Gamestate::UpDownCollision()
 				
 		if (RightHead == "Block" || LeftHead == "Block" )
 		{			
-			int index = getIndex(MarioMidHead.x,MarioMidHead.y);
+			int index = getIndex(MarioMidHead);
+			Mario->JumpAbility = false;
+			Mario->Jumped = 15;
+			if (BoxCheck(index) == "Block" )
+			{
+				Block * tempBlock = ((Block *)level[index]);
+				Gadget * tempGadget = tempBlock->getGadget();
+
+				if (tempGadget != NULL)
+				{
+					string className = tempGadget->getClassName();
+					if ( className == "Coin")
+						level[index-x] = tempGadget;
+					if ( className == "LiveUp")
+						level[index-x] = tempGadget;
+					if ( className == "Mushroom")
+					{
+						if (Mario->getPowerUp() == false)
+							level[index-x] = tempGadget;
+						else
+						{
+							POINT tempPoint = tempGadget->position;
+							delete tempGadget;
+							level[index-x] = new Flower(tempPoint);
+						}
+						level[index-x] = tempGadget;
+					}
+				}
+				else
+				{
+					delete level[index];
+					level[index] = NULL;
+				}
+			}
+			if (BoxCheck(index) == "Coin")
+			{
+				Mario->grabcoin();
+				delete level[index];
+			}
+			Mario->JumpAbility = false;
+			Mario->Jumped = 15;
+			/*int index = getIndex(MarioMidHead.x,MarioMidHead.y);
 			delete level[index];
 			level[index] = NULL;
 			Mario->JumpAbility = false;
-			Mario->Jumped = 15;	
+			Mario->Jumped = 15;	*/
 			
 		}
-
 		//this part below is a error fix for the 1 pixel on a block problem.
 		else if (RightFeet == "Block"  || RightFeet == "Pipe"  ||   RightFeet == "Ground"   )
 		{		
@@ -823,32 +862,6 @@ void Gamestate::UpDownCollision()
 				}
 			}
 		}
-
-
-		else if ( RightHead == "Coin" || RightFeet == "Coin" || LeftHead == "Coin" || LeftFeet == "Coin" )
-		{
-			if (RightHead == "Coin"){
-				delete level[getIndex(MarioRightHead)];
-				level[getIndex(MarioRightHead)] = NULL;
-				Mario->grabcoin();
-			}
-			else if (LeftHead == "Coin"){
-				delete level[getIndex(MarioLeftHead)];
-				level[getIndex(MarioLeftHead)] = NULL;
-				Mario->grabcoin();
-			}
-			else if (LeftFeet == "Coin"){
-				delete level[getIndex(MarioLeftFeet)];
-				level[getIndex(MarioLeftFeet)] = NULL;
-				Mario->grabcoin();
-			}
-			else if (RightFeet == "Coin"){
-				delete level[getIndex(MarioRightFeet)];
-				level[getIndex(MarioRightFeet)] = NULL;
-				Mario->grabcoin();
-			}
-		}
-
 		else if ( RightHead == "LiveUp" || RightFeet == "LiveUp" || LeftHead == "LiveUp" || LeftFeet == "LiveUp" )
 		{
 			if (RightHead == "LiveUp"){
@@ -922,50 +935,7 @@ void Gamestate::UpDownCollision()
 			}
 		}
 
-		else if (RightHead == "Block" || LeftHead == "Block" )
-		{			
-				int index = getIndex(MarioMidHead);
-				Mario->JumpAbility = false;
-				Mario->Jumped = 15;
-				if (BoxCheck(index) == "Block" )
-				{
- 					Block * tempBlock = ((Block *)level[index]);
- 					Gadget * tempGadget = tempBlock->getGadget();
-
-					if (tempGadget != NULL)
-					{
-						string className = tempGadget->getClassName();
-						if ( className == "Coin")
-							level[index-x] = tempGadget;
-						if ( className == "LiveUp")
-							level[index-x] = tempGadget;
-						if ( className == "Mushroom")
-						{
-							if (Mario->getPowerUp() == false)
-								level[index-x] = tempGadget;
-							else
-							{
-								POINT tempPoint = tempGadget->position;
-								delete tempGadget;
-								level[index-x] = new Flower(tempPoint);
-							}
-								level[index-x] = tempGadget;
-						}
-					}
-					else
-					{
-						delete level[index];
-						level[index] = NULL;
-					}
-				}
-				if (BoxCheck(index) == "Coin")
-				{
-					Mario->grabcoin();
-					delete level[index];
-				}
-			Mario->JumpAbility = false;
-			Mario->Jumped = 15;
-		}
+		
 
 		else if (LeftFeet == "Block"  || LeftFeet == "Pipe"  ||   LeftFeet == "Ground"   )
 		{		
@@ -1101,7 +1071,7 @@ void Gamestate::HeroDie()
 		destroyWorld();
 		CreateWorld(1);
 		Mario->Die();
-		Mario->setLives(lives);
+		Mario->setLives(lives - 1);
 	}
 }
 
