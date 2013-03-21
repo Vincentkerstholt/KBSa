@@ -13,7 +13,9 @@ SkyThemeFactory::SkyThemeFactory(){
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-SkyThemeFactory::~SkyThemeFactory(){}
+SkyThemeFactory::~SkyThemeFactory(){
+	delImage();
+}
 
 string SkyThemeFactory::getName(){
 	return "sky";

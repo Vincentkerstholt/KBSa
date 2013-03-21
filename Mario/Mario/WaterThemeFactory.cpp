@@ -14,6 +14,7 @@ WaterThemeFactory::WaterThemeFactory(){
 }
 
 WaterThemeFactory::~WaterThemeFactory(){
+	delImage();
 }
 
 string WaterThemeFactory::getName(){

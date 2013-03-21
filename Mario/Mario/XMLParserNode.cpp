@@ -134,7 +134,14 @@ string XmlParserNode::toXML(int depth){
 }
 
 XmlParserNode::~XmlParserNode(){
-	delete [] childs;
+	for(int i = 0; i < childsLength; i++)
+	{
+		XmlParserNode * child = childs[i];
+		delete child;
+		child = NULL;
+	}
+	if(childsLength > 0)
+		delete [] childs;
 	delete attributes;
 	childs = NULL;
 	attributes = NULL;

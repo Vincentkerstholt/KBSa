@@ -12,7 +12,9 @@ DungeonThemeFactory::DungeonThemeFactory(){
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundrocks.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-DungeonThemeFactory::~DungeonThemeFactory(){}
+DungeonThemeFactory::~DungeonThemeFactory(){
+	delImage();
+}
 
 string DungeonThemeFactory::getName(){
 	return "dungeon";
@@ -28,13 +30,14 @@ void DungeonThemeFactory::delImage()
 	groundBitmap = NULL;
 	DeleteObject(goombaBitmap);
 	goombaBitmap = NULL;
-	DeleteObject(bkGroundBitmap) ;
 	DeleteObject(gadgetBitmap);
 	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+	DeleteObject(castleBitmap);
+	castleBitmap = NULL;
 }
 
 HANDLE DungeonThemeFactory::getCastle()

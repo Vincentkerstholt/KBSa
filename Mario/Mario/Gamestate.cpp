@@ -494,8 +494,6 @@ void Gamestate::CreateWorld(){
 	if(currentLevel == -1)
 		xml = new XmlParser();
 
-	currentLevel = 1;
-
 	xml->parse("res/World 1-1.xml");
 
 	createLevel();
@@ -506,6 +504,8 @@ void Gamestate::CreateWorld(){
 	createPipes();
 	createEnemies();
 	createCastles();
+
+	currentLevel = 1;
 }
 
 void Gamestate::resetWorld(){
@@ -574,8 +574,31 @@ void Gamestate::destroyWorld()
 	delete [] level;
 	level = NULL;
 
-	delete factory;
-	factory = NULL;
+	string factoryName = factory->getName();
+	if(factoryName == "dungeon")
+	{
+		DungeonThemeFactory * dungeon = (DungeonThemeFactory *)factory;
+		delete dungeon;
+		dungeon = NULL;
+	}
+	else if(factoryName == "landscape")
+	{
+		LandThemeFactory * landscape = (LandThemeFactory *)factory;
+		delete landscape;
+		landscape = NULL;
+	}
+	else if(factoryName == "sky")
+	{
+		SkyThemeFactory * sky = (SkyThemeFactory *)factory;
+		delete sky;
+		sky = NULL;
+	}
+	else if(factoryName == "water")
+	{
+		WaterThemeFactory * water = (WaterThemeFactory *)factory;
+		delete water;
+		water = NULL;
+	}
 
 	xml->Clear();
 }
@@ -646,7 +669,7 @@ void Gamestate::nextLevel()
 void Gamestate::createHero(){
 	XmlParserNode * marioXml = xml->getNode("hero");
 
-	if(currentLevel != -1)
+	if(currentLevel == -1)
 		Mario = new Hero();
 
 	int xMario = stoi(marioXml->getAttribute("x"));

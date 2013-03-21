@@ -13,7 +13,9 @@ LandThemeFactory::LandThemeFactory(){
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-LandThemeFactory::~LandThemeFactory(){}
+LandThemeFactory::~LandThemeFactory(){
+	delImage();
+}
 
 string LandThemeFactory::getName(){
 	return "landscape";
@@ -21,23 +23,23 @@ string LandThemeFactory::getName(){
 
 void LandThemeFactory::delImage()
 {
-	DeleteObject(blockBitmap);
-	blockBitmap = NULL;
 	DeleteObject(pipeBitmap);
-	pipeBitmap = NULL;
+	DeleteObject(blockBitmap);
 	DeleteObject(groundBitmap);
-	groundBitmap = NULL;
 	DeleteObject(goombaBitmap);
-	goombaBitmap = NULL;
 	DeleteObject(gadgetBitmap);
-	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
-	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
-	bkGround2Bitmap = NULL;
 	DeleteObject(castleBitmap);
-	castleBitmap = NULL;
 
+	pipeBitmap = NULL;
+	blockBitmap = NULL;
+	groundBitmap = NULL;
+	goombaBitmap = NULL;
+	gadgetBitmap = NULL;
+	bkGroundBitmap = NULL;
+	bkGround2Bitmap = NULL;
+	castleBitmap = NULL;
 }
 
 HANDLE LandThemeFactory::getBlock(){
