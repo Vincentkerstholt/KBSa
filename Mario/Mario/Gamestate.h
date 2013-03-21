@@ -83,5 +83,13 @@ private:
 	void Gamestate::drawStatistics(HDC & hdc);
 	void Gamestate::drawHUD(HDC & hdc);
 	void resetWorld();
+	void createHero();
+	void createLevel();
+	void createFactory();
+	void createBlocks();
+	void createGrounds();
+	void createPipes();
+	void createEnemies();
+	void createCastles();
 };
 #endif

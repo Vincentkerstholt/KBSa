@@ -22,7 +22,6 @@
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Flower.cpp" />
-    <ClCompile Include="Hero.cpp" />
     <ClCompile Include="LiveUp.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="NormalJump.cpp" />
@@ -47,11 +46,9 @@
     <ClInclude Include="JumpBehaviour.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Coin.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="FastWalk.h" />
     <ClInclude Include="Flower.h" />
     <ClInclude Include="Gadget.h" />
-    <ClInclude Include="Hero.h" />
     <ClInclude Include="JumpBehaviour.h" />
     <ClInclude Include="LiveUp.h" />
     <ClInclude Include="Mushroom.h" />
