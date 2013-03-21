@@ -39,7 +39,7 @@ public:
 	void HeroDie();
 	Hero * Mario;
 	bool inMenu;
-	bool inHighScore;
+
 	~Gamestate();
 	Camera camera;
 private:
@@ -50,6 +50,10 @@ private:
 	HDC hdc;
 	POINT point;
 	int selector;
+	HFONT hFont;
+	HFONT hFont2;
+	HFONT hFontOld;
+	bool inHighScore;
 
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
@@ -66,7 +70,7 @@ private:
 	int fps;
 	XmlParser * xml;
 
-	void HighScore();
+	void HighScore(HDC & hdc);
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);
 	void drawCharacters(HDC & hdc);

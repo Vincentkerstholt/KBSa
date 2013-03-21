@@ -22,6 +22,7 @@ void CSkeleton::GameInit()
 {
 	debugMode = false;
 	SetFPS(60);
+	SetBkMode(graphics,TRANSPARENT);
 }
 
 void CSkeleton::GameLoop()

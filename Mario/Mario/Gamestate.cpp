@@ -38,6 +38,11 @@ Gamestate::Gamestate()
 	selector = 0;
 	inMenu = true;
 	inHighScore = false;
+
+	hFont = CreateFont(48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -71,7 +76,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	UpDownCollision();
 	drawBackground(hdc);
-	drawHUD(hdc);
+	
 	drawWorld(hdc);
 	if (debugMode == true)
 	{
@@ -79,6 +84,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 		drawStatistics(hdc);
 	}
 	drawCharacters(hdc);
+	drawHUD(hdc);
 }
 
 IThemeFactory * Gamestate::getFactory(string name){
@@ -188,7 +194,7 @@ void Gamestate::drawStatistics(HDC & hdc){
 }
 
 void Gamestate::drawHUD(HDC & hdc){
-	SetBkMode(hdc,TRANSPARENT);
+	
 	ostringstream oss;
 
 	oss << "Score: " << Mario->getScore() ;
@@ -199,7 +205,7 @@ void Gamestate::drawHUD(HDC & hdc){
 	TextOut(hdc, 600, 30, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
-	oss << "Lives: " << Mario->getLives() ;
+	oss << "Lives: " ;
 	TextOut(hdc, 600, 50, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
@@ -213,7 +219,7 @@ void Gamestate::drawHUD(HDC & hdc){
 	imgSize.cy = bitmap.bmHeight;
 
 
-	int x = 660;
+	int x = 645;
 	for (int i = 0; i < Mario->getLives(); i++)
 	{
 		TransparentBlt(hdc, x, 50, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
@@ -598,10 +604,9 @@ void Gamestate::menu(HDC & hdc)
 {
 	if(inHighScore == true)
 	{
-		HighScore();
+		HighScore(hdc);
 		return;
 	}
-
 
 	Sleep(100);
 
@@ -660,6 +665,7 @@ void Gamestate::menu(HDC & hdc)
 			}
 			break;
 		case 4:
+			inHighScore = true;
 		default:
 		break;
 		}
@@ -684,18 +690,9 @@ void Gamestate::menu(HDC & hdc)
 	DeleteObject(hBackgroundBitmap);
 }
 
-void Gamestate::HighScore()
+void Gamestate::HighScore(HDC & hdc)
 {
-
-	if (GetAsyncKeyState(VK_ESCAPE))
-	{
-		inHighScore = false;
-	}
-
-
-
-
-	hBackgroundBitmap = LoadImage(NULL, "res/menu.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hBackgroundBitmap = LoadImage(NULL, "res/Highscore.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
@@ -703,15 +700,44 @@ void Gamestate::HighScore()
 	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
 
 	DeleteObject(hBackgroundBitmap);
-
-	hBackgroundBitmap = LoadImage(NULL, "res/Arrows.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-
-	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
-	SelectObject(hBackgroundDC, hBackgroundBitmap);
-	TransparentBlt(hdc,365 , 110 + (selector * 75) , bitmap.bmWidth , bitmap.bmHeight,hBackgroundDC,0,0,bitmap.bmWidth,bitmap.bmHeight,GetPixel(hBackgroundDC,0,0));
-
 	DeleteDC(hBackgroundDC);
-	DeleteObject(hBackgroundBitmap);
+
+	hFontOld = (HFONT)SelectObject(hdc, hFont);
+
+	ostringstream oss;
+	oss << "Highscores:";
+	TextOut(hdc, 580, 120, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	oss.str("");
+	int n=0;
+	if (file != NULL)
+	while (!feof(file))
+	{
+		if(fgets(buffer, 100, file) == NULL) break;
+		fputs(buffer, stdout);
+
+		oss << (n+1) << ". " << buffer;
+		TextOut(hdc, 580, 170+n*45, oss.str().c_str(), strlen(oss.str().c_str()));
+		n++;
+		oss.str("");
+	}
+
+	oss.clear();
+	delete[] buffer;
+	fclose(file);
+
+	SelectObject(hdc , hFontOld);
+	
+	if (GetAsyncKeyState(VK_ESCAPE))
+	{
+		inHighScore = false;
+	}
 }
 
 void Gamestate::destroyWorld()
@@ -731,6 +757,9 @@ void Gamestate::destroyWorld()
 	}
 	delete xml;
 	xml = NULL;
+	factory->delImage();
+	delete factory;
+	factory = NULL;
 }
 
 Gamestate::~Gamestate(){
