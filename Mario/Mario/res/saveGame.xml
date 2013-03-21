@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="landscape"/>
-	<hero character="mario" x="9" y="16"/>
+	<hero character="mario" x="26" y="14"/>
 	<enemies>
 		<enemy character="koopa">
 			<location x="22" y="19"/>
@@ -196,6 +196,12 @@
 				<gadget>
 				</gadget>
 			</block>
+			<block isFixed="false" isSpecial="false">
+				<location x="9" y="17"/>
+				<gadget>
+					<coin/>
+				</gadget>
+			</block>
 			<block isFixed="false" isSpecial="true">
 				<location x="10" y="17"/>
 				<gadget>
@@ -203,7 +209,23 @@
 				</gadget>
 			</block>
 			<block isFixed="false" isSpecial="false">
+				<location x="11" y="17"/>
+				<gadget>
+				</gadget>
+			</block>
+			<block isFixed="false" isSpecial="false">
 				<location x="12" y="17"/>
+				<gadget>
+				</gadget>
+			</block>
+			<block isFixed="false" isSpecial="false">
+				<location x="13" y="17"/>
+				<gadget>
+					<coin/>
+				</gadget>
+			</block>
+			<block isFixed="false" isSpecial="false">
+				<location x="14" y="17"/>
 				<gadget>
 				</gadget>
 			</block>

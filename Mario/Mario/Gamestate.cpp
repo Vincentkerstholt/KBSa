@@ -36,6 +36,8 @@ Gamestate::Gamestate()
 	curTime = 0;
 	fps = 0;
 	selector = 0;
+	inMenu = true;
+	inHighScore = false;
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -63,8 +65,9 @@ void Gamestate::loadGame(){
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
+	
+	
 	frames++;
-
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	UpDownCollision();
 	drawBackground(hdc);
@@ -188,12 +191,16 @@ void Gamestate::drawHUD(HDC & hdc){
 	SetBkMode(hdc,TRANSPARENT);
 	ostringstream oss;
 
-	oss << "Coins: " << Mario->getCoins() ;
+	oss << "Score: " << Mario->getScore() ;
 	TextOut(hdc, 600, 10, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
-	oss << "Lives: " << Mario->getLives() ;
+	oss << "Coins: " << Mario->getCoins() ;
 	TextOut(hdc, 600, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	oss << "Lives: " << Mario->getLives() ;
+	TextOut(hdc, 600, 50, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
 	SIZE imgSize;
@@ -209,7 +216,7 @@ void Gamestate::drawHUD(HDC & hdc){
 	int x = 660;
 	for (int i = 0; i < Mario->getLives(); i++)
 	{
-		TransparentBlt(hdc, x, 30, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
+		TransparentBlt(hdc, x, 50, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
 		x += 18;
 	}
 
@@ -589,6 +596,13 @@ void Gamestate::CreateWorld(int number){
 
 void Gamestate::menu(HDC & hdc)
 {
+	if(inHighScore == true)
+	{
+		HighScore();
+		return;
+	}
+
+
 	Sleep(100);
 
 	if(GetAsyncKeyState(VK_UP))	{
@@ -618,30 +632,26 @@ void Gamestate::menu(HDC & hdc)
 
 	if (selector < 0)
 		selector = 0;
-	if (selector > 3)
-		selector = 3;
+	if (selector > 5)
+		selector = 5;
 
 	if (GetAsyncKeyState(VK_RETURN))
 	{
 		switch (selector)
 		{
-		case 0:
-			// reset lvl
+		case 0: //new game
 			destroyWorld();
 			CreateWorld(1);
 			inMenu = false;
 		break;
-		case 1:
-			//save game
+		case 1:	//save game
 			saveGame();
 		break;
-		case 2:
-			//load game
+		case 2:	//load game
 			loadGame();
 		break;
-		case 3:
+		case 3: //Continue game
 			{
-				//Continue game
 				int lives = Mario->getLives();
 				if(lives > 0)
 				{
@@ -649,6 +659,7 @@ void Gamestate::menu(HDC & hdc)
 				}
 			}
 			break;
+		case 4:
 		default:
 		break;
 		}
@@ -669,6 +680,36 @@ void Gamestate::menu(HDC & hdc)
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
 	TransparentBlt(hdc,365 , 110 + (selector * 75) , bitmap.bmWidth , bitmap.bmHeight,hBackgroundDC,0,0,bitmap.bmWidth,bitmap.bmHeight,GetPixel(hBackgroundDC,0,0));
 	
+	DeleteDC(hBackgroundDC);
+	DeleteObject(hBackgroundBitmap);
+}
+
+void Gamestate::HighScore()
+{
+
+	if (GetAsyncKeyState(VK_ESCAPE))
+	{
+		inHighScore = false;
+	}
+
+
+
+
+	hBackgroundBitmap = LoadImage(NULL, "res/menu.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hBackgroundDC = CreateCompatibleDC(hdc);
+
+	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap);
+	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
+
+	DeleteObject(hBackgroundBitmap);
+
+	hBackgroundBitmap = LoadImage(NULL, "res/Arrows.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
+	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap);
+	TransparentBlt(hdc,365 , 110 + (selector * 75) , bitmap.bmWidth , bitmap.bmHeight,hBackgroundDC,0,0,bitmap.bmWidth,bitmap.bmHeight,GetPixel(hBackgroundDC,0,0));
+
 	DeleteDC(hBackgroundDC);
 	DeleteObject(hBackgroundBitmap);
 }
@@ -817,22 +858,22 @@ void Gamestate::UpDownCollision()
 			if (RightHead == "Flower"){
 				delete level[getIndex(MarioRightHead)];
 				level[getIndex(MarioRightHead)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (LeftHead == "Flower"){
 				delete level[getIndex(MarioLeftHead)];
 				level[getIndex(MarioLeftHead)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (LeftFeet == "Flower"){
 				delete level[getIndex(MarioLeftFeet)];
 				level[getIndex(MarioLeftFeet)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (RightFeet == "Flower"){
 				delete level[getIndex(MarioRightFeet)];
 				level[getIndex(MarioRightFeet)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 		}
 

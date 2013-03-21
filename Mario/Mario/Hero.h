@@ -30,6 +30,7 @@ public:
 	void addLive();
 	void Die();
 	void increaseScore(int points);
+	int getScore();
 };
 
 #endif

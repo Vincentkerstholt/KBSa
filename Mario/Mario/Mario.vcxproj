@@ -26,9 +26,9 @@
     <ClCompile Include="LiveUp.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="NormalJump.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
-    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Win.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -134,7 +134,6 @@
   <ItemGroup>
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="Gamestate.cpp" />
-    <ClCompile Include="Skeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gameobject.h" />

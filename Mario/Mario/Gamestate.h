@@ -39,6 +39,7 @@ public:
 	void HeroDie();
 	Hero * Mario;
 	bool inMenu;
+	bool inHighScore;
 	~Gamestate();
 	Camera camera;
 private:
@@ -65,6 +66,7 @@ private:
 	int fps;
 	XmlParser * xml;
 
+	void HighScore();
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);
 	void drawCharacters(HDC & hdc);
