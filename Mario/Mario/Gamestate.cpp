@@ -941,7 +941,6 @@ void Gamestate::HighScore(HDC & hdc)
 	{
 		if(fgets(buffer, 100, file) == NULL) break;
 		fputs(buffer, stdout);
-
 		oss << (n+1) << ". " << buffer;
 		TextOut(hdc, 580, 170+n*45, oss.str().c_str(), strlen(oss.str().c_str()));
 		n++;
@@ -958,6 +957,7 @@ void Gamestate::HighScore(HDC & hdc)
 	{
 		inHighScore = false;
 	}
+	setHighscore();
 }
 
 Gamestate::~Gamestate()
@@ -1008,6 +1008,7 @@ void Gamestate::UpDownCollision()
 		{			
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;
+			mario.y += 8;
 			string boxCheck = BoxCheck(index);
 			if (boxCheck == "Block" )
 			{
@@ -1400,4 +1401,47 @@ void Gamestate::UpdateEnemy(int index)
 
 string Gamestate::getCurrentFactory(){
 	return factory->getName();
+}
+
+void Gamestate::setHighscore()
+{
+
+	ostringstream oss("");
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	int n=0;
+
+	Score scores [5];
+
+	if (file != NULL)
+		while (!feof(file))
+		{
+			if(fgets(buffer, 100, file) == NULL) break;
+			fputs(buffer, stdout);
+			scores[n].setScore(buffer);
+			n++;
+		}
+		
+		bool inserted = false;
+		for (int i = 0 ; i < 5 ; i++ )
+		{
+			if (scores[i].getScore() < Mario->getScore())
+			{
+				for(int j=4 ; j>i ; i++ )
+				{
+					scores[j+1].setScore(scores[j].toString());
+				}
+				break;
+			}
+		}
+
+
+		//overwrite score with new scores here
+
+		oss.clear();
+		delete[] buffer;
+		fclose(file);
 }

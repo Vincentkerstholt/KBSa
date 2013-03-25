@@ -13,6 +13,7 @@
 #include "XMLParser.h"
 #include "Castle.h"
 #include "gadgets.h"
+#include "Score.h"
 
 using namespace std;
 
@@ -99,5 +100,6 @@ private:
 	void createEnemies();
 	void createCastles();
 	void nextLevel();
+	void setHighscore();
 };
 #endif

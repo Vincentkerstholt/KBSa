@@ -25,6 +25,7 @@
     <ClCompile Include="LiveUp.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="NormalJump.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="NormalJump.h" />
     <ClInclude Include="Powerup.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="XMLParserNode.h" />
     <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />

@@ -1,5 +1,5 @@
-Jowin 10000
-Carlo 8000
-Uygar 6000
-Arjan 4000
-Vincent 2000
+Jowin :10000
+Carlo :8000
+Uygar :6000
+Arjan :4000
+Vincent :2000
