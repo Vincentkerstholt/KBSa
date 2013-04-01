@@ -497,7 +497,7 @@ void Gamestate::changeFactory(char firstLetter){
 
 void Gamestate::CreateWorld(){
 	if(currentLevel != -1)
-		destroyWorld();
+		destroyWorld(true);
 	
 	if(currentLevel == -1)
 		xml = new XmlParser();
@@ -517,9 +517,10 @@ void Gamestate::CreateWorld(){
 }
 
 void Gamestate::resetWorld(){
-	destroyWorld();
+	destroyWorld(false);
 
 	createLevel();
+	createFactory();
 	createBlocks();
 	createGrounds();
 	createPipes();
@@ -529,7 +530,7 @@ void Gamestate::resetWorld(){
 	Mario->ResetPosition();
 }
 
-void Gamestate::destroyWorld()
+void Gamestate::destroyWorld(bool deleteXML)
 {
 	for(int i = 0 ; i < x ; i++)
 	{
@@ -608,11 +609,12 @@ void Gamestate::destroyWorld()
 		water = NULL;
 	}
 
-	xml->Clear();
+	if(deleteXML)
+		xml->Clear();
 }
 
 void Gamestate::loadGame(){
-	destroyWorld();
+	destroyWorld(true);
 
 	xml->parse("res/saveGame.xml");
 	
@@ -631,7 +633,7 @@ void Gamestate::loadGame(){
 void Gamestate::nextLevel()
 {
 	currentLevel++;
-	destroyWorld();
+	destroyWorld(true);
 	switch(currentLevel)
 	{
 	case 1:
@@ -970,7 +972,7 @@ void Gamestate::HighScore(HDC & hdc)
 
 Gamestate::~Gamestate()
 {
-	destroyWorld();
+	destroyWorld(true);
 
 	delete xml;
 	xml = NULL;

@@ -87,7 +87,7 @@ private:
 	int ConvertIndexToXY(int index);
 	IThemeFactory * getFactory(string name);
 	void CreateWorld(int number);
-	void destroyWorld();
+	void destroyWorld(bool deleteXML);
 	void CreateWorld();
 	void loadGame();
 	void saveGame();
