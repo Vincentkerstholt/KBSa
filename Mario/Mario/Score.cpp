@@ -1,14 +1,18 @@
 #include "Score.h"
 
-void Score::setScore(char * score)
+Score::Score()
+{
+	intScore = 0;
+	strScore = "";
+}
+void Score::setScore(string score)
 {
 	strScore = score;
 	int i=0, j=0;
 	while ( score[i] != 0 && score[i] != ':' )
 		i++;
-	j=i;
-	while ( score[j] != 0)
-		j++;
+	j=score.length();
+	
 
 	string strTemp = "";
 	for ( int m=i+1 ; m<j ; m++ )

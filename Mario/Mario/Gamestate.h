@@ -73,7 +73,10 @@ private:
 	int curTime;
 	int fps;
 	XmlParser * xml;
-
+	int highScorePos;
+	string name;
+	bool inNameInput;
+	void nameInput();
 	void HighScore(HDC & hdc);
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);

@@ -38,12 +38,16 @@ Gamestate::Gamestate()
 	selector = 0;
 	inMenu = true;
 	inHighScore = false;
+	inNameInput = false;
 	currentLevel = -1;
-
+	highScorePos = 0;
+	name = "";
 	hFont = CreateFont(48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+	hFontOld = (HFONT)SelectObject(hdc , hFont);
+	SelectObject(hdc, hFontOld);
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -912,6 +916,10 @@ void Gamestate::menu(HDC & hdc)
 
 void Gamestate::HighScore(HDC & hdc)
 {
+	if (inNameInput == true)
+	{
+		nameInput();
+	}
 	hBackgroundBitmap = LoadImage(NULL, "res/Highscore.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
@@ -921,8 +929,7 @@ void Gamestate::HighScore(HDC & hdc)
 
 	DeleteObject(hBackgroundBitmap);
 	DeleteDC(hBackgroundDC);
-
-	hFontOld = (HFONT)SelectObject(hdc, hFont);
+	SelectObject(hdc, hFont);
 
 	ostringstream oss;
 	oss << "Highscores:";
@@ -950,14 +957,12 @@ void Gamestate::HighScore(HDC & hdc)
 	oss.clear();
 	delete[] buffer;
 	fclose(file);
-
-	SelectObject(hdc , hFontOld);
 	
 	if (GetAsyncKeyState(VK_ESCAPE))
 	{
 		inHighScore = false;
+		SelectObject(hdc ,hFontOld);
 	}
-	setHighscore();
 }
 
 Gamestate::~Gamestate()
@@ -1282,7 +1287,7 @@ void Gamestate::HeroDie()
 		  /////////////////
 		 //Add HighScore//
 		/////////////////
-
+		setHighscore();
 		inMenu = true;
 	}
 	else
@@ -1405,7 +1410,6 @@ string Gamestate::getCurrentFactory(){
 
 void Gamestate::setHighscore()
 {
-
 	ostringstream oss("");
 	FILE * file;
 	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
@@ -1417,7 +1421,7 @@ void Gamestate::setHighscore()
 	Score scores [5];
 
 	if (file != NULL)
-		while (!feof(file))
+		while ((!feof(file)) && n<5)
 		{
 			if(fgets(buffer, 100, file) == NULL) break;
 			fputs(buffer, stdout);
@@ -1430,18 +1434,127 @@ void Gamestate::setHighscore()
 		{
 			if (scores[i].getScore() < Mario->getScore())
 			{
-				for(int j=4 ; j>i ; i++ )
+				for(int j=3 ; j>=i ; j-- )
 				{
 					scores[j+1].setScore(scores[j].toString());
 				}
+				scores[i] = Score();
+				highScorePos = i;
+				inNameInput =true;
 				break;
 			}
 		}
-
-
+		
 		//overwrite score with new scores here
+		
+		inHighScore = true;
 
 		oss.clear();
 		delete[] buffer;
 		fclose(file);
+}
+
+void Gamestate::nameInput()
+{
+	if (GetAsyncKeyState(0x41))
+		name += "a";
+	if (GetAsyncKeyState(0x42))
+		name += "b";
+	if (GetAsyncKeyState(0x43))
+		name += "c";
+	if (GetAsyncKeyState(0x44))
+		name += "d";
+	if (GetAsyncKeyState(0x45))
+		name += "e";
+	if (GetAsyncKeyState(0x46))
+		name += "f";
+	if (GetAsyncKeyState(0x47))
+		name += "g";
+	if (GetAsyncKeyState(0x48))
+		name += "h";
+	if (GetAsyncKeyState(0x49))
+		name += "i";
+	if (GetAsyncKeyState(0x4A))
+		name += "j";
+	if (GetAsyncKeyState(0x4B))
+		name += "k";
+	if (GetAsyncKeyState(0x4C))
+		name += "l";
+	if (GetAsyncKeyState(0x4D))
+		name += "m";
+	if (GetAsyncKeyState(0x4E))
+		name += "n";
+	if (GetAsyncKeyState(0x4F))
+		name += "o";
+	if (GetAsyncKeyState(0x50))
+		name += "p";
+	if (GetAsyncKeyState(0x51))
+		name += "q";
+	if (GetAsyncKeyState(0x52))
+		name += "r";
+	if (GetAsyncKeyState(0x53))
+		name += "s";
+	if (GetAsyncKeyState(0x54))
+		name += "t";
+	if (GetAsyncKeyState(0x55))
+		name += "u";
+	if (GetAsyncKeyState(0x56))
+		name += "v";
+	if (GetAsyncKeyState(0x57))
+		name += "w";
+	if (GetAsyncKeyState(0x58))
+		name += "x";
+	if (GetAsyncKeyState(0x59))
+		name += "y";
+	if (GetAsyncKeyState(0x5A))
+		name += "z";
+	if (GetAsyncKeyState(VK_BACK) && name.length()>0)
+		name.pop_back();
+	
+
+	ostringstream oss("");
+	oss << name << " :" << Mario->getScore() << "\n";
+	
+
+
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	int n=0;
+
+	Score scores [5];
+
+	if (file != NULL)
+		while ((!feof(file)) && n<5)
+		{
+			if(fgets(buffer, 100, file) == NULL) break;
+			fputs(buffer, stdout);
+			scores[n].setScore(buffer);
+			n++;
+		}
+		fclose(file);
+
+		scores[highScorePos].setScore(oss.str());
+
+		file = fopen(((string)"res/Highscores.txt").c_str(), "w");
+		for (int i = 0 ; i < 5 ; i++)
+			fputs(scores[i].toString().c_str(),file);
+		
+		oss.clear();
+		delete[] buffer;
+		fclose(file);
+		Sleep(100);
+
+		if (GetAsyncKeyState(VK_ESCAPE))
+		{
+			inNameInput = false;
+			name = "";
+		}
+		else if (GetAsyncKeyState(VK_RETURN))
+		{
+			inNameInput = false;
+			name = "";
+		}
 }

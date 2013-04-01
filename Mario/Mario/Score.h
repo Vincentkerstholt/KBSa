@@ -5,7 +5,8 @@ using namespace std;
 class Score
 {
 public:
-	void setScore(char * score);
+	Score();
+	void setScore(string score);
 	int getScore();
 	string toString();
 private:
