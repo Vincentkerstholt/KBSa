@@ -531,7 +531,7 @@ void Gamestate::CreateWorld(){
 	createEnemies();
 	createCastles();
 
-	currentLevel = 1;
+	currentLevel = stoi(xml->getNode("level")->getAttribute("nr"));
 }
 
 void Gamestate::resetWorld(){
@@ -647,6 +647,8 @@ void Gamestate::loadGame(){
 	createCastles();
 
 	inMenu = false;
+
+	currentLevel = stoi(xml->getNode("level")->getAttribute("nr"));
 }
 
 void Gamestate::nextLevel()
