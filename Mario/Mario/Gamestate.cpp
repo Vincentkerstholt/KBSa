@@ -1696,3 +1696,7 @@ void Gamestate::splashscreen(HDC & hdc,int splashscreenlevel)
 	DeleteObject(hBackgroundDC);
 
 }
+
+int Gamestate::getCurrentLevel(){
+	return currentLevel;
+}

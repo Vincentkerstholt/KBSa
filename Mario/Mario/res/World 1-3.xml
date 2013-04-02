@@ -44,7 +44,7 @@
 			<endPath x="170" y="12" />
 		</enemy>
 	</enemies>
-	<level width="215" height="22">
+	<level width="215" height="22" nr="3">
 		<blocks>
 			<block isSpecial="false" isFixed="true">
 				<location x="0" y="0" />

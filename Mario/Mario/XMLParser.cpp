@@ -65,6 +65,11 @@ void XmlParser::saveGame(Gamestate * gameState){
 	oss.str("");
 	oss.clear();
 
+	oss << gameState->getCurrentLevel();
+	level->setAttribute("nr", oss.str());
+	oss.str("");
+	oss.clear();
+
 	oss << gameState->getY();
 	level->setAttribute("height", oss.str());
 	oss.str("");

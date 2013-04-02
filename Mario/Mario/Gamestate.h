@@ -38,6 +38,7 @@ public:
 	POINT getPixelPoint(int index);
 	bool UpDownCollision(HDC & hdc);
 	string getCurrentFactory();
+	int getCurrentLevel();
 	int getX();
 	int getY();
 	void HeroDie();
