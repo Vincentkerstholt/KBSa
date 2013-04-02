@@ -43,6 +43,7 @@ Gamestate::Gamestate()
 	currentLevel = -1;
 	highScorePos = 0;
 	name = "";
+	quit = false;
 	hFont = CreateFont(48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
@@ -67,6 +68,10 @@ int Gamestate::getY(){
 void Gamestate::saveGame(){
 	xml->saveGame(this);
 	inMenu = false;
+}
+
+bool Gamestate::getQuit(){
+	return quit;
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
@@ -910,10 +915,12 @@ void Gamestate::menu(HDC & hdc)
 			loadGame();
 		break;
 	
-		case 4:
+		case 4: //highscore
 			inHighScore = true;
 			break;
-		case 5:
+
+		case 5: //quit
+			quit = true;
 			break;
 		default:
 		break;
