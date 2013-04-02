@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="landscape" />
-	<hero character="mario" x="3" y="19" />
+	<hero character="mario" x="3" y="19" coins="0" points="0" lives="5" />
 	<enemies>
 	</enemies>
 	<level width="215" height="22">

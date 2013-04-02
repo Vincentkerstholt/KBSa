@@ -1,12 +1,12 @@
-#ifndef WATERTHEMEFACTORY_H
-#define WATERTHEMEFACTORY_H
+#ifndef CITYTHEMEFACTORY_H
+#define CITYTHEMEFACTORY_H
 
 #include "ThemeFactory.h"
 
-class WaterThemeFactory : public IThemeFactory{
+class CityThemeFactory : public IThemeFactory{
 public:
-	WaterThemeFactory();
-	~WaterThemeFactory();
+	CityThemeFactory();
+	~CityThemeFactory();
 	HANDLE getPipe();
 	HANDLE getCastle();
 	HANDLE getBlock();

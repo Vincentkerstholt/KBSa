@@ -65,7 +65,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="obstacles.h" />
     <ClInclude Include="SkyThemeFactory.h" />
-    <ClInclude Include="WaterThemeFactory.h" />
+    <ClInclude Include="CityThemeFactory.h" />
     <ClInclude Include="Win.h" />
     <ClInclude Include="XMLParser.h" />
   </ItemGroup>
@@ -142,7 +142,7 @@
     <ClCompile Include="LandThemeFactory.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="SkyThemeFactory.cpp" />
-    <ClCompile Include="WaterThemeFactory.cpp" />
+    <ClCompile Include="CityThemeFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
