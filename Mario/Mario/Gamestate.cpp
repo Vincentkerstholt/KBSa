@@ -269,6 +269,9 @@ void Gamestate::drawWorld(HDC & hdc){
 				
 				if(!block->getIsSpecial())
 					blockY = 32;
+
+				if(block->getIsFixed())
+					blockY = 64;
 				
 				TransparentBlt(hdc,ConvertIndexToXY(n) - camera.getXPosition(), ConvertIndexToXY(m), 32,32,hObstacleDC,blockX,blockY,32,32,RGB(255,174,201));
 			}
@@ -490,8 +493,9 @@ void Gamestate::changeFactory(char firstLetter){
 }
 
 void Gamestate::CreateWorld(){
+	currentLevel = 1;
 	xml = new XmlParser();
-	xml->parse("res/Landscape.xml");
+	xml->parse("res/World 1-1.xml");
 
 	createLevel();
 	createHero();
@@ -547,6 +551,52 @@ void Gamestate::loadGame(){
 	createCastles();
 
 	inMenu = false;
+}
+
+void Gamestate::nextLevel()
+{
+	currentLevel++;
+	destroyWorld();
+	switch(currentLevel)
+	{
+	case 1:
+		xml->parse("res/World 1-1.xml");
+		break;
+
+	case 2:
+		xml->parse("res/Landscape2.xml");
+		break;
+
+	case 3:
+		xml->parse("res/Landscape.xml");
+		break;
+
+	case 4:
+		//xml->parse("res/Landscape.xml");
+		inMenu = true;
+		break;
+	}
+
+	if(!inMenu)
+	{
+		createLevel();
+		createFactory();
+		createBlocks();
+		createGrounds();
+		createPipes();
+		createEnemies();
+		createCastles();
+
+		XmlParserNode * marioXml = xml->getNode("hero");
+
+		int xMario = stoi(marioXml->getAttribute("x"));
+		int yMario = stoi(marioXml->getAttribute("y"));
+
+		Mario->SetStartPosition(xMario * 32, yMario * 32);
+		Mario->SetPosition(xMario * 32, yMario * 32);
+		Mario->setDirection('R');
+		Mario->setTexturePosition(0,1);
+	}
 }
 
 void Gamestate::createHero(){
@@ -835,13 +885,14 @@ void Gamestate::UpDownCollision()
 	string RightHead = BoxCheck(getIndex(MarioRightHead));
 	string LeftHead = BoxCheck(getIndex(MarioLeftHead));
 	string MidHead = BoxCheck(getIndex(MarioMidHead));
-				
+	int index = getIndex(MarioMidHead);
+
 		if (RightHead == "Block" || LeftHead == "Block" )
 		{			
-			int index = getIndex(MarioMidHead);
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;
-			if (BoxCheck(index) == "Block" )
+			string boxCheck = BoxCheck(index);
+			if (boxCheck == "Block" )
 			{
 				Block * tempBlock = ((Block *)level[index]);
 				Gadget * tempGadget = tempBlock->getGadget();
@@ -872,20 +923,28 @@ void Gamestate::UpDownCollision()
 					level[index] = NULL;
 				}
 			}
-			if (BoxCheck(index) == "Coin")
+			if (boxCheck == "Coin")
 			{
 				Mix_PlayChannel(-1, coinsound, 0);
 				Mario->grabcoin();
 				delete level[index];
 			}
+			
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;
-			/*int index = getIndex(MarioMidHead.x,MarioMidHead.y);
-			delete level[index];
-			level[index] = NULL;
-			Mario->JumpAbility = false;
-			Mario->Jumped = 15;	*/
 			
+		}
+		else if(RightHead == "Castle" || LeftHead == "Castle")
+		{
+			if(BoxCheck(index) == "Castle")
+			{
+				Castle * castle = (Castle *) level[index];
+				if(castle->getTextureType() == CASTLE_DOOR)
+				{
+					nextLevel();
+					return;
+				}
+			}
 		}
 		//this part below is a error fix for the 1 pixel on a block problem.
 		else if (RightFeet == "Block"  || RightFeet == "Pipe"  ||   RightFeet == "Ground"   )
@@ -1131,19 +1190,14 @@ void Gamestate::Collision()
 		string UpPoint = BoxCheck(getIndex(MarioUp.x,MarioUp.y));
 
 		if (DownPoint == "Block" || UpPoint == "Block")
-		{
-					
 			Mario->MoveAbilityR = false;
-			
-		}
+
 		else if (DownPoint == "Ground" || UpPoint == "Ground")
-		{
 			Mario->MoveAbilityR = false;
-		}
+
 		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
-		{
 			Mario->MoveAbilityR = false;
-		}
+
 		else if (DownPoint == "Goomba" || UpPoint == "Goomba")
 		{
 			if(DownPoint == "Goomba")
@@ -1198,27 +1252,20 @@ void Gamestate::Collision()
 
 
 		if (DownPoint == "Block" || UpPoint == "Block")
-		{
 			Mario->MoveAbilityL = false;
-		}		
-		else if (DownPoint == "Ground" || UpPoint == "Ground")
-		{
-			Mario->MoveAbilityL = false;
-		}
-		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
-		{
-			Mario->MoveAbilityL = false;
-		}
-		else if (DownPoint == "Goomba" || UpPoint == "Goomba")
-		{
-			HeroDie();
-		}
-		else
-		{
-			Mario->MoveAbilityL = true;
-		}
-	}
 
+		else if (DownPoint == "Ground" || UpPoint == "Ground")
+			Mario->MoveAbilityL = false;
+
+		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
+			Mario->MoveAbilityL = false;
+
+		else if (DownPoint == "Goomba" || UpPoint == "Goomba")
+			HeroDie();
+
+		else
+			Mario->MoveAbilityL = true;
+	}
 }
 
 void Gamestate::UpdateEnemy(int index)

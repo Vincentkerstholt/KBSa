@@ -98,5 +98,6 @@ private:
 	void createPipes();
 	void createEnemies();
 	void createCastles();
+	void nextLevel();
 };
 #endif

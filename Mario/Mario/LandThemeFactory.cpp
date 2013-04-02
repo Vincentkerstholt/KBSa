@@ -13,7 +13,9 @@ LandThemeFactory::LandThemeFactory(){
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-LandThemeFactory::~LandThemeFactory(){}
+LandThemeFactory::~LandThemeFactory(){
+	delImage();
+}
 
 string LandThemeFactory::getName(){
 	return "landscape";

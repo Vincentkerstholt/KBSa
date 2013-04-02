@@ -2850,10 +2850,10 @@
 			<castle type="2">
 				<location x="206" y="16" />
 			</castle>
-			<castle type="3">
+			<castle type="4">
 				<location x="206" y="17" />
 			</castle>
-			<castle type="4">
+			<castle type="6">
 				<location x="206" y="18" />
 			</castle>
 			<castle type="1">
