@@ -1,6 +1,4 @@
 #include "LandThemeFactory.h"
-#include "LandThemeBlock.h"
-#include "LandThemePipe.h"
 
 LandThemeFactory::LandThemeFactory(){
 	blockBitmap = LoadImage(NULL, "res/block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);

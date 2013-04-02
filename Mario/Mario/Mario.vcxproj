@@ -15,6 +15,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Castle.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="CityThemeFactory.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FastWalk.cpp" />
@@ -65,7 +66,6 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="obstacles.h" />
     <ClInclude Include="SkyThemeFactory.h" />
-    <ClInclude Include="CityThemeFactory.h" />
     <ClInclude Include="Win.h" />
     <ClInclude Include="XMLParser.h" />
   </ItemGroup>
@@ -142,7 +142,6 @@
     <ClCompile Include="LandThemeFactory.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="SkyThemeFactory.cpp" />
-    <ClCompile Include="CityThemeFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />

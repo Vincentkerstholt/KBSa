@@ -387,6 +387,12 @@
     <ClInclude Include="CityThemeFactory.h">
       <Filter>Header Files\Factory\CityTheme</Filter>
     </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\backgroundSky.bmp">
