@@ -5,12 +5,10 @@
 
 class Ground : public Obstacle{
 public:
-	Ground(int spriteX, int spriteY, int textureType);
+	Ground(int textureType);
 	string getClassName();
 	int getTextureType();
 private:
-	int spriteX;
-	int spriteY;
 	int textureType;
 };
 

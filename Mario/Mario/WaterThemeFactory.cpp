@@ -3,26 +3,21 @@
 #include "WaterThemePipe.h"
 
 WaterThemeFactory::WaterThemeFactory(){
+	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	blockBitmap = LoadImage(NULL, "res/block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
+
 WaterThemeFactory::~WaterThemeFactory(){
-	delete blockBitmap;
-	blockBitmap = NULL;
-	delete pipeBitmap;
-	pipeBitmap = NULL;
-	delete groundBitmap;
-	groundBitmap = NULL;
-	delete bkGroundBitmap;
-	bkGroundBitmap = NULL;
-	DeleteObject(goombaBitmap);
-	goombaBitmap = NULL;
-	delete bkGround2Bitmap;
-	bkGround2Bitmap = NULL;
+}
+
+string WaterThemeFactory::getName(){
+	return "water";
 }
 
 void WaterThemeFactory::delImage()
@@ -35,10 +30,14 @@ void WaterThemeFactory::delImage()
 	groundBitmap = NULL;
 	DeleteObject(goombaBitmap);
 	goombaBitmap = NULL;
+	DeleteObject(gadgetBitmap);
+	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+	DeleteObject(castleBitmap);
+	castleBitmap = NULL;
 }
 
 HANDLE WaterThemeFactory::getBlock(){
@@ -55,6 +54,14 @@ HANDLE WaterThemeFactory::getGround(){
 
 HANDLE WaterThemeFactory::getGoomba(){
 	return goombaBitmap;
+}
+
+HANDLE WaterThemeFactory::getGadget(){
+	return gadgetBitmap;
+}
+
+HANDLE WaterThemeFactory::getCastle(){
+	return castleBitmap;
 }
 
 HANDLE WaterThemeFactory::getBackgroundImage(){

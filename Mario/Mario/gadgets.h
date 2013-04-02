@@ -1,0 +1,5 @@
+#include "Coin.h"
+#include "LiveUp.h"
+#include "Powerup.h"
+#include "Flower.h"
+#include "Mushroom.h"

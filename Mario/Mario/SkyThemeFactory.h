@@ -8,19 +8,24 @@ public:
 	SkyThemeFactory();
 	~SkyThemeFactory();
 	HANDLE getPipe();
+	HANDLE getCastle();
 	HANDLE getGround();
 	HANDLE getBlock();
 	HANDLE getGoomba();
+	HANDLE getGadget();
 	HANDLE getBackgroundImage();
 	HANDLE getBackgroundImage2();
+	string getName();
 	void delImage();
 private:
 	HANDLE pipeBitmap;
 	HANDLE blockBitmap;
 	HANDLE groundBitmap;
 	HANDLE goombaBitmap;
+	HANDLE gadgetBitmap;
 	HANDLE bkGroundBitmap;
 	HANDLE bkGround2Bitmap;
+	HANDLE castleBitmap;
 };
 
 #endif

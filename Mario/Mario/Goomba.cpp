@@ -6,7 +6,7 @@ Goomba::Goomba(int startPointX, int startPointY, int endPointX, int endPointY){
 	this->endPointX = endPointX;
 	this->endPointY = endPointY;
 	walkBehaviour = new NormalWalk(); 
-	setDirection('R');
+	setDirection('L');
 	
 };
 

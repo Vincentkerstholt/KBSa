@@ -25,8 +25,11 @@ public:
 	virtual void Walk(char Direction, POINT curPos);
 	virtual void SetPosition(int x ,int y);
 	virtual void SetPosition(POINT newPos);
+	virtual void SetStartPosition(int x ,int y);
+	virtual void SetStartPosition(POINT point);
 	virtual POINT GetPositionIndex();
 	virtual POINT GetPositionPixel();
+	virtual void ResetPosition();
 	WalkBehaviour *walkBehaviour;
 	void SetWalkBlock(char side, bool mode);
 	JumpBehaviour *jumpBehaviour;
@@ -44,12 +47,14 @@ public:
 	int textureNumber;
 	bool MoveAbilityL;
 	bool MoveAbilityR;
+	string side;
 	
 private:
 	
 	string Name;
 	char Direction;
 	int Health;
+	POINT StartPosition;
 	POINT Position;
 	int Power;
 	int Speed;

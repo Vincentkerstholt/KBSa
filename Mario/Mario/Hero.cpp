@@ -11,10 +11,19 @@ Hero::Hero()
 	walkBehaviour = new FastWalk(); 
 	jumpBehaviour = new NormalJump(); 
 	texture = LoadImage(NULL, "res/bigMarioMoves.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	powerUp = false;
 }
 
 string Hero::getClassName(){
 	return "Hero";
+}
+
+void Hero::setName(string name){
+	this->name = name;
+}
+
+string Hero::getName(){
+	return name;
 }
 
 Hero::~Hero()
@@ -34,13 +43,47 @@ int Hero::getLives()
 }
 void Hero::setLives(int lives)
 {
-	lives = lives;
+	this->lives = lives;
 }
-
-
-
 
 void Hero::Die()
 {
 	this->lives -= 1;
+}
+
+void Hero::grabcoin()
+{
+	this->coins += 1;
+}
+
+void Hero::grabPowerUp()
+{
+	powerUp = true;
+}
+
+bool Hero::getPowerUp()
+{
+	return powerUp;
+}
+
+bool Hero::hurt()
+{
+	if (powerUp == true)
+		powerUp = false;
+	else
+		Die();
+
+	if(lives == -1)
+		return true;
+	return false;
+}
+
+void Hero::addLive()
+{
+	this->lives++;
+}
+
+void Hero::increaseScore(int points)
+{
+	score += points;
 }

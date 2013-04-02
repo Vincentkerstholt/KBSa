@@ -15,6 +15,10 @@ SkyThemeFactory::~SkyThemeFactory(){
 	delImage();
 }
 
+string SkyThemeFactory::getName(){
+	return "sky";
+}
+
 void SkyThemeFactory::delImage()
 {
 	DeleteObject(blockBitmap);
@@ -25,10 +29,14 @@ void SkyThemeFactory::delImage()
 	groundBitmap = NULL;
 	DeleteObject(goombaBitmap);
 	goombaBitmap = NULL;
+	DeleteObject(gadgetBitmap);
+	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+	DeleteObject(castleBitmap);
+	castleBitmap = NULL;
 }
 
 HANDLE SkyThemeFactory::getBlock(){
@@ -43,14 +51,22 @@ HANDLE SkyThemeFactory::getGround(){
 	return groundBitmap;
 }
 
+HANDLE SkyThemeFactory::getGoomba(){
+	return goombaBitmap;
+}
+
+HANDLE SkyThemeFactory::getCastle(){
+	return castleBitmap;
+}
+
+HANDLE SkyThemeFactory::getGadget(){
+	return gadgetBitmap;
+}
+
 HANDLE SkyThemeFactory::getBackgroundImage(){
 	return bkGroundBitmap;
 }
 
 HANDLE SkyThemeFactory::getBackgroundImage2(){
 	return bkGround2Bitmap;
-}
-
-HANDLE SkyThemeFactory::getGoomba(){
-	return goombaBitmap;
 }
