@@ -1292,15 +1292,15 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 			Mario->Jumped = 15;	
 		}
 				
-		else if (RightFeet == "Goomba" || LeftFeet == "Goomba" )
+		else if (RightFeet == "Goomba" || LeftFeet == "Goomba" || RightFeet == "Koopa" || LeftFeet == "Koopa")
 		{
-			if (RightFeet == "Goomba")
+			if (RightFeet == "Goomba" || RightFeet == "Koopa" )
 			{
-				Goomba * goomba = (Goomba*)level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
-				POINT goom = goomba->GetPositionPixel();
+				Character * enemy = (Character*)level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
+				POINT enemypoint = enemy->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
-				mari.y = goom.y - mari.y;
-				mari.x = goom.x - mari.x;
+				mari.y = enemypoint.y - mari.y;
+				mari.x = enemypoint.x - mari.x;
 					
 				if(mari.y < 33)
 				{
@@ -1314,13 +1314,13 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 					}
 				}
 			}
-			else if (LeftFeet == "Goomba")
+			else if (LeftFeet == "Goomba" || LeftFeet == "Koopa")
 			{
-				Goomba * goomba = (Goomba*)level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
-				POINT goom = goomba->GetPositionPixel();
+				Character * enemy = (Character*)level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
+				POINT enemypoint = enemy->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
-				mari.y = goom.y - mari.y;
-				mari.x = goom.x - mari.x;
+				mari.y = enemypoint.y - mari.y;
+				mari.x = enemypoint.x - mari.x;
 
 				if(mari.y < 33)
 				{
