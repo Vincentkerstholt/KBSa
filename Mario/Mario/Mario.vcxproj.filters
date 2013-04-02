@@ -292,7 +292,7 @@
       <Filter>Header Files\Walk</Filter>
     </ClInclude>
     <ClInclude Include="Hero.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

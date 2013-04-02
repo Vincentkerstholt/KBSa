@@ -31,7 +31,14 @@ const int CASTLE_RIGHTGAP = 7;
 Gamestate::Gamestate()
 {
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	xml = new XmlParser();
+
+	SDL_Init(SDL_INIT_AUDIO);
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,2, 4096);
+	Music = Mix_LoadMUS("res/Sounds/Mario.wav");
+	jumpsound=Mix_LoadWAV("res/Sounds/jump.wav");
+	coinsound=Mix_LoadWAV("res/Sounds/coin.wav");
+	Mix_PlayMusic(Music,-1);
+
 	frames = 0;
 	curTime = 0;
 	fps = 0;
@@ -541,7 +548,8 @@ void Gamestate::changeFactory(char firstLetter){
 	}
 }
 
-void Gamestate::CreateWorld(){
+void Gamestate::CreateWorld()
+{
 	if(currentLevel != -1)
 		destroyWorld(true);
 
@@ -808,10 +816,12 @@ void Gamestate::createBlocks(){
 	}
 }
 
-void Gamestate::createGrounds(){
+void Gamestate::createGrounds()
+{
 	XmlParserNode * grounds = xml->getNode("grounds");
 	XmlParserNode ** childs = grounds->getChilds();
-	for(int i = 0; i < grounds->getChildsLength(); i++){
+	for(int i = 0; i < grounds->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int x = stoi(childLocation->getAttribute("x"));
@@ -821,10 +831,12 @@ void Gamestate::createGrounds(){
 	}
 }
 
-void Gamestate::createPipes(){
+void Gamestate::createPipes()
+{
 	XmlParserNode * pipes = xml->getNode("pipes");
 	XmlParserNode ** childs = pipes->getChilds();
-	for(int i = 0; i < pipes->getChildsLength(); i++){
+	for(int i = 0; i < pipes->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 
 		XmlParserNode * childLocation = child->getNode("location");
@@ -833,7 +845,8 @@ void Gamestate::createPipes(){
 	}
 }
 
-void Gamestate::createEnemies(){
+void Gamestate::createEnemies()
+{
 	XmlParserNode * enemies = xml->getNode("enemies");
 	XmlParserNode ** childs = enemies->getChilds();
 	for(int i = 0; i < enemies->getChildsLength(); i++)
@@ -869,10 +882,12 @@ void Gamestate::createEnemies(){
 	}
 }
 
-void Gamestate::createCastles(){
+void Gamestate::createCastles()
+{
 	XmlParserNode * castles = xml->getNode("castles");
 	XmlParserNode ** childs = castles->getChilds();
-	for(int i = 0; i < castles->getChildsLength(); i++){
+	for(int i = 0; i < castles->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int x = stoi(childLocation->getAttribute("x"));
@@ -892,13 +907,16 @@ void Gamestate::menu(HDC & hdc)
 
 	Sleep(100);
 
-	if(GetAsyncKeyState(VK_UP))	{
+	if(GetAsyncKeyState(VK_UP))	
+	{
 		selector--;
 	}
-	if(GetAsyncKeyState(VK_DOWN))	{
+	if(GetAsyncKeyState(VK_DOWN))	
+	{
 		selector++;
 	}
-	if (GetAsyncKeyState(VK_ESCAPE))	{
+	if (GetAsyncKeyState(VK_ESCAPE))	
+	{
 		if(inMenu == false)
 		{
 			Sleep(150);
@@ -933,7 +951,6 @@ void Gamestate::menu(HDC & hdc)
 			return;
 		break;
 		case 1: //Continue game
-
 			if (Mario!= NULL)
 				if(Mario->getLives() > 0)
 					inMenu = false;
@@ -997,6 +1014,16 @@ void Gamestate::HighScore(HDC & hdc)
 	hBackgroundBitmap = LoadImage(NULL, "res/Highscore.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
+	delete factory;
+	factory = NULL;
+	delete xml;
+	xml = NULL;
+
+	Mix_FreeMusic(Music);
+	Mix_FreeChunk(jumpsound);
+	Mix_FreeChunk(coinsound);
+	Mix_CloseAudio();
+
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
 	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
@@ -1037,6 +1064,7 @@ void Gamestate::HighScore(HDC & hdc)
 		inHighScore = false;
 		SelectObject(hdc ,hFontOld);
 	}
+
 }
 
 Gamestate::~Gamestate()
@@ -1125,6 +1153,7 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 			}
 			if (boxCheck == "Coin")
 			{
+				Mix_PlayChannel(-1, coinsound, 0);
 				Mario->grabcoin();
 				delete level[index];
 			}
@@ -1262,15 +1291,15 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 			Mario->Jumped = 15;	
 		}
 				
-		else if (RightFeet == "Goomba" || LeftFeet == "Goomba" )
+		else if (RightFeet == "Goomba" || LeftFeet == "Goomba" || RightFeet == "Koopa" || LeftFeet == "Koopa")
 		{
-			if (RightFeet == "Goomba")
+			if (RightFeet == "Goomba" || RightFeet == "Koopa" )
 			{
-				Goomba * goomba = (Goomba*)level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
-				POINT goom = goomba->GetPositionPixel();
+				Character * enemy = (Character*)level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
+				POINT enemypoint = enemy->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
-				mari.y = goom.y - mari.y;
-				mari.x = goom.x - mari.x;
+				mari.y = enemypoint.y - mari.y;
+				mari.x = enemypoint.x - mari.x;
 					
 				if(mari.y < 33)
 				{
@@ -1284,13 +1313,13 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 					}
 				}
 			}
-			else if (LeftFeet == "Goomba")
+			else if (LeftFeet == "Goomba" || LeftFeet == "Koopa")
 			{
-				Goomba * goomba = (Goomba*)level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
-				POINT goom = goomba->GetPositionPixel();
+				Character * enemy = (Character*)level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
+				POINT enemypoint = enemy->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
-				mari.y = goom.y - mari.y;
-				mari.x = goom.x - mari.x;
+				mari.y = enemypoint.y - mari.y;
+				mari.x = enemypoint.x - mari.x;
 
 				if(mari.y < 33)
 				{
@@ -1407,7 +1436,7 @@ void Gamestate::Collision()
 				POINT goom = goomba->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
 				mari.x = goom.x - mari.x;
-				if(mari.x < 15)
+				if(mari.x < 18)
 				{
 					HeroDie();
 				}

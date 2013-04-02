@@ -36,7 +36,7 @@
 			<endPath x="181" y="19" />
 		</enemy>
 	</enemies>
-	<level width="215" height="22" nr="1">
+	<level width="215" height="22" nr="2">
 		<blocks>
 			<block isSpecial="true" isFixed="false">
 				<location x="21" y="16" />

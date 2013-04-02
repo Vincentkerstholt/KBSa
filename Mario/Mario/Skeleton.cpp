@@ -77,6 +77,10 @@ bool CSkeleton::GameLoop()
 	if (::GetAsyncKeyState(VK_UP))
 	{
 		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
+		if(gameState->Mario->Jumped==1)
+		{
+			Mix_PlayChannel(-1, gameState->jumpsound, 0);
+		}
 	}
 
 	if (::GetAsyncKeyState(VK_F1))
