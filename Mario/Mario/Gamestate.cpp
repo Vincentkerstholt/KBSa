@@ -502,7 +502,7 @@ void Gamestate::changeFactory(char firstLetter){
 void Gamestate::CreateWorld(){
 	currentLevel = 1;
 	
-	xml->parse("res/World 1-2.xml");
+	xml->parse("res/World 1-3.xml");
 
 	createLevel();
 	createHero();
@@ -571,15 +571,18 @@ void Gamestate::nextLevel()
 		break;
 
 	case 2:
-		xml->parse("res/Landscape2.xml");
+		xml->parse("res/World 1-2.xml");
 		break;
 
 	case 3:
-		xml->parse("res/Landscape.xml");
+		xml->parse("res/World 1-3.xml");
 		break;
 
 	case 4:
-		//xml->parse("res/Landscape.xml");
+		xml->parse("res/World 1-4.xml");
+		break;
+		
+	case 5:
 		inMenu = true;
 		break;
 	}
