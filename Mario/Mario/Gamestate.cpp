@@ -36,6 +36,7 @@ Gamestate::Gamestate()
 	curTime = 0;
 	fps = 0;
 	selector = 0;
+	xml = new XmlParser();
 	inMenu = true;
 	inHighScore = false;
 	inNameInput = false;
@@ -43,6 +44,7 @@ Gamestate::Gamestate()
 	highScorePos = 0;
 	name = "";
 	Mario = NULL;
+	quit = false;
 	hFont = CreateFont(48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
@@ -67,6 +69,10 @@ int Gamestate::getY(){
 void Gamestate::saveGame(){
 	xml->saveGame(this);
 	inMenu = false;
+}
+
+bool Gamestate::getQuit(){
+	return quit;
 }
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
@@ -425,7 +431,21 @@ void Gamestate::drawWorld(HDC & hdc){
 
 				TransparentBlt(hdc, (goomba->GetPositionPixel().x - camera.getXPosition()), (goomba->GetPositionPixel().y), 32, 32, hObstacleDC, (goomba->getTexturePosition().x*multiplier), goomba->getTexturePosition().y*multiplier, 32,32, RGB(255,174,201));
 				UpdateEnemy(index);
-								
+
+			}
+			else if(className == "Koopa")
+			{
+				Koopa * koopa = (Koopa*)level[index];
+				hObstacleBitmap = factory->getKoopa();
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				TransparentBlt(hdc, (koopa->GetPositionPixel().x - camera.getXPosition()), (koopa->GetPositionPixel().y), 32, 32, hObstacleDC, (koopa->getTexturePosition().x*multiplier), koopa->getTexturePosition().y*multiplier, 32,32, RGB(255,174,201));
+				UpdateEnemy(index);
+
 			}
 			else if (className == "Coin")
 			{
@@ -500,12 +520,9 @@ void Gamestate::changeFactory(char firstLetter){
 void Gamestate::CreateWorld(){
 	if(currentLevel != -1)
 		destroyWorld(true);
-	
-	if(currentLevel == -1)
-		xml = new XmlParser();
 
 	xml->parse("res/World 1-1.xml");
-
+	
 	createLevel();
 	createHero();
 	createFactory();
@@ -617,7 +634,7 @@ void Gamestate::destroyWorld(bool deleteXML)
 
 void Gamestate::loadGame(){
 	if (currentLevel != -1)
-	destroyWorld(true);
+		destroyWorld(true);
 
 	xml->parse("res/saveGame.xml");
 	
@@ -644,15 +661,18 @@ void Gamestate::nextLevel()
 		break;
 
 	case 2:
-		xml->parse("res/Landscape2.xml");
+		xml->parse("res/World 1-2.xml");
 		break;
 
 	case 3:
-		xml->parse("res/Landscape.xml");
+		xml->parse("res/World 1-3.xml");
 		break;
 
 	case 4:
-		//xml->parse("res/Landscape.xml");
+		xml->parse("res/World 1-4.xml");
+		break;
+		
+	case 5:
 		inMenu = true;
 		break;
 	}
@@ -896,10 +916,12 @@ void Gamestate::menu(HDC & hdc)
 			loadGame();
 		break;
 	
-		case 4:
+		case 4: //highscore
 			inHighScore = true;
 			break;
-		case 5:
+
+		case 5: //quit
+			quit = true;
 			break;
 		default:
 		break;
@@ -1413,16 +1435,32 @@ void Gamestate::Collision()
 
 void Gamestate::UpdateEnemy(int index)
 {
-	Goomba * goomba = (Goomba*)level[index];
+	string enemyName = level[index]->getClassName();
+	if(enemyName == "Goomba"){
+		Goomba * goomba = (Goomba*)level[index];
 		
-	if (goomba->GetPositionIndex().x == goomba->getEndPoint('x') )
-		goomba->setDirection('R');
-	else if (goomba->GetPositionIndex().x == goomba->getStartPoint('x'))
-		goomba->setDirection('L');
+		if (goomba->GetPositionIndex().x == goomba->getEndPoint('x') )
+			goomba->setDirection('R');
+		else if (goomba->GetPositionIndex().x == goomba->getStartPoint('x'))
+			goomba->setDirection('L');
 
-	level[getIndex(goomba->GetPositionIndex())] = NULL;
-	goomba->Move(goomba->getDirection(), goomba->GetPositionPixel());
-	level[getIndex(goomba->GetPositionIndex())] = goomba;
+		level[getIndex(goomba->GetPositionIndex())] = NULL;
+		goomba->Move(goomba->getDirection(), goomba->GetPositionPixel());
+		level[getIndex(goomba->GetPositionIndex())] = goomba;
+	}
+	else if(enemyName == "Koopa")
+	{
+		Koopa * koopa = (Koopa*)level[index];
+
+		if (koopa->GetPositionIndex().x == koopa->getEndPoint('x') )
+			koopa->setDirection('R');
+		else if (koopa->GetPositionIndex().x == koopa->getStartPoint('x'))
+			koopa->setDirection('L');
+
+		level[getIndex(koopa->GetPositionIndex())] = NULL;
+		koopa->Move(koopa->getDirection(), koopa->GetPositionPixel());
+		level[getIndex(koopa->GetPositionIndex())] = koopa;
+	}
 }
 
 string Gamestate::getCurrentFactory(){

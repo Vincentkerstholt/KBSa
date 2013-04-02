@@ -7,12 +7,15 @@ DungeonThemeFactory::DungeonThemeFactory(){
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/world8.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	koopaBitmap = LoadImage(NULL, "res/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/backgroundCave.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundrocks.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-DungeonThemeFactory::~DungeonThemeFactory(){
+DungeonThemeFactory::~DungeonThemeFactory()
+{
 	delImage();
 }
 
@@ -30,6 +33,8 @@ void DungeonThemeFactory::delImage()
 	groundBitmap = NULL;
 	DeleteObject(goombaBitmap);
 	goombaBitmap = NULL;
+	DeleteObject(koopaBitmap);
+	koopaBitmap = NULL;
 	DeleteObject(gadgetBitmap);
 	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
@@ -58,6 +63,10 @@ HANDLE DungeonThemeFactory::getGround(){
 
 HANDLE DungeonThemeFactory::getGoomba(){
 	return goombaBitmap;
+}
+
+HANDLE DungeonThemeFactory::getKoopa(){
+	return koopaBitmap;
 }
 
 HANDLE DungeonThemeFactory::getGadget(){

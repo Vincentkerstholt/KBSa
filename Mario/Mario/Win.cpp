@@ -38,6 +38,7 @@ CWin::CWin()
 	this->m_hIcon				= LoadIcon(m_hInstance, (LPCTSTR)IDI_APPLICATION);
 	this->m_strWindowTitle		= _T("Super Mario!");
 	this->m_hMenu				= NULL;
+	this->quit					= false;
 
 	::QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
 
@@ -65,6 +66,22 @@ int CWin::Run()
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
+		else if(quit){
+			HANDLE splashscreenBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+			BITMAP bitmap;
+			
+			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));
+			HDC hSplashscreenDC = CreateCompatibleDC(graphics);
+			
+			GetObject(splashscreenBitmap, sizeof(BITMAP), &bitmap);
+			SelectObject(hSplashscreenDC, splashscreenBitmap);
+
+			BitBlt(graphics,0,0,1362,702,hSplashscreenDC,0,0,SRCCOPY);
+
+			::BitBlt(hDC, rect.left, rect.top, 1362,702, graphics, 0, 0, SRCCOPY);
+			Sleep(2000);
+			break;
+		}
 		else
 		{
 			::QueryPerformanceCounter((LARGE_INTEGER*)&start);
@@ -73,7 +90,7 @@ int CWin::Run()
 				::QueryPerformanceCounter((LARGE_INTEGER*)&stop);
 
 			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));
-			GameLoop();
+			quit = GameLoop();
 			::BitBlt(hDC, rect.left, rect.top, 1362,702, graphics, 0, 0, SRCCOPY);
 		}
 	}

@@ -12,6 +12,7 @@ public:
 	HANDLE getBlock();
 	HANDLE getGround();
 	HANDLE getGoomba();
+	HANDLE getKoopa();
 	HANDLE getGadget();
 	HANDLE getBackgroundImage();
 	HANDLE getBackgroundImage2();
@@ -23,6 +24,7 @@ private:
 	HANDLE blockBitmap;
 	HANDLE groundBitmap;
 	HANDLE goombaBitmap;
+	HANDLE koopaBitmap;
 	HANDLE gadgetBitmap;
 	HANDLE bkGroundBitmap;
 	HANDLE bkGround2Bitmap;

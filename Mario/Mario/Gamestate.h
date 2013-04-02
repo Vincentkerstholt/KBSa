@@ -29,6 +29,7 @@ public:
 	Gameobject ** getLevel();
 	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
+	bool getQuit();
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
 	int getIndex(POINT & pnt);
@@ -57,6 +58,7 @@ private:
 	HFONT hFont2;
 	HFONT hFontOld;
 	bool inHighScore;
+	bool quit;
 
 	int currentLevel;
 	HANDLE hBackgroundBitmap;
