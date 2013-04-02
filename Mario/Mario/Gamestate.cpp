@@ -502,7 +502,7 @@ void Gamestate::changeFactory(char firstLetter){
 void Gamestate::CreateWorld(){
 	currentLevel = 1;
 	
-	xml->parse("res/World 1-1.xml");
+	xml->parse("res/World 1-2.xml");
 
 	createLevel();
 	createHero();
@@ -1271,16 +1271,32 @@ void Gamestate::Collision()
 
 void Gamestate::UpdateEnemy(int index)
 {
-	Goomba * goomba = (Goomba*)level[index];
+	string enemyName = level[index]->getClassName();
+	if(enemyName == "Goomba"){
+		Goomba * goomba = (Goomba*)level[index];
 		
-	if (goomba->GetPositionIndex().x == goomba->getEndPoint('x') )
-		goomba->setDirection('R');
-	else if (goomba->GetPositionIndex().x == goomba->getStartPoint('x'))
-		goomba->setDirection('L');
+		if (goomba->GetPositionIndex().x == goomba->getEndPoint('x') )
+			goomba->setDirection('R');
+		else if (goomba->GetPositionIndex().x == goomba->getStartPoint('x'))
+			goomba->setDirection('L');
 
-	level[getIndex(goomba->GetPositionIndex())] = NULL;
-	goomba->Move(goomba->getDirection(), goomba->GetPositionPixel());
-	level[getIndex(goomba->GetPositionIndex())] = goomba;
+		level[getIndex(goomba->GetPositionIndex())] = NULL;
+		goomba->Move(goomba->getDirection(), goomba->GetPositionPixel());
+		level[getIndex(goomba->GetPositionIndex())] = goomba;
+	}
+	else if(enemyName == "Koopa")
+	{
+		Koopa * koopa = (Koopa*)level[index];
+
+		if (koopa->GetPositionIndex().x == koopa->getEndPoint('x') )
+			koopa->setDirection('R');
+		else if (koopa->GetPositionIndex().x == koopa->getStartPoint('x'))
+			koopa->setDirection('L');
+
+		level[getIndex(koopa->GetPositionIndex())] = NULL;
+		koopa->Move(koopa->getDirection(), koopa->GetPositionPixel());
+		level[getIndex(koopa->GetPositionIndex())] = koopa;
+	}
 }
 
 string Gamestate::getCurrentFactory(){
