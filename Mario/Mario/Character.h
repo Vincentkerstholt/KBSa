@@ -48,7 +48,7 @@ public:
 	bool MoveAbilityL;
 	bool MoveAbilityR;
 	string side;
-	
+	bool MustDie;
 private:
 	
 	string Name;
