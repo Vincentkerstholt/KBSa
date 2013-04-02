@@ -38,6 +38,21 @@ void XmlParser::saveGame(Gamestate * gameState){
 	oss.str("");
 	oss.clear();
 
+	oss << gameState->Mario->getCoins();
+	hero->setAttribute("coins", "" + oss.str());
+	oss.str("");
+	oss.clear();
+
+	oss << gameState->Mario->getScore();
+	hero->setAttribute("points", "" + oss.str());
+	oss.str("");
+	oss.clear();
+
+	oss << gameState->Mario->getLives();
+	hero->setAttribute("lives", "" + oss.str());
+	oss.str("");
+	oss.clear();
+
 	hero->setParent(root);
 	hero->setEndTag();
 	//Adding the hero node to the root node

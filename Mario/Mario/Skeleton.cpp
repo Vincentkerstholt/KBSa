@@ -89,7 +89,7 @@ bool CSkeleton::GameLoop()
 		gameState->changeFactory('S');
 
 	if (::GetAsyncKeyState(VK_F4))
-		gameState->changeFactory('W');
+		gameState->changeFactory('C');
 
 	if (::GetAsyncKeyState(VK_F12)){
 		debugMode = !debugMode;

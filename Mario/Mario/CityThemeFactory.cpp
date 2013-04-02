@@ -1,8 +1,6 @@
-#include "WaterThemeFactory.h"
-#include "WaterThemeBlock.h"
-#include "WaterThemePipe.h"
+#include "CityThemeFactory.h"
 
-WaterThemeFactory::WaterThemeFactory(){
+CityThemeFactory::CityThemeFactory(){
 	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	blockBitmap = LoadImage(NULL, "res/block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -14,15 +12,15 @@ WaterThemeFactory::WaterThemeFactory(){
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-WaterThemeFactory::~WaterThemeFactory(){
+CityThemeFactory::~CityThemeFactory(){
 	delImage();
 }
 
-string WaterThemeFactory::getName(){
-	return "water";
+string CityThemeFactory::getName(){
+	return "city";
 }
 
-void WaterThemeFactory::delImage()
+void CityThemeFactory::delImage()
 {
 	DeleteObject(blockBitmap);
 	blockBitmap = NULL;
@@ -44,38 +42,38 @@ void WaterThemeFactory::delImage()
 	castleBitmap = NULL;
 }
 
-HANDLE WaterThemeFactory::getBlock(){
+HANDLE CityThemeFactory::getBlock(){
 	return blockBitmap;
 }
 
-HANDLE WaterThemeFactory::getPipe(){
+HANDLE CityThemeFactory::getPipe(){
 	return pipeBitmap;
 }
 
-HANDLE WaterThemeFactory::getGround(){
+HANDLE CityThemeFactory::getGround(){
 	return groundBitmap;
 }
 
-HANDLE WaterThemeFactory::getGoomba(){
+HANDLE CityThemeFactory::getGoomba(){
 	return goombaBitmap;
 }
 
-HANDLE WaterThemeFactory::getKoopa(){
+HANDLE CityThemeFactory::getKoopa(){
 	return koopaBitmap;
 }
 
-HANDLE WaterThemeFactory::getGadget(){
+HANDLE CityThemeFactory::getGadget(){
 	return gadgetBitmap;
 }
 
-HANDLE WaterThemeFactory::getCastle(){
+HANDLE CityThemeFactory::getCastle(){
 	return castleBitmap;
 }
 
-HANDLE WaterThemeFactory::getBackgroundImage(){
+HANDLE CityThemeFactory::getBackgroundImage(){
 	return bkGroundBitmap;
 }
 
-HANDLE WaterThemeFactory::getBackgroundImage2(){
+HANDLE CityThemeFactory::getBackgroundImage2(){
 	return bkGround2Bitmap;
 }

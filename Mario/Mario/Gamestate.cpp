@@ -125,8 +125,8 @@ IThemeFactory * Gamestate::getFactory(string name){
 		return new DungeonThemeFactory();
 	else if(name == "sky")
 		return new SkyThemeFactory();
-	else if(name == "water")
-		return new WaterThemeFactory();
+	else if(name == "city")
+		return new CityThemeFactory();
 	return new LandThemeFactory();
 }
 
@@ -535,8 +535,8 @@ void Gamestate::changeFactory(char firstLetter){
 	case 'S':
 		factory = new SkyThemeFactory();
 		break;
-	case 'W':
-		factory = new WaterThemeFactory();
+	case 'C':
+		factory = new CityThemeFactory();
 		break;
 	}
 }
@@ -645,11 +645,11 @@ void Gamestate::destroyWorld(bool deleteXML)
 		delete sky;
 		sky = NULL;
 	}
-	else if(factoryName == "water")
+	else if(factoryName == "city")
 	{
-		WaterThemeFactory * water = (WaterThemeFactory *)factory;
-		delete water;
-		water = NULL;
+		CityThemeFactory * city = (CityThemeFactory *)factory;
+		delete city;
+		city = NULL;
 	}
 
 	if(deleteXML)
@@ -657,7 +657,7 @@ void Gamestate::destroyWorld(bool deleteXML)
 }
 
 void Gamestate::loadGame(){
-	if (currentLevel != -1)
+	if(currentLevel != -1)
 		destroyWorld(true);
 
 	xml->parse("res/saveGame.xml");
@@ -734,6 +734,9 @@ void Gamestate::createHero(){
 
 	Mario->SetStartPosition(xMario * 32, yMario * 32);
 	Mario->setName(marioXml->getAttribute("character"));
+	Mario->setLives(stoi(marioXml->getAttribute("lives")));
+	Mario->setCoins(stoi(marioXml->getAttribute("coins")));
+	Mario->setScore(stoi(marioXml->getAttribute("points")));
 }
 
 void Gamestate::createLevel(){

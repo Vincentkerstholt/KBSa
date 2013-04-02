@@ -38,10 +38,16 @@ int Hero::getCoins()
 	return coins;
 }
 
+void Hero::setCoins(int coins)
+{
+	this->coins = coins;
+}
+
 int Hero::getLives()
 {
 	return this->lives;
 }
+
 void Hero::setLives(int lives)
 {
 	this->lives = lives;
@@ -93,4 +99,9 @@ void Hero::increaseScore(int points)
 int Hero::getScore()
 {
 	return score;
+}
+
+void Hero::setScore(int score)
+{
+	this->score = score;
 }
