@@ -48,10 +48,8 @@
     <ClInclude Include="JumpBehaviour.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Coin.h" />
-    <ClInclude Include="FastWalk.h" />
     <ClInclude Include="Flower.h" />
     <ClInclude Include="Gadget.h" />
-    <ClInclude Include="JumpBehaviour.h" />
     <ClInclude Include="LiveUp.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="NormalJump.h" />
@@ -149,15 +147,6 @@
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="ThemeFactory.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\backgroundCave.bmp" />
-    <None Include="res\backgroundSky.bmp" />
-    <None Include="res\dungeon.bmp" />
-    <None Include="res\forestlandps.bmp" />
-    <None Include="res\Landscape.xml" />
-    <None Include="res\Landscape2.xml" />
-    <None Include="res\world8.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

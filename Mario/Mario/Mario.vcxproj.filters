@@ -142,9 +142,6 @@
     <ClCompile Include="XMLParserNode.cpp">
       <Filter>Source Files\Parser</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="character.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
@@ -166,41 +163,8 @@
     <ClCompile Include="Flower.cpp">
       <Filter>Source Files\Gadget\Powerup</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Koopa.cpp">
       <Filter>Source Files\Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="Castle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
-    <ClCompile Include="FastWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Obstacle</Filter>
@@ -208,11 +172,14 @@
     <ClCompile Include="Hero.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CityThemeFactory.cpp">
       <Filter>Source Files\Factory\CityTheme</Filter>
+    </ClCompile>
+    <ClCompile Include="Castle.cpp">
+      <Filter>Source Files\Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -264,9 +231,6 @@
     <ClInclude Include="NormalWalk.h">
       <Filter>Header Files\Walk</Filter>
     </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Header Files\Program</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -275,12 +239,6 @@
     </ClInclude>
     <ClInclude Include="XMLParserNode.h">
       <Filter>Header Files\Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files\Walk</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files\Jump</Filter>
     </ClInclude>
     <ClInclude Include="NormalJump.h">
       <Filter>Header Files\Jump</Filter>
@@ -296,9 +254,6 @@
     </ClInclude>
     <ClInclude Include="Koopa.h">
       <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Castle.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gadget.h">
       <Filter>Header Files\Gadget</Filter>
@@ -318,103 +273,26 @@
     <ClInclude Include="Flower.h">
       <Filter>Header Files\Gadget\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gadgets.h">
       <Filter>Header Files\Gadget</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
       <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Castle.h">
+      <Filter>Header Files\Obstacle</Filter>
     </ClInclude>
     <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CityThemeFactory.h">
-      <Filter>Header Files\Factory\CityTheme</Filter>
+      <Filter>Header Files\Jump</Filter>
     </ClInclude>
     <ClInclude Include="FastWalk.h">
+      <Filter>Header Files\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\backgroundSky.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\backgroundCave.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\dungeon.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\forestlandps.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\world8.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\Landscape.xml">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\Landscape2.xml">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>
