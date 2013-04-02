@@ -46,8 +46,9 @@ Gamestate::Gamestate()
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
-	hFontOld = (HFONT)SelectObject(hdc , hFont);
-	SelectObject(hdc, hFontOld);
+	hFontOld = CreateFont(20,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -874,27 +875,31 @@ void Gamestate::menu(HDC & hdc)
 		{
 		case 0:
 			// New game
+			SelectObject(hdc, hFontOld);
 			CreateWorld();
 			inMenu = false;
 		break;
-		case 1:	//save game
-			saveGame();
-		break;
-		case 2:	//load game
-			loadGame();
-		break;
-		case 3: //Continue game
+		case 1: //Continue game
 			{
-				//Continue game
 				//int lives = Mario->getLives();
 				//if(lives > 0)
 				//{
-				//	inMenu = false;
+					inMenu = false;
 				//}
+				break;
 			}
-			break;
+		case 2:	//save game
+			saveGame();
+		break;
+		case 3:	//load game
+			loadGame();
+		break;
+	
 		case 4:
 			inHighScore = true;
+			break;
+		case 5:
+			break;
 		default:
 		break;
 		}
@@ -1443,17 +1448,23 @@ void Gamestate::setHighscore()
 				{
 					scores[j+1].setScore(scores[j].toString());
 				}
-				scores[i] = Score();
+				oss.str("");
+				oss << " :" << Mario->getScore() << endl;
+				scores[i].setScore(oss.str());
+				oss.str("");
 				highScorePos = i;
 				inNameInput =true;
 				break;
 			}
 		}
-		
+		fclose(file);
 		//overwrite score with new scores here
+		file = fopen(((string)"res/Highscores.txt").c_str(), "w");
+		for (int i = 0 ; i < 5 ; i++)
+			fputs(scores[i].toString().c_str(),file);
 		
 		inHighScore = true;
-
+		oss.str("");
 		oss.clear();
 		delete[] buffer;
 		fclose(file);
@@ -1515,7 +1526,8 @@ void Gamestate::nameInput()
 		name += "z";
 	if (GetAsyncKeyState(VK_BACK) && name.length()>0)
 		name.pop_back();
-	
+	if (GetAsyncKeyState(VK_SPACE))
+		name += " ";
 
 	ostringstream oss("");
 	oss << name << " :" << Mario->getScore() << "\n";

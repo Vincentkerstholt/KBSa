@@ -1,5 +1,5 @@
 Jowin :10000
+carlo bril :8200
 Carlo :8000
+player :7300
 Uygar :6000
-Arjan :4000
-Vincent :2000
