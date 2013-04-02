@@ -31,6 +31,14 @@ Gadget * Block::getGadget(){
 	return NULL;
 }
 
+Gadget * Block::getGadgetPoint(){
+	if (gadgetAmount > 0)
+	{
+		return gadget[gadgetAmount];
+	}
+	return NULL;
+}
+
 string Block::getClassName(){
 	return "Block";
 }

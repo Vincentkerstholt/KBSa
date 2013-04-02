@@ -15,6 +15,7 @@ public:
 	Block(bool isSpecial, bool isFixed, Gadget ** gadgetType, int amount);
 	~Block();
 	Gadget * getGadget();
+	Gadget * getGadgetPoint();
 	string getClassName();
 	bool getIsSpecial();
 	string getIsSpecialString();
