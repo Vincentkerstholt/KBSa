@@ -421,7 +421,7 @@ void Gamestate::drawWorld(HDC & hdc){
 				SelectObject(hObstacleDC, hObstacleBitmap);
 
 				TransparentBlt(hdc, (goomba->GetPositionPixel().x - camera.getXPosition()), (goomba->GetPositionPixel().y), 32, 32, hObstacleDC, (goomba->getTexturePosition().x*multiplier), goomba->getTexturePosition().y*multiplier, 32,32, RGB(255,174,201));
-				UpdateEnemy(index);
+				UpdateEnemy(goomba);
 								
 			}
 			else if (className == "Coin")
@@ -882,7 +882,7 @@ void Gamestate::UpDownCollision(Character * character)
 	CharacterMidHead.x = ((CharacterPoint.x+16)/32);
 	CharacterMidHead.y = ((CharacterPoint.y)/32);
 	
-	if (CharacterPoint.y < 662 && CharacterPoint.y > 0 )
+	if (CharacterPoint.y < 660 && CharacterPoint.y > 0 )
 	{
 	string RightFeet = BoxCheck(getIndex(CharacterRightFeet));
 	string LeftFeet = BoxCheck(getIndex(CharacterLeftFeet));
@@ -1331,12 +1331,13 @@ void Gamestate::Collision(Character * character)
 	}
 }
 
-void Gamestate::UpdateEnemy(int index)
+void Gamestate::UpdateEnemy(Character * character)
 {
-	Character * character = (Character*)level[index];
+	
+
+	level[getIndex(character->GetPositionIndex())] = NULL;
 	UpDownCollision(character);
 	Collision(character);
-	
 
 	if(character->MoveAbilityL == false)
 	{
@@ -1347,18 +1348,9 @@ void Gamestate::UpdateEnemy(int index)
 		character->setDirection('L');
 	}
 
-		if(character->MustDie)
-		{
-			level[getIndex(character->GetPositionIndex())] = NULL;
-		}
-		else
-		{
-			level[getIndex(character->GetPositionIndex())] = NULL;
 			character->Move(character->getDirection(), character->GetPositionPixel());
 			level[getIndex(character->GetPositionIndex())] = character;
-		}
 
-	
 }
 
 string Gamestate::getCurrentFactory(){

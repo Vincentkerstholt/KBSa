@@ -35,7 +35,7 @@ public:
 	int getIndex(int n, int m);
 	int getIndex(POINT & pnt);
 	void Collision(Character * character);
-	void UpdateEnemy(int index);
+	void UpdateEnemy(Character * character);
 	POINT getPixelPoint(int index);
 	void UpDownCollision(Character * character);
 	string getCurrentFactory();
