@@ -1,6 +1,8 @@
 #include "XMLParser.h"
 
 XmlParser::XmlParser(){
+	buffer = NULL;
+	root = NULL;
 }
 
 void XmlParser::saveGame(Gamestate * gameState){
@@ -33,6 +35,21 @@ void XmlParser::saveGame(Gamestate * gameState){
 
 	oss << marioY;
 	hero->setAttribute("y","" + oss.str());
+	oss.str("");
+	oss.clear();
+
+	oss << gameState->Mario->getCoins();
+	hero->setAttribute("coins", "" + oss.str());
+	oss.str("");
+	oss.clear();
+
+	oss << gameState->Mario->getScore();
+	hero->setAttribute("points", "" + oss.str());
+	oss.str("");
+	oss.clear();
+
+	oss << gameState->Mario->getLives();
+	hero->setAttribute("lives", "" + oss.str());
 	oss.str("");
 	oss.clear();
 
@@ -98,9 +115,9 @@ void XmlParser::saveGame(Gamestate * gameState){
 					gadgetXPN->setTitle("gadget");
 					gadgetXPN->setParent(blockXPN);
 
-					while(true){
-						Gadget * gadget = block->getGadget();
-						if(gadget == NULL) break;
+					for(int i = 0; i < block->getGadgetAmount(); i++)
+					{
+						Gadget * gadget = block->getGadgetPoint(i);
 						if(gadget->getClassName() == "Coin")
 						{
 							XmlParserNode * coinXPN = new XmlParserNode();
@@ -508,8 +525,10 @@ XmlParserNode * XmlParser::getNode(string tagName){
 }
 
 void XmlParser::Clear(){
-	delete buffer;
-	delete root;
+	if (buffer != NULL)
+		delete buffer;
+	if (root != NULL)
+		delete root;
 
 	file = NULL;
 	buffer = NULL;

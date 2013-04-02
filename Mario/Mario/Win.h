@@ -10,6 +10,7 @@ private:
 	HANDLE hBuf;
 	RECT rect;
 	INT64 start, stop, freq;
+	bool quit;
 
 protected:
 	static HINSTANCE m_hInstance;
@@ -37,7 +38,7 @@ public:
 	 virtual ~CWin();
 	 virtual LRESULT MsgProc(HWND, UINT, WPARAM, LPARAM);
 	 virtual void GameInit() = 0;
-	 virtual void GameLoop() = 0;
+	 virtual bool GameLoop() = 0;
 	 virtual void GameEnd() = 0;
 	 void SetFPS(int);
 };

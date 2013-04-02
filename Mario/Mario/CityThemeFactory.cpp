@@ -1,11 +1,12 @@
 #include "CityThemeFactory.h"
 
 CityThemeFactory::CityThemeFactory(){
-	blockBitmap = LoadImage(NULL, "res/cityblock.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	blockBitmap = LoadImage(NULL, "res/cityblock.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	pipeBitmap = LoadImage(NULL, "res/cityPipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/cityGround2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	koopaBitmap = LoadImage(NULL, "res/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/backgroundCity.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundCity2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -16,36 +17,33 @@ CityThemeFactory::~CityThemeFactory(){
 }
 
 string CityThemeFactory::getName(){
-	return "landscape";
+	return "city";
 }
 
 void CityThemeFactory::delImage()
 {
-	DeleteObject(pipeBitmap);
 	DeleteObject(blockBitmap);
-	DeleteObject(groundBitmap);
-	DeleteObject(goombaBitmap);
-	DeleteObject(gadgetBitmap);
-	DeleteObject(bkGroundBitmap);
-	DeleteObject(bkGround2Bitmap);
-	DeleteObject(castleBitmap);
-
-	pipeBitmap = NULL;
 	blockBitmap = NULL;
+	DeleteObject(pipeBitmap);
+	pipeBitmap = NULL;
+	DeleteObject(groundBitmap);
 	groundBitmap = NULL;
+	DeleteObject(goombaBitmap);
 	goombaBitmap = NULL;
+	DeleteObject(koopaBitmap);
+	koopaBitmap = NULL;
+	DeleteObject(gadgetBitmap);
 	gadgetBitmap = NULL;
+	DeleteObject(bkGroundBitmap);
 	bkGroundBitmap = NULL;
+	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+	DeleteObject(castleBitmap);
 	castleBitmap = NULL;
 }
 
 HANDLE CityThemeFactory::getBlock(){
 	return blockBitmap;
-}
-
-HANDLE CityThemeFactory::getCastle(){
-	return castleBitmap;
 }
 
 HANDLE CityThemeFactory::getPipe(){
@@ -60,8 +58,16 @@ HANDLE CityThemeFactory::getGoomba(){
 	return goombaBitmap;
 }
 
+HANDLE CityThemeFactory::getKoopa(){
+	return koopaBitmap;
+}
+
 HANDLE CityThemeFactory::getGadget(){
 	return gadgetBitmap;
+}
+
+HANDLE CityThemeFactory::getCastle(){
+	return castleBitmap;
 }
 
 HANDLE CityThemeFactory::getBackgroundImage(){

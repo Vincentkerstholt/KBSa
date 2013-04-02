@@ -31,12 +31,12 @@ Gadget * Block::getGadget(){
 	return NULL;
 }
 
-Gadget * Block::getGadgetPoint(){
-	if (gadgetAmount > 0)
-	{
-		return gadget[gadgetAmount];
-	}
-	return NULL;
+Gadget * Block::getGadgetPoint(int index){
+	return gadget[index];
+}
+
+int Block::getGadgetAmount(){
+	return gadgetAmount;
 }
 
 string Block::getClassName(){

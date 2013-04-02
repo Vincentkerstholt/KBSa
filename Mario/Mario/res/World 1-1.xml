@@ -1,29 +1,52 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="landscape" />
-	<hero character="mario" x="3" y="19" />
+	<hero character="mario" x="3" y="19" coins="0" points="0" lives="5" />
 	<enemies>
+		<enemy character="goomba">
+			<location x="30" y="19" />
+			<endPath x="21" y="19" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="52" y="19" />
+			<endPath x="47" y="19" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="61" y="19" />
+			<endPath x="56" y="19" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="62" y="19" />
+			<endPath x="56" y="19" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="97" y="11" />
+			<endPath x="88" y="11" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="119" y="19" />
+			<endPath x="99" y="19" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="123" y="19" />
+			<endPath x="99" y="19" />
+		</enemy>
+		<enemy character="koopa">
+			<location x="197" y="19" />
+			<endPath x="181" y="19" />
+		</enemy>
 	</enemies>
 	<level width="215" height="22">
 		<blocks>
 			<block isSpecial="true" isFixed="false">
 				<location x="21" y="16" />
 				<gadget>
-					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
+					<powerup />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="26" y="16" />
 				<gadget>
-					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
@@ -36,16 +59,15 @@
 				<location x="28" y="12" />
 				<gadget>
 					<coin />
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="28" y="16" />
 				<gadget>
-					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
@@ -57,23 +79,21 @@
 			<block isSpecial="false" isFixed="false">
 				<location x="30" y="16" />
 				<gadget>
-					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
 				<location x="70" y="15" />
 				<gadget>
 					<coin />
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="83" y="16" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
@@ -85,114 +105,106 @@
 			<block isSpecial="false" isFixed="false">
 				<location x="85" y="16" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="88" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="89" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="90" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="91" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="92" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="93" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="94" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="95" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="96" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="97" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="101" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="102" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="103" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
 				<location x="104" y="12" />
 				<gadget>
-					<coin />
+					<liveup />
 				</gadget>
 			</block>
-			<block isSpecial="false" isFixed="false">
+			<block isSpecial="true" isFixed="false">
 				<location x="104" y="16" />
 				<gadget>
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="110" y="16" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="111" y="16" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
 				<location x="116" y="16" />
 				<gadget>
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 					<coin />
 				</gadget>
 			</block>
@@ -206,72 +218,77 @@
 				<location x="119" y="16" />
 				<gadget>
 					<coin />
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
 				<location x="122" y="16" />
 				<gadget>
 					<coin />
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="129" y="16" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="132" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="133" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="134" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="139" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
 				<location x="140" y="12" />
 				<gadget>
-					<coin />
+					<powerup />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="140" y="16" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
 				<location x="141" y="12" />
 				<gadget>
-					<coin />
+					<liveup />
 				</gadget>
 			</block>
-			<block isSpecial="false" isFixed="false">
+			<block isSpecial="true" isFixed="false">
 				<location x="141" y="16" />
 				<gadget>
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="142" y="12" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="true">
@@ -552,19 +569,17 @@
 			<block isSpecial="false" isFixed="false">
 				<location x="186" y="16" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="187" y="16" />
 				<gadget>
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
 				<location x="188" y="16" />
 				<gadget>
-					<coin />
+					<powerup />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">

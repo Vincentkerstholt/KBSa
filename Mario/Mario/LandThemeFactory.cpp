@@ -6,6 +6,7 @@ LandThemeFactory::LandThemeFactory(){
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/forrestsmall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	koopaBitmap = LoadImage(NULL, "res/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -25,6 +26,7 @@ void LandThemeFactory::delImage()
 	DeleteObject(blockBitmap);
 	DeleteObject(groundBitmap);
 	DeleteObject(goombaBitmap);
+	DeleteObject(koopaBitmap);
 	DeleteObject(gadgetBitmap);
 	DeleteObject(bkGroundBitmap);
 	DeleteObject(bkGround2Bitmap);
@@ -37,6 +39,7 @@ void LandThemeFactory::delImage()
 	gadgetBitmap = NULL;
 	bkGroundBitmap = NULL;
 	bkGround2Bitmap = NULL;
+	koopaBitmap = NULL;
 	castleBitmap = NULL;
 }
 
@@ -58,6 +61,10 @@ HANDLE LandThemeFactory::getGround(){
 
 HANDLE LandThemeFactory::getGoomba(){
 	return goombaBitmap;
+}
+
+HANDLE LandThemeFactory::getKoopa(){
+	return koopaBitmap;
 }
 
 HANDLE LandThemeFactory::getGadget(){

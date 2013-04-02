@@ -35,14 +35,8 @@
     <Filter Include="Source Files\Factory\SkyTheme">
       <UniqueIdentifier>{3049b21c-a7aa-4624-8975-ba07712d860b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Factory\WaterTheme">
-      <UniqueIdentifier>{45c0103a-ec31-4347-9bed-2aae60c80c36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Factory\DungeonTheme">
       <UniqueIdentifier>{fcd79706-7359-4d6b-9d50-fe0e118e6b90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Factory\WaterTheme">
-      <UniqueIdentifier>{702539f7-d11a-4904-9e11-04ab5c88db0f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Factory\LandTheme">
       <UniqueIdentifier>{378908b4-7701-4107-b535-3459aeb0c825}</UniqueIdentifier>
@@ -92,11 +86,11 @@
     <Filter Include="Source Files\Gadget\Powerup">
       <UniqueIdentifier>{1553d6ee-f310-47fb-b559-4d8c7c462e95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Factory\CityTheme">
-      <UniqueIdentifier>{ee6a8d7d-2362-4f41-b6d1-09c94d0c2a42}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Factory\CityTheme">
-      <UniqueIdentifier>{deae71aa-079f-4b5a-a0ab-64cf92727b13}</UniqueIdentifier>
+      <UniqueIdentifier>{702539f7-d11a-4904-9e11-04ab5c88db0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Factory\CityTheme">
+      <UniqueIdentifier>{45c0103a-ec31-4347-9bed-2aae60c80c36}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +102,6 @@
     </ClCompile>
     <ClCompile Include="SkyThemeFactory.cpp">
       <Filter>Source Files\Factory\SkyTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="WaterThemeFactory.cpp">
-      <Filter>Source Files\Factory\WaterTheme</Filter>
     </ClCompile>
     <ClCompile Include="Gamestate.cpp">
       <Filter>Source Files</Filter>
@@ -260,9 +251,6 @@
     </ClInclude>
     <ClInclude Include="SkyThemeFactory.h">
       <Filter>Header Files\Factory\SkyTheme</Filter>
-    </ClInclude>
-    <ClInclude Include="WaterThemeFactory.h">
-      <Filter>Header Files\Factory\WaterTheme</Filter>
     </ClInclude>
     <ClInclude Include="factories.h">
       <Filter>Header Files\Factory</Filter>

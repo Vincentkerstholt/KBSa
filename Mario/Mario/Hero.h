@@ -23,6 +23,7 @@ public:
 	string getName();
 	void grabcoin();
 	int getCoins();
+	void setCoins(int coins);
 	int getLives();
 	void setLives(int lives);
 	bool getPowerUp();
@@ -32,6 +33,7 @@ public:
 	void Die();
 	void increaseScore(int points);
 	int getScore();
+	void setScore(int score);
 };
 
 #endif
