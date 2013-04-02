@@ -30,6 +30,14 @@ const int CASTLE_RIGHTGAP = 7;
 Gamestate::Gamestate()
 {
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	// Inilialize SDL_mixer , exit if fail
+	
+	SDL_Init(SDL_INIT_AUDIO);
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,2, 4096);
+	Music = Mix_LoadMUS("./res/Mario.wav");
+	jumpsound=Mix_LoadWAV("./res/jump.wav");
+	coinsound=Mix_LoadWAV("./res/coin.wav");
+	Mix_PlayMusic(Music,-1);
 
 	frames = 0;
 	curTime = 0;
@@ -53,8 +61,6 @@ void Gamestate::saveGame(){
 	xml->saveGame(this);
 	inMenu = false;
 }
-
-
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
@@ -788,6 +794,11 @@ Gamestate::~Gamestate()
 	factory = NULL;
 	delete xml;
 	xml = NULL;
+
+	Mix_FreeMusic(Music);
+	Mix_FreeChunk(jumpsound);
+	Mix_FreeChunk(coinsound);
+	Mix_CloseAudio();
 }
 
 void Gamestate::UpDownCollision()
@@ -863,6 +874,7 @@ void Gamestate::UpDownCollision()
 			}
 			if (BoxCheck(index) == "Coin")
 			{
+				Mix_PlayChannel(-1, coinsound, 0);
 				Mario->grabcoin();
 				delete level[index];
 			}
@@ -1140,7 +1152,7 @@ void Gamestate::Collision()
 				POINT goom = goomba->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
 				mari.x = goom.x - mari.x;
-				if(mari.x < 15)
+				if(mari.x < 18)
 				{
 					HeroDie();
 				}

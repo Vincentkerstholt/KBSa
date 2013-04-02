@@ -13,6 +13,9 @@
 #include "XMLParser.h"
 #include "Castle.h"
 #include "gadgets.h"
+#include "SDL.h"
+#include "SDL_mixer.h"
+
 
 using namespace std;
 
@@ -43,6 +46,10 @@ public:
 	bool inMenu;
 	~Gamestate();
 	Camera camera;
+	Mix_Music *Music;
+	Mix_Chunk *jumpsound;
+	Mix_Chunk *coinsound;
+
 private:
 	IThemeFactory * factory;
 	Gameobject ** level;
