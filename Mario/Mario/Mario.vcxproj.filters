@@ -220,7 +220,7 @@
     <ClCompile Include="Score.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CityTheme.cpp">
+    <ClCompile Include="CityThemeFactory.cpp">
       <Filter>Source Files\Factory\CityTheme</Filter>
     </ClCompile>
   </ItemGroup>
@@ -398,6 +398,12 @@
     </ClInclude>
     <ClInclude Include="CityThemeFactory.h">
       <Filter>Header Files\Factory\CityTheme</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
