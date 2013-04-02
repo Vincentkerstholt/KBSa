@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="landscape"/>
-	<hero character="mario" x="28" y="15"/>
+	<hero character="mario" x="209" y="19"/>
 	<enemies>
 	</enemies>
 	<level height="22" width="215">
@@ -35,6 +35,7 @@
 			<block isFixed="false" isSpecial="true">
 				<location x="28" y="12"/>
 				<gadget>
+					<coin/>
 				</gadget>
 			</block>
 			<block isFixed="false" isSpecial="false">

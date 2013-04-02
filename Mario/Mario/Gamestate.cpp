@@ -51,7 +51,9 @@ Gamestate::Gamestate()
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFontOld = CreateFont(20,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
-	
+	toDoNewGame = false;
+	toDoNextLevel = false;
+	toDoLoadLevel = false;
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -77,10 +79,31 @@ bool Gamestate::getQuit(){
 
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
+	if (toDoNewGame)
+	{
+		CreateWorld();
+		Sleep(1000);
+	}
+	if (toDoLoadLevel)
+	{
+		loadGame();
+		Sleep(1000);
+	}
+	if (toDoNextLevel)
+	{
+		nextLevel();
+		Sleep(1000);
+	}
+	toDoNewGame = false;
+	toDoNextLevel = false;
+	toDoLoadLevel = false;
+
+
 	frames++;
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	Collision();
-	UpDownCollision();
+	if (UpDownCollision(hdc) == false)
+		return;
 	drawBackground(hdc);
 	
 	drawWorld(hdc);
@@ -92,6 +115,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	}
 	drawCharacters(hdc);
 	drawHUD(hdc);
+
 }
 
 IThemeFactory * Gamestate::getFactory(string name){
@@ -673,7 +697,7 @@ void Gamestate::nextLevel()
 		break;
 		
 	case 5:
-		inMenu = true;
+		setHighscore();
 		break;
 	}
 
@@ -898,8 +922,10 @@ void Gamestate::menu(HDC & hdc)
 		case 0:
 			// New game
 			SelectObject(hdc, hFontOld);
-			CreateWorld();
+			toDoNewGame = true;
+			splashscreen(hdc,1);
 			inMenu = false;
+			return;
 		break;
 		case 1: //Continue game
 
@@ -913,7 +939,10 @@ void Gamestate::menu(HDC & hdc)
 					saveGame();
 		break;
 		case 3:	//load game
-			loadGame();
+			toDoLoadLevel = true;
+			inMenu = false;
+			splashscreen(hdc,6);
+			return;
 		break;
 	
 		case 4: //highscore
@@ -1016,7 +1045,7 @@ Gamestate::~Gamestate()
 	}
 }
 
-void Gamestate::UpDownCollision()
+bool Gamestate::UpDownCollision(HDC & hdc)
 {
 	// This collision detection is based on points. This function checks for every point in witch tile it is and what's in that tile.
 	POINT mario;
@@ -1106,8 +1135,9 @@ void Gamestate::UpDownCollision()
 				Castle * castle = (Castle *) level[index];
 				if(castle->getTextureType() == CASTLE_DOOR)
 				{
-					nextLevel();
-					return;
+					toDoNextLevel = true;
+					splashscreen(hdc, currentLevel+1);
+					return false;
 				}
 			}
 		}
@@ -1306,6 +1336,7 @@ void Gamestate::UpDownCollision()
 		}
 		Mario->JumpAbility = false; // stop mario from jumping 
 	}	
+	return true;
 }
 
 string Gamestate::BoxCheck(int index)
@@ -1623,4 +1654,40 @@ void Gamestate::nameInput()
 			inNameInput = false;
 			name = "";
 		}
+}
+
+void Gamestate::splashscreen(HDC & hdc,int splashscreenlevel)
+{
+	switch (splashscreenlevel)
+	{
+	case 1:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
+		break;
+	case 2:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl2 
+		break;
+	case 3:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl3
+		break;
+	case 4:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl4
+		break;
+	case 5:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
+		break;
+	case 6:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenload
+		break;
+	default:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
+		break;
+	}
+	hBackgroundDC = CreateCompatibleDC(hdc);
+	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap);
+	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
+
+	DeleteObject(hBackgroundBitmap);
+	DeleteObject(hBackgroundDC);
+
 }

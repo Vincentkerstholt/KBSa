@@ -36,7 +36,7 @@ public:
 	void Collision();
 	void UpdateEnemy(int index);
 	POINT getPixelPoint(int index);
-	void UpDownCollision();
+	bool UpDownCollision(HDC & hdc);
 	string getCurrentFactory();
 	int getX();
 	int getY();
@@ -47,6 +47,7 @@ public:
 	~Gamestate();
 	Camera camera;
 private:
+
 	IThemeFactory * factory;
 	Gameobject ** level;
 	int x;
@@ -59,7 +60,9 @@ private:
 	HFONT hFontOld;
 	bool inHighScore;
 	bool quit;
-
+	bool toDoNextLevel;
+	bool toDoLoadLevel;
+	bool toDoNewGame;
 	int currentLevel;
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
@@ -106,5 +109,6 @@ private:
 	void createCastles();
 	void nextLevel();
 	void setHighscore();
+	void splashscreen(HDC & hdc,int splashscreenlevel);
 };
 #endif
