@@ -545,7 +545,7 @@ void Gamestate::CreateWorld(){
 	if(currentLevel != -1)
 		destroyWorld(true);
 
-	xml->parse("res/World 1-1.xml");
+	xml->parse("res/levels/World 1-1.xml");
 	
 	createLevel();
 	createHero();
@@ -660,7 +660,7 @@ void Gamestate::loadGame(){
 	if(currentLevel != -1)
 		destroyWorld(true);
 
-	xml->parse("res/saveGame.xml");
+	xml->parse("res/levels/saveGame.xml");
 	
 	createLevel();
 	createHero();
@@ -683,19 +683,19 @@ void Gamestate::nextLevel()
 	switch(currentLevel)
 	{
 	case 1:
-		xml->parse("res/World 1-1.xml");
+		xml->parse("res/levels/World 1-1.xml");
 		break;
 
 	case 2:
-		xml->parse("res/World 1-2.xml");
+		xml->parse("res/levels/World 1-2.xml");
 		break;
 
 	case 3:
-		xml->parse("res/World 1-3.xml");
+		xml->parse("res/levels/World 1-3.xml");
 		break;
 
 	case 4:
-		xml->parse("res/World 1-4.xml");
+		xml->parse("res/levels/World 1-4.xml");
 		break;
 		
 	case 5:
@@ -1666,25 +1666,25 @@ void Gamestate::splashscreen(HDC & hdc,int splashscreenlevel)
 	switch (splashscreenlevel)
 	{
 	case 1:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
 		break;
 	case 2:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl2 
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl2 
 		break;
 	case 3:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl3
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl3.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl3
 		break;
 	case 4:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl4
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl4.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl4
 		break;
 	case 5:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
 		break;
 	case 6:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenload
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenload.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenload
 		break;
 	default:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
 		break;
 	}
 	hBackgroundDC = CreateCompatibleDC(hdc);

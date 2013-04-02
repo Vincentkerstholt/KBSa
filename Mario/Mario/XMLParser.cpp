@@ -333,7 +333,7 @@ void XmlParser::saveGame(Gamestate * gameState){
 
 	string xml = root->toXML(0);
 	ofstream myfile;
-	myfile.open ("res/saveGame.xml");
+	myfile.open ("res/levels/saveGame.xml");
 	myfile << "<?xml version=\"1.0\"?>" << endl << xml;
 	myfile.close();
 

@@ -5,7 +5,7 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-	splashscreenBitmap = LoadImage(NULL, "res/splashscreen.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	splashscreenBitmap = LoadImage(NULL, "res/splashscreen/splashscreen.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gameState = new Gamestate();
 }
 

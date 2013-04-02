@@ -1,0 +1,2921 @@
+<?xml version="1.0"?>
+<superMario>
+	<factory name="landscape" />
+	<hero character="mario" x="2" y="19" />
+	<enemies>
+		<enemy character="koopa">
+			<location x="22" y="19" />
+			<endPath x="15" y="19" />
+		</enemy>
+		<enemy character="koopa">
+			<location x="28" y="17" />
+			<endPath x="23" y="17" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="39" y="19" />
+			<endPath x="31" y="19" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="51" y="20" />
+			<endPath x="41" y="20" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="56" y="19" />
+			<endPath x="54" y="19" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="62" y="17" />
+			<endPath x="59" y="17" />
+		</enemy>
+		<enemy character="koopa">
+			<location x="75" y="17" />
+			<endPath x="66" y="17" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="88" y="17" />
+			<endPath x="79" y="17" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="100" y="11" />
+			<endPath x="120" y="11" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="115" y="8" />
+			<endPath x="111" y="8" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="117" y="20" />
+			<endPath x="93" y="20" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="120" y="20" />
+			<endPath x="93" y="20" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="123" y="20" />
+			<endPath x="93" y="20" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="126" y="20" />
+			<endPath x="93" y="20" />
+		</enemy>
+		<enemy character="goomba">
+			<location x="145" y="13" />
+			<endPath x="139" y="13" />
+		</enemy>
+		<enemy character="koopa">
+			<location x="166" y="19" />
+			<endPath x="161" y="19" />
+		</enemy>
+		<enemy character="koopa">
+			<location x="173" y="17" />
+			<endPath x="169" y="17" />
+		</enemy>
+		<enemy character="koopa">
+			<location x="196" y="17" />
+			<endPath x="185" y="17" />
+		</enemy>
+		<enemy character="koopa">
+			<location x="198" y="17" />
+			<endPath x="185" y="17" />
+		</enemy>
+		<enemy character="koopa">
+			<location x="200" y="17" />
+			<endPath x="185" y="17" />
+		</enemy>
+	</enemies>
+	<level width="215" height="22">
+		<blocks>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="0" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="1" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="2" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="4" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="5" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="7" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="8" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="10" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="11" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="13" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="14" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="16" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="17" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="19" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="20" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="0" y="21" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="9" y="17" />
+				<gadget>
+					<coin />
+				</gadget>
+			</block>
+			<block isSpecial="true" isFixed="false">
+				<location x="10" y="17" />
+				<gadget>
+					<powerup />
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="11" y="17" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="12" y="17" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="13" y="17" />
+				<gadget>
+					<coin />
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="14" y="17" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="25" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="26" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="44" y="18" />
+				<gadget>
+					<coin />
+				</gadget>
+			</block>
+			<block isSpecial="true" isFixed="false">
+				<location x="45" y="18" />
+				<gadget>
+					<liveup />
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="46" y="18" />
+				<gadget>
+					<coin />
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="47" y="18" />
+				<gadget>
+					<coin />
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="48" y="18" />
+				<gadget>
+					<coin />
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="76" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="76" y="16" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="76" y="17" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="77" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="77" y="16" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="77" y="17" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="78" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="78" y="16" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="78" y="17" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="96" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="97" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="98" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="99" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="100" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="100" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="100" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="101" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="101" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="101" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="102" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="102" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="102" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="103" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="103" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="103" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="104" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="104" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="104" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="105" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="105" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="105" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="105" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="106" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="106" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="106" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="106" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="106" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="106" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="107" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="107" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="107" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="107" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="107" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="107" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="108" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="108" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="108" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="108" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="109" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="109" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="109" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="109" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="110" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="110" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="110" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="110" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="111" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="111" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="111" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="111" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="112" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="112" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="112" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="112" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="113" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="113" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="113" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="113" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="113" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="113" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="114" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="114" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="114" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="114" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="114" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="115" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="115" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="115" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="115" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="116" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="116" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="116" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="116" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="117" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="117" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="117" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="118" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="118" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="118" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="119" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="119" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="119" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="120" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="120" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="120" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="121" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="122" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="123" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="140" y="10" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="140" y="11" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="141" y="10" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="141" y="11" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="true" isFixed="false">
+				<location x="142" y="7" />
+				<gadget>
+					<powerup />
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="143" y="10" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="143" y="11" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="144" y="10" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="false">
+				<location x="144" y="11" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="0" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="1" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="2" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="3" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="4" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="5" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="7" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="8" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="9" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="10" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="11" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="12" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="13" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="14" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="15" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="16" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="17" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="18" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="19" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="20" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="212" y="21" />
+				<gadget>
+				</gadget>
+			</block>
+		</blocks>
+		<pipes>
+			<pipe type="1">
+				<location x="63" y="16" />
+			</pipe>
+			<pipe type="4">
+				<location x="63" y="17" />
+			</pipe>
+			<pipe type="2">
+				<location x="64" y="16" />
+			</pipe>
+			<pipe type="5">
+				<location x="64" y="17" />
+			</pipe>
+			<pipe type="3">
+				<location x="65" y="16" />
+			</pipe>
+			<pipe type="6">
+				<location x="65" y="17" />
+			</pipe>
+			<pipe type="1">
+				<location x="158" y="18" />
+			</pipe>
+			<pipe type="4">
+				<location x="158" y="19" />
+			</pipe>
+			<pipe type="2">
+				<location x="159" y="18" />
+			</pipe>
+			<pipe type="5">
+				<location x="159" y="19" />
+			</pipe>
+			<pipe type="3">
+				<location x="160" y="18" />
+			</pipe>
+			<pipe type="6">
+				<location x="160" y="19" />
+			</pipe>
+			<pipe type="1">
+				<location x="174" y="16" />
+			</pipe>
+			<pipe type="4">
+				<location x="174" y="17" />
+			</pipe>
+			<pipe type="2">
+				<location x="175" y="16" />
+			</pipe>
+			<pipe type="5">
+				<location x="175" y="17" />
+			</pipe>
+			<pipe type="3">
+				<location x="176" y="16" />
+			</pipe>
+			<pipe type="6">
+				<location x="176" y="17" />
+			</pipe>
+			<pipe type="1">
+				<location x="178" y="14" />
+			</pipe>
+			<pipe type="4">
+				<location x="178" y="15" />
+			</pipe>
+			<pipe type="4">
+				<location x="178" y="16" />
+			</pipe>
+			<pipe type="4">
+				<location x="178" y="17" />
+			</pipe>
+			<pipe type="2">
+				<location x="179" y="14" />
+			</pipe>
+			<pipe type="5">
+				<location x="179" y="15" />
+			</pipe>
+			<pipe type="5">
+				<location x="179" y="16" />
+			</pipe>
+			<pipe type="5">
+				<location x="179" y="17" />
+			</pipe>
+			<pipe type="3">
+				<location x="180" y="14" />
+			</pipe>
+			<pipe type="6">
+				<location x="180" y="15" />
+			</pipe>
+			<pipe type="6">
+				<location x="180" y="16" />
+			</pipe>
+			<pipe type="6">
+				<location x="180" y="17" />
+			</pipe>
+			<pipe type="1">
+				<location x="182" y="12" />
+			</pipe>
+			<pipe type="4">
+				<location x="182" y="13" />
+			</pipe>
+			<pipe type="4">
+				<location x="182" y="14" />
+			</pipe>
+			<pipe type="4">
+				<location x="182" y="15" />
+			</pipe>
+			<pipe type="4">
+				<location x="182" y="16" />
+			</pipe>
+			<pipe type="4">
+				<location x="182" y="17" />
+			</pipe>
+			<pipe type="2">
+				<location x="183" y="12" />
+			</pipe>
+			<pipe type="5">
+				<location x="183" y="13" />
+			</pipe>
+			<pipe type="5">
+				<location x="183" y="14" />
+			</pipe>
+			<pipe type="5">
+				<location x="183" y="15" />
+			</pipe>
+			<pipe type="5">
+				<location x="183" y="16" />
+			</pipe>
+			<pipe type="5">
+				<location x="183" y="17" />
+			</pipe>
+			<pipe type="3">
+				<location x="184" y="12" />
+			</pipe>
+			<pipe type="6">
+				<location x="184" y="13" />
+			</pipe>
+			<pipe type="6">
+				<location x="184" y="14" />
+			</pipe>
+			<pipe type="6">
+				<location x="184" y="15" />
+			</pipe>
+			<pipe type="6">
+				<location x="184" y="16" />
+			</pipe>
+			<pipe type="6">
+				<location x="184" y="17" />
+			</pipe>
+		</pipes>
+		<grounds>
+			<ground type="1">
+				<location x="1" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="1" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="2" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="2" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="3" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="3" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="4" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="4" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="5" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="5" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="6" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="6" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="7" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="7" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="8" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="8" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="9" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="9" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="10" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="10" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="11" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="11" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="12" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="12" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="13" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="13" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="14" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="14" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="15" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="15" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="16" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="16" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="17" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="17" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="18" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="18" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="19" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="19" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="20" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="20" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="21" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="21" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="22" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="22" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="23" y="18" />
+			</ground>
+			<ground type="4">
+				<location x="23" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="23" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="23" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="24" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="24" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="24" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="24" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="25" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="25" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="25" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="25" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="26" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="26" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="26" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="26" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="27" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="27" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="27" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="27" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="28" y="18" />
+			</ground>
+			<ground type="6">
+				<location x="28" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="28" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="28" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="31" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="31" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="32" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="32" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="33" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="33" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="34" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="34" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="35" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="35" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="36" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="36" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="37" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="37" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="38" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="38" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="41" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="42" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="43" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="44" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="45" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="46" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="47" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="48" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="49" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="50" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="51" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="54" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="54" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="55" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="55" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="56" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="56" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="59" y="18" />
+			</ground>
+			<ground type="4">
+				<location x="59" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="59" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="59" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="60" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="60" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="60" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="60" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="61" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="61" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="61" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="61" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="62" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="62" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="62" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="62" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="63" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="63" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="63" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="63" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="64" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="64" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="64" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="64" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="65" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="65" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="65" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="65" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="66" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="66" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="66" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="66" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="67" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="67" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="67" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="67" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="68" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="68" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="68" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="68" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="69" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="69" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="69" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="69" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="70" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="70" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="70" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="70" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="71" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="71" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="71" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="71" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="72" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="72" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="72" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="72" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="73" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="73" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="73" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="73" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="74" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="74" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="74" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="74" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="75" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="75" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="75" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="75" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="76" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="76" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="76" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="76" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="77" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="77" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="77" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="77" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="78" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="78" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="78" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="78" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="79" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="79" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="79" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="79" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="80" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="80" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="80" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="80" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="81" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="81" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="81" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="81" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="82" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="82" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="82" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="82" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="83" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="83" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="83" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="83" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="84" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="84" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="84" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="84" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="85" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="85" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="85" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="85" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="86" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="86" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="86" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="86" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="87" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="87" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="87" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="87" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="88" y="18" />
+			</ground>
+			<ground type="6">
+				<location x="88" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="88" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="88" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="93" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="94" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="95" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="96" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="97" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="98" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="99" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="100" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="101" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="102" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="103" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="104" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="105" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="106" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="107" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="108" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="109" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="110" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="111" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="112" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="113" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="114" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="115" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="116" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="117" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="118" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="119" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="120" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="121" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="122" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="123" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="124" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="125" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="126" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="127" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="127" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="127" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="128" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="128" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="128" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="129" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="129" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="129" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="130" y="17" />
+			</ground>
+			<ground type="4">
+				<location x="130" y="18" />
+			</ground>
+			<ground type="4">
+				<location x="130" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="130" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="130" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="131" y="17" />
+			</ground>
+			<ground type="5">
+				<location x="131" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="131" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="131" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="131" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="132" y="17" />
+			</ground>
+			<ground type="6">
+				<location x="132" y="18" />
+			</ground>
+			<ground type="6">
+				<location x="132" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="132" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="132" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="133" y="15" />
+			</ground>
+			<ground type="4">
+				<location x="133" y="16" />
+			</ground>
+			<ground type="4">
+				<location x="133" y="17" />
+			</ground>
+			<ground type="4">
+				<location x="133" y="18" />
+			</ground>
+			<ground type="4">
+				<location x="133" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="133" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="133" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="134" y="15" />
+			</ground>
+			<ground type="5">
+				<location x="134" y="16" />
+			</ground>
+			<ground type="5">
+				<location x="134" y="17" />
+			</ground>
+			<ground type="5">
+				<location x="134" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="134" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="134" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="134" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="135" y="15" />
+			</ground>
+			<ground type="6">
+				<location x="135" y="16" />
+			</ground>
+			<ground type="6">
+				<location x="135" y="17" />
+			</ground>
+			<ground type="6">
+				<location x="135" y="18" />
+			</ground>
+			<ground type="6">
+				<location x="135" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="135" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="135" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="136" y="13" />
+			</ground>
+			<ground type="4">
+				<location x="136" y="14" />
+			</ground>
+			<ground type="4">
+				<location x="136" y="15" />
+			</ground>
+			<ground type="4">
+				<location x="136" y="16" />
+			</ground>
+			<ground type="4">
+				<location x="136" y="17" />
+			</ground>
+			<ground type="4">
+				<location x="136" y="18" />
+			</ground>
+			<ground type="4">
+				<location x="136" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="136" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="136" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="137" y="13" />
+			</ground>
+			<ground type="5">
+				<location x="137" y="14" />
+			</ground>
+			<ground type="5">
+				<location x="137" y="15" />
+			</ground>
+			<ground type="5">
+				<location x="137" y="16" />
+			</ground>
+			<ground type="5">
+				<location x="137" y="17" />
+			</ground>
+			<ground type="5">
+				<location x="137" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="137" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="137" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="137" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="138" y="13" />
+			</ground>
+			<ground type="6">
+				<location x="138" y="14" />
+			</ground>
+			<ground type="6">
+				<location x="138" y="15" />
+			</ground>
+			<ground type="6">
+				<location x="138" y="16" />
+			</ground>
+			<ground type="6">
+				<location x="138" y="17" />
+			</ground>
+			<ground type="6">
+				<location x="138" y="18" />
+			</ground>
+			<ground type="6">
+				<location x="138" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="138" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="138" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="139" y="14" />
+			</ground>
+			<ground type="4">
+				<location x="139" y="15" />
+			</ground>
+			<ground type="4">
+				<location x="139" y="16" />
+			</ground>
+			<ground type="4">
+				<location x="139" y="17" />
+			</ground>
+			<ground type="4">
+				<location x="139" y="18" />
+			</ground>
+			<ground type="4">
+				<location x="139" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="139" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="139" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="140" y="14" />
+			</ground>
+			<ground type="5">
+				<location x="140" y="15" />
+			</ground>
+			<ground type="5">
+				<location x="140" y="16" />
+			</ground>
+			<ground type="5">
+				<location x="140" y="17" />
+			</ground>
+			<ground type="5">
+				<location x="140" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="140" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="140" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="140" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="141" y="14" />
+			</ground>
+			<ground type="5">
+				<location x="141" y="15" />
+			</ground>
+			<ground type="5">
+				<location x="141" y="16" />
+			</ground>
+			<ground type="5">
+				<location x="141" y="17" />
+			</ground>
+			<ground type="5">
+				<location x="141" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="141" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="141" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="141" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="142" y="14" />
+			</ground>
+			<ground type="5">
+				<location x="142" y="15" />
+			</ground>
+			<ground type="5">
+				<location x="142" y="16" />
+			</ground>
+			<ground type="5">
+				<location x="142" y="17" />
+			</ground>
+			<ground type="5">
+				<location x="142" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="142" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="142" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="142" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="143" y="14" />
+			</ground>
+			<ground type="5">
+				<location x="143" y="15" />
+			</ground>
+			<ground type="5">
+				<location x="143" y="16" />
+			</ground>
+			<ground type="5">
+				<location x="143" y="17" />
+			</ground>
+			<ground type="5">
+				<location x="143" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="143" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="143" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="143" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="144" y="14" />
+			</ground>
+			<ground type="5">
+				<location x="144" y="15" />
+			</ground>
+			<ground type="5">
+				<location x="144" y="16" />
+			</ground>
+			<ground type="5">
+				<location x="144" y="17" />
+			</ground>
+			<ground type="5">
+				<location x="144" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="144" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="144" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="144" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="145" y="14" />
+			</ground>
+			<ground type="6">
+				<location x="145" y="15" />
+			</ground>
+			<ground type="6">
+				<location x="145" y="16" />
+			</ground>
+			<ground type="6">
+				<location x="145" y="17" />
+			</ground>
+			<ground type="6">
+				<location x="145" y="18" />
+			</ground>
+			<ground type="6">
+				<location x="145" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="145" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="145" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="154" y="20" />
+			</ground>
+			<ground type="4">
+				<location x="154" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="155" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="155" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="156" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="156" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="157" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="157" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="158" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="158" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="159" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="159" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="160" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="160" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="161" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="161" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="162" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="162" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="163" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="163" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="164" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="164" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="165" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="165" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="166" y="20" />
+			</ground>
+			<ground type="6">
+				<location x="166" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="169" y="18" />
+			</ground>
+			<ground type="4">
+				<location x="169" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="169" y="20" />
+			</ground>
+			<ground type="4">
+				<location x="169" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="170" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="170" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="170" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="170" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="171" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="171" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="171" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="171" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="172" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="172" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="172" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="172" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="173" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="173" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="173" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="173" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="174" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="174" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="174" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="174" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="175" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="175" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="175" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="175" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="176" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="176" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="176" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="176" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="177" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="177" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="177" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="177" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="178" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="178" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="178" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="178" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="179" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="179" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="179" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="179" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="180" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="180" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="180" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="180" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="181" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="181" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="181" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="181" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="182" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="182" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="182" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="182" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="183" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="183" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="183" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="183" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="184" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="184" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="184" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="184" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="185" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="185" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="185" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="185" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="186" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="186" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="186" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="186" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="187" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="187" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="187" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="187" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="188" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="188" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="188" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="188" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="189" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="189" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="189" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="189" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="190" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="190" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="190" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="190" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="191" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="191" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="191" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="191" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="192" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="192" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="192" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="192" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="193" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="193" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="193" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="193" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="194" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="194" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="194" y="20" />
+			</ground>
+			<ground type="8">
+				<location x="194" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="195" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="195" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="195" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="195" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="196" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="196" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="196" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="196" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="197" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="197" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="197" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="197" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="198" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="198" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="198" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="198" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="199" y="18" />
+			</ground>
+			<ground type="5">
+				<location x="199" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="199" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="199" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="200" y="18" />
+			</ground>
+			<ground type="6">
+				<location x="200" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="200" y="20" />
+			</ground>
+			<ground type="6">
+				<location x="200" y="21" />
+			</ground>
+			<ground type="1">
+				<location x="201" y="19" />
+			</ground>
+			<ground type="4">
+				<location x="201" y="20" />
+			</ground>
+			<ground type="7">
+				<location x="201" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="202" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="202" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="202" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="203" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="203" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="203" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="204" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="204" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="204" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="205" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="205" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="205" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="206" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="206" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="206" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="207" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="207" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="207" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="208" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="208" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="208" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="209" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="209" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="209" y="21" />
+			</ground>
+			<ground type="2">
+				<location x="210" y="19" />
+			</ground>
+			<ground type="5">
+				<location x="210" y="20" />
+			</ground>
+			<ground type="5">
+				<location x="210" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="211" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="211" y="20" />
+			</ground>
+			<ground type="9">
+				<location x="211" y="21" />
+			</ground>
+		</grounds>
+		<castles>
+			<castle type="1">
+				<location x="201" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="201" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="202" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="202" y="17" />
+			</castle>
+			<castle type="5">
+				<location x="202" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="203" y="15" />
+			</castle>
+			<castle type="2">
+				<location x="203" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="203" y="17" />
+			</castle>
+			<castle type="7">
+				<location x="203" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="204" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="15" />
+			</castle>
+			<castle type="2">
+				<location x="204" y="16" />
+			</castle>
+			<castle type="6">
+				<location x="204" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="204" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="205" y="13" />
+			</castle>
+			<castle type="2">
+				<location x="205" y="14" />
+			</castle>
+			<castle type="6">
+				<location x="205" y="15" />
+			</castle>
+			<castle type="2">
+				<location x="205" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="205" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="206" y="12" />
+			</castle>
+			<castle type="2">
+				<location x="206" y="13" />
+			</castle>
+			<castle type="2">
+				<location x="206" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="206" y="15" />
+			</castle>
+			<castle type="2">
+				<location x="206" y="16" />
+			</castle>
+			<castle type="4">
+				<location x="206" y="17" />
+			</castle>
+			<castle type="6">
+				<location x="206" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="207" y="13" />
+			</castle>
+			<castle type="2">
+				<location x="207" y="14" />
+			</castle>
+			<castle type="6">
+				<location x="207" y="15" />
+			</castle>
+			<castle type="2">
+				<location x="207" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="207" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="207" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="208" y="14" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="15" />
+			</castle>
+			<castle type="2">
+				<location x="208" y="16" />
+			</castle>
+			<castle type="6">
+				<location x="208" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="208" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="209" y="15" />
+			</castle>
+			<castle type="2">
+				<location x="209" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="209" y="17" />
+			</castle>
+			<castle type="5">
+				<location x="209" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="210" y="16" />
+			</castle>
+			<castle type="3">
+				<location x="210" y="17" />
+			</castle>
+			<castle type="7">
+				<location x="210" y="18" />
+			</castle>
+			<castle type="1">
+				<location x="211" y="17" />
+			</castle>
+			<castle type="3">
+				<location x="211" y="18" />
+			</castle>
+	</castles>
+	</level>
+</superMario>

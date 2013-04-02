@@ -67,7 +67,7 @@ int CWin::Run()
 			DispatchMessage(&msg);
 		}
 		else if(quit){
-			HANDLE splashscreenBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+			HANDLE splashscreenBitmap = LoadImage(NULL, "res/splashscreen/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 			BITMAP bitmap;
 			
 			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));

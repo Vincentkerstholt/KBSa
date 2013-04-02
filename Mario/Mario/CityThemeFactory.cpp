@@ -1,15 +1,15 @@
 #include "CityThemeFactory.h"
 
 CityThemeFactory::CityThemeFactory(){
-	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	blockBitmap = LoadImage(NULL, "res/cityblock.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	pipeBitmap = LoadImage(NULL, "res/cityPipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	groundBitmap = LoadImage(NULL, "res/cityGround2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	koopaBitmap = LoadImage(NULL, "res/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	bkGroundBitmap = LoadImage(NULL, "res/backgroundCity.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	bkGround2Bitmap = LoadImage(NULL, "res/backgroundCity2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	castleBitmap = LoadImage(NULL, "res/CityTheme/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	blockBitmap = LoadImage(NULL, "res/CityTheme/cityblock.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	pipeBitmap = LoadImage(NULL, "res/CityTheme/cityPipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	groundBitmap = LoadImage(NULL, "res/CityTheme/cityGround2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	goombaBitmap = LoadImage(NULL, "res/CityTheme/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	koopaBitmap = LoadImage(NULL, "res/CityTheme/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	gadgetBitmap = LoadImage(NULL, "res/CityTheme/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGroundBitmap = LoadImage(NULL, "res/CityTheme/backgroundCity.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGround2Bitmap = LoadImage(NULL, "res/CityTheme/backgroundCity2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 CityThemeFactory::~CityThemeFactory(){
