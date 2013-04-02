@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="landscape"/>
+<<<<<<< HEAD
+	<hero character="mario" x="209" y="19"/>
+=======
 	<hero character="mario" coins="2" lives="4" points="200" x="35" y="17"/>
+>>>>>>> b208d0872b8d5610e396d9f1edd4492899797dc4
 	<enemies>
 		<enemy character="goomba">
 			<location x="49" y="19"/>
