@@ -8,12 +8,14 @@ WaterThemeFactory::WaterThemeFactory(){
 	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	koopaBitmap = LoadImage(NULL, "res/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 WaterThemeFactory::~WaterThemeFactory(){
+	delImage();
 }
 
 string WaterThemeFactory::getName(){
@@ -30,6 +32,8 @@ void WaterThemeFactory::delImage()
 	groundBitmap = NULL;
 	DeleteObject(goombaBitmap);
 	goombaBitmap = NULL;
+	DeleteObject(koopaBitmap);
+	koopaBitmap = NULL;
 	DeleteObject(gadgetBitmap);
 	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
@@ -54,6 +58,10 @@ HANDLE WaterThemeFactory::getGround(){
 
 HANDLE WaterThemeFactory::getGoomba(){
 	return goombaBitmap;
+}
+
+HANDLE WaterThemeFactory::getKoopa(){
+	return koopaBitmap;
 }
 
 HANDLE WaterThemeFactory::getGadget(){

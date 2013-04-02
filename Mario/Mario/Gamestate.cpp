@@ -35,6 +35,7 @@ Gamestate::Gamestate()
 	curTime = 0;
 	fps = 0;
 	selector = 0;
+	xml = new XmlParser();
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -411,7 +412,21 @@ void Gamestate::drawWorld(HDC & hdc){
 
 				TransparentBlt(hdc, (goomba->GetPositionPixel().x - camera.getXPosition()), (goomba->GetPositionPixel().y), 32, 32, hObstacleDC, (goomba->getTexturePosition().x*multiplier), goomba->getTexturePosition().y*multiplier, 32,32, RGB(255,174,201));
 				UpdateEnemy(index);
-								
+
+			}
+			else if(className == "Koopa")
+			{
+				Koopa * koopa = (Koopa*)level[index];
+				hObstacleBitmap = factory->getKoopa();
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				TransparentBlt(hdc, (koopa->GetPositionPixel().x - camera.getXPosition()), (koopa->GetPositionPixel().y), 32, 32, hObstacleDC, (koopa->getTexturePosition().x*multiplier), koopa->getTexturePosition().y*multiplier, 32,32, RGB(255,174,201));
+				UpdateEnemy(index);
+
 			}
 			else if (className == "Coin")
 			{
@@ -486,7 +501,7 @@ void Gamestate::changeFactory(char firstLetter){
 
 void Gamestate::CreateWorld(){
 	currentLevel = 1;
-	xml = new XmlParser();
+	
 	xml->parse("res/World 1-1.xml");
 
 	createLevel();
