@@ -1,6 +1,8 @@
 #include "XMLParser.h"
 
 XmlParser::XmlParser(){
+	buffer = NULL;
+	root = NULL;
 }
 
 void XmlParser::saveGame(Gamestate * gameState){
@@ -508,8 +510,10 @@ XmlParserNode * XmlParser::getNode(string tagName){
 }
 
 void XmlParser::Clear(){
-	delete buffer;
-	delete root;
+	if (buffer != NULL)
+		delete buffer;
+	if (root != NULL)
+		delete root;
 
 	file = NULL;
 	buffer = NULL;

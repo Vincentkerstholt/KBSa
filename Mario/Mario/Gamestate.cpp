@@ -31,7 +31,7 @@ const int CASTLE_RIGHTGAP = 7;
 Gamestate::Gamestate()
 {
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-
+	xml = new XmlParser();
 	frames = 0;
 	curTime = 0;
 	fps = 0;
@@ -42,13 +42,14 @@ Gamestate::Gamestate()
 	currentLevel = -1;
 	highScorePos = 0;
 	name = "";
+	Mario = NULL;
 	hFont = CreateFont(48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFontOld = CreateFont(20,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
-
+	
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -615,6 +616,7 @@ void Gamestate::destroyWorld(bool deleteXML)
 }
 
 void Gamestate::loadGame(){
+	if (currentLevel != -1)
 	destroyWorld(true);
 
 	xml->parse("res/saveGame.xml");
@@ -880,16 +882,15 @@ void Gamestate::menu(HDC & hdc)
 			inMenu = false;
 		break;
 		case 1: //Continue game
-			{
-				//int lives = Mario->getLives();
-				//if(lives > 0)
-				//{
+
+			if (Mario!= NULL)
+				if(Mario->getLives() > 0)
 					inMenu = false;
-				//}
-				break;
-			}
+			break;
 		case 2:	//save game
-			saveGame();
+			if (Mario!= NULL)
+				if(Mario->getLives() > 0)
+					saveGame();
 		break;
 		case 3:	//load game
 			loadGame();
@@ -904,8 +905,15 @@ void Gamestate::menu(HDC & hdc)
 		break;
 		}
 	}
-
-	hBackgroundBitmap = LoadImage(NULL, "res/menu.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	if (Mario!= NULL)
+	{
+		if(Mario->getLives() > 0)
+			hBackgroundBitmap = LoadImage(NULL, "res/menu.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		else
+			hBackgroundBitmap = LoadImage(NULL, "res/menu2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	}
+	else
+		hBackgroundBitmap = LoadImage(NULL, "res/menu2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
@@ -977,10 +985,13 @@ void Gamestate::HighScore(HDC & hdc)
 
 Gamestate::~Gamestate()
 {
+	if (currentLevel != -1)
 	destroyWorld(true);
-
-	delete xml;
-	xml = NULL;
+	if (xml != NULL)
+	{
+		delete xml;
+		xml = NULL;
+	}
 }
 
 void Gamestate::UpDownCollision()
@@ -1294,8 +1305,8 @@ void Gamestate::HeroDie()
 {
 	if(Mario->hurt())
 	{
-		  /////////////////
-		 //Add HighScore//
+		/////////////////
+		//Add HighScore//
 		/////////////////
 		setHighscore();
 		inMenu = true;

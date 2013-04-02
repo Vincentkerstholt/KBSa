@@ -48,6 +48,7 @@ void CSkeleton::GameLoop()
 
 		startUp = false;
 		gameState->inMenu = true;
+		return;
 	}
  	else if (gameState->inMenu)
  	{
