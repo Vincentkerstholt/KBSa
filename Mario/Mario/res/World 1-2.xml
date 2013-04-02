@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="dungeon" />
-	<hero character="mario" x="3" y="3" />
+	<hero character="mario" x="3" y="3" coins="0" points="0" lives="5" />
 	<enemies>
 		<enemy character="goomba">
 			<location x="19" y="18" />

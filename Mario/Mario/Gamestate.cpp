@@ -632,7 +632,8 @@ void Gamestate::destroyWorld(bool deleteXML)
 }
 
 void Gamestate::loadGame(){
-	destroyWorld(true);
+	if(currentLevel != -1)
+		destroyWorld(true);
 
 	xml->parse("res/saveGame.xml");
 	

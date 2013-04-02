@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="sky" />
-	<hero character="mario" x="4" y="7" />
+	<hero character="mario" x="4" y="7" coins="0" points="0" lives="5" />
 	<enemies>
 		<enemy character="koopa">
 			<location x="37" y="10" />
