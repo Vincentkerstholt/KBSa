@@ -10,11 +10,19 @@
 				<location x="21" y="16" />
 				<gadget>
 					<coin />
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="26" y="16" />
 				<gadget>
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 					<coin />
 				</gadget>
 			</block>
@@ -34,6 +42,10 @@
 				<location x="28" y="16" />
 				<gadget>
 					<coin />
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="true" isFixed="false">
@@ -45,6 +57,10 @@
 			<block isSpecial="false" isFixed="false">
 				<location x="30" y="16" />
 				<gadget>
+					<coin />
+					<coin />
+					<coin />
+					<coin />
 					<coin />
 				</gadget>
 			</block>

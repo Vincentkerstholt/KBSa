@@ -24,25 +24,25 @@ string LandThemeFactory::getName(){
 
 void LandThemeFactory::delImage()
 {
-	DeleteObject(blockBitmap);
-	blockBitmap = NULL;
 	DeleteObject(pipeBitmap);
-	pipeBitmap = NULL;
+	DeleteObject(blockBitmap);
 	DeleteObject(groundBitmap);
-	groundBitmap = NULL;
 	DeleteObject(goombaBitmap);
-	goombaBitmap = NULL;
 	DeleteObject(koopaBitmap);
-	koopaBitmap = NULL;
 	DeleteObject(gadgetBitmap);
-	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
-	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
-	bkGround2Bitmap = NULL;
 	DeleteObject(castleBitmap);
-	castleBitmap = NULL;
 
+	pipeBitmap = NULL;
+	blockBitmap = NULL;
+	groundBitmap = NULL;
+	goombaBitmap = NULL;
+	gadgetBitmap = NULL;
+	bkGroundBitmap = NULL;
+	bkGround2Bitmap = NULL;
+	koopaBitmap = NULL;
+	castleBitmap = NULL;
 }
 
 HANDLE LandThemeFactory::getBlock(){

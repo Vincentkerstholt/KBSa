@@ -19,7 +19,6 @@ DungeonThemeFactory::~DungeonThemeFactory()
 	delImage();
 }
 
-
 string DungeonThemeFactory::getName(){
 	return "dungeon";
 }
@@ -42,6 +41,8 @@ void DungeonThemeFactory::delImage()
 	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
+	DeleteObject(castleBitmap);
+	castleBitmap = NULL;
 }
 
 HANDLE DungeonThemeFactory::getCastle()

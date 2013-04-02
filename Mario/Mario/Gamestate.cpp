@@ -1,5 +1,6 @@
 #include "Gamestate.h"
 
+#pragma region CONST
 const int multiplier = 32;
 const int GROUND_TOPLEFT = 1;
 const int GROUND_TOPCENTER = 2;
@@ -25,7 +26,7 @@ const int CASTLE_DOOR = 4;
 const int CASTLE_LEFTGAP = 5;
 const int CASTLE_GAP = 6;
 const int CASTLE_RIGHTGAP = 7;
-
+#pragma endregion CONST
 
 Gamestate::Gamestate()
 {
@@ -36,6 +37,19 @@ Gamestate::Gamestate()
 	fps = 0;
 	selector = 0;
 	xml = new XmlParser();
+	inMenu = true;
+	inHighScore = false;
+	inNameInput = false;
+	currentLevel = -1;
+	highScorePos = 0;
+	name = "";
+	hFont = CreateFont(48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+	hFontOld = CreateFont(20,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -58,12 +72,11 @@ void Gamestate::saveGame(){
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
 	frames++;
-
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	Collision();
 	UpDownCollision();
 	drawBackground(hdc);
-	drawHUD(hdc);
+	
 	drawWorld(hdc);
 
 	if (debugMode == true)
@@ -72,6 +85,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 		drawStatistics(hdc);
 	}
 	drawCharacters(hdc);
+	drawHUD(hdc);
 }
 
 IThemeFactory * Gamestate::getFactory(string name){
@@ -167,7 +181,6 @@ void Gamestate::drawStatistics(HDC & hdc){
 
 	oss.str("");
 
-
 	frames++;
 	if(time(NULL) != curTime)
 	{
@@ -179,19 +192,21 @@ void Gamestate::drawStatistics(HDC & hdc){
 	TextOut(hdc,  10, 90, oss.str().c_str(), strlen(oss.str().c_str()));
 
 	oss.clear();
-
 }
 
 void Gamestate::drawHUD(HDC & hdc){
-	SetBkMode(hdc,TRANSPARENT);
 	ostringstream oss;
 
-	oss << "Coins: " << Mario->getCoins() ;
+	oss << "Score: " << Mario->getScore() ;
 	TextOut(hdc, 600, 10, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
-	oss << "Lives: " << Mario->getLives() ;
+	oss << "Coins: " << Mario->getCoins() ;
 	TextOut(hdc, 600, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	oss << "Lives: " ;
+	TextOut(hdc, 600, 50, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
 	SIZE imgSize;
@@ -203,11 +218,10 @@ void Gamestate::drawHUD(HDC & hdc){
 	imgSize.cx = bitmap.bmWidth;
 	imgSize.cy = bitmap.bmHeight;
 
-
-	int x = 660;
+	int x = 645;
 	for (int i = 0; i < Mario->getLives(); i++)
 	{
-		TransparentBlt(hdc, x, 30, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
+		TransparentBlt(hdc, x, 50, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
 		x += 18;
 	}
 
@@ -238,7 +252,6 @@ void Gamestate::drawBackground(HDC & hdc){
 }
 
 void Gamestate::drawWorld(HDC & hdc){
-
 	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
@@ -475,7 +488,6 @@ void Gamestate::drawWorld(HDC & hdc){
 				TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
 			}
 			DeleteDC(hObstacleDC);
-			//DeleteObject(hObstacleBitmap);
 		}
 	}
 }
@@ -500,10 +512,11 @@ void Gamestate::changeFactory(char firstLetter){
 }
 
 void Gamestate::CreateWorld(){
-	currentLevel = 1;
-	
-	xml->parse("res/World 1-3.xml");
+	if(currentLevel != -1)
+		destroyWorld(true);
 
+	xml->parse("res/World 1-1.xml");
+	
 	createLevel();
 	createHero();
 	createFactory();
@@ -512,12 +525,15 @@ void Gamestate::CreateWorld(){
 	createPipes();
 	createEnemies();
 	createCastles();
+
+	currentLevel = 1;
 }
 
 void Gamestate::resetWorld(){
-	destroyWorld();
+	destroyWorld(false);
 
 	createLevel();
+	createFactory();
 	createBlocks();
 	createGrounds();
 	createPipes();
@@ -527,7 +543,7 @@ void Gamestate::resetWorld(){
 	Mario->ResetPosition();
 }
 
-void Gamestate::destroyWorld()
+void Gamestate::destroyWorld(bool deleteXML)
 {
 	for(int i = 0 ; i < x ; i++)
 	{
@@ -536,15 +552,82 @@ void Gamestate::destroyWorld()
 			int index = getIndex(i,j);
 			if (level[index] != NULL)
 			{
-				delete level[index];
-				level[index] = NULL;
+				string levelName = level[index]->getClassName();
+				if(levelName == "Block")
+				{
+					Block * block = (Block *)level[index];
+					delete block;
+					block = NULL;
+				}
+				else if(levelName == "Ground")
+				{
+					Ground * ground = (Ground *)level[index];
+					delete ground;
+					ground = NULL;
+				}
+				else if(levelName == "Pipe")
+				{
+					Pipe * pipe = (Pipe *)level[index];
+					delete pipe;
+					pipe = NULL;
+				}
+				else if(levelName == "Castle")
+				{
+					Castle * castle = (Castle *)level[index];
+					delete castle;
+					castle = NULL;
+				}
+				else if(levelName == "Goomba")
+				{
+					Goomba * goomba = (Goomba *)level[index];
+					delete goomba;
+					goomba = NULL;
+				}
+				else if(levelName == "Koopa")
+				{
+					Koopa * koopa = (Koopa *)level[index];
+					delete koopa;
+					koopa = NULL;
+				}
 			}
 		}
 	}
+	
+	delete [] level;
+	level = NULL;
+
+	string factoryName = factory->getName();
+	if(factoryName == "dungeon")
+	{
+		DungeonThemeFactory * dungeon = (DungeonThemeFactory *)factory;
+		delete dungeon;
+		dungeon = NULL;
+	}
+	else if(factoryName == "landscape")
+	{
+		LandThemeFactory * landscape = (LandThemeFactory *)factory;
+		delete landscape;
+		landscape = NULL;
+	}
+	else if(factoryName == "sky")
+	{
+		SkyThemeFactory * sky = (SkyThemeFactory *)factory;
+		delete sky;
+		sky = NULL;
+	}
+	else if(factoryName == "water")
+	{
+		WaterThemeFactory * water = (WaterThemeFactory *)factory;
+		delete water;
+		water = NULL;
+	}
+
+	if(deleteXML)
+		xml->Clear();
 }
 
 void Gamestate::loadGame(){
-	destroyWorld();
+	destroyWorld(true);
 
 	xml->parse("res/saveGame.xml");
 	
@@ -563,7 +646,7 @@ void Gamestate::loadGame(){
 void Gamestate::nextLevel()
 {
 	currentLevel++;
-	destroyWorld();
+	destroyWorld(true);
 	switch(currentLevel)
 	{
 	case 1:
@@ -612,7 +695,8 @@ void Gamestate::nextLevel()
 void Gamestate::createHero(){
 	XmlParserNode * marioXml = xml->getNode("hero");
 
-	Mario = new Hero();
+	if(currentLevel == -1)
+		Mario = new Hero();
 
 	int xMario = stoi(marioXml->getAttribute("x"));
 	int yMario = stoi(marioXml->getAttribute("y"));
@@ -764,6 +848,12 @@ void Gamestate::createCastles(){
 
 void Gamestate::menu(HDC & hdc)
 {
+	if(inHighScore == true)
+	{
+		HighScore(hdc);
+		return;
+	}
+
 	Sleep(100);
 
 	if(GetAsyncKeyState(VK_UP))	{
@@ -791,35 +881,39 @@ void Gamestate::menu(HDC & hdc)
 
 	if (selector < 0)
 		selector = 0;
-	if (selector > 3)
-		selector = 3;
+	if (selector > 5)
+		selector = 5;
 
 	if (GetAsyncKeyState(VK_RETURN))
 	{
 		switch (selector)
 		{
 		case 0:
-			// reset lvl
+			// New game
+			SelectObject(hdc, hFontOld);
 			CreateWorld();
 			inMenu = false;
 		break;
-		case 1:
-			//save game
-			saveGame();
-		break;
-		case 2:
-			//load game
-			loadGame();
-		break;
-		case 3:
+		case 1: //Continue game
 			{
-				//Continue game
 				//int lives = Mario->getLives();
 				//if(lives > 0)
 				//{
-				//	inMenu = false;
+					inMenu = false;
 				//}
+				break;
 			}
+		case 2:	//save game
+			saveGame();
+		break;
+		case 3:	//load game
+			loadGame();
+		break;
+	
+		case 4:
+			inHighScore = true;
+			break;
+		case 5:
 			break;
 		default:
 		break;
@@ -845,13 +939,61 @@ void Gamestate::menu(HDC & hdc)
 	DeleteObject(hBackgroundBitmap);
 }
 
+void Gamestate::HighScore(HDC & hdc)
+{
+	if (inNameInput == true)
+	{
+		nameInput();
+	}
+	hBackgroundBitmap = LoadImage(NULL, "res/Highscore.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hBackgroundDC = CreateCompatibleDC(hdc);
+
+	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap);
+	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
+
+	DeleteObject(hBackgroundBitmap);
+	DeleteDC(hBackgroundDC);
+	SelectObject(hdc, hFont);
+
+	ostringstream oss;
+	oss << "Highscores:";
+	TextOut(hdc, 580, 120, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	oss.str("");
+	int n=0;
+	if (file != NULL)
+	while (!feof(file))
+	{
+		if(fgets(buffer, 100, file) == NULL) break;
+		fputs(buffer, stdout);
+		oss << (n+1) << ". " << buffer;
+		TextOut(hdc, 580, 170+n*45, oss.str().c_str(), strlen(oss.str().c_str()));
+		n++;
+		oss.str("");
+	}
+
+	oss.clear();
+	delete[] buffer;
+	fclose(file);
+	
+	if (GetAsyncKeyState(VK_ESCAPE))
+	{
+		inHighScore = false;
+		SelectObject(hdc ,hFontOld);
+	}
+}
+
 Gamestate::~Gamestate()
 {
-	delete [] level;
-	level = NULL;
+	destroyWorld(true);
 
-	delete factory;
-	factory = NULL;
 	delete xml;
 	xml = NULL;
 }
@@ -896,6 +1038,7 @@ void Gamestate::UpDownCollision()
 		{			
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;
+			mario.y += 8;
 			string boxCheck = BoxCheck(index);
 			if (boxCheck == "Block" )
 			{
@@ -1020,22 +1163,22 @@ void Gamestate::UpDownCollision()
 			if (RightHead == "Flower"){
 				delete level[getIndex(MarioRightHead)];
 				level[getIndex(MarioRightHead)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (LeftHead == "Flower"){
 				delete level[getIndex(MarioLeftHead)];
 				level[getIndex(MarioLeftHead)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (LeftFeet == "Flower"){
 				delete level[getIndex(MarioLeftFeet)];
 				level[getIndex(MarioLeftFeet)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (RightFeet == "Flower"){
 				delete level[getIndex(MarioRightFeet)];
 				level[getIndex(MarioRightFeet)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 		}
 
@@ -1169,7 +1312,7 @@ void Gamestate::HeroDie()
 		  /////////////////
 		 //Add HighScore//
 		/////////////////
-
+		setHighscore();
 		inMenu = true;
 	}
 	else
@@ -1304,4 +1447,162 @@ void Gamestate::UpdateEnemy(int index)
 
 string Gamestate::getCurrentFactory(){
 	return factory->getName();
+}
+
+void Gamestate::setHighscore()
+{
+	ostringstream oss("");
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	int n=0;
+
+	Score scores [5];
+
+	if (file != NULL)
+		while ((!feof(file)) && n<5)
+		{
+			if(fgets(buffer, 100, file) == NULL) break;
+			fputs(buffer, stdout);
+			scores[n].setScore(buffer);
+			n++;
+		}
+		
+		bool inserted = false;
+		for (int i = 0 ; i < 5 ; i++ )
+		{
+			if (scores[i].getScore() < Mario->getScore())
+			{
+				for(int j=3 ; j>=i ; j-- )
+				{
+					scores[j+1].setScore(scores[j].toString());
+				}
+				oss.str("");
+				oss << " :" << Mario->getScore() << endl;
+				scores[i].setScore(oss.str());
+				oss.str("");
+				highScorePos = i;
+				inNameInput =true;
+				break;
+			}
+		}
+		fclose(file);
+		//overwrite score with new scores here
+		file = fopen(((string)"res/Highscores.txt").c_str(), "w");
+		for (int i = 0 ; i < 5 ; i++)
+			fputs(scores[i].toString().c_str(),file);
+		
+		inHighScore = true;
+		oss.str("");
+		oss.clear();
+		delete[] buffer;
+		fclose(file);
+}
+
+void Gamestate::nameInput()
+{
+	if (GetAsyncKeyState(0x41))
+		name += "a";
+	if (GetAsyncKeyState(0x42))
+		name += "b";
+	if (GetAsyncKeyState(0x43))
+		name += "c";
+	if (GetAsyncKeyState(0x44))
+		name += "d";
+	if (GetAsyncKeyState(0x45))
+		name += "e";
+	if (GetAsyncKeyState(0x46))
+		name += "f";
+	if (GetAsyncKeyState(0x47))
+		name += "g";
+	if (GetAsyncKeyState(0x48))
+		name += "h";
+	if (GetAsyncKeyState(0x49))
+		name += "i";
+	if (GetAsyncKeyState(0x4A))
+		name += "j";
+	if (GetAsyncKeyState(0x4B))
+		name += "k";
+	if (GetAsyncKeyState(0x4C))
+		name += "l";
+	if (GetAsyncKeyState(0x4D))
+		name += "m";
+	if (GetAsyncKeyState(0x4E))
+		name += "n";
+	if (GetAsyncKeyState(0x4F))
+		name += "o";
+	if (GetAsyncKeyState(0x50))
+		name += "p";
+	if (GetAsyncKeyState(0x51))
+		name += "q";
+	if (GetAsyncKeyState(0x52))
+		name += "r";
+	if (GetAsyncKeyState(0x53))
+		name += "s";
+	if (GetAsyncKeyState(0x54))
+		name += "t";
+	if (GetAsyncKeyState(0x55))
+		name += "u";
+	if (GetAsyncKeyState(0x56))
+		name += "v";
+	if (GetAsyncKeyState(0x57))
+		name += "w";
+	if (GetAsyncKeyState(0x58))
+		name += "x";
+	if (GetAsyncKeyState(0x59))
+		name += "y";
+	if (GetAsyncKeyState(0x5A))
+		name += "z";
+	if (GetAsyncKeyState(VK_BACK) && name.length()>0)
+		name.pop_back();
+	if (GetAsyncKeyState(VK_SPACE))
+		name += " ";
+
+	ostringstream oss("");
+	oss << name << " :" << Mario->getScore() << "\n";
+	
+
+
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	int n=0;
+
+	Score scores [5];
+
+	if (file != NULL)
+		while ((!feof(file)) && n<5)
+		{
+			if(fgets(buffer, 100, file) == NULL) break;
+			fputs(buffer, stdout);
+			scores[n].setScore(buffer);
+			n++;
+		}
+		fclose(file);
+
+		scores[highScorePos].setScore(oss.str());
+
+		file = fopen(((string)"res/Highscores.txt").c_str(), "w");
+		for (int i = 0 ; i < 5 ; i++)
+			fputs(scores[i].toString().c_str(),file);
+		
+		oss.clear();
+		delete[] buffer;
+		fclose(file);
+		Sleep(100);
+
+		if (GetAsyncKeyState(VK_ESCAPE))
+		{
+			inNameInput = false;
+			name = "";
+		}
+		else if (GetAsyncKeyState(VK_RETURN))
+		{
+			inNameInput = false;
+			name = "";
+		}
 }

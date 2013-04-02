@@ -13,6 +13,7 @@
 #include "XMLParser.h"
 #include "Castle.h"
 #include "gadgets.h"
+#include "Score.h"
 
 using namespace std;
 
@@ -41,6 +42,7 @@ public:
 	void HeroDie();
 	Hero * Mario;
 	bool inMenu;
+
 	~Gamestate();
 	Camera camera;
 private:
@@ -51,6 +53,11 @@ private:
 	HDC hdc;
 	POINT point;
 	int selector;
+	HFONT hFont;
+	HFONT hFont2;
+	HFONT hFontOld;
+	bool inHighScore;
+
 	int currentLevel;
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
@@ -66,7 +73,11 @@ private:
 	int curTime;
 	int fps;
 	XmlParser * xml;
-
+	int highScorePos;
+	string name;
+	bool inNameInput;
+	void nameInput();
+	void HighScore(HDC & hdc);
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);
 	void drawCharacters(HDC & hdc);
@@ -76,7 +87,7 @@ private:
 	int ConvertIndexToXY(int index);
 	IThemeFactory * getFactory(string name);
 	void CreateWorld(int number);
-	void destroyWorld();
+	void destroyWorld(bool deleteXML);
 	void CreateWorld();
 	void loadGame();
 	void saveGame();
@@ -92,5 +103,6 @@ private:
 	void createEnemies();
 	void createCastles();
 	void nextLevel();
+	void setHighscore();
 };
 #endif

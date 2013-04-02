@@ -98,9 +98,9 @@ void XmlParser::saveGame(Gamestate * gameState){
 					gadgetXPN->setTitle("gadget");
 					gadgetXPN->setParent(blockXPN);
 
-					while(true){
-						Gadget * gadget = block->getGadget();
-						if(gadget == NULL) break;
+					for(int i = 0; i < block->getGadgetAmount(); i++)
+					{
+						Gadget * gadget = block->getGadgetPoint(i);
 						if(gadget->getClassName() == "Coin")
 						{
 							XmlParserNode * coinXPN = new XmlParserNode();
@@ -507,11 +507,15 @@ XmlParserNode * XmlParser::getNode(string tagName){
 	return xpn;
 }
 
-XmlParser::~XmlParser(){
+void XmlParser::Clear(){
 	delete buffer;
 	delete root;
 
 	file = NULL;
 	buffer = NULL;
 	root = NULL;
+}
+
+XmlParser::~XmlParser(){
+	Clear();
 }
