@@ -12,18 +12,7 @@ LandThemeFactory::LandThemeFactory(){
 }
 
 LandThemeFactory::~LandThemeFactory(){
-	DeleteObject(blockBitmap);
-	blockBitmap = NULL;
-	DeleteObject(pipeBitmap);
-	pipeBitmap = NULL;
-	DeleteObject(groundBitmap);
-	groundBitmap = NULL;
-	DeleteObject(goombaBitmap);
-	goombaBitmap = NULL;
-	DeleteObject(bkGroundBitmap);
-	bkGroundBitmap = NULL;
-	DeleteObject(bkGround2Bitmap);
-	bkGround2Bitmap = NULL;
+	delImage();
 }
 
 void LandThemeFactory::delImage()

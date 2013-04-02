@@ -7,19 +7,27 @@ SkyThemeFactory::SkyThemeFactory(){
 	pipeBitmap = LoadImage(NULL, "res/pipeSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	groundBitmap = LoadImage(NULL, "res/skyblock.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGroundBitmap = LoadImage(NULL, "res/clouds.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	bkGround2Bitmap = LoadImage(NULL, "res/backgroundcloud.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 SkyThemeFactory::~SkyThemeFactory(){
-	delete blockBitmap;
+	delImage();
+}
+
+void SkyThemeFactory::delImage()
+{
+	DeleteObject(blockBitmap);
 	blockBitmap = NULL;
-	delete pipeBitmap;
+	DeleteObject(pipeBitmap);
 	pipeBitmap = NULL;
-	delete groundBitmap;
+	DeleteObject(groundBitmap);
 	groundBitmap = NULL;
-	delete bkGroundBitmap;
+	DeleteObject(goombaBitmap);
+	goombaBitmap = NULL;
+	DeleteObject(bkGroundBitmap);
 	bkGroundBitmap = NULL;
-	delete bkGround2Bitmap;
+	DeleteObject(bkGround2Bitmap);
 	bkGround2Bitmap = NULL;
 }
 
@@ -41,4 +49,8 @@ HANDLE SkyThemeFactory::getBackgroundImage(){
 
 HANDLE SkyThemeFactory::getBackgroundImage2(){
 	return bkGround2Bitmap;
+}
+
+HANDLE SkyThemeFactory::getGoomba(){
+	return goombaBitmap;
 }
