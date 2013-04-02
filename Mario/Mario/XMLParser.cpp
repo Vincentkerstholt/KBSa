@@ -507,16 +507,26 @@ void XmlParser::parse(string fileLocation){
 	tagNamesLength = 0;
 	int lineNumber = 0;
 	ostringstream oss;
+	
+	//Creating a reference to the current node
 	XmlParserNode * currentNode;
 	
+	//If there is no file
 	if (file == NULL) parseError("Error opening file");
 	else{
+		//While end of file is not there
 		while (!feof(file))
 		{
+			//If current row in file is empty
 			if(fgets(buffer, 100, file) == NULL) break;
+			
+			//Putting the current row in the buffer
 			fputs(buffer, stdout);
+
+			//Creating a string of the buffer;
 			string line = buffer;
 			string cleanLine;
+
 			lineNumber++;
 
 			bool hasAttributes;
@@ -526,38 +536,55 @@ void XmlParser::parse(string fileLocation){
 			int singletonTagEnd = -1;
 			int beginningTagEnd = -1;
 
+			//Index of closing tag "</node>"
 			closingTagStart = line.find("<\/");
+			
+			//If closing tag doesn't exist
 			if(closingTagStart == -1){
+				//Index of opening tag "<node>"
 				beginningTagStart = line.find("<");
+
+				//Removing start tag
 				cleanLine = line.substr(beginningTagStart, line.length());
 				beginningTagStart = 0;
 			}
 			else{
+				//Removing closing start tag
 				cleanLine = line.substr(closingTagStart, line.length());
 				closingTagStart = 1;
 			}
+			//Index of singleton end tag "<node/>"
 			singletonTagEnd = cleanLine.find("\/>");
-			if(singletonTagEnd == -1) beginningTagEnd = cleanLine.find(">");
 
+			//If singleton end tag doesn't exist
+			if(singletonTagEnd == -1){
+				//Index of end tag "<node>"
+				beginningTagEnd = cleanLine.find(">");
+			}
+			//Index of first whiteSpace
 			int firstWhiteSpace = cleanLine.find(" ");
 			
 			string tagName;
 
+			//If closing start tag exist "</node>"
 			if(closingTagStart > -1){
-				//Close tag '</'
+				//Getting the tagname "node"
 				tagName = cleanLine.substr(closingTagStart + 1, beginningTagEnd - 2);
-				if(tagName == "superMario"){
-					root->setEndTag();
-					break;
-				}
-				else{
+
+				//If tagname doesn't equals superMario
+				if(tagName != "superMario"){
+					//If the current tagname equals the last tagname
 					if(tagNames[tagNamesLength - 1] == tagName){
+						//Removing the last tagname
 						tagNames[tagNamesLength - 1] = "";
 						tagNamesLength--;
-						currentNode->setEndTag();
+
+						//Current node is the current node it's parent
 						currentNode = currentNode->getParent();
 					}
+					//If the current tagname doesn't equals the last tagname
 					else{
+						//Give error message
 						oss << "The tagName \"" << tagName << "\" doesn't match \"" << tagNames[tagNamesLength - 1] << "\" at line " << lineNumber;
 						parseError(oss.str());
 						oss.str("");
@@ -566,112 +593,180 @@ void XmlParser::parse(string fileLocation){
 					}
 				}
 			}
+			//If opening start tag exist "<node>"
 			else if(beginningTagStart > -1){
-				//Open tag '<'
 				string remaining;
 
+				//If firstWhiteSpace doesn't exist and the singleton end tag doesn't exist
 				if(firstWhiteSpace == -1 && singletonTagEnd == -1){
 					tagName = cleanLine.substr(beginningTagStart + 1, beginningTagEnd - 1);
 				}
+				//If firstWhiteSpace doesn't exist and the singleton end tag exist
 				else if(firstWhiteSpace == -1 && singletonTagEnd > -1){
 					tagName = cleanLine.substr(beginningTagStart + 1, singletonTagEnd - 1);
 				}
 				else{
 					tagName = cleanLine.substr(beginningTagStart + 1, firstWhiteSpace - 1);
+					//If first character equals ?
 					if(tagName[0] == '?')
 						continue;
+					//If end tag exist "<node>"
 					if(beginningTagEnd > -1)
 						remaining = cleanLine.substr(firstWhiteSpace + 1, beginningTagEnd - firstWhiteSpace - 1);
 					else
 						remaining = cleanLine.substr(firstWhiteSpace + 1, singletonTagEnd - firstWhiteSpace - 1);
 				}
 
+				//If tagname equals superMario
 				if(tagName == "superMario"){
+					//Setting the root node
 					root = new XmlParserNode();
+
+					//Setting the title of the root node
 					root->setTitle(tagName);
+
+					//Setting the current node to the root node
 					currentNode = root;
 				}
 				else{
-					XmlParserNode * xpn;
-					if(singletonTagEnd > -1){
-						//Singleton Node
-						xpn = new XmlParserNode();
-						xpn->setTitle(tagName);
-						xpn->setEndTag();
-						xpn->setParent(currentNode);
 
+					XmlParserNode * xpn;
+					//If singleton end tag exist "<node/>"
+					if(singletonTagEnd > -1){
+						//Creating new node
+						xpn = new XmlParserNode();
+
+						//Setting the title for the new node
+						xpn->setTitle(tagName);
+
+						//Creating a singleton tag of the new node
+						xpn->setEndTag();
+
+						//If there are attributes
 						if(remaining.length() > 0){
+							//Infinite loop
 							while (true)
 							{
+								//The index of the next whitespace
 								int whiteSpace = remaining.find(" ");
 								int quote;
 								string key;
 								string attrValue;
 								string attribute;
+
+								//If there is no whitespace
 								if(whiteSpace == -1){
 									attribute = remaining;
+
+									//The index of the " character
 									quote = attribute.find("\"");
+
+									//The key name of the attribute
 									key = attribute.substr(0, attribute.find("="));
+									
+									//The value of the attribute
 									attrValue = attribute.substr(quote + 1, (attribute.length() - quote) - 2);
 
+									//Setting the attribute for the new node
 									xpn->setAttribute(key, attrValue);
 									break;
 								}
+
+								//The next attribute string
 								attribute = remaining.substr(0, whiteSpace - 1);
+								
+								//The index of the "character
 								quote = attribute.find("\"");
+
+								//The key name of the attribute
 								key = attribute.substr(0, attribute.find("="));
+								
+								//The value of the attribute
 								attrValue = attribute.substr(quote + 1, (attribute.length() - quote) - 1);
 
+								//Setting the attribute of the new node
 								xpn->setAttribute(key,attrValue);
 
+								//Removing the attribute of the string
 								remaining = remaining.substr(whiteSpace + 1, remaining.length() - whiteSpace);
 							}
 						}
 
+						//Adding the new node to the current node
 						currentNode->addChild(xpn);
 					}
+					//If node is normal start node "<node>"
 					else{
-						//Node
 						tagNames[tagNamesLength] = tagName;
 						tagNamesLength++;
-						xpn = new XmlParserNode();
-						xpn->setTitle(tagName);
-						xpn->setParent(currentNode);
 
+						//Creating a new node
+						xpn = new XmlParserNode();
+						
+						//Setting the title of the node
+						xpn->setTitle(tagName);
+
+						//If there attributes
 						if(remaining.length() > 0){
+							//Infinite loop
 							while (true)
 							{
+								//Finding the next whitespace
 								int whiteSpace = remaining.find(" ");
 								int quote;
 								string key;
 								string attrValue;
 								string attribute;
+
+								//If there is no whitespace
 								if(whiteSpace == -1){
 									attribute = remaining;
+									
+									//The index of the " character
 									quote = attribute.find("\"");
+
+									//The key name of the attribute
 									key = attribute.substr(0, attribute.find("="));
+									
+									//The value of the attribute
 									attrValue = attribute.substr(quote + 1, (attribute.length() - quote) - 2);
 
+									//Setting the attribute to the new node
 									xpn->setAttribute(key, attrValue);
 									break;
 								}
+								//The next attribute string
 								attribute = remaining.substr(0, whiteSpace - 1);
+								
+								//The index of the " character
 								quote = attribute.find("\"");
+
+								//The key name of the attribute
 								key = attribute.substr(0, attribute.find("="));
+								
+								//The value of the attribute
 								attrValue = attribute.substr(quote + 1, (attribute.length() - quote) - 1);
 
+
+								//Setting the attribute to the new node
 								xpn->setAttribute(key,attrValue);
 
+								//Removing the attribute of the string
 								remaining = remaining.substr(whiteSpace + 1, remaining.length() - whiteSpace);
 							}
 						}
 
+						//Adding the new node to the current node
 						currentNode->addChild(xpn);
+
+						//Current node is new node
 						currentNode = xpn;
 					}
 				}
 			}
+			//There is no superMario root node
 			else{
+				//Give error
 				parseError("There is no beginning!");
 				break;
 			}
@@ -681,17 +776,22 @@ void XmlParser::parse(string fileLocation){
 }
 
 void XmlParser::parseError(string eMessage){
+	//Show error
 	MessageBox(NULL, eMessage.c_str(),"Error", NULL);
 }
 
 XmlParserNode * XmlParser::getNode(string tagName){
+	//Getting the node by tagname
 	XmlParserNode * xpn = root->getNode(tagName);
 	return xpn;
 }
 
 void XmlParser::Clear(){
+	//Deleting the buffer
 	if (buffer != NULL)
 		delete buffer;
+
+	//Deleting the root node
 	if (root != NULL)
 		delete root;
 
