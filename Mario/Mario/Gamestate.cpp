@@ -32,12 +32,11 @@ Gamestate::Gamestate()
 {
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
-	
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,2, 4096);
-	Music = Mix_LoadMUS("./res/Mario.wav");
-	jumpsound=Mix_LoadWAV("./res/jump.wav");
-	coinsound=Mix_LoadWAV("./res/coin.wav");
+	Music = Mix_LoadMUS("res/Sounds/Mario.wav");
+	jumpsound=Mix_LoadWAV("res/Sounds/jump.wav");
+	coinsound=Mix_LoadWAV("res/Sounds/coin.wav");
 	Mix_PlayMusic(Music,-1);
 
 	frames = 0;
