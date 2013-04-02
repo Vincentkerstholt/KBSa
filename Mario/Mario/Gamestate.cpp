@@ -1,5 +1,6 @@
 #include "Gamestate.h"
 
+#pragma region CONST
 const int multiplier = 32;
 const int GROUND_TOPLEFT = 1;
 const int GROUND_TOPCENTER = 2;
@@ -25,12 +26,12 @@ const int CASTLE_DOOR = 4;
 const int CASTLE_LEFTGAP = 5;
 const int CASTLE_GAP = 6;
 const int CASTLE_RIGHTGAP = 7;
-
+#pragma endregion CONST
 
 Gamestate::Gamestate()
 {
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	// Inilialize SDL_mixer , exit if fail
+
 	
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,2, 4096);
@@ -43,6 +44,24 @@ Gamestate::Gamestate()
 	curTime = 0;
 	fps = 0;
 	selector = 0;
+	xml = new XmlParser();
+	inMenu = true;
+	inHighScore = false;
+	inNameInput = false;
+	currentLevel = -1;
+	highScorePos = 0;
+	name = "";
+	Mario = NULL;
+	quit = false;
+	hFont = CreateFont(48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+	hFontOld = CreateFont(20,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+	toDoNewGame = false;
+	toDoNextLevel = false;
+	toDoLoadLevel = false;
 }
 
 Gameobject ** Gamestate::getLevel(){
@@ -62,15 +81,39 @@ void Gamestate::saveGame(){
 	inMenu = false;
 }
 
+bool Gamestate::getQuit(){
+	return quit;
+}
+
 void Gamestate::draw(HDC & hdc, bool debugMode)
 {
-	frames++;
+	if (toDoNewGame)
+	{
+		CreateWorld();
+		Sleep(1000);
+	}
+	if (toDoLoadLevel)
+	{
+		loadGame();
+		Sleep(1000);
+	}
+	if (toDoNextLevel)
+	{
+		nextLevel();
+		Sleep(1000);
+	}
+	toDoNewGame = false;
+	toDoNextLevel = false;
+	toDoLoadLevel = false;
 
+
+	frames++;
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	Collision();
-	UpDownCollision();
+	if (UpDownCollision(hdc) == false)
+		return;
 	drawBackground(hdc);
-	drawHUD(hdc);
+	
 	drawWorld(hdc);
 
 	if (debugMode == true)
@@ -79,6 +122,8 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 		drawStatistics(hdc);
 	}
 	drawCharacters(hdc);
+	drawHUD(hdc);
+
 }
 
 IThemeFactory * Gamestate::getFactory(string name){
@@ -88,8 +133,8 @@ IThemeFactory * Gamestate::getFactory(string name){
 		return new DungeonThemeFactory();
 	else if(name == "sky")
 		return new SkyThemeFactory();
-	else if(name == "water")
-		return new WaterThemeFactory();
+	else if(name == "city")
+		return new CityThemeFactory();
 	return new LandThemeFactory();
 }
 
@@ -174,7 +219,6 @@ void Gamestate::drawStatistics(HDC & hdc){
 
 	oss.str("");
 
-
 	frames++;
 	if(time(NULL) != curTime)
 	{
@@ -186,19 +230,21 @@ void Gamestate::drawStatistics(HDC & hdc){
 	TextOut(hdc,  10, 90, oss.str().c_str(), strlen(oss.str().c_str()));
 
 	oss.clear();
-
 }
 
 void Gamestate::drawHUD(HDC & hdc){
-	SetBkMode(hdc,TRANSPARENT);
 	ostringstream oss;
 
-	oss << "Coins: " << Mario->getCoins() ;
+	oss << "Score: " << Mario->getScore() ;
 	TextOut(hdc, 600, 10, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
-	oss << "Lives: " << Mario->getLives() ;
+	oss << "Coins: " << Mario->getCoins() ;
 	TextOut(hdc, 600, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	oss << "Lives: " ;
+	TextOut(hdc, 600, 50, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
 	SIZE imgSize;
@@ -210,11 +256,10 @@ void Gamestate::drawHUD(HDC & hdc){
 	imgSize.cx = bitmap.bmWidth;
 	imgSize.cy = bitmap.bmHeight;
 
-
-	int x = 660;
+	int x = 645;
 	for (int i = 0; i < Mario->getLives(); i++)
 	{
-		TransparentBlt(hdc, x, 30, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
+		TransparentBlt(hdc, x, 50, 16, 16, hLivesDC, 0, 0, 32, 32, RGB(255,174,201));
 		x += 18;
 	}
 
@@ -245,7 +290,6 @@ void Gamestate::drawBackground(HDC & hdc){
 }
 
 void Gamestate::drawWorld(HDC & hdc){
-
 	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
 		for(int m = 0; m < y; m++){
 			int index = getIndex(n,m);
@@ -419,7 +463,21 @@ void Gamestate::drawWorld(HDC & hdc){
 
 				TransparentBlt(hdc, (goomba->GetPositionPixel().x - camera.getXPosition()), (goomba->GetPositionPixel().y), 32, 32, hObstacleDC, (goomba->getTexturePosition().x*multiplier), goomba->getTexturePosition().y*multiplier, 32,32, RGB(255,174,201));
 				UpdateEnemy(index);
-								
+
+			}
+			else if(className == "Koopa")
+			{
+				Koopa * koopa = (Koopa*)level[index];
+				hObstacleBitmap = factory->getKoopa();
+
+				hObstacleDC = CreateCompatibleDC(hdc);
+
+				GetObject(hObstacleBitmap, sizeof(BITMAP), &bitmap);
+				SelectObject(hObstacleDC, hObstacleBitmap);
+
+				TransparentBlt(hdc, (koopa->GetPositionPixel().x - camera.getXPosition()), (koopa->GetPositionPixel().y), 32, 32, hObstacleDC, (koopa->getTexturePosition().x*multiplier), koopa->getTexturePosition().y*multiplier, 32,32, RGB(255,174,201));
+				UpdateEnemy(index);
+
 			}
 			else if (className == "Coin")
 			{
@@ -468,7 +526,6 @@ void Gamestate::drawWorld(HDC & hdc){
 				TransparentBlt(hdc,tempGadget->position.x - camera.getXPosition(), tempGadget->position.y, 32,32,hObstacleDC,64,0,32,32,GetPixel(hObstacleDC,0,0));
 			}
 			DeleteDC(hObstacleDC);
-			//DeleteObject(hObstacleBitmap);
 		}
 	}
 }
@@ -486,17 +543,19 @@ void Gamestate::changeFactory(char firstLetter){
 	case 'S':
 		factory = new SkyThemeFactory();
 		break;
-	case 'W':
-		factory = new WaterThemeFactory();
+	case 'C':
+		factory = new CityThemeFactory();
 		break;
 	}
 }
 
-void Gamestate::CreateWorld(){
-	currentLevel = 1;
-	xml = new XmlParser();
-	xml->parse("res/World 1-1.xml");
+void Gamestate::CreateWorld()
+{
+	if(currentLevel != -1)
+		destroyWorld(true);
 
+	xml->parse("res/levels/World 1-1.xml");
+	
 	createLevel();
 	createHero();
 	createFactory();
@@ -505,12 +564,15 @@ void Gamestate::CreateWorld(){
 	createPipes();
 	createEnemies();
 	createCastles();
+
+	currentLevel = stoi(xml->getNode("level")->getAttribute("nr"));
 }
 
 void Gamestate::resetWorld(){
-	destroyWorld();
+	destroyWorld(false);
 
 	createLevel();
+	createFactory();
 	createBlocks();
 	createGrounds();
 	createPipes();
@@ -520,7 +582,7 @@ void Gamestate::resetWorld(){
 	Mario->ResetPosition();
 }
 
-void Gamestate::destroyWorld()
+void Gamestate::destroyWorld(bool deleteXML)
 {
 	for(int i = 0 ; i < x ; i++)
 	{
@@ -529,17 +591,85 @@ void Gamestate::destroyWorld()
 			int index = getIndex(i,j);
 			if (level[index] != NULL)
 			{
-				delete level[index];
-				level[index] = NULL;
+				string levelName = level[index]->getClassName();
+				if(levelName == "Block")
+				{
+					Block * block = (Block *)level[index];
+					delete block;
+					block = NULL;
+				}
+				else if(levelName == "Ground")
+				{
+					Ground * ground = (Ground *)level[index];
+					delete ground;
+					ground = NULL;
+				}
+				else if(levelName == "Pipe")
+				{
+					Pipe * pipe = (Pipe *)level[index];
+					delete pipe;
+					pipe = NULL;
+				}
+				else if(levelName == "Castle")
+				{
+					Castle * castle = (Castle *)level[index];
+					delete castle;
+					castle = NULL;
+				}
+				else if(levelName == "Goomba")
+				{
+					Goomba * goomba = (Goomba *)level[index];
+					delete goomba;
+					goomba = NULL;
+				}
+				else if(levelName == "Koopa")
+				{
+					Koopa * koopa = (Koopa *)level[index];
+					delete koopa;
+					koopa = NULL;
+				}
 			}
 		}
 	}
+	
+	delete [] level;
+	level = NULL;
+
+	string factoryName = factory->getName();
+	if(factoryName == "dungeon")
+	{
+		DungeonThemeFactory * dungeon = (DungeonThemeFactory *)factory;
+		delete dungeon;
+		dungeon = NULL;
+	}
+	else if(factoryName == "landscape")
+	{
+		LandThemeFactory * landscape = (LandThemeFactory *)factory;
+		delete landscape;
+		landscape = NULL;
+	}
+	else if(factoryName == "sky")
+	{
+		SkyThemeFactory * sky = (SkyThemeFactory *)factory;
+		delete sky;
+		sky = NULL;
+	}
+	else if(factoryName == "city")
+	{
+		CityThemeFactory * city = (CityThemeFactory *)factory;
+		delete city;
+		city = NULL;
+	}
+
+	if(deleteXML)
+		xml->Clear();
 }
 
 void Gamestate::loadGame(){
-	destroyWorld();
+	if(currentLevel != -1)
+		destroyWorld(true);
 
-	xml->parse("res/saveGame.xml");
+	xml->parse("res/levels/saveGame.xml");
 	
 	createLevel();
 	createHero();
@@ -551,29 +681,34 @@ void Gamestate::loadGame(){
 	createCastles();
 
 	inMenu = false;
+
+	currentLevel = stoi(xml->getNode("level")->getAttribute("nr"));
 }
 
 void Gamestate::nextLevel()
 {
 	currentLevel++;
-	destroyWorld();
+	destroyWorld(true);
 	switch(currentLevel)
 	{
 	case 1:
-		xml->parse("res/World 1-1.xml");
+		xml->parse("res/levels/World 1-1.xml");
 		break;
 
 	case 2:
-		xml->parse("res/Landscape2.xml");
+		xml->parse("res/levels/World 1-2.xml");
 		break;
 
 	case 3:
-		xml->parse("res/Landscape.xml");
+		xml->parse("res/levels/World 1-3.xml");
 		break;
 
 	case 4:
-		//xml->parse("res/Landscape.xml");
-		inMenu = true;
+		xml->parse("res/levels/World 1-4.xml");
+		break;
+		
+	case 5:
+		setHighscore();
 		break;
 	}
 
@@ -602,13 +737,17 @@ void Gamestate::nextLevel()
 void Gamestate::createHero(){
 	XmlParserNode * marioXml = xml->getNode("hero");
 
-	Mario = new Hero();
+	if(currentLevel == -1)
+		Mario = new Hero();
 
 	int xMario = stoi(marioXml->getAttribute("x"));
 	int yMario = stoi(marioXml->getAttribute("y"));
 
 	Mario->SetStartPosition(xMario * 32, yMario * 32);
 	Mario->setName(marioXml->getAttribute("character"));
+	Mario->setLives(stoi(marioXml->getAttribute("lives")));
+	Mario->setCoins(stoi(marioXml->getAttribute("coins")));
+	Mario->setScore(stoi(marioXml->getAttribute("points")));
 }
 
 void Gamestate::createLevel(){
@@ -678,10 +817,12 @@ void Gamestate::createBlocks(){
 	}
 }
 
-void Gamestate::createGrounds(){
+void Gamestate::createGrounds()
+{
 	XmlParserNode * grounds = xml->getNode("grounds");
 	XmlParserNode ** childs = grounds->getChilds();
-	for(int i = 0; i < grounds->getChildsLength(); i++){
+	for(int i = 0; i < grounds->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int x = stoi(childLocation->getAttribute("x"));
@@ -691,10 +832,12 @@ void Gamestate::createGrounds(){
 	}
 }
 
-void Gamestate::createPipes(){
+void Gamestate::createPipes()
+{
 	XmlParserNode * pipes = xml->getNode("pipes");
 	XmlParserNode ** childs = pipes->getChilds();
-	for(int i = 0; i < pipes->getChildsLength(); i++){
+	for(int i = 0; i < pipes->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 
 		XmlParserNode * childLocation = child->getNode("location");
@@ -703,7 +846,8 @@ void Gamestate::createPipes(){
 	}
 }
 
-void Gamestate::createEnemies(){
+void Gamestate::createEnemies()
+{
 	XmlParserNode * enemies = xml->getNode("enemies");
 	XmlParserNode ** childs = enemies->getChilds();
 	for(int i = 0; i < enemies->getChildsLength(); i++)
@@ -739,10 +883,12 @@ void Gamestate::createEnemies(){
 	}
 }
 
-void Gamestate::createCastles(){
+void Gamestate::createCastles()
+{
 	XmlParserNode * castles = xml->getNode("castles");
 	XmlParserNode ** childs = castles->getChilds();
-	for(int i = 0; i < castles->getChildsLength(); i++){
+	for(int i = 0; i < castles->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int x = stoi(childLocation->getAttribute("x"));
@@ -754,15 +900,24 @@ void Gamestate::createCastles(){
 
 void Gamestate::menu(HDC & hdc)
 {
+	if(inHighScore == true)
+	{
+		HighScore(hdc);
+		return;
+	}
+
 	Sleep(100);
 
-	if(GetAsyncKeyState(VK_UP))	{
+	if(GetAsyncKeyState(VK_UP))	
+	{
 		selector--;
 	}
-	if(GetAsyncKeyState(VK_DOWN))	{
+	if(GetAsyncKeyState(VK_DOWN))	
+	{
 		selector++;
 	}
-	if (GetAsyncKeyState(VK_ESCAPE))	{
+	if (GetAsyncKeyState(VK_ESCAPE))	
+	{
 		if(inMenu == false)
 		{
 			Sleep(150);
@@ -781,42 +936,58 @@ void Gamestate::menu(HDC & hdc)
 
 	if (selector < 0)
 		selector = 0;
-	if (selector > 3)
-		selector = 3;
+	if (selector > 5)
+		selector = 5;
 
 	if (GetAsyncKeyState(VK_RETURN))
 	{
 		switch (selector)
 		{
 		case 0:
-			// reset lvl
-			CreateWorld();
+			// New game
+			SelectObject(hdc, hFontOld);
+			toDoNewGame = true;
+			splashscreen(hdc,1);
 			inMenu = false;
+			return;
 		break;
-		case 1:
-			//save game
-			saveGame();
+		case 1: //Continue game
+			if (Mario!= NULL)
+				if(Mario->getLives() > 0)
+					inMenu = false;
+			break;
+		case 2:	//save game
+			if (Mario!= NULL)
+				if(Mario->getLives() > 0)
+					saveGame();
 		break;
-		case 2:
-			//load game
-			loadGame();
+		case 3:	//load game
+			toDoLoadLevel = true;
+			inMenu = false;
+			splashscreen(hdc,6);
+			return;
 		break;
-		case 3:
-			{
-				//Continue game
-				//int lives = Mario->getLives();
-				//if(lives > 0)
-				//{
-				//	inMenu = false;
-				//}
-			}
+	
+		case 4: //highscore
+			inHighScore = true;
+			break;
+
+		case 5: //quit
+			quit = true;
 			break;
 		default:
 		break;
 		}
 	}
-
-	hBackgroundBitmap = LoadImage(NULL, "res/menu.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	if (Mario!= NULL)
+	{
+		if(Mario->getLives() > 0)
+			hBackgroundBitmap = LoadImage(NULL, "res/menu.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		else
+			hBackgroundBitmap = LoadImage(NULL, "res/menu2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	}
+	else
+		hBackgroundBitmap = LoadImage(NULL, "res/menu2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
@@ -835,10 +1006,14 @@ void Gamestate::menu(HDC & hdc)
 	DeleteObject(hBackgroundBitmap);
 }
 
-Gamestate::~Gamestate()
+void Gamestate::HighScore(HDC & hdc)
 {
-	delete [] level;
-	level = NULL;
+	if (inNameInput == true)
+	{
+		nameInput();
+	}
+	hBackgroundBitmap = LoadImage(NULL, "res/Highscore.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hBackgroundDC = CreateCompatibleDC(hdc);
 
 	delete factory;
 	factory = NULL;
@@ -849,9 +1024,62 @@ Gamestate::~Gamestate()
 	Mix_FreeChunk(jumpsound);
 	Mix_FreeChunk(coinsound);
 	Mix_CloseAudio();
+
+	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap);
+	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
+
+	DeleteObject(hBackgroundBitmap);
+	DeleteDC(hBackgroundDC);
+	SelectObject(hdc, hFont);
+
+	ostringstream oss;
+	oss << "Highscores:";
+	TextOut(hdc, 580, 120, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	oss.str("");
+	int n=0;
+	if (file != NULL)
+	while (!feof(file))
+	{
+		if(fgets(buffer, 100, file) == NULL) break;
+		fputs(buffer, stdout);
+		oss << (n+1) << ". " << buffer;
+		TextOut(hdc, 580, 170+n*45, oss.str().c_str(), strlen(oss.str().c_str()));
+		n++;
+		oss.str("");
+	}
+
+	oss.clear();
+	delete[] buffer;
+	fclose(file);
+	
+	if (GetAsyncKeyState(VK_ESCAPE))
+	{
+		inHighScore = false;
+		SelectObject(hdc ,hFontOld);
+	}
+
 }
 
-void Gamestate::UpDownCollision()
+Gamestate::~Gamestate()
+{
+	if (currentLevel != -1)
+	destroyWorld(true);
+	if (xml != NULL)
+	{
+		delete xml;
+		xml = NULL;
+	}
+}
+
+bool Gamestate::UpDownCollision(HDC & hdc)
 {
 	// This collision detection is based on points. This function checks for every point in witch tile it is and what's in that tile.
 	POINT mario;
@@ -891,6 +1119,7 @@ void Gamestate::UpDownCollision()
 		{			
 			Mario->JumpAbility = false;
 			Mario->Jumped = 15;
+			mario.y += 8;
 			string boxCheck = BoxCheck(index);
 			if (boxCheck == "Block" )
 			{
@@ -941,8 +1170,9 @@ void Gamestate::UpDownCollision()
 				Castle * castle = (Castle *) level[index];
 				if(castle->getTextureType() == CASTLE_DOOR)
 				{
-					nextLevel();
-					return;
+					toDoNextLevel = true;
+					splashscreen(hdc, currentLevel+1);
+					return false;
 				}
 			}
 		}
@@ -1016,22 +1246,22 @@ void Gamestate::UpDownCollision()
 			if (RightHead == "Flower"){
 				delete level[getIndex(MarioRightHead)];
 				level[getIndex(MarioRightHead)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (LeftHead == "Flower"){
 				delete level[getIndex(MarioLeftHead)];
 				level[getIndex(MarioLeftHead)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (LeftFeet == "Flower"){
 				delete level[getIndex(MarioLeftFeet)];
 				level[getIndex(MarioLeftFeet)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 			else if (RightFeet == "Flower"){
 				delete level[getIndex(MarioRightFeet)];
 				level[getIndex(MarioRightFeet)] = NULL;
-				Mario->increaseScore(200);
+				Mario->increaseScore(2000);
 			}
 		}
 
@@ -1141,6 +1371,7 @@ void Gamestate::UpDownCollision()
 		}
 		Mario->JumpAbility = false; // stop mario from jumping 
 	}	
+	return true;
 }
 
 string Gamestate::BoxCheck(int index)
@@ -1162,10 +1393,10 @@ void Gamestate::HeroDie()
 {
 	if(Mario->hurt())
 	{
-		  /////////////////
-		 //Add HighScore//
 		/////////////////
-
+		//Add HighScore//
+		/////////////////
+		setHighscore();
 		inMenu = true;
 	}
 	else
@@ -1270,18 +1501,232 @@ void Gamestate::Collision()
 
 void Gamestate::UpdateEnemy(int index)
 {
-	Goomba * goomba = (Goomba*)level[index];
+	string enemyName = level[index]->getClassName();
+	if(enemyName == "Goomba"){
+		Goomba * goomba = (Goomba*)level[index];
 		
-	if (goomba->GetPositionIndex().x == goomba->getEndPoint('x') )
-		goomba->setDirection('R');
-	else if (goomba->GetPositionIndex().x == goomba->getStartPoint('x'))
-		goomba->setDirection('L');
+		if (goomba->GetPositionIndex().x == goomba->getEndPoint('x') )
+			goomba->setDirection('R');
+		else if (goomba->GetPositionIndex().x == goomba->getStartPoint('x'))
+			goomba->setDirection('L');
 
-	level[getIndex(goomba->GetPositionIndex())] = NULL;
-	goomba->Move(goomba->getDirection(), goomba->GetPositionPixel());
-	level[getIndex(goomba->GetPositionIndex())] = goomba;
+		level[getIndex(goomba->GetPositionIndex())] = NULL;
+		goomba->Move(goomba->getDirection(), goomba->GetPositionPixel());
+		level[getIndex(goomba->GetPositionIndex())] = goomba;
+	}
+	else if(enemyName == "Koopa")
+	{
+		Koopa * koopa = (Koopa*)level[index];
+
+		if (koopa->GetPositionIndex().x == koopa->getEndPoint('x') )
+			koopa->setDirection('R');
+		else if (koopa->GetPositionIndex().x == koopa->getStartPoint('x'))
+			koopa->setDirection('L');
+
+		level[getIndex(koopa->GetPositionIndex())] = NULL;
+		koopa->Move(koopa->getDirection(), koopa->GetPositionPixel());
+		level[getIndex(koopa->GetPositionIndex())] = koopa;
+	}
 }
 
 string Gamestate::getCurrentFactory(){
 	return factory->getName();
+}
+
+void Gamestate::setHighscore()
+{
+	ostringstream oss("");
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	int n=0;
+
+	Score scores [5];
+
+	if (file != NULL)
+		while ((!feof(file)) && n<5)
+		{
+			if(fgets(buffer, 100, file) == NULL) break;
+			fputs(buffer, stdout);
+			scores[n].setScore(buffer);
+			n++;
+		}
+		
+		bool inserted = false;
+		for (int i = 0 ; i < 5 ; i++ )
+		{
+			if (scores[i].getScore() < Mario->getScore())
+			{
+				for(int j=3 ; j>=i ; j-- )
+				{
+					scores[j+1].setScore(scores[j].toString());
+				}
+				oss.str("");
+				oss << " :" << Mario->getScore() << endl;
+				scores[i].setScore(oss.str());
+				oss.str("");
+				highScorePos = i;
+				inNameInput =true;
+				break;
+			}
+		}
+		fclose(file);
+		//overwrite score with new scores here
+		file = fopen(((string)"res/Highscores.txt").c_str(), "w");
+		for (int i = 0 ; i < 5 ; i++)
+			fputs(scores[i].toString().c_str(),file);
+		
+		inHighScore = true;
+		oss.str("");
+		oss.clear();
+		delete[] buffer;
+		fclose(file);
+}
+
+void Gamestate::nameInput()
+{
+	if (GetAsyncKeyState(0x41))
+		name += "a";
+	if (GetAsyncKeyState(0x42))
+		name += "b";
+	if (GetAsyncKeyState(0x43))
+		name += "c";
+	if (GetAsyncKeyState(0x44))
+		name += "d";
+	if (GetAsyncKeyState(0x45))
+		name += "e";
+	if (GetAsyncKeyState(0x46))
+		name += "f";
+	if (GetAsyncKeyState(0x47))
+		name += "g";
+	if (GetAsyncKeyState(0x48))
+		name += "h";
+	if (GetAsyncKeyState(0x49))
+		name += "i";
+	if (GetAsyncKeyState(0x4A))
+		name += "j";
+	if (GetAsyncKeyState(0x4B))
+		name += "k";
+	if (GetAsyncKeyState(0x4C))
+		name += "l";
+	if (GetAsyncKeyState(0x4D))
+		name += "m";
+	if (GetAsyncKeyState(0x4E))
+		name += "n";
+	if (GetAsyncKeyState(0x4F))
+		name += "o";
+	if (GetAsyncKeyState(0x50))
+		name += "p";
+	if (GetAsyncKeyState(0x51))
+		name += "q";
+	if (GetAsyncKeyState(0x52))
+		name += "r";
+	if (GetAsyncKeyState(0x53))
+		name += "s";
+	if (GetAsyncKeyState(0x54))
+		name += "t";
+	if (GetAsyncKeyState(0x55))
+		name += "u";
+	if (GetAsyncKeyState(0x56))
+		name += "v";
+	if (GetAsyncKeyState(0x57))
+		name += "w";
+	if (GetAsyncKeyState(0x58))
+		name += "x";
+	if (GetAsyncKeyState(0x59))
+		name += "y";
+	if (GetAsyncKeyState(0x5A))
+		name += "z";
+	if (GetAsyncKeyState(VK_BACK) && name.length()>0)
+		name.pop_back();
+	if (GetAsyncKeyState(VK_SPACE))
+		name += " ";
+
+	ostringstream oss("");
+	oss << name << " :" << Mario->getScore() << "\n";
+	
+
+
+	FILE * file;
+	file = fopen(((string)"res/Highscores.txt").c_str(), "r");
+	char * buffer;
+	buffer = new char[100];
+	SelectObject(hdc , hFont2);
+	int n=0;
+
+	Score scores [5];
+
+	if (file != NULL)
+		while ((!feof(file)) && n<5)
+		{
+			if(fgets(buffer, 100, file) == NULL) break;
+			fputs(buffer, stdout);
+			scores[n].setScore(buffer);
+			n++;
+		}
+		fclose(file);
+
+		scores[highScorePos].setScore(oss.str());
+
+		file = fopen(((string)"res/Highscores.txt").c_str(), "w");
+		for (int i = 0 ; i < 5 ; i++)
+			fputs(scores[i].toString().c_str(),file);
+		
+		oss.clear();
+		delete[] buffer;
+		fclose(file);
+		Sleep(100);
+
+		if (GetAsyncKeyState(VK_ESCAPE))
+		{
+			inNameInput = false;
+			name = "";
+		}
+		else if (GetAsyncKeyState(VK_RETURN))
+		{
+			inNameInput = false;
+			name = "";
+		}
+}
+
+void Gamestate::splashscreen(HDC & hdc,int splashscreenlevel)
+{
+	switch (splashscreenlevel)
+	{
+	case 1:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
+		break;
+	case 2:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl2 
+		break;
+	case 3:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl3.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl3
+		break;
+	case 4:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl4.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl4
+		break;
+	case 5:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
+		break;
+	case 6:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenload.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenload
+		break;
+	default:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
+		break;
+	}
+	hBackgroundDC = CreateCompatibleDC(hdc);
+	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
+	SelectObject(hBackgroundDC, hBackgroundBitmap);
+	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
+
+	DeleteObject(hBackgroundBitmap);
+	DeleteObject(hBackgroundDC);
+
+}
+
+int Gamestate::getCurrentLevel(){
+	return currentLevel;
 }

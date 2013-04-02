@@ -5,6 +5,7 @@ Hero::Hero()
 	textureNumber = 1;
 	coins = 0;
 	lives = 5;
+	score = 0;
 	walkBehaviour = new FastWalk(); 
 	setDirection('R');
 	setTexturePosition(0,0);
@@ -37,10 +38,16 @@ int Hero::getCoins()
 	return coins;
 }
 
+void Hero::setCoins(int coins)
+{
+	this->coins = coins;
+}
+
 int Hero::getLives()
 {
 	return this->lives;
 }
+
 void Hero::setLives(int lives)
 {
 	this->lives = lives;
@@ -54,6 +61,7 @@ void Hero::Die()
 void Hero::grabcoin()
 {
 	this->coins += 1;
+	score += 100;
 }
 
 void Hero::grabPowerUp()
@@ -86,4 +94,14 @@ void Hero::addLive()
 void Hero::increaseScore(int points)
 {
 	score += points;
+}
+
+int Hero::getScore()
+{
+	return score;
+}
+
+void Hero::setScore(int score)
+{
+	this->score = score;
 }

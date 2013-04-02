@@ -15,7 +15,7 @@
 #include "gadgets.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
-
+#include "Score.h"
 
 using namespace std;
 
@@ -31,19 +31,22 @@ public:
 	Gameobject ** getLevel();
 	void draw (HDC & hdc, bool debugMode);
 	void changeFactory(char firstLetter);
+	bool getQuit();
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
 	int getIndex(POINT & pnt);
 	void Collision();
 	void UpdateEnemy(int index);
 	POINT getPixelPoint(int index);
-	void UpDownCollision();
+	bool UpDownCollision(HDC & hdc);
 	string getCurrentFactory();
+	int getCurrentLevel();
 	int getX();
 	int getY();
 	void HeroDie();
 	Hero * Mario;
 	bool inMenu;
+
 	~Gamestate();
 	Camera camera;
 	Mix_Music *Music;
@@ -51,6 +54,7 @@ public:
 	Mix_Chunk *coinsound;
 
 private:
+
 	IThemeFactory * factory;
 	Gameobject ** level;
 	int x;
@@ -58,6 +62,14 @@ private:
 	HDC hdc;
 	POINT point;
 	int selector;
+	HFONT hFont;
+	HFONT hFont2;
+	HFONT hFontOld;
+	bool inHighScore;
+	bool quit;
+	bool toDoNextLevel;
+	bool toDoLoadLevel;
+	bool toDoNewGame;
 	int currentLevel;
 	HANDLE hBackgroundBitmap;
 	HANDLE hBackgroundBitmap2;
@@ -73,7 +85,11 @@ private:
 	int curTime;
 	int fps;
 	XmlParser * xml;
-
+	int highScorePos;
+	string name;
+	bool inNameInput;
+	void nameInput();
+	void HighScore(HDC & hdc);
 	void DrawHorizontalBorder(int startY);
 	void DrawVerticalBorder(int startX);
 	void drawCharacters(HDC & hdc);
@@ -82,8 +98,8 @@ private:
 	void drawWorld(HDC & hdc);
 	int ConvertIndexToXY(int index);
 	IThemeFactory * getFactory(string name);
-	void CreateWorld(int number);
-	void destroyWorld();
+	//void CreateWorld(int number);
+	void destroyWorld(bool deleteXML);
 	void CreateWorld();
 	void loadGame();
 	void saveGame();
@@ -99,5 +115,7 @@ private:
 	void createEnemies();
 	void createCastles();
 	void nextLevel();
+	void setHighscore();
+	void splashscreen(HDC & hdc,int splashscreenlevel);
 };
 #endif

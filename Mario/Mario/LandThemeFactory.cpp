@@ -1,16 +1,15 @@
 #include "LandThemeFactory.h"
-#include "LandThemeBlock.h"
-#include "LandThemePipe.h"
 
 LandThemeFactory::LandThemeFactory(){
-	blockBitmap = LoadImage(NULL, "res/block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	groundBitmap = LoadImage(NULL, "res/forrestsmall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	bkGroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	bkGround2Bitmap = LoadImage(NULL, "res/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	blockBitmap = LoadImage(NULL, "res/LandscapeTheme/block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	castleBitmap = LoadImage(NULL, "res/LandscapeTheme/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	pipeBitmap = LoadImage(NULL, "res/LandscapeTheme/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	groundBitmap = LoadImage(NULL, "res/LandscapeTheme/forrestsmall.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	goombaBitmap = LoadImage(NULL, "res/LandscapeTheme/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	koopaBitmap = LoadImage(NULL, "res/LandscapeTheme/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	gadgetBitmap = LoadImage(NULL, "res/LandscapeTheme/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGroundBitmap = LoadImage(NULL, "res/LandscapeTheme/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGround2Bitmap = LoadImage(NULL, "res/LandscapeTheme/backgroundhills.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 LandThemeFactory::~LandThemeFactory(){
@@ -23,23 +22,25 @@ string LandThemeFactory::getName(){
 
 void LandThemeFactory::delImage()
 {
-	DeleteObject(blockBitmap);
-	blockBitmap = NULL;
 	DeleteObject(pipeBitmap);
-	pipeBitmap = NULL;
+	DeleteObject(blockBitmap);
 	DeleteObject(groundBitmap);
-	groundBitmap = NULL;
 	DeleteObject(goombaBitmap);
-	goombaBitmap = NULL;
+	DeleteObject(koopaBitmap);
 	DeleteObject(gadgetBitmap);
-	gadgetBitmap = NULL;
 	DeleteObject(bkGroundBitmap);
-	bkGroundBitmap = NULL;
 	DeleteObject(bkGround2Bitmap);
-	bkGround2Bitmap = NULL;
 	DeleteObject(castleBitmap);
-	castleBitmap = NULL;
 
+	pipeBitmap = NULL;
+	blockBitmap = NULL;
+	groundBitmap = NULL;
+	goombaBitmap = NULL;
+	gadgetBitmap = NULL;
+	bkGroundBitmap = NULL;
+	bkGround2Bitmap = NULL;
+	koopaBitmap = NULL;
+	castleBitmap = NULL;
 }
 
 HANDLE LandThemeFactory::getBlock(){
@@ -60,6 +61,10 @@ HANDLE LandThemeFactory::getGround(){
 
 HANDLE LandThemeFactory::getGoomba(){
 	return goombaBitmap;
+}
+
+HANDLE LandThemeFactory::getKoopa(){
+	return koopaBitmap;
 }
 
 HANDLE LandThemeFactory::getGadget(){

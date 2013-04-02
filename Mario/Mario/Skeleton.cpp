@@ -5,7 +5,7 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-	splashscreenBitmap = LoadImage(NULL, "res/splashscreen.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	splashscreenBitmap = LoadImage(NULL, "res/splashscreen/splashscreen.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gameState = new Gamestate();
 }
 
@@ -21,10 +21,11 @@ void CSkeleton::GameInit()
 	gameState->inMenu = false;
 	debugMode = false;
 	SetFPS(60);
+	SetBkMode(graphics,TRANSPARENT);
 	loop = 0;
 }
 
-void CSkeleton::GameLoop()
+bool CSkeleton::GameLoop()
 {
 	RECT rect;
 	POINT mario , MarioUp, MarioDown;
@@ -37,7 +38,6 @@ void CSkeleton::GameLoop()
 		SelectObject(hSplashscreenDC, splashscreenBitmap);
 
 		BitBlt(graphics,0,0,1362,702,hSplashscreenDC,0,0,SRCCOPY);
-		//StretchBlt(graphics, 0, 0, 1362, 702, hSplashscreenDC, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
 
 		DeleteDC(hSplashscreenDC);
 	}
@@ -47,11 +47,12 @@ void CSkeleton::GameLoop()
 
 		startUp = false;
 		gameState->inMenu = true;
+		return gameState->getQuit();
 	}
  	else if (gameState->inMenu)
  	{
  		gameState->menu(graphics);
- 		return;
+ 		return gameState->getQuit();
  	}
 	else
 		gameState->draw(graphics, debugMode);
@@ -92,7 +93,7 @@ void CSkeleton::GameLoop()
 		gameState->changeFactory('S');
 
 	if (::GetAsyncKeyState(VK_F4))
-		gameState->changeFactory('W');
+		gameState->changeFactory('C');
 
 	if (::GetAsyncKeyState(VK_F12)){
 		debugMode = !debugMode;
@@ -106,8 +107,10 @@ void CSkeleton::GameLoop()
 			Sleep(200);
 		}
 	}
-
+	
 	loop++;
+
+	return gameState->getQuit();
 }
 
 void CSkeleton::GameEnd() 

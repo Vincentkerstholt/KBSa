@@ -1,0 +1,5 @@
+player :12900
+Jowin :10000
+carlo bril :8200
+Carlo :8000
+player :7300

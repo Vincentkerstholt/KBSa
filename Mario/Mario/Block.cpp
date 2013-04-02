@@ -31,6 +31,14 @@ Gadget * Block::getGadget(){
 	return NULL;
 }
 
+Gadget * Block::getGadgetPoint(int index){
+	return gadget[index];
+}
+
+int Block::getGadgetAmount(){
+	return gadgetAmount;
+}
+
 string Block::getClassName(){
 	return "Block";
 }
@@ -69,10 +77,33 @@ int Block::getPosX(){
 	return posX/2;
 }
 
- Block::~Block(){
-	 for (int n=0 ; n < gadgetAmount ; n++)
-	 {
-		 delete gadget[n];
-		 gadget[n] = NULL;
-	 }
- }
+Block::~Block(){
+	for (int i = 0; i < gadgetAmount; i++)
+	{
+		string gadgetName = gadget[i]->getClassName();
+		if(gadgetName == "Coin")
+		{
+			Coin * coin = (Coin *)gadget[i];
+			delete coin;
+			coin = NULL;
+		}
+		else if(gadgetName == "Mushroom")
+		{
+			Mushroom * mushroom = (Mushroom *)gadget[i];
+			delete mushroom;
+			mushroom = NULL;
+		}
+		else if(gadgetName == "Flower")
+		{
+			Flower * flower = (Flower *)gadget[i];
+			delete flower;
+			flower = NULL;
+		}
+		else if(gadgetName == "LiveUp")
+		{
+			LiveUp * liveUp = (LiveUp *)gadget[i];
+			delete liveUp;
+			liveUp = NULL;
+		}
+	}
+}
