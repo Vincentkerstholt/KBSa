@@ -92,6 +92,12 @@
     <Filter Include="Source Files\Gadget\Powerup">
       <UniqueIdentifier>{1553d6ee-f310-47fb-b559-4d8c7c462e95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Factory\CityTheme">
+      <UniqueIdentifier>{ee6a8d7d-2362-4f41-b6d1-09c94d0c2a42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Factory\CityTheme">
+      <UniqueIdentifier>{deae71aa-079f-4b5a-a0ab-64cf92727b13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonThemeFactory.cpp">
@@ -213,6 +219,9 @@
     </ClCompile>
     <ClCompile Include="Score.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CityTheme.cpp">
+      <Filter>Source Files\Factory\CityTheme</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -380,6 +389,15 @@
     </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CityThemeFactory.h">
+      <Filter>Header Files\Factory\CityTheme</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

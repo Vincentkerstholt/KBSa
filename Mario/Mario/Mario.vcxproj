@@ -15,6 +15,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Castle.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="CityTheme.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FastWalk.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="Castle.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="characters.h" />
+    <ClInclude Include="CityThemeFactory.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FastWalk.h" />
     <ClInclude Include="gadgets.h" />

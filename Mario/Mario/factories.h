@@ -6,5 +6,6 @@
 #include "LandThemeFactory.h"
 #include "SkyThemeFactory.h"
 #include "WaterThemeFactory.h"
+#include "CityThemeFactory.h"
 
 #endif

@@ -95,7 +95,7 @@ IThemeFactory * Gamestate::getFactory(string name){
 	else if(name == "sky")
 		return new SkyThemeFactory();
 	else if(name == "water")
-		return new WaterThemeFactory();
+		return new CityThemeFactory();
 	return new LandThemeFactory();
 }
 
@@ -490,8 +490,8 @@ void Gamestate::changeFactory(char firstLetter){
 	case 'S':
 		factory = new SkyThemeFactory();
 		break;
-	case 'W':
-		factory = new WaterThemeFactory();
+	case 'C':
+		factory = new CityThemeFactory();
 		break;
 	}
 }
