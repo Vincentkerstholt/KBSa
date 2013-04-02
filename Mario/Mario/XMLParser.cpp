@@ -7,6 +7,9 @@ XmlParser::XmlParser(){
 
 void XmlParser::saveGame(Gamestate * gameState){
 	ostringstream oss;
+	
+	//Creating a reference to the levelmap
+	Gameobject ** gameStateLevel = gameState->getLevel();
 
 	//Creating the root node
 	XmlParserNode * root = new XmlParserNode();
@@ -14,329 +17,486 @@ void XmlParser::saveGame(Gamestate * gameState){
 	
 	//Creating the factory node
 	XmlParserNode * factory = new XmlParserNode();
+	
+	//Setting the title for the factory node
 	factory->setTitle("factory");
+
+	//Setting the attribute name for the factory node
 	factory->setAttribute("name",gameState->getCurrentFactory());
 
-	factory->setParent(root);
+	//Creating a singleton node of the factory node
 	factory->setEndTag();
+	
 	//Adding the factory node to the root node
 	root->addChild(factory);
 
-	//Creating the hero node
+	//Getting the grid position of the hero
 	int marioX = (int)(gameState->Mario->GetPositionPixel().x) / 32;
 	int marioY = (int)(gameState->Mario->GetPositionPixel().y) / 32;
+	
+	//Creating the hero node
 	XmlParserNode * hero = new XmlParserNode();
+
+	//Setting the title for the hero node
 	hero->setTitle("hero");
+	
+	//Setting the attribute character
 	hero->setAttribute("character",gameState->Mario->getName());
+	
+	//Setting the attribute x for the hero node
 	oss << marioX;
 	hero->setAttribute("x",oss.str());
 	oss.str("");
 	oss.clear();
 
+	//Setting the attribute y for the hero node
 	oss << marioY;
 	hero->setAttribute("y","" + oss.str());
 	oss.str("");
 	oss.clear();
 
+	//Setting the attribute coins for the hero node
 	oss << gameState->Mario->getCoins();
 	hero->setAttribute("coins", "" + oss.str());
 	oss.str("");
 	oss.clear();
 
+	//Setting the attribute points for the hero node
 	oss << gameState->Mario->getScore();
 	hero->setAttribute("points", "" + oss.str());
 	oss.str("");
 	oss.clear();
 
+	//Setting the attribute lives for the hero node
 	oss << gameState->Mario->getLives();
 	hero->setAttribute("lives", "" + oss.str());
 	oss.str("");
 	oss.clear();
 
-	hero->setParent(root);
+	//Creating a singleton node of the hero node
 	hero->setEndTag();
+
 	//Adding the hero node to the root node
 	root->addChild(hero);
 
+	//Creating the level node
 	XmlParserNode * level = new XmlParserNode();
+	
+	//Setting the title of the level node
 	level->setTitle("level");
+
+	//Setting the attribute width for the level node
 	oss << gameState->getX();
 	level->setAttribute("width", oss.str());
 	oss.str("");
 	oss.clear();
 
-	oss << gameState->getCurrentLevel();
-	level->setAttribute("nr", oss.str());
-	oss.str("");
-	oss.clear();
-
+	//Setting the attribute height for the level node
 	oss << gameState->getY();
 	level->setAttribute("height", oss.str());
 	oss.str("");
 	oss.clear();
 
+	//Setting the attribute nr for the level node
+	oss << gameState->getCurrentLevel();
+	level->setAttribute("nr", oss.str());
+	oss.str("");
+	oss.clear();
+	
+	//Creating the blocks node
 	XmlParserNode * blocks = new XmlParserNode();
+	
+	//Setting the title for the blocks node
 	blocks->setTitle("blocks");
 
+	//Creating the pipes node
 	XmlParserNode * pipes = new XmlParserNode();
+	
+	//Setting the title for the pipes node
 	pipes->setTitle("pipes");
 
+	//Creating the grounds node
 	XmlParserNode * grounds = new XmlParserNode();
+	
+	//Setting the title for the grounds node
 	grounds->setTitle("grounds");
 
+	//Creating the castles node
 	XmlParserNode * castles = new XmlParserNode();
+	
+	//Setting the title for the castles node
 	castles->setTitle("castles");
 
+	//Creating the enemies node
 	XmlParserNode * enemies = new XmlParserNode();
+	
+	//Setting the title for the enemies node
 	enemies->setTitle("enemies");
 
+	//For each column
 	for(int i = 0; i < gameState->getX(); i++){
+		//For each row
 		for(int j = 0; j < gameState->getY(); j++){
+			//Getting the index with the column number and row number
 			int index = gameState->getIndex(i,j);
-			if(gameState->getLevel()[index] != NULL){
-				if(gameState->getLevel()[index]->getClassName() == "Block")
+			
+			//Creating a new reference to a gameobject
+			Gameobject * gameObject = gameStateLevel[index];
+
+			//If gameobject exist
+			if(gameObject != NULL){
+				//Getting the classname of the gameobject
+				string classname = gameObject->getClassName();
+
+				//If classname equals Block
+				if(classname == "Block")
 				{
-					Block * block = (Block *)gameState->getLevel()[index];
+					//Creating a new reference to the Block object
+					Block * block = (Block *)gameStateLevel[index];
+
+					//Creating a block node
 					XmlParserNode * blockXPN = new XmlParserNode();
+					
+					//Setting the title for the block node
 					blockXPN->setTitle("block");
+
+					//Setting the attribute isSpecial for the block node
 					blockXPN->setAttribute("isSpecial", block->getIsSpecialString());
+					
+					//Setting the attribute isFixed for the block node
 					blockXPN->setAttribute("isFixed", block->getIsFixedString());
 
+					//Creating the location node
 					XmlParserNode * location = new XmlParserNode();
+					
+					//Setting the title for the location node
 					location->setTitle("location");
+
+					//Creating a singleton node of the location node
 					location->setEndTag();
-					location->setParent(blockXPN);
+
+					//Setting the attribute x for the location node
 					oss << i;
 					location->setAttribute("x",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Setting the attribute y for the location node
 					oss << j;
 					location->setAttribute("y",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Creating the gadget node
 					XmlParserNode * gadgetXPN = new XmlParserNode();
+					
+					//Setting the title of the gadget node
 					gadgetXPN->setTitle("gadget");
-					gadgetXPN->setParent(blockXPN);
-
+					
+					//For each gadget in the block object
 					for(int i = 0; i < block->getGadgetAmount(); i++)
 					{
+						//Creating a reference to the gadget object
 						Gadget * gadget = block->getGadgetPoint(i);
-						if(gadget->getClassName() == "Coin")
-						{
-							XmlParserNode * coinXPN = new XmlParserNode();
-							coinXPN->setTitle("coin");
-							coinXPN->setEndTag();
-							coinXPN->setParent(gadgetXPN);
+						
+						//Getting the classname of the gadget object
+						string gadgetName = gadget->getClassName();
 
+						//If the gadgetname equals Coin
+						if(gadgetName == "Coin")
+						{
+							//Creating a coin node
+							XmlParserNode * coinXPN = new XmlParserNode();
+							
+							//Setting the title for the coin node
+							coinXPN->setTitle("coin");
+
+							//Creating a singleton node of the coin node
+							coinXPN->setEndTag();
+
+							//Adding the coin node to the gadget node
 							gadgetXPN->addChild(coinXPN);
 						}
-						else if(gadget->getClassName() == "Mushroom")
+						//If the gadgetname equals Mushroom
+						else if(gadgetName == "Mushroom")
 						{
+							//Creating a powerup node
 							XmlParserNode * powerUpXPN = new XmlParserNode();
-							powerUpXPN->setTitle("powerup");
-							powerUpXPN->setEndTag();
-							powerUpXPN->setParent(gadgetXPN);
 
+							//Setting the title for the powerup node
+							powerUpXPN->setTitle("powerup");
+
+							//Creating a singleton node of the powerup node
+							powerUpXPN->setEndTag();
+
+							//Adding the powerup node to the gadget node
 							gadgetXPN->addChild(powerUpXPN);
 						}
-						else if(gadget->getClassName() == "LiveUp")
+						//If the gadgetname equals LiveUp
+						else if(gadgetName == "LiveUp")
 						{
+							//Creating a liveup node
 							XmlParserNode * liveUpXPN = new XmlParserNode();
+							
+							//Setting the title for the liveup node
 							liveUpXPN->setTitle("liveup");
-							liveUpXPN->setEndTag();
-							liveUpXPN->setParent(gadgetXPN);
 
+							//Creating a singleton node of the liveup node
+							liveUpXPN->setEndTag();
+
+							//Adding the liveup node to the gadget node
 							gadgetXPN->addChild(liveUpXPN);
 						}
 					}
 
+					//Adding the location node to the block node
 					blockXPN->addChild(location);
+
+					//Adding the gadget node to the block node
 					blockXPN->addChild(gadgetXPN);
 					
-					blockXPN->setParent(blocks);
+					//Adding the block node to the blocks node
 					blocks->addChild(blockXPN);
 				}
-				else if(gameState->getLevel()[index]->getClassName() == "Pipe")
+				//If classname equals Pipe
+				else if(classname == "Pipe")
 				{
-					Pipe * pipe = (Pipe *)gameState->getLevel()[index];
+					//Creating a reference to the pipe object
+					Pipe * pipe = (Pipe *)gameStateLevel[index];
+
+					//Creating a pipe node
 					XmlParserNode * pipeXPN = new XmlParserNode();
+					
+					//Setting the title for the pipe node
 					pipeXPN->setTitle("pipe");
+
+					//Setting the attribute type for the pipe node
 					oss << pipe->getTextureType();
 					pipeXPN->setAttribute("type",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Creating a location node;
 					XmlParserNode * location = new XmlParserNode();
+					
+					//Setting the title for the location node
 					location->setTitle("location");
+
+					//Creating a singleton node of the location node
 					location->setEndTag();
-					location->setParent(pipeXPN);
+					
+					//Setting the attribute x for the location node
 					oss << i;
 					location->setAttribute("x",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Setting the attribute y for the location node
 					oss << j;
 					location->setAttribute("y",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Adding the location node to the pipe node
 					pipeXPN->addChild(location);
+
+					//Adding the pipe node to the pipes node
 					pipes->addChild(pipeXPN);
 				}
-				else if(gameState->getLevel()[index]->getClassName() == "Ground")
+				//If classname equals Ground
+				else if(classname == "Ground")
 				{
-					Ground * ground = (Ground *)gameState->getLevel()[index];
+					//Creating a reference to the ground object
+					Ground * ground = (Ground *)gameStateLevel[index];
+					
+					//Creating a ground node
 					XmlParserNode * groundXPN = new XmlParserNode();
+					
+					//Setting the title of the ground node
 					groundXPN->setTitle("ground");
+
+					//Setting the attribute type for the ground node
 					oss << ground->getTextureType();
 					groundXPN->setAttribute("type",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Creating a location node
 					XmlParserNode * location = new XmlParserNode();
+					
+					//Setting the title for the location node
 					location->setTitle("location");
+
+					//Creating a singleton node of the location node
 					location->setEndTag();
-					location->setParent(groundXPN);
+
+					//Setting the attribute x for the location node
 					oss << i;
 					location->setAttribute("x",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Setting the attribute y for the location node
 					oss << j;
 					location->setAttribute("y",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Adding the location node to the ground node
 					groundXPN->addChild(location);
 
-					groundXPN->setParent(grounds);
+					//Adding the ground node to the grounds node
 					grounds->addChild(groundXPN);
 				}
-				else if(gameState->getLevel()[index]->getClassName() == "Castle")
+				//If classname equals Castle
+				else if(classname == "Castle")
 				{
-					Castle * castle = (Castle *)gameState->getLevel()[index];
+					//Creating a reference to the castle object
+					Castle * castle = (Castle *)gameStateLevel[index];
+
+					//Creating a castle node
 					XmlParserNode * castleXPN = new XmlParserNode();
+					
+					//Setting the title of the castle node
 					castleXPN->setTitle("ground");
+
+					//Setting the attribute type of the castle node
 					oss << castle->getTextureType();
 					castleXPN->setAttribute("type",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Creating a location node
 					XmlParserNode * location = new XmlParserNode();
+					
+					//Setting the title of the location node
 					location->setTitle("location");
+
+					//Creating a singleton node of the location node
 					location->setEndTag();
-					location->setParent(castleXPN);
+
+					//Setting the attribute x for the location node
 					oss << i;
 					location->setAttribute("x",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Setting the attribute y for the location node
 					oss << j;
 					location->setAttribute("y",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Adding the location node to the castle node
 					castleXPN->addChild(location);
 
-					castleXPN->setParent(castles);
+					//Adding the castle node to the castles node
 					castles->addChild(castleXPN);
 				}
-				else if(gameState->getLevel()[index]->getClassName() == "Goomba"){
-					Goomba * goomba = (Goomba *)gameState->getLevel()[index];
-					XmlParserNode * goombaXPN = new XmlParserNode();
-					goombaXPN->setTitle("enemy");
-					goombaXPN->setAttribute("character","goomba");
+				//If classname equals Goomba or classname equals Koopa
+				else if(classname == "Goomba" || classname == "Koopa"){
+					//Creating a reference to the enemy object
+					Enemy * enemy = (Enemy *)gameStateLevel[index];
 
+					//Creating a enemy node
+					XmlParserNode * enemyXPN = new XmlParserNode();
+					
+					//Setting the title of the enemy node
+					enemyXPN->setTitle("enemy");
+					
+					//Setting the attribute character of the enemy node
+					if(classname == "Goomba")
+						enemyXPN->setAttribute("character","goomba");
+					else if(classname == "Koopa")
+						enemyXPN->setAttribute("character", "koopa");
+
+					//Creating a location node
 					XmlParserNode * location = new XmlParserNode();
+					
+					//Setting the title of the location node
 					location->setTitle("location");
+
+					//Creating a singleton node of the location node
 					location->setEndTag();
-					location->setParent(goombaXPN);
+
+					//Setting the attribute x for the location node
 					oss << i;
 					location->setAttribute("x",oss.str());
 					oss.str("");
 					oss.clear();
 
+					//Setting the attribute y for the location node
 					oss << j;
 					location->setAttribute("y",oss.str());
 					oss.str("");
 					oss.clear();
-					goombaXPN->addChild(location);
 
+					//Adding the location node to the enemy node
+					enemyXPN->addChild(location);
+
+					//Creating an endpath node
 					XmlParserNode * endPath = new XmlParserNode();
+					
+					//Setting the title of the endpath node
 					endPath->setTitle("endPath");
+
+					//Creating a singleton node of the endpath node
 					endPath->setEndTag();
-					endPath->setParent(goombaXPN);
-					oss << goomba->getEndPoint('x');
+
+					//Setting the attribute x of the endpath node
+					oss << enemy->getEndPoint('x');
 					endPath->setAttribute("x",oss.str());
 					oss.str("");
 					oss.clear();
-					oss << goomba->getEndPoint('y');
+					
+					//Setting the attribute y of the endpath node
+					oss << enemy->getEndPoint('y');
 					endPath->setAttribute("y",oss.str());
 					oss.str("");
 					oss.clear();
-					goombaXPN->addChild(endPath);
 
-					goombaXPN->setParent(enemies);
-					enemies->addChild(goombaXPN);
-				}
-				else if(gameState->getLevel()[index]->getClassName() == "Koopa"){
-					Koopa * koopa = (Koopa *)gameState->getLevel()[index];
-					XmlParserNode * koopaXPN = new XmlParserNode();
-					koopaXPN->setTitle("enemy");
-					koopaXPN->setAttribute("character","koopa");
+					//Adding the endpath node to the enemy node
+					enemyXPN->addChild(endPath);
 
-					XmlParserNode * location = new XmlParserNode();
-					location->setTitle("location");
-					location->setEndTag();
-					location->setParent(koopaXPN);
-					oss << i;
-					location->setAttribute("x",oss.str());
-					oss.str("");
-					oss.clear();
-
-					oss << j;
-					location->setAttribute("y",oss.str());
-					oss.str("");
-					oss.clear();
-					koopaXPN->addChild(location);
-
-					XmlParserNode * endPath = new XmlParserNode();
-					endPath->setTitle("endPath");
-					endPath->setEndTag();
-					endPath->setParent(koopaXPN);
-					oss << koopa->getEndPoint('x');
-					endPath->setAttribute("x",oss.str());
-					oss.str("");
-					oss.clear();
-					oss << koopa->getEndPoint('y');
-					endPath->setAttribute("y",oss.str());
-					oss.str("");
-					oss.clear();
-					koopaXPN->addChild(endPath);
-
-					koopaXPN->setParent(enemies);
-					enemies->addChild(koopaXPN);
+					//Adding the enemy node to the enemies node
+					enemies->addChild(enemyXPN);
 				}
 			}
 		}
 	}
 
+	//Adding the blocks node to the level node
 	level->addChild(blocks);
+
+	//Adding the pipes node to the level node
 	level->addChild(pipes);
+
+	//Adding the grounds node to the level node
 	level->addChild(grounds);
+
+	//Adding the castles node to the level node
 	level->addChild(castles);
 
+	//Adding the enemies node to the root node
 	root->addChild(enemies);
+
+	//Adding the level node to the root node
 	root->addChild(level);
 
+	//Creating a xml string from the root
 	string xml = root->toXML(0);
 	ofstream myfile;
+
+	//Opening the file saveGame.xml, if it doesn't exist than it will be created
 	myfile.open ("res/levels/saveGame.xml");
+
+	//Filling the file with the xml string
 	myfile << "<?xml version=\"1.0\"?>" << endl << xml;
+	
+	//Closing the file
 	myfile.close();
 
+	//Deleting the root node
 	delete root;
 	root = NULL;
 }

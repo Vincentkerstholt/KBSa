@@ -19,6 +19,8 @@ void XmlParserNode::addChild(XmlParserNode * child){
 	if(childsLength == childsTotalLength) setChildsLength();
 	childs[childsLength] = child;
 	childsLength++;
+
+	child->setParent(this);
 }
 
 int XmlParserNode::getChildsLength(){
