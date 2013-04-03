@@ -1200,7 +1200,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 							level[index-x] = tempGadget;
 						}
 					}
-					else
+					else if (tempBlock->getIsFixed() == false)
 					{
 						delete level[index];
 						level[index] = NULL;
@@ -1299,26 +1299,24 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 				if (RightHead == "Flower"){
 					delete level[getIndex(CharacterRightHead)];
 					level[getIndex(CharacterRightHead)] = NULL;
-					Mario->increaseScore(200);
+					Mario->increaseScore(2000);
 				}
 				else if (LeftHead == "Flower"){
 					delete level[getIndex(CharacterLeftHead)];
 					level[getIndex(CharacterLeftHead)] = NULL;
-					Mario->increaseScore(200);
+					Mario->increaseScore(2000);
 				}
 				else if (LeftFeet == "Flower"){
 					delete level[getIndex(CharacterLeftFeet)];
 					level[getIndex(CharacterLeftFeet)] = NULL;
-					Mario->increaseScore(200);
+					Mario->increaseScore(2000);
 				}
 				else if (RightFeet == "Flower"){
 					delete level[getIndex(CharacterRightFeet)];
 					level[getIndex(CharacterRightFeet)] = NULL;
-					Mario->increaseScore(200);
+					Mario->increaseScore(2000);
 				}
 			}
-
-
 
 			else if (LeftFeet == "Block"  || LeftFeet == "Pipe"  ||   LeftFeet == "Ground"   )
 			{		
@@ -1362,7 +1360,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 							delete level[getIndex(CharacterRightFeet.x,CharacterRightFeet.y)];
 							level[getIndex(CharacterRightFeet.x,CharacterRightFeet.y)]= NULL;
 							character->SetPosition(CharacterPoint.x, (CharacterPoint.y-32)); // let mario jump
-
+							Mario->increaseScore(50);
 							selfjump=true;
 						}
 					}
@@ -1384,7 +1382,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 							delete level[getIndex(CharacterLeftFeet.x,CharacterLeftFeet.y)];
 							level[getIndex(CharacterLeftFeet.x,CharacterLeftFeet.y)]= NULL;
 							Mario->SetPosition(CharacterPoint.x, (CharacterPoint.y-32)); // let mario jump
-
+							Mario->increaseScore(50);
 							selfjump=true;
 						}
 					}
