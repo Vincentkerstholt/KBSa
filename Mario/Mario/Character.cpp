@@ -6,6 +6,7 @@ Character::Character()
 	textureNumber = 0;
 	Jumped = 0;
 	JumpHeight = 15;
+	MustDie = false;
 }
 
 void Character :: Walk (char Direction, POINT curPos)
