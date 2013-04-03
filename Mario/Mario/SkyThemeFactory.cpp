@@ -3,15 +3,15 @@
 #include "SkyThemePipe.h"
 
 SkyThemeFactory::SkyThemeFactory(){
-	blockBitmap = LoadImage(NULL, "res/skybrick.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	pipeBitmap = LoadImage(NULL, "res/pipeSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	groundBitmap = LoadImage(NULL, "res/skyblock.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	bkGroundBitmap = LoadImage(NULL, "res/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	koopaBitmap = LoadImage(NULL, "res/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	bkGround2Bitmap = LoadImage(NULL, "res/backgroundcloud.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	blockBitmap = LoadImage(NULL, "res/SkyTheme/skybrick.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	castleBitmap = LoadImage(NULL, "res/SkyTheme/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	pipeBitmap = LoadImage(NULL, "res/SkyTheme/pipeSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	groundBitmap = LoadImage(NULL, "res/SkyTheme/skyblock.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGroundBitmap = LoadImage(NULL, "res/SkyTheme/backgroundSky.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	goombaBitmap = LoadImage(NULL, "res/SkyTheme/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	koopaBitmap = LoadImage(NULL, "res/SkyTheme/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGround2Bitmap = LoadImage(NULL, "res/SkyTheme/backgroundcloud.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	gadgetBitmap = LoadImage(NULL, "res/SkyTheme/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
 SkyThemeFactory::~SkyThemeFactory(){

@@ -31,7 +31,14 @@ const int CASTLE_RIGHTGAP = 7;
 Gamestate::Gamestate()
 {
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	xml = new XmlParser();
+
+	SDL_Init(SDL_INIT_AUDIO);
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,2, 4096);
+	Music = Mix_LoadMUS("res/Sounds/Mario.wav");
+	jumpsound=Mix_LoadWAV("res/Sounds/jump.wav");
+	coinsound=Mix_LoadWAV("res/Sounds/coin.wav");
+	Mix_PlayMusic(Music,-1);
+
 	frames = 0;
 	curTime = 0;
 	fps = 0;
@@ -125,8 +132,8 @@ IThemeFactory * Gamestate::getFactory(string name){
 		return new DungeonThemeFactory();
 	else if(name == "sky")
 		return new SkyThemeFactory();
-	else if(name == "water")
-		return new WaterThemeFactory();
+	else if(name == "city")
+		return new CityThemeFactory();
 	return new LandThemeFactory();
 }
 
@@ -535,17 +542,18 @@ void Gamestate::changeFactory(char firstLetter){
 	case 'S':
 		factory = new SkyThemeFactory();
 		break;
-	case 'W':
-		factory = new WaterThemeFactory();
+	case 'C':
+		factory = new CityThemeFactory();
 		break;
 	}
 }
 
-void Gamestate::CreateWorld(){
+void Gamestate::CreateWorld()
+{
 	if(currentLevel != -1)
 		destroyWorld(true);
 
-	xml->parse("res/World 1-1.xml");
+	xml->parse("res/levels/World 1-1.xml");
 	
 	createLevel();
 	createHero();
@@ -556,7 +564,7 @@ void Gamestate::CreateWorld(){
 	createEnemies();
 	createCastles();
 
-	currentLevel = 1;
+	currentLevel = stoi(xml->getNode("level")->getAttribute("nr"));
 }
 
 void Gamestate::resetWorld(){
@@ -645,11 +653,11 @@ void Gamestate::destroyWorld(bool deleteXML)
 		delete sky;
 		sky = NULL;
 	}
-	else if(factoryName == "water")
+	else if(factoryName == "city")
 	{
-		WaterThemeFactory * water = (WaterThemeFactory *)factory;
-		delete water;
-		water = NULL;
+		CityThemeFactory * city = (CityThemeFactory *)factory;
+		delete city;
+		city = NULL;
 	}
 
 	if(deleteXML)
@@ -657,10 +665,10 @@ void Gamestate::destroyWorld(bool deleteXML)
 }
 
 void Gamestate::loadGame(){
-	if (currentLevel != -1)
+	if(currentLevel != -1)
 		destroyWorld(true);
 
-	xml->parse("res/saveGame.xml");
+	xml->parse("res/levels/saveGame.xml");
 	
 	createLevel();
 	createHero();
@@ -672,6 +680,8 @@ void Gamestate::loadGame(){
 	createCastles();
 
 	inMenu = false;
+
+	currentLevel = stoi(xml->getNode("level")->getAttribute("nr"));
 }
 
 void Gamestate::nextLevel()
@@ -681,19 +691,19 @@ void Gamestate::nextLevel()
 	switch(currentLevel)
 	{
 	case 1:
-		xml->parse("res/World 1-1.xml");
+		xml->parse("res/levels/World 1-1.xml");
 		break;
 
 	case 2:
-		xml->parse("res/World 1-2.xml");
+		xml->parse("res/levels/World 1-2.xml");
 		break;
 
 	case 3:
-		xml->parse("res/World 1-3.xml");
+		xml->parse("res/levels/World 1-3.xml");
 		break;
 
 	case 4:
-		xml->parse("res/World 1-4.xml");
+		xml->parse("res/levels/World 1-4.xml");
 		break;
 		
 	case 5:
@@ -734,6 +744,9 @@ void Gamestate::createHero(){
 
 	Mario->SetStartPosition(xMario * 32, yMario * 32);
 	Mario->setName(marioXml->getAttribute("character"));
+	Mario->setLives(stoi(marioXml->getAttribute("lives")));
+	Mario->setCoins(stoi(marioXml->getAttribute("coins")));
+	Mario->setScore(stoi(marioXml->getAttribute("points")));
 }
 
 void Gamestate::createLevel(){
@@ -803,10 +816,12 @@ void Gamestate::createBlocks(){
 	}
 }
 
-void Gamestate::createGrounds(){
+void Gamestate::createGrounds()
+{
 	XmlParserNode * grounds = xml->getNode("grounds");
 	XmlParserNode ** childs = grounds->getChilds();
-	for(int i = 0; i < grounds->getChildsLength(); i++){
+	for(int i = 0; i < grounds->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int x = stoi(childLocation->getAttribute("x"));
@@ -816,10 +831,12 @@ void Gamestate::createGrounds(){
 	}
 }
 
-void Gamestate::createPipes(){
+void Gamestate::createPipes()
+{
 	XmlParserNode * pipes = xml->getNode("pipes");
 	XmlParserNode ** childs = pipes->getChilds();
-	for(int i = 0; i < pipes->getChildsLength(); i++){
+	for(int i = 0; i < pipes->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 
 		XmlParserNode * childLocation = child->getNode("location");
@@ -828,7 +845,8 @@ void Gamestate::createPipes(){
 	}
 }
 
-void Gamestate::createEnemies(){
+void Gamestate::createEnemies()
+{
 	XmlParserNode * enemies = xml->getNode("enemies");
 	XmlParserNode ** childs = enemies->getChilds();
 	for(int i = 0; i < enemies->getChildsLength(); i++)
@@ -864,10 +882,12 @@ void Gamestate::createEnemies(){
 	}
 }
 
-void Gamestate::createCastles(){
+void Gamestate::createCastles()
+{
 	XmlParserNode * castles = xml->getNode("castles");
 	XmlParserNode ** childs = castles->getChilds();
-	for(int i = 0; i < castles->getChildsLength(); i++){
+	for(int i = 0; i < castles->getChildsLength(); i++)
+	{
 		XmlParserNode * child = childs[i];
 		XmlParserNode * childLocation = child->getNode("location");
 		int x = stoi(childLocation->getAttribute("x"));
@@ -887,13 +907,16 @@ void Gamestate::menu(HDC & hdc)
 
 	Sleep(100);
 
-	if(GetAsyncKeyState(VK_UP))	{
+	if(GetAsyncKeyState(VK_UP))	
+	{
 		selector--;
 	}
-	if(GetAsyncKeyState(VK_DOWN))	{
+	if(GetAsyncKeyState(VK_DOWN))	
+	{
 		selector++;
 	}
-	if (GetAsyncKeyState(VK_ESCAPE))	{
+	if (GetAsyncKeyState(VK_ESCAPE))	
+	{
 		if(inMenu == false)
 		{
 			Sleep(150);
@@ -928,7 +951,6 @@ void Gamestate::menu(HDC & hdc)
 			return;
 		break;
 		case 1: //Continue game
-
 			if (Mario!= NULL)
 				if(Mario->getLives() > 0)
 					inMenu = false;
@@ -992,6 +1014,16 @@ void Gamestate::HighScore(HDC & hdc)
 	hBackgroundBitmap = LoadImage(NULL, "res/Highscore.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
+	delete factory;
+	factory = NULL;
+	delete xml;
+	xml = NULL;
+
+	Mix_FreeMusic(Music);
+	Mix_FreeChunk(jumpsound);
+	Mix_FreeChunk(coinsound);
+	Mix_CloseAudio();
+
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
 	BitBlt(hdc,0,0,1362,702,hBackgroundDC,0,0,SRCCOPY);
@@ -1032,6 +1064,7 @@ void Gamestate::HighScore(HDC & hdc)
 		inHighScore = false;
 		SelectObject(hdc ,hFontOld);
 	}
+
 }
 
 Gamestate::~Gamestate()
@@ -1120,6 +1153,7 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 			}
 			if (boxCheck == "Coin")
 			{
+				Mix_PlayChannel(-1, coinsound, 0);
 				Mario->grabcoin();
 				delete level[index];
 			}
@@ -1257,15 +1291,15 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 			Mario->Jumped = 15;	
 		}
 				
-		else if (RightFeet == "Goomba" || LeftFeet == "Goomba" )
+		else if (RightFeet == "Goomba" || LeftFeet == "Goomba" || RightFeet == "Koopa" || LeftFeet == "Koopa")
 		{
-			if (RightFeet == "Goomba")
+			if (RightFeet == "Goomba" || RightFeet == "Koopa" )
 			{
-				Goomba * goomba = (Goomba*)level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
-				POINT goom = goomba->GetPositionPixel();
+				Character * enemy = (Character*)level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
+				POINT enemypoint = enemy->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
-				mari.y = goom.y - mari.y;
-				mari.x = goom.x - mari.x;
+				mari.y = enemypoint.y - mari.y;
+				mari.x = enemypoint.x - mari.x;
 					
 				if(mari.y < 33)
 				{
@@ -1279,13 +1313,13 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 					}
 				}
 			}
-			else if (LeftFeet == "Goomba")
+			else if (LeftFeet == "Goomba" || LeftFeet == "Koopa")
 			{
-				Goomba * goomba = (Goomba*)level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
-				POINT goom = goomba->GetPositionPixel();
+				Character * enemy = (Character*)level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
+				POINT enemypoint = enemy->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
-				mari.y = goom.y - mari.y;
-				mari.x = goom.x - mari.x;
+				mari.y = enemypoint.y - mari.y;
+				mari.x = enemypoint.x - mari.x;
 
 				if(mari.y < 33)
 				{
@@ -1403,7 +1437,7 @@ void Gamestate::Collision()
 				POINT goom = goomba->GetPositionPixel();
 				POINT mari = Mario->GetPositionPixel();
 				mari.x = goom.x - mari.x;
-				if(mari.x < 15)
+				if(mari.x < 18)
 				{
 					HeroDie();
 				}
@@ -1662,25 +1696,25 @@ void Gamestate::splashscreen(HDC & hdc,int splashscreenlevel)
 	switch (splashscreenlevel)
 	{
 	case 1:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
 		break;
 	case 2:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl2 
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl2 
 		break;
 	case 3:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl3
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl3.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl3
 		break;
 	case 4:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl4
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl4.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl4
 		break;
 	case 5:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
 		break;
 	case 6:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenload
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenload.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenload
 		break;
 	default:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl1
 		break;
 	}
 	hBackgroundDC = CreateCompatibleDC(hdc);
@@ -1691,4 +1725,8 @@ void Gamestate::splashscreen(HDC & hdc,int splashscreenlevel)
 	DeleteObject(hBackgroundBitmap);
 	DeleteObject(hBackgroundDC);
 
+}
+
+int Gamestate::getCurrentLevel(){
+	return currentLevel;
 }

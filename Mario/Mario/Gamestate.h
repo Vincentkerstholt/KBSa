@@ -13,6 +13,8 @@
 #include "XMLParser.h"
 #include "Castle.h"
 #include "gadgets.h"
+#include "SDL.h"
+#include "SDL_mixer.h"
 #include "Score.h"
 
 using namespace std;
@@ -38,6 +40,7 @@ public:
 	POINT getPixelPoint(int index);
 	bool UpDownCollision(HDC & hdc);
 	string getCurrentFactory();
+	int getCurrentLevel();
 	int getX();
 	int getY();
 	void HeroDie();
@@ -46,6 +49,10 @@ public:
 
 	~Gamestate();
 	Camera camera;
+	Mix_Music *Music;
+	Mix_Chunk *jumpsound;
+	Mix_Chunk *coinsound;
+
 private:
 
 	IThemeFactory * factory;
@@ -91,7 +98,7 @@ private:
 	void drawWorld(HDC & hdc);
 	int ConvertIndexToXY(int index);
 	IThemeFactory * getFactory(string name);
-	void CreateWorld(int number);
+	//void CreateWorld(int number);
 	void destroyWorld(bool deleteXML);
 	void CreateWorld();
 	void loadGame();

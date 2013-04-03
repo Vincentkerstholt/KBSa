@@ -35,14 +35,8 @@
     <Filter Include="Source Files\Factory\SkyTheme">
       <UniqueIdentifier>{3049b21c-a7aa-4624-8975-ba07712d860b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Factory\WaterTheme">
-      <UniqueIdentifier>{45c0103a-ec31-4347-9bed-2aae60c80c36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Factory\DungeonTheme">
       <UniqueIdentifier>{fcd79706-7359-4d6b-9d50-fe0e118e6b90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Factory\WaterTheme">
-      <UniqueIdentifier>{702539f7-d11a-4904-9e11-04ab5c88db0f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Factory\LandTheme">
       <UniqueIdentifier>{378908b4-7701-4107-b535-3459aeb0c825}</UniqueIdentifier>
@@ -92,6 +86,12 @@
     <Filter Include="Source Files\Gadget\Powerup">
       <UniqueIdentifier>{1553d6ee-f310-47fb-b559-4d8c7c462e95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Factory\CityTheme">
+      <UniqueIdentifier>{702539f7-d11a-4904-9e11-04ab5c88db0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Factory\CityTheme">
+      <UniqueIdentifier>{45c0103a-ec31-4347-9bed-2aae60c80c36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonThemeFactory.cpp">
@@ -102,9 +102,6 @@
     </ClCompile>
     <ClCompile Include="SkyThemeFactory.cpp">
       <Filter>Source Files\Factory\SkyTheme</Filter>
-    </ClCompile>
-    <ClCompile Include="WaterThemeFactory.cpp">
-      <Filter>Source Files\Factory\WaterTheme</Filter>
     </ClCompile>
     <ClCompile Include="Gamestate.cpp">
       <Filter>Source Files</Filter>
@@ -145,9 +142,6 @@
     <ClCompile Include="XMLParserNode.cpp">
       <Filter>Source Files\Parser</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="character.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
@@ -169,47 +163,20 @@
     <ClCompile Include="Flower.cpp">
       <Filter>Source Files\Gadget\Powerup</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Koopa.cpp">
       <Filter>Source Files\Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="Castle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
-      <Filter>Source Files\Program</Filter>
-    </ClCompile>
-    <ClCompile Include="FastWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalWalk.cpp">
-      <Filter>Source Files\Walk</Filter>
-    </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
     <ClCompile Include="Hero.cpp">
       <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="CityThemeFactory.cpp">
+      <Filter>Source Files\Factory\CityTheme</Filter>
+    </ClCompile>
+    <ClCompile Include="Castle.cpp">
+      <Filter>Source Files\Obstacle</Filter>
     </ClCompile>
     <ClCompile Include="Score.cpp">
       <Filter>Source Files</Filter>
@@ -252,9 +219,6 @@
     <ClInclude Include="SkyThemeFactory.h">
       <Filter>Header Files\Factory\SkyTheme</Filter>
     </ClInclude>
-    <ClInclude Include="WaterThemeFactory.h">
-      <Filter>Header Files\Factory\WaterTheme</Filter>
-    </ClInclude>
     <ClInclude Include="factories.h">
       <Filter>Header Files\Factory</Filter>
     </ClInclude>
@@ -267,9 +231,6 @@
     <ClInclude Include="NormalWalk.h">
       <Filter>Header Files\Walk</Filter>
     </ClInclude>
-    <ClInclude Include="Skeleton.h">
-      <Filter>Header Files\Program</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -278,12 +239,6 @@
     </ClInclude>
     <ClInclude Include="XMLParserNode.h">
       <Filter>Header Files\Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files\Walk</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files\Jump</Filter>
     </ClInclude>
     <ClInclude Include="NormalJump.h">
       <Filter>Header Files\Jump</Filter>
@@ -299,9 +254,6 @@
     </ClInclude>
     <ClInclude Include="Koopa.h">
       <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Castle.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gadget.h">
       <Filter>Header Files\Gadget</Filter>
@@ -321,88 +273,26 @@
     <ClInclude Include="Flower.h">
       <Filter>Header Files\Gadget\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gadgets.h">
       <Filter>Header Files\Gadget</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hero.h">
       <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="FastWalk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpBehaviour.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\backgroundSky.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\backgroundCave.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\dungeon.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\forestlandps.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\world8.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\Landscape.xml">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\Landscape2.xml">
-      <Filter>Resource Files</Filter>
-    </None>
+    <ClInclude Include="Castle.h">
+      <Filter>Header Files\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBehaviour.h">
+      <Filter>Header Files\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="FastWalk.h">
+      <Filter>Header Files\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,19 +3,18 @@
 #include "DungeonThemePipe.h"
 
 DungeonThemeFactory::DungeonThemeFactory(){
-	blockBitmap = LoadImage(NULL, "res/Block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	pipeBitmap = LoadImage(NULL, "res/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	groundBitmap = LoadImage(NULL, "res/world8.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	goombaBitmap = LoadImage(NULL, "res/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	koopaBitmap = LoadImage(NULL, "res/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	gadgetBitmap = LoadImage(NULL, "res/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	castleBitmap = LoadImage(NULL, "res/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	bkGroundBitmap = LoadImage(NULL, "res/backgroundCave.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	bkGround2Bitmap = LoadImage(NULL, "res/backgroundrocks.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	blockBitmap = LoadImage(NULL, "res/DungeonTheme/Block.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	pipeBitmap = LoadImage(NULL, "res/DungeonTheme/pipe.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	groundBitmap = LoadImage(NULL, "res/DungeonTheme/groundDungeon.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	goombaBitmap = LoadImage(NULL, "res/DungeonTheme/goomba.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	koopaBitmap = LoadImage(NULL, "res/DungeonTheme/koopa.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	gadgetBitmap = LoadImage(NULL, "res/DungeonTheme/gadget.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	castleBitmap = LoadImage(NULL, "res/DungeonTheme/castleAndFlagSprites.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGroundBitmap = LoadImage(NULL, "res/DungeonTheme/backgroundCave.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	bkGround2Bitmap = LoadImage(NULL, "res/DungeonTheme/backgroundDungeon.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-DungeonThemeFactory::~DungeonThemeFactory()
-{
+DungeonThemeFactory::~DungeonThemeFactory(){
 	delImage();
 }
 

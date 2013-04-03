@@ -15,6 +15,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Castle.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="CityThemeFactory.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FastWalk.cpp" />
@@ -47,10 +48,8 @@
     <ClInclude Include="JumpBehaviour.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Coin.h" />
-    <ClInclude Include="FastWalk.h" />
     <ClInclude Include="Flower.h" />
     <ClInclude Include="Gadget.h" />
-    <ClInclude Include="JumpBehaviour.h" />
     <ClInclude Include="LiveUp.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="NormalJump.h" />
@@ -65,7 +64,6 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="obstacles.h" />
     <ClInclude Include="SkyThemeFactory.h" />
-    <ClInclude Include="WaterThemeFactory.h" />
     <ClInclude Include="Win.h" />
     <ClInclude Include="XMLParser.h" />
   </ItemGroup>
@@ -97,6 +95,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(ProjectDir)\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -111,7 +110,9 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;msimg32.lib;SDL.lib;SDLmain.lib;SDL_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>
+      </DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,7 +143,6 @@
     <ClCompile Include="LandThemeFactory.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="SkyThemeFactory.cpp" />
-    <ClCompile Include="WaterThemeFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
@@ -150,15 +150,6 @@
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="ThemeFactory.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\backgroundCave.bmp" />
-    <None Include="res\backgroundSky.bmp" />
-    <None Include="res\dungeon.bmp" />
-    <None Include="res\forestlandps.bmp" />
-    <None Include="res\Landscape.xml" />
-    <None Include="res\Landscape2.xml" />
-    <None Include="res\world8.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

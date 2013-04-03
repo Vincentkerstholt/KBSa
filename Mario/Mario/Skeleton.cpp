@@ -5,7 +5,7 @@
 /////////////////////////////////////
 CSkeleton::CSkeleton()
 {
-	splashscreenBitmap = LoadImage(NULL, "res/splashscreen.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	splashscreenBitmap = LoadImage(NULL, "res/splashscreen/splashscreen.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	gameState = new Gamestate();
 }
 
@@ -77,6 +77,10 @@ bool CSkeleton::GameLoop()
 	if (::GetAsyncKeyState(VK_UP))
 	{
 		gameState->Mario->Move('U', gameState->Mario->GetPositionPixel());
+		if(gameState->Mario->Jumped==1)
+		{
+			Mix_PlayChannel(-1, gameState->jumpsound, 0);
+		}
 	}
 
 	if (::GetAsyncKeyState(VK_F1))
@@ -89,7 +93,7 @@ bool CSkeleton::GameLoop()
 		gameState->changeFactory('S');
 
 	if (::GetAsyncKeyState(VK_F4))
-		gameState->changeFactory('W');
+		gameState->changeFactory('C');
 
 	if (::GetAsyncKeyState(VK_F12)){
 		debugMode = !debugMode;
