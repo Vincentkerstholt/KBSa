@@ -5,8 +5,10 @@
 #include "WalkBehaviour.h"
 #include "NormalWalk.h"
 #include "FastWalk.h"
+#include "UltraWalk.h"
 #include "JumpBehaviour.h"
 #include "NormalJump.h"
+#include "HighJump.h"
 #include <string>
 #include "GameObject.h"
 

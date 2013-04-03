@@ -1,3 +1,5 @@
+
+
 #include "NormalJump.h"
 
 POINT NormalJump::Jump(POINT CurPos, int Height)

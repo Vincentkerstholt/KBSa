@@ -67,6 +67,9 @@ void Hero::grabcoin()
 void Hero::grabPowerUp()
 {
 	powerUp = true;
+	if (jumpBehaviour != NULL)
+		delete jumpBehaviour;
+	jumpBehaviour = new HighJump();
 }
 
 bool Hero::getPowerUp()
@@ -75,9 +78,16 @@ bool Hero::getPowerUp()
 }
 
 bool Hero::hurt()
-{
+{	
 	if (powerUp == true)
+	{
+		if (jumpBehaviour != NULL)
+		{
+			delete jumpBehaviour;
+			jumpBehaviour = new NormalJump();
+		}
 		powerUp = false;
+	}
 	else
 		Die();
 

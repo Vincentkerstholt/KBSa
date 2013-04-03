@@ -181,6 +181,12 @@
     <ClCompile Include="Score.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UltraWalk.cpp">
+      <Filter>Source Files\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="HighJump.cpp">
+      <Filter>Source Files\Jump</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gamestate.h">
@@ -293,6 +299,12 @@
     </ClInclude>
     <ClInclude Include="Hero.h">
       <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="UltraWalk.h">
+      <Filter>Header Files\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="HighJump.h">
+      <Filter>Header Files\Jump</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
