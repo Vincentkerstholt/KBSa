@@ -10,6 +10,7 @@ Character::Character()
 
 void Character :: Walk (char Direction, POINT curPos)
 {
+	this->Direction = Direction;
 	if (Direction == 'L')
 	{
 		int x = textureNumber;
