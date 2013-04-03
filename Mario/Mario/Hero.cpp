@@ -78,11 +78,15 @@ bool Hero::getPowerUp()
 }
 
 bool Hero::hurt()
-{
-	if (jumpBehaviour != NULL)
+{	
+	if (powerUp == true)
 	{
-		delete jumpBehaviour;
-		jumpBehaviour = new NormalJump();
+		if (jumpBehaviour != NULL)
+		{
+			delete jumpBehaviour;
+			jumpBehaviour = new NormalJump();
+		}
+		powerUp = false;
 	}
 	else
 		Die();
