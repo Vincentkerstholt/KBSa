@@ -1145,7 +1145,7 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 						level[index-x] = tempGadget;
 					}
 				}
-				else
+				else if(tempBlock->getIsFixed() == false)
 				{
 					delete level[index];
 					level[index] = NULL;
@@ -1308,8 +1308,7 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 						delete level[getIndex(MarioRightFeet.x,MarioRightFeet.y)];
 						level[getIndex(MarioRightFeet.x,MarioRightFeet.y)]= NULL;
 						Mario->SetPosition(mario.x, (mario.y-32)); // let mario jump
-
-						selfjump=true;
+						Mario->increaseScore(50);						selfjump=true;
 					}
 				}
 			}
@@ -1329,6 +1328,7 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 					delete level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
 					level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)]= NULL;
 					Mario->SetPosition(mario.x, (mario.y-32)); // let mario jump
+					Mario->increaseScore(50);
 
 					selfjump=true;
 					}

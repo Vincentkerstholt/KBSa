@@ -26,6 +26,12 @@ Gadget * Block::getGadget(){
 	if (gadgetAmount > 0)
 	{
 		gadgetAmount--;
+		if (gadgetAmount == 0 && isSpecial == true)
+		{
+			isSpecial = false;
+			isFixed = true;
+			posX = 0;
+		}
 		return gadget[gadgetAmount];
 	}
 	return NULL;
