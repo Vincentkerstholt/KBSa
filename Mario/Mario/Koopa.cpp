@@ -18,6 +18,7 @@ int Koopa::getEndPoint(char valuePoint){
 		return endPointX;
 	else if(valuePoint == 'y')
 		return endPointY;
+	return -1;
 };
 
 int Koopa::getStartPoint(char valuePoint){
@@ -25,6 +26,7 @@ int Koopa::getStartPoint(char valuePoint){
 		return startPointX;
 	else if(valuePoint == 'y')
 		return startPointY;
+	return -1;
 };
 
 string Koopa::getClassName(){

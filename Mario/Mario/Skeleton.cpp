@@ -28,7 +28,6 @@ void CSkeleton::GameInit()
 bool CSkeleton::GameLoop()
 {
 	RECT rect;
-	POINT mario , MarioUp, MarioDown;
 	::GetClientRect(m_hWnd, &rect);
 
 	if(startUp && loop == 0){

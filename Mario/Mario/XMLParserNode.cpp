@@ -162,6 +162,7 @@ string XmlParserNode::toXML(int depth){
 		//Adding the attribute to the XML string
 		oss << " " << it->first << "=\"" << it->second << "\"";
 	}
+
 	//If node is singleton node
 	if (hasEndTag)
 	{

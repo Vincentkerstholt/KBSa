@@ -529,15 +529,13 @@ void XmlParser::parse(string fileLocation){
 
 			lineNumber++;
 
-			bool hasAttributes;
-
 			int closingTagStart = -1;
 			int beginningTagStart = -1;
 			int singletonTagEnd = -1;
 			int beginningTagEnd = -1;
 
 			//Index of closing tag "</node>"
-			closingTagStart = line.find("<\/");
+			closingTagStart = line.find("</");
 			
 			//If closing tag doesn't exist
 			if(closingTagStart == -1){
@@ -554,7 +552,7 @@ void XmlParser::parse(string fileLocation){
 				closingTagStart = 1;
 			}
 			//Index of singleton end tag "<node/>"
-			singletonTagEnd = cleanLine.find("\/>");
+			singletonTagEnd = cleanLine.find("/>");
 
 			//If singleton end tag doesn't exist
 			if(singletonTagEnd == -1){

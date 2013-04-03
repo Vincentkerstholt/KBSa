@@ -21,6 +21,7 @@ int Goomba::getEndPoint(char valuePoint){
 		return endPointX;
 	else if(valuePoint == 'y')
 		return endPointY;
+	return -1;
 };
 
 int Goomba::getStartPoint(char valuePoint){
@@ -28,6 +29,7 @@ int Goomba::getStartPoint(char valuePoint){
 		return startPointX;
 	else if(valuePoint == 'y')
 		return startPointY;
+	return -1;
 };
 
 string Goomba::getClassName(){
