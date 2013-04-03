@@ -86,7 +86,6 @@ int CWin::Run()
 		{
 			::QueryPerformanceCounter((LARGE_INTEGER*)&start);
 			stop = start;
-			
 
 			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));
 			quit = GameLoop();

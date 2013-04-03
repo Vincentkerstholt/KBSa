@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <superMario>
-	<factory name="city" />
+	<factory name="landscape" />
 	<hero character="mario" x="3" y="19" coins="0" points="0" lives="5" />
 	<enemies>
 		<enemy character="goomba">
@@ -187,10 +187,6 @@
 			<block isSpecial="true" isFixed="false">
 				<location x="16" y="8" />
 				<gadget>
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 					<coin />
 				</gadget>
 			</block>
@@ -408,19 +404,11 @@
 				<location x="88" y="15" />
 				<gadget>
 					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="89" y="15" />
 				<gadget>
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 					<coin />
 				</gadget>
 			</block>
@@ -428,30 +416,30 @@
 				<location x="90" y="15" />
 				<gadget>
 					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="99" y="11" />
 				<gadget>
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="100" y="11" />
 				<gadget>
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="101" y="11" />
 				<gadget>
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="102" y="11" />
 				<gadget>
+					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
@@ -539,10 +527,6 @@
 				<location x="113" y="4" />
 				<gadget>
 					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
@@ -564,10 +548,6 @@
 				<location x="114" y="4" />
 				<gadget>
 					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
@@ -588,10 +568,6 @@
 			<block isSpecial="false" isFixed="false">
 				<location x="115" y="4" />
 				<gadget>
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 					<coin />
 				</gadget>
 			</block>
@@ -1132,29 +1108,17 @@
 				<location x="166" y="12" />
 				<gadget>
 					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="167" y="12" />
 				<gadget>
 					<coin />
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 				</gadget>
 			</block>
 			<block isSpecial="false" isFixed="false">
 				<location x="168" y="12" />
 				<gadget>
-					<coin />
-					<coin />
-					<coin />
-					<coin />
 					<coin />
 				</gadget>
 			</block>
@@ -1316,31 +1280,40 @@
 				<location x="42" y="21" />
 			</pipe>
 			<pipe type="1">
-				<location x="95" y="16" />
+				<location x="99" y="18" />
 			</pipe>
 			<pipe type="4">
-				<location x="95" y="17" />
+				<location x="99" y="19" />
 			</pipe>
 			<pipe type="4">
-				<location x="95" y="18" />
+				<location x="99" y="20" />
+			</pipe>
+			<pipe type="4">
+				<location x="99" y="21" />
 			</pipe>
 			<pipe type="2">
-				<location x="96" y="16" />
+				<location x="100" y="18" />
 			</pipe>
 			<pipe type="5">
-				<location x="96" y="17" />
+				<location x="100" y="19" />
 			</pipe>
 			<pipe type="5">
-				<location x="96" y="18" />
+				<location x="100" y="20" />
+			</pipe>
+			<pipe type="5">
+				<location x="100" y="21" />
 			</pipe>
 			<pipe type="3">
-				<location x="97" y="16" />
+				<location x="101" y="18" />
 			</pipe>
 			<pipe type="6">
-				<location x="97" y="17" />
+				<location x="101" y="19" />
 			</pipe>
 			<pipe type="6">
-				<location x="97" y="18" />
+				<location x="101" y="20" />
+			</pipe>
+			<pipe type="6">
+				<location x="101" y="21" />
 			</pipe>
 			<pipe type="1">
 				<location x="104" y="15" />
@@ -2220,14 +2193,23 @@
 			<ground type="5">
 				<location x="96" y="21" />
 			</ground>
-			<ground type="3">
+			<ground type="2">
 				<location x="97" y="19" />
 			</ground>
-			<ground type="6">
+			<ground type="5">
 				<location x="97" y="20" />
 			</ground>
-			<ground type="6">
+			<ground type="5">
 				<location x="97" y="21" />
+			</ground>
+			<ground type="3">
+				<location x="98" y="19" />
+			</ground>
+			<ground type="6">
+				<location x="98" y="20" />
+			</ground>
+			<ground type="6">
+				<location x="98" y="21" />
 			</ground>
 			<ground type="1">
 				<location x="107" y="19" />
