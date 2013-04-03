@@ -187,7 +187,7 @@ void Gamestate::drawCharacters(HDC & hdc){
 }
 
 void Gamestate::drawStatistics(HDC & hdc){
-	SetBkMode(hdc,TRANSPARENT);
+	SetBkMode(hdc,OPAQUE);
 	int xValue = this->Mario->GetPositionPixel().x;
 	int yValue = this->Mario->GetPositionPixel().y;
 	ostringstream oss;
@@ -232,6 +232,7 @@ void Gamestate::drawStatistics(HDC & hdc){
 }
 
 void Gamestate::drawHUD(HDC & hdc){
+	SetBkMode(hdc,TRANSPARENT);
 	ostringstream oss;
 
 	oss << "Score: " << Mario->getScore() ;

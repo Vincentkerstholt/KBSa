@@ -115,3 +115,5 @@ void Hero::setScore(int score)
 {
 	this->score = score;
 }
+
+
