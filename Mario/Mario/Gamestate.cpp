@@ -1224,7 +1224,8 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 					Castle * castle = (Castle *) level[index];
 					if(castle->getTextureType() == CASTLE_DOOR)
 					{
-						nextLevel();
+						toDoNextLevel = true;
+						splashscreen(hdc, currentLevel +1);
 						return false;
 					}
 				}
