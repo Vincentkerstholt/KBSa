@@ -1130,6 +1130,8 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 	POINT CharacterPoint;
 	POINT CharacterRightFeet;
 	POINT CharacterLeftFeet;
+	POINT CharacterMidLFeet;
+	POINT CharacterMidRFeet;
 	POINT CharacterRightHead;
 	POINT CharacterLeftHead;
 	POINT CharacterMidHead;
@@ -1145,6 +1147,10 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 		CharacterRightFeet.y = ((CharacterPoint.y+32)/32); //rightfeet y
 		CharacterLeftFeet.x = ((CharacterPoint.x+ 4)/32); //left feet x
 		CharacterLeftFeet.y = ((CharacterPoint.y+32)/32); //left feet y
+		CharacterMidLFeet.x = ((CharacterPoint.x+10)/32); 
+		CharacterMidLFeet.y = ((CharacterPoint.y+30)/32);
+		CharacterMidRFeet.x = ((CharacterPoint.x+20)/32); 
+		CharacterMidRFeet.y = ((CharacterPoint.y+30)/32);
 		//up point for collision
 		CharacterRightHead.x = ((CharacterPoint.x+24)/32); //Righthead x
 		CharacterRightHead.y = ((CharacterPoint.y)/32); //Righthead y
@@ -1156,17 +1162,21 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 
 		string RightFeet = BoxCheck(getIndex(CharacterRightFeet));
 		string LeftFeet = BoxCheck(getIndex(CharacterLeftFeet));
+		string MidLFeet = BoxCheck(getIndex(CharacterMidLFeet));
+		string MidRFeet = BoxCheck(getIndex(CharacterMidRFeet));
 		string RightHead = BoxCheck(getIndex(CharacterRightHead));
 		string LeftHead = BoxCheck(getIndex(CharacterLeftHead));
 		string MidHead = BoxCheck(getIndex(CharacterMidHead));
 		int index = getIndex(CharacterMidHead);
 
+		//Only Hero can jump and bump into something with his head
 		if(character->getClassName() != "Hero")
 		{
 
 		}
 		else
 		{
+			//if the head touches a block
 			if (RightHead == "Block" || LeftHead == "Block" )
 			{			
 				Mario->JumpAbility = false;
@@ -1180,13 +1190,16 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 					if (tempGadget != NULL)
 					{
 						string className = tempGadget->getClassName();
+						//Block has Coin
 						if ( className == "Coin")
 						{
 							Mix_PlayChannel(-1, coinsound, 0);
 							level[index-x] = tempGadget;
 						}
+						//Block has LiveUp
 						if ( className == "LiveUp")
 							level[index-x] = tempGadget;
+						//Block has Mushroom
 						if ( className == "Mushroom")
 						{
 							if (Mario->getPowerUp() == false)
@@ -1206,6 +1219,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 						level[index] = NULL;
 					}
 				}
+				//Block has Coin
 				if (boxCheck == "Coin")
 				{
 					Mario->grabcoin();
@@ -1217,7 +1231,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 				character->Jumped = 15;
 
 			}
-			else if(RightHead == "Castle" || LeftHead == "Castle")
+			else if(RightHead == "Castle" || LeftHead == "Castle") //Mario jumps into the Castle
 			{
 				if(BoxCheck(index) == "Castle")
 				{
@@ -1246,7 +1260,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 					}
 				}
 			}
-			else if ( RightHead == "LiveUp" || RightFeet == "LiveUp" || LeftHead == "LiveUp" || LeftFeet == "LiveUp" )
+			else if ( RightHead == "LiveUp" || RightFeet == "LiveUp" || LeftHead == "LiveUp" || LeftFeet == "LiveUp" ) //You reach a LiveUp with the head
 			{
 				if (RightHead == "LiveUp"){
 					delete level[getIndex(CharacterRightHead)];
@@ -1270,7 +1284,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 				}
 			}
 
-			else if ( RightHead == "Mushroom" || RightFeet == "Mushroom" || LeftHead == "Mushroom" || LeftFeet == "Mushroom" )
+			else if ( RightHead == "Mushroom" || RightFeet == "Mushroom" || LeftHead == "Mushroom" || LeftFeet == "Mushroom" )//You reach a Mushroom with the head
 			{
 				if (RightHead == "Mushroom"){
 					delete level[getIndex(CharacterRightHead)];
@@ -1295,7 +1309,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 				}
 			}
 
-			else if ( RightHead == "Flower" || RightFeet == "Flower" || LeftHead == "Flower" || LeftFeet == "Flower" )
+			else if ( RightHead == "Flower" || RightFeet == "Flower" || LeftHead == "Flower" || LeftFeet == "Flower" )//You reach a Flower with the head
 			{
 				if (RightHead == "Flower"){
 					delete level[getIndex(CharacterRightHead)];
@@ -1338,23 +1352,61 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 
 			}
 
-			else if (RightHead == "Ground" || LeftHead == "Ground" )
+			else if (RightHead == "Ground" || LeftHead == "Ground" )//You touch a Ground block with your head
 			{			
 				character->JumpAbility = false; 	
 				character->Jumped = 15;	
 			}
 
-			else if (RightFeet == "Goomba" || LeftFeet == "Goomba" )
+			else if (RightFeet == "Goomba" || LeftFeet == "Goomba" || MidLFeet == "Goomba" || MidRFeet == "Goomba" || RightFeet == "Koopa" || LeftFeet == "Koopa" || MidLFeet == "Koopa" || MidRFeet == "Koopa" )
 			{
-				if (RightFeet == "Goomba")
+				if (MidLFeet == "Goomba" || MidLFeet == "Koopa")
 				{
-					Goomba * goomba = (Goomba*)level[getIndex(CharacterRightFeet.x,CharacterRightFeet.y)];
-					POINT goom = goomba->GetPositionPixel();
+					Character * enemy = (Character*)level[getIndex(CharacterMidLFeet.x,CharacterMidLFeet.y)];
+					POINT enem = enemy->GetPositionPixel();
 					POINT chara = character->GetPositionPixel();
-					chara.y = goom.y - chara.y;
-					chara.x = goom.x - chara.x;
+					chara.y = enem.y - chara.y;
+					
 
-					if(chara.y < 33)
+					if(chara.y < 34)
+					{
+							delete level[getIndex(CharacterMidLFeet.x,CharacterMidLFeet.y)];
+							level[getIndex(CharacterMidLFeet.x,CharacterMidLFeet.y)]= NULL;
+							character->SetPosition(CharacterPoint.x, (CharacterPoint.y-32)); // let mario jump
+
+							selfjump=true;
+						
+					}
+
+				}	
+				else if (MidRFeet == "Goomba" || MidRFeet == "Koopa")
+				{
+					Character * enemy = (Character*)level[getIndex(CharacterMidRFeet.x,CharacterMidRFeet.y)];
+					POINT enem = enemy->GetPositionPixel();
+					POINT chara = character->GetPositionPixel();
+					chara.y = enem.y - chara.y;
+
+
+					if(chara.y < 34)
+					{
+						delete level[getIndex(CharacterMidRFeet.x,CharacterMidRFeet.y)];
+						level[getIndex(CharacterMidRFeet.x,CharacterMidRFeet.y)]= NULL;
+						character->SetPosition(CharacterPoint.x, (CharacterPoint.y-32)); // let mario jump
+
+						selfjump=true;
+
+					}
+
+				}	
+				else if (RightFeet == "Goomba" || RightFeet == "Koopa" )
+				{
+					Character * enemy = (Character*)level[getIndex(CharacterRightFeet.x,CharacterRightFeet.y)];
+					POINT enem = enemy->GetPositionPixel();
+					POINT chara = character->GetPositionPixel();
+					chara.y = enem.y - chara.y;
+					chara.x = enem.x - chara.x;
+
+					if(chara.y < 34)
 					{
 						if(chara.x < 30)
 						{
@@ -1367,15 +1419,15 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 					}
 
 				}
-				else if (LeftFeet == "Goomba")
+				else if (LeftFeet == "Goomba" || LeftFeet == "Koopa")//You jump on a Koopa Or Goomba
 				{
-					Goomba * goomba = (Goomba*)level[getIndex(CharacterLeftFeet.x,CharacterLeftFeet.y)];
-					POINT goom = goomba->GetPositionPixel();
+					Character * enemy = (Character*)level[getIndex(CharacterLeftFeet.x,CharacterLeftFeet.y)];
+					POINT enem = enemy->GetPositionPixel();
 					POINT chara = character->GetPositionPixel();
-					chara.y = goom.y - chara.y;
-					chara.x = goom.x - chara.x;
+					chara.y = enem.y - chara.y;
+					chara.x = enem.x - chara.x;
 
-					if(chara.y < 33)
+					if(chara.y < 34)
 					{
 						chara.x = chara.x * (-1);
 						if(chara.x < 24)
@@ -1421,13 +1473,13 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 		}
 		else
 		{
-			if(character->getClassName() != "Hero")
+			if(character->getClassName() != "Hero")//if the character isnt mario character Dies
 			{
 				character->MustDie = true;
 			}
 			else
 			{
-				HeroDie();
+				HeroDie();//Mario Dies
 			}
 
 		}
@@ -1470,12 +1522,15 @@ void Gamestate::Collision(Character * character)
 {
 	POINT Place , CharacterUp, CharacterDown;
 	Place = character->GetPositionPixel();
+	// if the character is between the upper and bottem border of the game
 	if ( 0 < Place.y && Place.y < 670)
 	{
 		string DownPoint;
 		string UpPoint;
+		// if it's not the hero
 		if(character->getClassName() != "Hero")
 		{
+			//the right collision points for all the enemies
 			CharacterDown.x = ((Place.x+33)/32);
 			CharacterDown.y = ((Place.y+31)/32);
 			CharacterUp.x = ((Place.x+33)/32);
@@ -1486,6 +1541,7 @@ void Gamestate::Collision(Character * character)
 		}
 		else
 		{
+			//the right collision points for the hero
 			CharacterDown.x = ((Place.x+28)/32);
 			CharacterDown.y = ((Place.y+31)/32);
 			CharacterUp.x = ((Place.x+28)/32);
@@ -1494,30 +1550,33 @@ void Gamestate::Collision(Character * character)
 			DownPoint = BoxCheck(getIndex(CharacterDown.x,CharacterDown.y));
 			UpPoint = BoxCheck(getIndex(CharacterUp.x,CharacterUp.y));
 		}
-
+		//the right collision is on a block
 		if (DownPoint == "Block" || UpPoint == "Block")
 			character->MoveAbilityR = false;
-
+		//the right collision is on a Ground
 		else if (DownPoint == "Ground" || UpPoint == "Ground")
 			character->MoveAbilityR = false;
-
+		//the right collision is on a Pipe
 		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
 			character->MoveAbilityR = false;
-
-		else if (DownPoint == "Goomba" || UpPoint == "Goomba")
+		//the right collision is on a Enemy
+		else if (DownPoint == "Goomba" || UpPoint == "Goomba" || DownPoint == "Koopa" || UpPoint == "Koopa")
 		{
+			//if the character is not a hero
 			if(character->getClassName() != "Hero")
 			{
 				character->MoveAbilityR = false;	
 			}
 			else
 			{
-				if(DownPoint == "Goomba")
+				//The right DownPoint is on a Goomba or Koopa
+				if(DownPoint == "Goomba" || DownPoint == "Koopa")
 				{
-					Goomba * goomba = (Goomba*)level[getIndex(CharacterDown.x,CharacterDown.y)];
-					POINT goom = goomba->GetPositionPixel();
+					Character * enemy = (Character*)level[getIndex(CharacterDown.x,CharacterDown.y)];
+					POINT enem = enemy->GetPositionPixel();
 					POINT chara = character->GetPositionPixel();
-					chara.x = goom.x - chara.x;
+					chara.x = enem.x - chara.x;
+					//if there only 15 pixels between
 					if(chara.x < 15)
 					{
 						HeroDie();
@@ -1527,12 +1586,13 @@ void Gamestate::Collision(Character * character)
 						character->MoveAbilityR = true;
 					}
 				}
-				else if(UpPoint == "Goomba")
+				//The right UpPoint is on a Goomba or Koopa
+				else if(UpPoint == "Goomba" || UpPoint == "Koopa")
 				{
-					Goomba * goomba = (Goomba*)level[getIndex(CharacterUp.x,CharacterUp.y)];
-					POINT goom = goomba->GetPositionPixel();
+					Character * enemy = (Character*)level[getIndex(CharacterUp.x,CharacterUp.y)];
+					POINT enem = enemy->GetPositionPixel();
 					POINT chara = character->GetPositionPixel();
-					chara.x = goom.x - chara.x;
+					chara.x = enem.x - chara.x;
 					if(chara.x < 18)
 					{
 						HeroDie();
@@ -1550,24 +1610,42 @@ void Gamestate::Collision(Character * character)
 
 		}
 	}
-
+	//Collision detection for the left part of the character
 	Place = character->GetPositionPixel();
+	//If the character is between the upper and lower border of a game
 	if ( 0 < Place.y && Place.y < 670)
 	{
 		string DownPoint;
 		string UpPoint;
+		POINT HeroPoint;
+		POINT EnemyPoint;
 		if(character->getClassName() != "Hero")
 		{
-			CharacterDown.x = ((Place.x-31)/32);
+			//The Left collision points for a enemy
+			CharacterDown.x = ((Place.x-1)/32);
 			CharacterDown.y = ((Place.y+31)/32);
-			CharacterUp.x = ((Place.x-31)/32);
+			CharacterUp.x = ((Place.x-1)/32);
 			CharacterUp.y = ((Place.y)/32);
 
 			DownPoint = BoxCheck(getIndex(CharacterDown.x,CharacterDown.y));
 			UpPoint = BoxCheck(getIndex(CharacterUp.x,CharacterUp.y));
+			HeroPoint = Mario->GetPositionPixel();
+			EnemyPoint = character->GetPositionPixel();
+
+			//this is a quickfix so mario can't hide below a pipe anymore
+			if( ((HeroPoint.x - 16) == EnemyPoint.x))
+			{
+				if((HeroPoint.y == EnemyPoint.y))
+				{
+				HeroDie();
+				}
+			}
+
+
 		}
 		else
 		{
+			//the left collision points for a hero
 			CharacterDown.x = ((Place.x+2)/32);
 			CharacterDown.y = ((Place.y+31)/32);
 			CharacterUp.x = ((Place.x+2)/32);
@@ -1577,15 +1655,16 @@ void Gamestate::Collision(Character * character)
 			UpPoint = BoxCheck(getIndex(CharacterUp.x,CharacterUp.y));
 		}
 
+		// if there is collision on the left with a block
 		if (DownPoint == "Block" || UpPoint == "Block")
 			character->MoveAbilityL = false;
-
+		// if there is collision on the left with Ground
 		else if (DownPoint == "Ground" || UpPoint == "Ground")
 			character->MoveAbilityL = false;
-
+		// if there is collision on the left with a Pipe
 		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
 			character->MoveAbilityL = false;
-
+		// if there is collision on the left with a Goomba
 		else if (DownPoint == "Goomba" || UpPoint == "Goomba")
 		{
 			if(character->getClassName() != "Hero")
@@ -1605,20 +1684,26 @@ void Gamestate::Collision(Character * character)
 
 void Gamestate::UpdateEnemy(Character * character)
 {
+	// Delete the enemy on his old position
 	level[getIndex(character->GetPositionIndex())] = NULL;
+	// check if he must get create again
 	if(character->MustDie == false)
 	{
 		UpDownCollision(hdc, character);
 		Collision(character);
+		//check if he is allowed to walk to the right
 		if(character->MoveAbilityL == false)
 		{
 			character->setDirection('R');
 		}
+		//check if he is allowed to walk to the left
 		else if(character->MoveAbilityR == false)
 		{
 			character->setDirection('L');
 		}
+		//Move the character his position
 		character->Move(character->getDirection(), character->GetPositionPixel());
+		// create the character on his new position
 		level[getIndex(character->GetPositionIndex())] = character;
 	}	
 }
