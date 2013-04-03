@@ -1520,13 +1520,14 @@ void Gamestate::HeroDie()
 
 void Gamestate::Collision(Character * character)
 {
-	POINT Place , CharacterUp, CharacterDown;
+	POINT Place , CharacterUp, CharacterDown, DownCheckLeft, DownCheckRight;
 	Place = character->GetPositionPixel();
 	// if the character is between the upper and bottem border of the game
 	if ( 0 < Place.y && Place.y < 670)
 	{
 		string DownPoint;
 		string UpPoint;
+		string LeftPoint;
 		// if it's not the hero
 		if(character->getClassName() != "Hero")
 		{
@@ -1538,6 +1539,13 @@ void Gamestate::Collision(Character * character)
 
 			DownPoint = BoxCheck(getIndex(CharacterDown.x,CharacterDown.y));
 			UpPoint = BoxCheck(getIndex(CharacterUp.x,CharacterUp.y));
+			
+			DownCheckLeft.x = ((Place.x+34)/32);
+			DownCheckLeft.y = ((Place.y+33)/32);
+		
+			LeftPoint = BoxCheck(getIndex(DownCheckLeft.x,DownCheckLeft.y));
+			
+					
 		}
 		else
 		{
@@ -1559,6 +1567,16 @@ void Gamestate::Collision(Character * character)
 		//the right collision is on a Pipe
 		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
 			character->MoveAbilityR = false;
+		else if (DownPoint == "Castle" || UpPoint == "Castle")
+			{		if(character->getClassName() != "Hero")
+			{
+			character->MoveAbilityR = false;
+			}
+		}
+		else if(LeftPoint == "NULL")
+		{
+			character->MoveAbilityR = false;	
+		}
 		//the right collision is on a Enemy
 		else if (DownPoint == "Goomba" || UpPoint == "Goomba" || DownPoint == "Koopa" || UpPoint == "Koopa")
 		{
@@ -1619,6 +1637,7 @@ void Gamestate::Collision(Character * character)
 		string UpPoint;
 		POINT HeroPoint;
 		POINT EnemyPoint;
+		string RightPoint;
 		if(character->getClassName() != "Hero")
 		{
 			//The Left collision points for a enemy
@@ -1626,6 +1645,10 @@ void Gamestate::Collision(Character * character)
 			CharacterDown.y = ((Place.y+31)/32);
 			CharacterUp.x = ((Place.x-1)/32);
 			CharacterUp.y = ((Place.y)/32);
+
+			DownCheckRight.x= ((Place.x-2)/32);
+			DownCheckRight.y= ((Place.y+33)/32);
+			RightPoint = BoxCheck(getIndex(DownCheckRight.x, DownCheckRight.y));
 
 			DownPoint = BoxCheck(getIndex(CharacterDown.x,CharacterDown.y));
 			UpPoint = BoxCheck(getIndex(CharacterUp.x,CharacterUp.y));
@@ -1664,6 +1687,10 @@ void Gamestate::Collision(Character * character)
 		// if there is collision on the left with a Pipe
 		else if (DownPoint == "Pipe" || UpPoint == "Pipe")
 			character->MoveAbilityL = false;
+		else if ( RightPoint == "NULL")
+		{
+			character->MoveAbilityL = false;	
+		}
 		// if there is collision on the left with a Goomba
 		else if (DownPoint == "Goomba" || UpPoint == "Goomba")
 		{
