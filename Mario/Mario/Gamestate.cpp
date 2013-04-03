@@ -1145,7 +1145,7 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 						level[index-x] = tempGadget;
 					}
 				}
-				else
+				else if(tempBlock->getIsFixed() == false)
 				{
 					delete level[index];
 					level[index] = NULL;
