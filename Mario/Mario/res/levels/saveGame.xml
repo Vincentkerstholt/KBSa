@@ -1,27 +1,19 @@
 <?xml version="1.0"?>
 <superMario>
 	<factory name="landscape"/>
-	<hero character="mario" coins="0" lives="5" points="0" x="209" y="19"/>
+	<hero character="mario" coins="11" lives="6" points="1150" x="209" y="19"/>
 	<enemies>
 		<enemy character="goomba">
-			<location x="23" y="19"/>
+			<location x="26" y="19"/>
 			<endPath x="21" y="19"/>
 		</enemy>
 		<enemy character="goomba">
-			<location x="50" y="19"/>
+			<location x="47" y="19"/>
 			<endPath x="47" y="19"/>
 		</enemy>
 		<enemy character="goomba">
-			<location x="57" y="19"/>
+			<location x="61" y="19"/>
 			<endPath x="56" y="19"/>
-		</enemy>
-		<enemy character="goomba">
-			<location x="92" y="11"/>
-			<endPath x="88" y="11"/>
-		</enemy>
-		<enemy character="goomba">
-			<location x="103" y="19"/>
-			<endPath x="99" y="19"/>
 		</enemy>
 		<enemy character="goomba">
 			<location x="107" y="19"/>
@@ -34,10 +26,9 @@
 	</enemies>
 	<level height="22" nr="2" width="215">
 		<blocks>
-			<block isFixed="false" isSpecial="true">
+			<block isFixed="true" isSpecial="false">
 				<location x="21" y="16"/>
 				<gadget>
-					<powerup/>
 				</gadget>
 			</block>
 			<block isFixed="false" isSpecial="false">
@@ -51,29 +42,13 @@
 					<coin/>
 				</gadget>
 			</block>
-			<block isFixed="false" isSpecial="true">
+			<block isFixed="true" isSpecial="false">
 				<location x="28" y="12"/>
 				<gadget>
-					<coin/>
-					<coin/>
-					<coin/>
-					<coin/>
-					<coin/>
 				</gadget>
 			</block>
-			<block isFixed="false" isSpecial="false">
-				<location x="28" y="16"/>
-				<gadget>
-				</gadget>
-			</block>
-			<block isFixed="false" isSpecial="true">
+			<block isFixed="true" isSpecial="false">
 				<location x="29" y="16"/>
-				<gadget>
-					<coin/>
-				</gadget>
-			</block>
-			<block isFixed="false" isSpecial="false">
-				<location x="30" y="16"/>
 				<gadget>
 				</gadget>
 			</block>
@@ -81,25 +56,10 @@
 				<location x="70" y="15"/>
 				<gadget>
 					<coin/>
-					<coin/>
-					<coin/>
-					<coin/>
-					<coin/>
 				</gadget>
 			</block>
-			<block isFixed="false" isSpecial="false">
-				<location x="83" y="16"/>
-				<gadget>
-				</gadget>
-			</block>
-			<block isFixed="false" isSpecial="true">
+			<block isFixed="true" isSpecial="false">
 				<location x="84" y="16"/>
-				<gadget>
-					<coin/>
-				</gadget>
-			</block>
-			<block isFixed="false" isSpecial="false">
-				<location x="85" y="16"/>
 				<gadget>
 				</gadget>
 			</block>
@@ -168,10 +128,9 @@
 				<gadget>
 				</gadget>
 			</block>
-			<block isFixed="false" isSpecial="true">
+			<block isFixed="true" isSpecial="false">
 				<location x="104" y="12"/>
 				<gadget>
-					<liveup/>
 				</gadget>
 			</block>
 			<block isFixed="false" isSpecial="true">

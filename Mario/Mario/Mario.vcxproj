@@ -21,6 +21,7 @@
     <ClCompile Include="FastWalk.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="HighJump.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Flower.cpp" />
     <ClCompile Include="LiveUp.cpp" />
@@ -28,6 +29,7 @@
     <ClCompile Include="NormalJump.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="UltraWalk.cpp" />
     <ClCompile Include="XMLParserNode.cpp" />
     <ClCompile Include="NormalWalk.cpp" />
     <ClCompile Include="Ground.cpp" />
@@ -45,6 +47,7 @@
     <ClInclude Include="gadgets.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="HighJump.h" />
     <ClInclude Include="JumpBehaviour.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Coin.h" />
@@ -55,6 +58,7 @@
     <ClInclude Include="NormalJump.h" />
     <ClInclude Include="Powerup.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="UltraWalk.h" />
     <ClInclude Include="XMLParserNode.h" />
     <ClInclude Include="NormalWalk.h" />
     <ClInclude Include="Skeleton.h" />
