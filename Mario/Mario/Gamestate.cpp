@@ -1181,7 +1181,10 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 					{
 						string className = tempGadget->getClassName();
 						if ( className == "Coin")
+						{
+							Mix_PlayChannel(-1, coinsound, 0);
 							level[index-x] = tempGadget;
+						}
 						if ( className == "LiveUp")
 							level[index-x] = tempGadget;
 						if ( className == "Mushroom")
@@ -1206,6 +1209,7 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 				if (boxCheck == "Coin")
 				{
 					Mario->grabcoin();
+					
 					delete level[index];
 				}
 
