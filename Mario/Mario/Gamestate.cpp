@@ -1294,7 +1294,8 @@ bool Gamestate::UpDownCollision(HDC & hdc)
 					{
 					delete level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)];
 					level[getIndex(MarioLeftFeet.x,MarioLeftFeet.y)]= NULL;
-					Mario->SetPosition(mario.x, (mario.y-32)); // let mario jump
+					Mario->SetPosition(mario.x, (mario.y-32)); // let mario 
+					Mario->increaseScore(50);
 
 					selfjump=true;
 					}
