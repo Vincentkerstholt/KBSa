@@ -2,6 +2,8 @@
 
 #pragma region CONST
 const int multiplier = 32;
+
+//Setting the const for the different ground type
 const int GROUND_TOPLEFT = 1;
 const int GROUND_TOPCENTER = 2;
 const int GROUND_TOPRIGHT = 3;
@@ -12,6 +14,7 @@ const int GROUND_BOTTOMLEFT = 7;
 const int GROUND_BOTTOMCENTER = 8;
 const int GROUND_BOTTOMRIGHT = 9;
 
+//Setting the const for the different pipe types
 const int PIPE_TOPLEFT = 1;
 const int PIPE_TOPCENTER = 2;
 const int PIPE_TOPRIGHT = 3;
@@ -19,6 +22,7 @@ const int PIPE_BOTTOMLEFT = 4;
 const int PIPE_BOTTOMCENTER = 5;
 const int PIPE_BOTTOMRIGHT = 6;
 
+//Setting the const for the different castle types
 const int CASTLE_BATTLEMENT = 1;
 const int CASTLE_BATTLEMENT_WALL = 2;
 const int CASTLE_WALL = 3;
@@ -28,10 +32,10 @@ const int CASTLE_GAP = 6;
 const int CASTLE_RIGHTGAP = 7;
 #pragma endregion CONST
 
-Gamestate::Gamestate()
-{
+Gamestate::Gamestate(){
 	SpecialSheet = LoadImage(NULL, "res/heart.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
+	//Setting up the music
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT,2, 4096);
 	Music = Mix_LoadMUS("res/Sounds/Mario.wav");
@@ -52,12 +56,15 @@ Gamestate::Gamestate()
 	name = "";
 	Mario = NULL;
 	quit = false;
+
+	//Creating the different fonts
 	hFont = CreateFont(48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFont2 = CreateFont(32,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
 	hFontOld = CreateFont(20,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact"));
+
 	toDoNewGame = false;
 	toDoNextLevel = false;
 	toDoLoadLevel = false;
@@ -76,7 +83,10 @@ int Gamestate::getY(){
 }
 
 void Gamestate::saveGame(){
+	//Saving the game through the XML parser
 	xml->saveGame(this);
+
+	//Closing the menu
 	inMenu = false;
 }
 
@@ -84,8 +94,7 @@ bool Gamestate::getQuit(){
 	return quit;
 }
 
-void Gamestate::draw(HDC & hdc, bool debugMode)
-{
+void Gamestate::draw(HDC & hdc, bool debugMode){
 	if (toDoNewGame)
 	{
 		CreateWorld();
@@ -105,12 +114,22 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	toDoNextLevel = false;
 	toDoLoadLevel = false;
 
-
 	frames++;
+
+	//Setting the camera
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	Collision(Mario);
 	if (UpDownCollision(hdc, Mario) == false)
 		return;
+
+	//Drawing queue:
+	//Background
+	//World
+	//Debug-Grid
+	//Debug-Statistics
+	//Characters
+	//HUD
+
 	drawBackground(hdc);
 	
 	drawWorld(hdc);
@@ -126,6 +145,7 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 }
 
 IThemeFactory * Gamestate::getFactory(string name){
+	//Getting the factory
 	if(name == "landscape")
 		return new LandThemeFactory();
 	else if(name == "dungeon")
@@ -138,33 +158,40 @@ IThemeFactory * Gamestate::getFactory(string name){
 }
 
 int Gamestate::ConvertIndexToXY(int index){
+	//Converting grid index to actual pixels
 	return (index*multiplier);
 }
 
 int Gamestate::getIndex(int n, int m){
+	//Getting the grid index by the column and row
 	return (m*x)+n;
 }
 
-int Gamestate::getIndex(POINT & pnt)
-{
+int Gamestate::getIndex(POINT & pnt){
 	return getIndex(pnt.x, pnt.y);
 }
 
-POINT Gamestate::getPixelPoint(int index)
-{
+POINT Gamestate::getPixelPoint(int index){
+	//Converting the grid index to actual pixels
 	POINT temp;
-	temp.y = (index / x) * 32;
-	temp.x = (index % x) * 32;
+	temp.y = (index / x) * multiplier;
+	temp.x = (index % x) * multiplier;
 	return temp;
 }
 
 void Gamestate::DrawHorizontalBorder(int y){
+	//Moving the pointer to the actual pixels
 	MoveToEx(hdc, ConvertIndexToXY(0), ConvertIndexToXY(y), &point);
+
+	//Drawing a line to the actual pixels
 	LineTo(hdc, ConvertIndexToXY(43), ConvertIndexToXY(y));
 }
 
 void Gamestate::DrawVerticalBorder(int x){
+	//Moving the pointer to the actual pixels
 	MoveToEx(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(0), &point);
+
+	//Drawing a line to the actual pixels
 	LineTo(hdc, ConvertIndexToXY(x)- camera.getXPosition()%multiplier, ConvertIndexToXY(22));
 }
 
@@ -180,51 +207,59 @@ void Gamestate::drawGrid(HDC & hdc){
 void Gamestate::drawCharacters(HDC & hdc){
 	this->hdc = hdc;
 	hCharacterDC = CreateCompatibleDC(hdc);
+	
 	GetObject(this->Mario->texture, sizeof(BITMAP), &bitmap);
 	SelectObject(hCharacterDC, this->Mario->texture);
+
 	TransparentBlt(hdc, (Mario->GetPositionPixel().x - camera.getXPosition()), (Mario->GetPositionPixel().y), 32, 32, hCharacterDC, (Mario->getTexturePosition().x*multiplier), Mario->getTexturePosition().y*multiplier, 32,32, GetPixel(hCharacterDC, 0,0));
+	
 	DeleteDC(hCharacterDC);
 }
 
 void Gamestate::drawStatistics(HDC & hdc){
 	SetBkMode(hdc,OPAQUE);
+
 	int xValue = this->Mario->GetPositionPixel().x;
 	int yValue = this->Mario->GetPositionPixel().y;
-	ostringstream oss;
-
-	oss << xValue << " " << yValue;
-	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
-	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-
 	int xValueTexture = this->Mario->getTexturePosition().x;
 	int yValueTexture = this->Mario->getTexturePosition().y;
-	oss << xValueTexture << " " << yValueTexture;
-	TextOut(hdc, 10, 30, "TexturePos. Mario: ", strlen("TexturePos. Mario: "));
-	TextOut(hdc, 140, 30, oss.str().c_str(), strlen(oss.str().c_str()));
-	oss.str("");
-
-	oss << Mario->getDirection();
-	TextOut(hdc, 10, 50, "Direction Mario: ", strlen("Direction Mario: "));
-	TextOut(hdc, 120, 50, oss.str().c_str(), strlen(oss.str().c_str()));
-
-	oss.str("");
-
 	POINT p;
 	GetCursorPos(&p);
-
-	oss << "Cursor X: " << (p.x-3) << " Y: " << (p.y-26);
-	TextOut(hdc,  10, 70, oss.str().c_str(), strlen(oss.str().c_str()));
-
-	oss.str("");
-
 	frames++;
+
 	if(time(NULL) != curTime)
 	{
 		curTime = (int)time(NULL);
 		fps = frames;
 		frames = 0;
 	}
+
+	ostringstream oss;
+
+	//Printing the position of Mario
+	oss << xValue << " " << yValue;
+	TextOut(hdc, 10, 10, "Pos. Mario: ", 16);
+	TextOut(hdc, 85, 10, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	//Printing the position of the texture in the sprite
+	oss << xValueTexture << " " << yValueTexture;
+	TextOut(hdc, 10, 30, "TexturePos. Mario: ", strlen("TexturePos. Mario: "));
+	TextOut(hdc, 140, 30, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	//Printing the direction of Mario
+	oss << Mario->getDirection();
+	TextOut(hdc, 10, 50, "Direction Mario: ", strlen("Direction Mario: "));
+	TextOut(hdc, 120, 50, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	//Printing the position of the cursor
+	oss << "Cursor X: " << (p.x-3) << " Y: " << (p.y-26);
+	TextOut(hdc,  10, 70, oss.str().c_str(), strlen(oss.str().c_str()));
+	oss.str("");
+
+	//Printing the framerate
 	oss << "Frames per second: " << fps;
 	TextOut(hdc,  10, 90, oss.str().c_str(), strlen(oss.str().c_str()));
 
@@ -235,14 +270,17 @@ void Gamestate::drawHUD(HDC & hdc){
 	SetBkMode(hdc,TRANSPARENT);
 	ostringstream oss;
 
+	//Printing the score
 	oss << "Score: " << Mario->getScore() ;
 	TextOut(hdc, 600, 10, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
+	//Printing the amount of coins
 	oss << "Coins: " << Mario->getCoins() ;
 	TextOut(hdc, 600, 30, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
 
+	//Printing the amount of lives
 	oss << "Lives: " ;
 	TextOut(hdc, 600, 50, oss.str().c_str(), strlen(oss.str().c_str()));
 	oss.str("");
@@ -250,6 +288,7 @@ void Gamestate::drawHUD(HDC & hdc){
 	SIZE imgSize;
 
 	hLivesDC = CreateCompatibleDC(hdc);
+	
 	GetObject(SpecialSheet, sizeof(BITMAP), &bitmap);
 	SelectObject(hLivesDC, SpecialSheet);
 
@@ -267,6 +306,7 @@ void Gamestate::drawHUD(HDC & hdc){
 }
 
 void Gamestate::drawBackground(HDC & hdc){
+	//Getting the fixed background
 	hBackgroundBitmap = factory->getBackgroundImage();
 	
 	hBackgroundDC = CreateCompatibleDC(hdc);
@@ -278,6 +318,7 @@ void Gamestate::drawBackground(HDC & hdc){
 	
 	DeleteDC(hBackgroundDC);
 
+	//Getting the scrolling background
 	hBackgroundBitmap2 = factory->getBackgroundImage2();
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
@@ -290,8 +331,12 @@ void Gamestate::drawBackground(HDC & hdc){
 }
 
 void Gamestate::drawWorld(HDC & hdc){
-	for(int n = camera.getXPosition()/32; n < camera.getXPosition()/32 + 44  && n < x; n++){
-		for(int m = 0; m < y; m++){
+	//For every column visible on the screen
+	for(int n = camera.getXPosition()/multiplier; n < camera.getXPosition()/multiplier + 44  && n < x; n++)
+	{
+		//For every row
+		for(int m = 0; m < y; m++)
+		{
 			int index = getIndex(n,m);
 			if(level[index] == NULL)
 				continue;
@@ -551,6 +596,7 @@ void Gamestate::changeFactory(char firstLetter){
 
 void Gamestate::CreateWorld()
 {
+	//If a level exist
 	if(currentLevel != -1)
 		destroyWorld(true);
 
@@ -666,6 +712,7 @@ void Gamestate::destroyWorld(bool deleteXML)
 }
 
 void Gamestate::loadGame(){
+	//If a level exist
 	if(currentLevel != -1)
 		destroyWorld(true);
 
@@ -679,7 +726,8 @@ void Gamestate::loadGame(){
 	createPipes();
 	createEnemies();
 	createCastles();
-
+	
+	//Closing the menu
 	inMenu = false;
 
 	currentLevel = stoi(xml->getNode("level")->getAttribute("nr"));
@@ -727,8 +775,9 @@ void Gamestate::nextLevel()
 		int xMario = stoi(marioXml->getAttribute("x"));
 		int yMario = stoi(marioXml->getAttribute("y"));
 
-		Mario->SetStartPosition(xMario * 32, yMario * 32);
-		Mario->SetPosition(xMario * 32, yMario * 32);
+		//Resetting Mario
+		Mario->SetStartPosition(xMario * multiplier, yMario * multiplier);
+		Mario->SetPosition(xMario * multiplier, yMario * multiplier);
 		Mario->setDirection('R');
 		Mario->setTexturePosition(0,1);
 	}
@@ -1316,7 +1365,6 @@ bool Gamestate::UpDownCollision(HDC & hdc, Character * character)
 
 							selfjump=true;
 						}
-
 					}
 
 				}
