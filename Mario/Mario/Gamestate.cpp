@@ -1673,6 +1673,7 @@ void Gamestate::setHighscore()
 			fputs(scores[i].toString().c_str(),file);
 		
 		inHighScore = true;
+		inMenu = true;
 		oss.str("");
 		oss.clear();
 		delete[] buffer;
