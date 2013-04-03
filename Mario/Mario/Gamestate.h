@@ -35,10 +35,10 @@ public:
 	string BoxCheck(int index);
 	int getIndex(int n, int m);
 	int getIndex(POINT & pnt);
-	void Collision();
-	void UpdateEnemy(int index);
+	void Collision(Character * character);
+	void UpdateEnemy(Character * character);
 	POINT getPixelPoint(int index);
-	bool UpDownCollision(HDC & hdc);
+	bool UpDownCollision(HDC & hdc, Character * character);
 	string getCurrentFactory();
 	int getCurrentLevel();
 	int getX();
