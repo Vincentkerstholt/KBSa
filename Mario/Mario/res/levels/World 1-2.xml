@@ -44,8 +44,8 @@
 			<endPath x="148" y="14" />
 		</enemy>
 		<enemy character="goomba">
-			<location x="182" y="18" />
-			<endPath x="174" y="18" />
+			<location x="181" y="18" />
+			<endPath x="172" y="18" />
 		</enemy>
 	</enemies>
 	<level width="215" height="22" nr="2">
@@ -7522,6 +7522,11 @@
 			</block>
 			<block isSpecial="false" isFixed="true">
 				<location x="182" y="6" />
+				<gadget>
+				</gadget>
+			</block>
+			<block isSpecial="false" isFixed="true">
+				<location x="182" y="18" />
 				<gadget>
 				</gadget>
 			</block>

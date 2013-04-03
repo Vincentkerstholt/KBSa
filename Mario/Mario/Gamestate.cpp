@@ -97,23 +97,27 @@ bool Gamestate::getQuit(){
 void Gamestate::draw(HDC & hdc, bool debugMode){
 	if (toDoNewGame)
 	{
+		toDoNewGame = false;
 		CreateWorld();
 		Sleep(1000);
 	}
 	if (toDoLoadLevel)
 	{
+		toDoLoadLevel = false;
 		loadGame();
 		Sleep(1000);
 	}
 	if (toDoNextLevel)
 	{
+		toDoNextLevel = false;
 		nextLevel();
 		Sleep(1000);
+		if(currentLevel == 6)
+		{
+			Mario->setLives(-1);
+			return;
+		}
 	}
-	toDoNewGame = false;
-	toDoNextLevel = false;
-	toDoLoadLevel = false;
-
 
 	//Setting the camera
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
@@ -593,6 +597,7 @@ void Gamestate::changeFactory(char firstLetter){
 
 void Gamestate::CreateWorld()
 {
+	currentLevel = -1;
 	//If a level exist
 	if(currentLevel != -1)
 		destroyWorld(true);
@@ -632,7 +637,7 @@ void Gamestate::destroyWorld(bool deleteXML)
 		for (int j = 0 ; j < y ; j++)
 		{
 			int index = getIndex(i,j);
-			if (level[index] != NULL)
+			if (level != NULL && level[index] != NULL)
 			{
 				string levelName = level[index]->getClassName();
 				if(levelName == "Block")
@@ -678,32 +683,37 @@ void Gamestate::destroyWorld(bool deleteXML)
 	delete [] level;
 	level = NULL;
 
-	string factoryName = factory->getName();
-	if(factoryName == "dungeon")
-	{
-		DungeonThemeFactory * dungeon = (DungeonThemeFactory *)factory;
-		delete dungeon;
-		dungeon = NULL;
+	if(factory != NULL){
+		string factoryName = factory->getName();
+		if(factoryName == "dungeon")
+		{
+			DungeonThemeFactory * dungeon = (DungeonThemeFactory *)factory;
+			delete dungeon;
+			dungeon = NULL;
+			factory = NULL;
+		}
+		else if(factoryName == "landscape")
+		{
+			LandThemeFactory * landscape = (LandThemeFactory *)factory;
+			delete landscape;
+			landscape = NULL;
+			factory = NULL;
+		}
+		else if(factoryName == "sky")
+		{
+			SkyThemeFactory * sky = (SkyThemeFactory *)factory;
+			delete sky;
+			sky = NULL;
+			factory = NULL;
+		}
+		else if(factoryName == "city")
+		{
+			CityThemeFactory * city = (CityThemeFactory *)factory;
+			delete city;
+			city = NULL;
+			factory = NULL;
+		}
 	}
-	else if(factoryName == "landscape")
-	{
-		LandThemeFactory * landscape = (LandThemeFactory *)factory;
-		delete landscape;
-		landscape = NULL;
-	}
-	else if(factoryName == "sky")
-	{
-		SkyThemeFactory * sky = (SkyThemeFactory *)factory;
-		delete sky;
-		sky = NULL;
-	}
-	else if(factoryName == "city")
-	{
-		CityThemeFactory * city = (CityThemeFactory *)factory;
-		delete city;
-		city = NULL;
-	}
-
 	if(deleteXML)
 		xml->Clear();
 }
@@ -1063,8 +1073,6 @@ void Gamestate::HighScore(HDC & hdc)
 	}
 	hBackgroundBitmap = LoadImage(NULL, "res/Highscore.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundDC = CreateCompatibleDC(hdc);
-
-	
 
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
@@ -1759,6 +1767,7 @@ void Gamestate::setHighscore()
 		
 		inHighScore = true;
 		inMenu = true;
+
 		oss.str("");
 		oss.clear();
 		delete[] buffer;
@@ -1888,7 +1897,7 @@ void Gamestate::splashscreen(HDC & hdc,int splashscreenlevel)
 		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl4.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl4
 		break;
 	case 5:
-		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenlvl5.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenlvl5
 		break;
 	case 6:
 		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
