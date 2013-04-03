@@ -86,12 +86,14 @@ int CWin::Run()
 		{
 			::QueryPerformanceCounter((LARGE_INTEGER*)&start);
 			stop = start;
-			while(stop - start < freq/fps)
-				::QueryPerformanceCounter((LARGE_INTEGER*)&stop);
+			
 
 			::FillRect(graphics, &rect, (HBRUSH)RGB(255,255,255));
 			quit = GameLoop();
 			::BitBlt(hDC, rect.left, rect.top, 1362,702, graphics, 0, 0, SRCCOPY);
+
+			while(stop - start < freq/fps)
+				::QueryPerformanceCounter((LARGE_INTEGER*)&stop);
 		}
 	}
 

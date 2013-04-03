@@ -1,26 +1,24 @@
 #include "Camera.h"
 
-Camera::Camera()
-{
+Camera::Camera(){
 	XPoint = 0;
 	xPos = 0;
 	mid = false;
 }
 
-int Camera::getXPosition()
-{
+int Camera::getXPosition(){
 	if (mid == true)
 	{
 		if ( xPos > MIDDLE )
 		{
 			if ( xPos - MIDDLE > 5454)
 				return 5454;
+
 			return xPos - MIDDLE;
 		}
-		if (XPoint != 0)
-			if ( *XPoint > MIDDLE )
-				return *XPoint - MIDDLE;
-
+		if (XPoint != 0 && *XPoint > MIDDLE )
+			return *XPoint - MIDDLE;
+		
 		return 0;
 	}
 
@@ -29,40 +27,33 @@ int Camera::getXPosition()
 	
 	if ( *XPoint > 0 )
 		return *XPoint;
-
-
+	
 	return 0;
 }
 
-void Camera::setXPosition(int x)
-{
+void Camera::setXPosition(int x){
 	xPos = x;
 	XPoint = 0;
 	mid = false;
 }
 
-void Camera::setXMidPosition(int x)
-{
+void Camera::setXMidPosition(int x){
 	xPos = x;
 	XPoint = 0;
 	mid = true;
 }
 
-void Camera::setXPointPosition(int * x)
-{
+void Camera::setXPointPosition(int * x){
 	XPoint = x;
 	xPos = 0;
 	mid = false;
 }
 
-void Camera::setXPointMidPosition(int * x)
-{
+void Camera::setXPointMidPosition(int * x){
 	XPoint = x;
 	xPos = 0;
 	mid = true;
 }
 
-Camera::~Camera()
-{
-
+Camera::~Camera(){
 }

@@ -106,13 +106,11 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	toDoLoadLevel = false;
 
 
-	frames++;
 	camera.setXMidPosition(Mario->GetPositionPixel().x);
 	Collision();
 	if (UpDownCollision(hdc) == false)
 		return;
 	drawBackground(hdc);
-	
 	drawWorld(hdc);
 
 	if (debugMode == true)
@@ -122,7 +120,6 @@ void Gamestate::draw(HDC & hdc, bool debugMode)
 	}
 	drawCharacters(hdc);
 	drawHUD(hdc);
-
 }
 
 IThemeFactory * Gamestate::getFactory(string name){
@@ -708,10 +705,13 @@ void Gamestate::nextLevel()
 		break;
 		
 	case 5:
+		xml->parse("res/levels/World 1-5.xml");
+		break;
+	case 6:
 		setHighscore();
 		break;
 	}
-
+	
 	if(!inMenu)
 	{
 		createLevel();
@@ -964,7 +964,7 @@ void Gamestate::menu(HDC & hdc)
 		case 3:	//load game
 			toDoLoadLevel = true;
 			inMenu = false;
-			splashscreen(hdc,6);
+			splashscreen(hdc,7);
 			return;
 		break;
 	
@@ -1015,15 +1015,7 @@ void Gamestate::HighScore(HDC & hdc)
 	hBackgroundBitmap = LoadImage(NULL, "res/Highscore.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBackgroundDC = CreateCompatibleDC(hdc);
 
-	delete factory;
-	factory = NULL;
-	delete xml;
-	xml = NULL;
-
-	Mix_FreeMusic(Music);
-	Mix_FreeChunk(jumpsound);
-	Mix_FreeChunk(coinsound);
-	Mix_CloseAudio();
+	
 
 	GetObject(hBackgroundBitmap, sizeof(BITMAP), &bitmap);
 	SelectObject(hBackgroundDC, hBackgroundBitmap);
@@ -1077,6 +1069,10 @@ Gamestate::~Gamestate()
 		delete xml;
 		xml = NULL;
 	}
+	Mix_FreeMusic(Music);
+	Mix_FreeChunk(jumpsound);
+	Mix_FreeChunk(coinsound);
+	Mix_CloseAudio();
 }
 
 bool Gamestate::UpDownCollision(HDC & hdc)
@@ -1713,6 +1709,9 @@ void Gamestate::splashscreen(HDC & hdc,int splashscreenlevel)
 		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
 		break;
 	case 6:
+		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenEnd.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenfinish
+		break;
+	case 7:
 		hBackgroundBitmap = LoadImage(NULL, "res/splashscreen/splashscreenload.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE); //splashscreenload
 		break;
 	default:

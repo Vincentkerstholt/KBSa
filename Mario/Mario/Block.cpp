@@ -25,8 +25,10 @@ Block::Block(bool isSpecial, bool isFixed, Gadget ** gadgetType, int amount)
 Gadget * Block::getGadget(){
 	if (gadgetAmount > 0)
 	{
-		gadgetAmount--;
-		if (gadgetAmount == 0 && isSpecial == true)
+		gadgetAmount--; 
+
+		// when its a special block and now empty change to fixed block
+		if (gadgetAmount == 0 && isSpecial == true) 
 		{
 			isSpecial = false;
 			isFixed = true;
@@ -71,19 +73,19 @@ string Block::getIsFixedString(){
 		return "false";
 }
 
-int Block::getPosX(){
+int Block::getPosX(){ 
+	//posX is sprite X location
 	if(isSpecial)
 		posX++;
 
 	if(posX == 56)
-	{
 		posX = 0;
-	}
 
 	return posX/2;
 }
 
 Block::~Block(){
+	//Destroy all gadgets
 	for (int i = 0; i < gadgetAmount; i++)
 	{
 		string gadgetName = gadget[i]->getClassName();
